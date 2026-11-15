@@ -46,7 +46,7 @@ def main() -> int:
         if a["status"] not in ("generated", "approved"):
             continue
         cat = a["category"]
-        if cat == "ui" and not asset_id.startswith("ui_"):
+        if cat == "ui" and not asset_id.startswith(("ui_", "bg_")):
             continue  # probe images are not shipped
         src = ROOT / a["filePath"]
         key = a["petId"] if cat == "pet" else asset_id

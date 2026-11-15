@@ -99,7 +99,7 @@ namespace PetStar.Client.Screens
         {
             _anim = Root.gameObject.AddComponent<FxRunner>();
             var bg = UiKit.Icon(Root, null, Vector2.zero, "Board"); ((RectTransform)bg.transform).Stretch(); bg.preserveAspect = false;
-            LoadBg(bg, Wide ? "ui/bg_duel_landscape" : "ui/bg_duel_portrait");
+            LoadBg(bg, Wide ? "ui/bg_duel_board_landscape" : "ui/bg_duel_board_portrait");
 
             // HUD
             var hud = UiKit.Panel(Root, new Color(1, 1, 1, 0.92f), 36, "Hud", shadow: true);

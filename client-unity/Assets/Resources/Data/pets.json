@@ -3697,7 +3697,7 @@
       "element": "light",
       "role": "support",
       "stages": 3,
-      "identity": "rabbit with fur that twinkles like stars; pale cream and gold; star-shaped tail; long ears with glowing tips",
+      "identity": "original star-spirit rabbit; pale cream and soft gold fur (keep palette); short rounded droopy lop ears with tiny glowing star charms at the tips (no pointed ears, no dark ear tips); constellation freckle pattern of tiny white stars across the back; plump five-point star-shaped tail; soft lavender eyes; no cheek circles",
       "forms": [
         {
           "id": "pet_twinkbun",
@@ -3713,7 +3713,7 @@
           "skill": "twinkbun_skill",
           "ultimate": null,
           "passive": "p_twinkbun",
-          "art": "a tiny cream bunny with a star-shaped tail and twinkling fur",
+          "art": "a tiny round cream-and-gold star-spirit bunny with short floppy lop ears ending in tiny glowing star charms, lavender eyes, a plump star-shaped tail and a constellation of tiny white star freckles on its back",
           "lore": {
             "en": "On clear nights it traces new constellations across the sky.",
             "vi": "Vào những đêm quang đãng, nó vẽ nên những chòm sao mới trên bầu trời."
@@ -3733,7 +3733,7 @@
           "skill": "starhare_skill",
           "ultimate": "starhare_ultimate",
           "passive": "p_starhare",
-          "art": "a star hare with glowing star freckles and ears tipped with light",
+          "art": "a star-spirit hare with gentle droopy lop ears tipped with glowing star charms, cream and soft gold fur dotted with constellation freckles, a ribbon of starlight around its neck, lavender eyes, plump star tail",
           "lore": {
             "en": "On clear nights it traces new constellations across the sky. As Starhare, it has grown bolder and stronger.",
             "vi": "Vào những đêm quang đãng, nó vẽ nên những chòm sao mới trên bầu trời. Khi trở thành Starhare, nó dạn dĩ và mạnh mẽ hơn."
@@ -3753,7 +3753,7 @@
           "skill": "constellapin_skill",
           "ultimate": "constellapin_ultimate",
           "passive": "p_constellapin",
-          "art": "a celestial rabbit whose body forms a constellation of shining stars connected by light",
+          "art": "a celestial star-spirit rabbit with long elegant lop ears draping like silk scarves ending in star charms, cream and gold fur woven with glowing constellation lines, a halo of orbiting tiny stars, lavender eyes, regal star tail",
           "lore": {
             "en": "On clear nights it traces new constellations across the sky. In its final form, Constellapin protects everything it loves.",
             "vi": "Vào những đêm quang đãng, nó vẽ nên những chòm sao mới trên bầu trời. Ở hình thái cuối, Constellapin bảo vệ mọi điều nó yêu quý."

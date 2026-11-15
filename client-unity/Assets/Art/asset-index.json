@@ -184,8 +184,8 @@
   "pet_constellapin": {
     "path": "Assets/Art/Pets/pet_constellapin.png",
     "category": "pet",
-    "sourceSha256": "4cc738b6b007c60d44b6bfdf275bd791710c41bf6eefa61084fc3f40732ac9ae",
-    "version": 1,
+    "sourceSha256": "d81f0a2cbdeca844b4b7cd24ba9d2fe1f5c8df8cf7cb983d9d2e581e0c88ddfa",
+    "version": 2,
     "status": "generated"
   },
   "pet_corvlet": {
@@ -1129,8 +1129,8 @@
   "pet_starhare": {
     "path": "Assets/Art/Pets/pet_starhare.png",
     "category": "pet",
-    "sourceSha256": "93f3693e1130502e86c2048c4c7b28915be67bc2905bc9059350e6f61e77c05e",
-    "version": 1,
+    "sourceSha256": "955698f33d9a7f9c2f0bdc983c20c176207582263eb5cf0d0ffff84436525eee",
+    "version": 2,
     "status": "generated"
   },
   "pet_staticlamb": {
@@ -1276,8 +1276,8 @@
   "pet_twinkbun": {
     "path": "Assets/Art/Pets/pet_twinkbun.png",
     "category": "pet",
-    "sourceSha256": "7fec32446a5d0021bfd6463fec289b44df7af1689179812e4a583d60c281d96e",
-    "version": 1,
+    "sourceSha256": "645f097de6eeb33da28e714b20ad94c1a4370d0b0c4cbde71faf42bdd66497b6",
+    "version": 2,
     "status": "generated"
   },
   "pet_umbracat": {
@@ -1397,6 +1397,55 @@
     "category": "pet",
     "sourceSha256": "798cda07effa8db7097a3208dc19d205cbd0a26425985522e05ffd09acb620a0",
     "version": 2,
+    "status": "generated"
+  },
+  "bg_duel_board_landscape": {
+    "path": "Assets/Art/UI/Backgrounds/bg_duel_board_landscape.png",
+    "category": "ui",
+    "sourceSha256": "2c864ca3c6727e35f97fe3599bd79149da87210068db5121a8991f04b6c3648c",
+    "version": 1,
+    "status": "generated"
+  },
+  "bg_duel_board_portrait": {
+    "path": "Assets/Art/UI/Backgrounds/bg_duel_board_portrait.png",
+    "category": "ui",
+    "sourceSha256": "3af699f9805fec7889d7af03c49e636f17f47132474dcac18b77e7efd9080746",
+    "version": 1,
+    "status": "generated"
+  },
+  "bg_duel_landscape": {
+    "path": "Assets/Art/UI/Backgrounds/bg_duel_landscape.png",
+    "category": "ui",
+    "sourceSha256": "350519a044123d35324d0c766fa17cfd60dbb3169b593748931d05e581f10703",
+    "version": 1,
+    "status": "generated"
+  },
+  "bg_duel_portrait": {
+    "path": "Assets/Art/UI/Backgrounds/bg_duel_portrait.png",
+    "category": "ui",
+    "sourceSha256": "4a3342b50da3726ac7d0cfa2f9442094c7bbade636108847435c3bd5ee9f26d7",
+    "version": 1,
+    "status": "generated"
+  },
+  "bg_lobby_landscape": {
+    "path": "Assets/Art/UI/Backgrounds/bg_lobby_landscape.png",
+    "category": "ui",
+    "sourceSha256": "6e28cb929f254a22363dfdc155e34a800ba3e6d29c8e811cadfdfeabed78befa",
+    "version": 1,
+    "status": "generated"
+  },
+  "bg_lobby_portrait": {
+    "path": "Assets/Art/UI/Backgrounds/bg_lobby_portrait.png",
+    "category": "ui",
+    "sourceSha256": "5b469f533cc22ad60f82da37f5034c8461c84741745b271426f385bf50e266df",
+    "version": 1,
+    "status": "generated"
+  },
+  "bg_pack_opening": {
+    "path": "Assets/Art/UI/Backgrounds/bg_pack_opening.png",
+    "category": "ui",
+    "sourceSha256": "10563d333abae039da5233951ae4bb8c92cbd28c2e3cdbb5a80f592bded58f66",
+    "version": 1,
     "status": "generated"
   },
   "ui_currency_mini_green_bean": {
