@@ -66,7 +66,7 @@ builder.Services.AddSingleton<RealtimeHub>();
 builder.Services.AddSingleton<TicketStore>();
 
 // CORS for the web client (Cloudflare Pages). Explicit origins only; bearer tokens, no cookies.
-var corsOrigins = cfg.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
+var corsOrigins = (cfg.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>()).Where(o => !string.IsNullOrWhiteSpace(o)).ToArray();
 builder.Services.AddCors(o => o.AddPolicy("web", p =>
 {
     if (corsOrigins.Length > 0) p.WithOrigins(corsOrigins).AllowAnyHeader().AllowAnyMethod().WithExposedHeaders("Idempotent-Replay").SetPreflightMaxAge(TimeSpan.FromHours(1));

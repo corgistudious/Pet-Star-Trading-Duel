@@ -5,11 +5,11 @@ OpenAI API at the configured per-token rates (conservative: all output tokens bi
 
 | Budget | Spent | Cap | Remaining |
 |---|---|---|---|
-| pet | $9.4355 | $15.00 | $5.5645 |
-| ui | $1.2288 | $5.00 | $3.7712 |
-| **total** | **$10.6643** | **$20.00** | **$9.3357** |
+| pet | $9.5759 | $15.00 | $5.4241 |
+| ui | $1.3507 | $5.00 | $3.6493 |
+| **total** | **$10.9266** | **$20.00** | **$9.0734** |
 
-Billed API calls: 218. Calls refused before billing (released reservations): 1.
+Billed API calls: 223. Calls refused before billing (released reservations): 1.
 
 ## Assets
 
@@ -41,7 +41,7 @@ Billed API calls: 218. Calls refused before billing (released reservations): 1.
 | art_pet_clamby | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0448 | generated |
 | art_pet_coalcub | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0463 | generated |
 | art_pet_coilbug | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0464 | generated |
-| art_pet_constellapin | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0457 | generated |
+| art_pet_constellapin | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0479 | generated |
 | art_pet_corvlet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0465 | generated |
 | art_pet_corvonarch | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0471 | generated |
 | art_pet_cragmastiff | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0467 | generated |
@@ -176,7 +176,7 @@ Billed API calls: 218. Calls refused before billing (released reservations): 1.
 | art_pet_somnihare | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0476 | generated |
 | art_pet_spectreign | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0481 | generated |
 | art_pet_sporelet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0481 | generated |
-| art_pet_starhare | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0463 | generated |
+| art_pet_starhare | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0468 | generated |
 | art_pet_staticlamb | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0462 | generated |
 | art_pet_stormherald | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0476 | generated |
 | art_pet_stormkestrel | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0474 | generated |
@@ -197,7 +197,7 @@ Billed API calls: 218. Calls refused before billing (released reservations): 1.
 | art_pet_torrentter | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
 | art_pet_tsunamare | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0474 | generated |
 | art_pet_tumblepuff | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0453 | generated |
-| art_pet_twinkbun | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0449 | generated |
+| art_pet_twinkbun | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0457 | generated |
 | art_pet_umbracat | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
 | art_pet_verdantlop | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0469 | generated |
 | art_pet_vespergrave | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0479 | generated |
@@ -215,6 +215,8 @@ Billed API calls: 218. Calls refused before billing (released reservations): 1.
 | art_pet_zeelet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0465 | generated |
 | art_pet_zephyrion | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0471 | generated |
 | art_pet_zipmunk | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0469 | generated |
+| bg_duel_board_landscape | ui | gpt-image-1.5 | 1536x1024 | medium | $0.0603 | generated |
+| bg_duel_board_portrait | ui | gpt-image-1.5 | 1024x1536 | medium | $0.0616 | generated |
 | bg_duel_landscape | ui | gpt-image-1.5 | 1536x1024 | medium | $0.0628 | generated |
 | bg_duel_portrait | ui | gpt-image-1.5 | 1024x1536 | medium | $0.0634 | generated |
 | bg_lobby_landscape | ui | gpt-image-1.5 | 1536x1024 | medium | $0.0642 | generated |

@@ -1,5 +1,10 @@
 # Build & deployment
 
+> **Web-first / shared VPS:** the isolated `petstar-prod` stack for a VPS that already hosts other projects, plus
+> Cloudflare Pages for the web client, is documented in [web-deployment.md](web-deployment.md). The stack below
+> (with its own Nginx on 80/443) is for a dedicated host.
+
+
 ## Backend (Docker Compose)
 
 ```bash

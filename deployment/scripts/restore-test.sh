@@ -3,7 +3,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 ENV_FILE=${1:-env/dev.env}
-dc() { docker compose --env-file "$ENV_FILE" "$@"; }
+# VPS: PETSTAR_COMPOSE=vps/docker-compose.yml PETSTAR_PROJECT=petstar-prod bash deployment/scripts/restore-test.sh /opt/petstar/petstar.env
+dc() { docker compose --env-file "$ENV_FILE" -f "${PETSTAR_COMPOSE:-docker-compose.yml}" ${PETSTAR_PROJECT:+-p "$PETSTAR_PROJECT"} "$@"; }
 latest=$(dc exec -T backup sh -c 'ls -1t /backups/petstar-*.dump | head -1')
 echo "restoring $latest into petstar_restore_test"
 dc exec -T backup sh -c "sha256sum -c $latest.sha256"

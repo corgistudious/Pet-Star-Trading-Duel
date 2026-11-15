@@ -1,10 +1,11 @@
 # Pet Star: Trading Duel
 
-Online collectible pet card game (TCG + turn-based tactical duel, PvE/PvP) for **Android** and **Windows**.
-Internet required; one account plays on both platforms; progress is independent per Global server (PS-1, PS-2, …).
+Online collectible pet card game (TCG + turn-based tactical duel, PvE/PvP). **Web first** (iPhone Safari + PC,
+React/TypeScript on Cloudflare Pages), with the Unity client (Android/Windows) on the same backend later.
+Internet required; one account plays everywhere; progress is independent per Global server (PS-1, PS-2, …).
 
-> Status: **Phase 1 (Foundation) + Phase 2 (Art prototype) delivered — awaiting owner approval before mass-producing the
-> remaining ~190 pet artworks.** See [docs/status/phase-1-2-report.md](docs/status/phase-1-2-report.md).
+> Status: web client + live features delivered and tested locally; **not deployed** (production deploys need the
+> owner's approval). Latest report: [docs/status/web-report.md](docs/status/web-report.md).
 
 ## Repository layout
 
@@ -12,15 +13,16 @@ Internet required; one account plays on both platforms; progress is independent 
 |---|---|
 | `backend/` | ASP.NET Core (.NET 10 LTS) API, EF Core migrations (PostgreSQL), tests |
 | `shared-contracts/` | Engine-agnostic rules (battle engine, AI, stats, pack roller) + API DTOs. A Unity package **and** compiled by the backend, so client and server share one implementation (server stays authoritative) |
+| `web-client/` | React 18 + TypeScript (Vite) web client for iPhone Safari and desktop, incl. Web Admin Panel; WebP art; vitest + Playwright |
 | `client-unity/` | Unity 6 LTS client (C#, uGUI built from code, Input System, Addressables, Sprite Atlas, TextMeshPro) |
 | `database/seed/` | Design database: pets, skills, elements, rarities, packs, economy, PvE stages |
 | `asset-pipeline/` | Design DB → prompt → OpenAI Image API → validation → manifest, with a hard budget guard |
 | `assets-source/` | Generated source art, Art Style Bible, Master Card Template layout |
 | `asset-manifests/` | Asset manifest (prompt, model, hash, cost, provenance) + append-only cost ledger |
 | `tools/` | Unity asset sync, card preview renderer, localization builder/checker, cost report |
-| `deployment/` | Docker Compose (API, PostgreSQL, Redis, Nginx/TLS, backups), env templates, restore test |
+| `deployment/` | Docker Compose (API, PostgreSQL, Redis, Nginx/TLS, backups), isolated shared-VPS stack (`deployment/vps/`), env templates, restore test |
 | `docs/` | Architecture, database, API, economy, deployment, budget, status reports |
-| `.github/workflows/` | Backend CI (tests on PostgreSQL) and Unity cloud builds (APK/AAB/Windows) |
+| `.github/workflows/` | Backend CI, web CI + Cloudflare Pages deploy (opt-in), manual VPS deploy, Unity cloud builds |
 
 ## Quick start (backend, local)
 
@@ -41,6 +43,19 @@ dotnet test tests/PetStar.Rules.Tests        # rules: RNG, odds, packs, stats, e
 dotnet test tests/PetStar.Api.Tests          # integration + security against a throw-away PostgreSQL DB
 python3 ../tools/check_localization.py       # en/vi coverage of every client string
 ```
+
+## Web client
+
+```bash
+cd web-client && npm ci
+cp .env.example .env.local          # VITE_API_BASE=http://localhost:5080
+npm run dev                         # http://localhost:5173 (allowed by the Development CORS list)
+npm test                            # vitest unit tests
+npm run e2e                         # Playwright vs a running local API (see web-client/README.md)
+python3 tools/build_web_assets.py   # (repo root) regenerate WebP art + catalog + i18n into web-client/public
+```
+
+Deployment (Cloudflare Pages + isolated VPS stack): [docs/web-deployment.md](docs/web-deployment.md).
 
 ## Asset pipeline
 

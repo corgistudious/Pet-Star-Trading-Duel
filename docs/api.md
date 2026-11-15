@@ -56,4 +56,19 @@ Game routes need a token from `POST /api/servers/{id}/enter` and an online serve
 | GET/POST | /api/ranked, /ranked/leaderboard, /ranked/match **(idem)**, /api/duels/friend, /api/battles/history | ranked & friend duels |
 | * | /api/admin/reports, /moderation, /restrictions (moderator+); /cards/serial, /cards/ownership-audit, /market, /auctions, /economy/suspicious, /cards/{id}/fraud-lock (gm+); /ledger, /economy/overview, /market/stats (admin+); /economy/adjust, /mail (owner) | admin & moderation |
 
-Real-time PvP (friend duel / matchmaking) will use a WebSocket channel (`/ws/battle`) with the same engine and round protocol.
+| GET/POST | /api/guilds, /guilds/mine, /guilds/{id}/join, /guilds/requests/{id}/{accept\|reject}, /guilds/leave, /guilds/members/{uid}/role\|kick, /guilds/announcements, /guilds/feed | guilds (leader > officer > member) + guild-only feed |
+| GET/POST | /api/chat/{world\|guild\|dm:{uid}} | 8 msgs / 30 s, 1/s, no duplicates, filter, mute/block; DMs friends-only |
+| POST | /api/realtime/ticket → `GET /ws?ticket=` | single-use 60 s ticket; browser Origin must be in `Cors:AllowedOrigins` |
+| POST/GET | /api/pvp/challenges, /pvp/challenges/{id}/{accept\|decline\|cancel}, POST/DELETE /api/pvp/queue | live PvP lobby & matchmaking |
+| GET/POST | /api/pvp/battles/{id}, /rounds, /surrender | sealed per-round plans, 30 s deadline, forfeit after 3 missed rounds |
+| POST | /api/giftcodes/redeem | rate-limited; once per account per server |
+| GET/POST | /api/rewards/login, /rewards/login/claim, /api/events, /events/{id}/claim | 7-day login cycle, events (ledger-paid) |
+| * | /api/admin/giftcodes, /events, /accounts (admin+), /accounts/{uid}/roles (owner), /chat/{id}/hide (moderator+) | live-ops admin |
+
+## Realtime push (WebSocket)
+
+`POST /api/realtime/ticket` (authenticated, server-bound token) returns `{ ticket, expiresIn: 60 }`; connect to
+`wss://<api>/ws?ticket=<ticket>`. Messages are JSON `{ type, data, at }`: `hello`, `notification`, `chat`,
+`pvp_start`, `pvp_round` (side-aware battle state), `pvp_opponent_ready`, `pvp_declined`. Send `ping` → `pong`.
+Pushes are best effort; clients refetch state after (re)connecting. Multiple API instances share pushes through
+Redis pub/sub (`petstar:realtime`).

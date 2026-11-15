@@ -1,0 +1,112 @@
+name: Web client (Cloudflare Pages)
+
+# Builds and tests the React web client on every change. Deploying to Cloudflare Pages is OFF until the owner
+# opts in, after Cloudflare has confirmed the project name:
+#   repo variables : CF_PAGES_PROJECT (e.g. "petstar"), PETSTAR_API_BASE (e.g. "https://api.your-domain")
+#   repo secrets   : CLOUDFLARE_API_TOKEN (scope: Account > Cloudflare Pages > Edit), CLOUDFLARE_ACCOUNT_ID
+#   environment    : "production" with required reviewers, so every production deploy needs a manual approval.
+# Branch pushes (not main) deploy a preview only (https://<branch>.<project>.pages.dev) when deploys are enabled.
+
+on:
+  push:
+    paths: ["web-client/**", ".github/workflows/web.yml"]
+  pull_request:
+    paths: ["web-client/**"]
+  workflow_dispatch:
+
+concurrency:
+  group: web-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web-client
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web-client/package-lock.json
+      - run: npm ci
+      - name: Typecheck + unit tests
+        run: |
+          npx tsc -b
+          npx vitest run
+      - name: Build (fails on any file > 25 MiB, the Pages limit)
+        env:
+          VITE_API_BASE: ${{ vars.PETSTAR_API_BASE }}
+        run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-dist
+          path: web-client/dist
+          retention-days: 7
+
+  e2e:
+    # Real backend (PostgreSQL + Redis + API) + Playwright on Chromium with iPhone 13 emulation.
+    runs-on: ubuntu-latest
+    needs: build
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: { POSTGRES_USER: petstar, POSTGRES_PASSWORD: petstar_ci_only, POSTGRES_DB: postgres }
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U petstar" --health-interval 5s --health-timeout 5s --health-retries 20
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+    env:
+      PETSTAR_E2E_PG: postgresql://petstar:petstar_ci_only@localhost:5432/petstar_e2e
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: { dotnet-version: "10.0.x" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "22", cache: npm, cache-dependency-path: web-client/package-lock.json }
+      - name: Start API
+        working-directory: backend/src/PetStar.Api
+        env:
+          ASPNETCORE_ENVIRONMENT: Development
+          ASPNETCORE_URLS: http://127.0.0.1:5080
+          ConnectionStrings__Postgres: Host=localhost;Port=5432;Database=petstar_e2e;Username=petstar;Password=petstar_ci_only;Maximum Pool Size=40
+          ConnectionStrings__Redis: localhost:6379
+          RateLimits__AuthPerMinute: "1000"
+          RateLimits__UserPerMinute: "5000"
+          Cors__AllowedOrigins__0: http://localhost:4173
+        run: |
+          dotnet build -c Release -v q
+          nohup dotnet bin/Release/net10.0/PetStar.Api.dll > /tmp/api.log 2>&1 &
+          for i in $(seq 1 60); do curl -fsS http://127.0.0.1:5080/health/ready && break; sleep 2; done
+      - name: Playwright
+        working-directory: web-client
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          npx playwright test --trace off
+      - if: failure()
+        run: tail -200 /tmp/api.log
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with: { name: playwright-results, path: web-client/test-results, retention-days: 7 }
+
+  deploy:
+    needs: [build, e2e]
+    if: vars.CF_PAGES_PROJECT != '' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: web-dist, path: dist }
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=${{ vars.CF_PAGES_PROJECT }} --branch=${{ github.ref_name }} --commit-hash=${{ github.sha }}

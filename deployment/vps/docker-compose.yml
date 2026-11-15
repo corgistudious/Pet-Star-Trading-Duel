@@ -1,0 +1,143 @@
+# Pet Star production stack for a SHARED VPS (other projects already run there).
+# Isolation rules:
+#   - own compose project name, network and volumes (all prefixed "petstar-prod"); nothing external is referenced
+#   - NO host ports 80/443 and no Nginx container. Postgres/Redis are never published; the API is published on
+#     127.0.0.1 only, so it is reachable solely through a Cloudflare Tunnel (profile "tunnel") or through ONE new
+#     site file in the host's existing Nginx (see nginx-site.conf.example)
+#   - CPU / memory / pids limits on every service so Pet Star cannot starve neighbours
+# Secrets live in /opt/petstar/petstar.env (chmod 600, created on the VPS, never committed). See docs/web-deployment.md.
+name: petstar-prod
+
+x-logging: &logging
+  logging:
+    driver: json-file
+    options: { max-size: "10m", max-file: "5" }
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: petstar
+      POSTGRES_USER: petstar
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+    command: ["postgres", "-c", "max_connections=120", "-c", "shared_buffers=256MB"]
+    volumes:
+      - petstar-prod-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U petstar -d petstar"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    cpus: ${PG_CPUS:-1.0}
+    mem_limit: ${PG_MEM:-1g}
+    pids_limit: 200
+    networks: [petstar-prod-net]
+    <<: *logging
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:?set REDIS_PASSWORD}", "--maxmemory", "200mb", "--maxmemory-policy", "noeviction"]
+    environment:
+      REDISCLI_AUTH: ${REDIS_PASSWORD}
+    volumes:
+      - petstar-prod-redis:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    cpus: 0.5
+    mem_limit: 256m
+    pids_limit: 100
+    networks: [petstar-prod-net]
+    <<: *logging
+
+  api:
+    image: ${PETSTAR_API_IMAGE:-petstar-api:local}
+    build:
+      context: ../..
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      HOME: /tmp                             # root filesystem is read-only
+      ConnectionStrings__Postgres: "Host=postgres;Database=petstar;Username=petstar;Password=${POSTGRES_PASSWORD};Gss Encryption Mode=Disable;Maximum Pool Size=${DB_POOL_SIZE:-60}"
+      ConnectionStrings__Redis: "redis:6379,password=${REDIS_PASSWORD}"
+      Jwt__SigningKey: ${JWT_SIGNING_KEY:?set JWT_SIGNING_KEY (at least 32 chars)}
+      Cors__AllowedOrigins__0: ${WEB_ORIGIN:?set WEB_ORIGIN, e.g. https://petstar.pages.dev}
+      Cors__AllowedOrigins__1: ${WEB_ORIGIN_2:-}
+      Database__AutoMigrate: "true"          # additive migrations only; deploy.sh takes a backup first
+      Seed__SyncPackTypes: ${SEED_SYNC_PACK_TYPES:-false}
+      Bootstrap__OwnerEmail: ${OWNER_EMAIL:-}
+      Iap__Enabled: "false"                  # no real-money purchases in this phase
+      Iap__AllowFakeStore: "false"
+      Smtp__Host: ${SMTP_HOST:-}
+      Smtp__User: ${SMTP_USER:-}
+      Smtp__Password: ${SMTP_PASSWORD:-}
+    ports:
+      - "127.0.0.1:${API_HOST_PORT:-18080}:8080"   # loopback only: never reachable from the internet directly
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/8080 && printf \"GET /health/ready HTTP/1.0\\r\\n\\r\\n\" >&3 && grep -q Healthy <&3'"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 40s
+    cpus: ${API_CPUS:-1.5}
+    mem_limit: ${API_MEM:-768m}
+    pids_limit: 300
+    read_only: true
+    tmpfs: ["/tmp"]
+    security_opt: ["no-new-privileges:true"]
+    networks: [petstar-prod-net]
+    <<: *logging
+
+  # Optional ingress that does not touch the host Nginx at all: an outbound-only Cloudflare Tunnel.
+  # Enable with: docker compose --profile tunnel up -d   (needs CLOUDFLARE_TUNNEL_TOKEN in petstar.env)
+  cloudflared:
+    image: cloudflare/cloudflared:2025.4.2
+    profiles: ["tunnel"]
+    restart: unless-stopped
+    command: ["tunnel", "--no-autoupdate", "run"]
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN:-}
+    depends_on:
+      api: { condition: service_healthy }
+    cpus: 0.25
+    mem_limit: 128m
+    networks: [petstar-prod-net]
+    <<: *logging
+
+  backup:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    depends_on:
+      postgres: { condition: service_healthy }
+    environment:
+      PGHOST: postgres
+      PGUSER: petstar
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      PGDATABASE: petstar
+      BACKUP_DIR: /backups
+      BACKUP_RETENTION_DAYS: ${BACKUP_RETENTION_DAYS:-14}
+      BACKUP_INTERVAL_SECONDS: ${BACKUP_INTERVAL_SECONDS:-21600}
+    volumes:
+      - ../backup/backup.sh:/backup.sh:ro
+      - ${BACKUP_HOST_DIR:-/opt/petstar/backups}:/backups
+    entrypoint: ["/bin/sh", "-c", "while true; do /bin/sh /backup.sh; sleep $${BACKUP_INTERVAL_SECONDS}; done"]
+    cpus: 0.5
+    mem_limit: 256m
+    networks: [petstar-prod-net]
+    <<: *logging
+
+volumes:
+  petstar-prod-pgdata:
+  petstar-prod-redis:
+
+networks:
+  petstar-prod-net:
+    name: petstar-prod-net

@@ -144,7 +144,7 @@ public static class RewardsEndpoints
             var (sid, mid) = ctx.User.Player();
             return Results.Ok(new { ticket = await tickets.Issue(ctx.User.AccountId(), sid, mid), expiresIn = 60 });
         });
-        var wsOrigins = app.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
+        var wsOrigins = (app.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>()).Where(o => !string.IsNullOrWhiteSpace(o)).ToArray();
         app.Map("/ws", async (HttpContext ctx, TicketStore tickets, RealtimeHub hub) =>
         {
             if (!ctx.WebSockets.IsWebSocketRequest) { ctx.Response.StatusCode = 400; return; }
