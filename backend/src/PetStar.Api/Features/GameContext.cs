@@ -9,11 +9,14 @@ using PetStar.Rules;
 namespace PetStar.Api.Features;
 
 /// <summary>Holds the in-memory design catalog and helpers shared by gameplay features.</summary>
-public sealed class GameData(GameCatalog catalog, EconomyConfig economy, PveConfig pve)
+public sealed class GameData(GameCatalog catalog, EconomyConfig economy, PveConfig pve, ValuationConfig valuation, MarketConfig market, AchievementCatalog achievements)
 {
     public GameCatalog Catalog { get; } = catalog;
     public EconomyConfig Economy { get; } = economy;
     public PveConfig Pve { get; } = pve;
+    public ValuationConfig Valuation { get; } = valuation;
+    public MarketConfig Market { get; } = market;
+    public AchievementCatalog Achievements { get; } = achievements;
 
     private readonly ConcurrentDictionary<(string, int), PackTypeDef> _packCache = new();
 
@@ -35,7 +38,7 @@ public sealed class GameData(GameCatalog catalog, EconomyConfig economy, PveConf
             Rarity = c.Rarity, Quality = c.Quality, Finish = c.Finish, Level = c.Level, Exp = c.Exp,
             ExpToNext = c.Level >= StatCalculator.MaxLevel ? 0 : StatCalculator.ExpToNext(c.Level),
             Hp = s.Hp, Atk = s.Atk, Def = s.Def, Spd = s.Spd, Crit = s.Crit, Power = s.Power,
-            SkillId = f.Skill, UltimateId = f.Ultimate, PassiveId = f.Passive,
+            SkillId = f.Skill, UltimateId = f.Ultimate, PassiveId = f.Passive, Serial = c.Serial, SkillLevel = c.SkillLevel,
             IsFavorite = c.IsFavorite, IsLocked = c.IsLocked, IsBusy = c.BusyState != null, Slot = slot,
         };
     }

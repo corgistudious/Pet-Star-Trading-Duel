@@ -31,7 +31,16 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         b.UseSetting("RateLimits:UserPerMinute", "100000");
     }
 
-    public Task InitializeAsync() { _ = Server; return Task.CompletedTask; }
+    public Task InitializeAsync()
+    {
+        PetStar.Api.Features.MarketMaintenanceService.Interval = TimeSpan.FromHours(1); // tests drive maintenance explicitly
+        _ = Server;
+        return Task.CompletedTask;
+    }
+
+    private WebApplicationFactory<Program>? _iap;
+    /// <summary>Same database, with the (disabled-by-default) store verification enabled, for IAP code-path tests.</summary>
+    public HttpClient IapClient() => (_iap ??= WithWebHostBuilder(b => b.UseSetting("Iap:Enabled", "true"))).CreateClient();
 
     public new async Task DisposeAsync()
     {
@@ -64,9 +73,9 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
 
     public PetStarDb NewDb() => Services.CreateScope().ServiceProvider.GetRequiredService<PetStarDb>();
 
-    public async Task<Player> NewPlayer(string? prefix = null, int server = 1)
+    public async Task<Player> NewPlayer(string? prefix = null, int server = 1, HttpClient? client = null)
     {
-        var p = new Player(CreateClient());
+        var p = new Player(client ?? CreateClient());
         var email = $"{prefix ?? "p"}{Guid.NewGuid():N}@test.local";
         await p.Register(email, "Passw0rd1", "Tester" + Guid.NewGuid().ToString("N")[..6]);
         await p.Enter(server);

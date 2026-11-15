@@ -62,7 +62,7 @@ public static class PackEndpoints
         // Server-side RNG. Pack is consumed and the 5 cards are persisted in ONE transaction before the response
         // is sent; retries with the same Idempotency-Key replay the stored result.
         g.MapPost("/packs/open", (OpenPackRequest req, HttpContext ctx, PetStarDb db, GameData data,
-            EconomyService eco, IdempotencyService idem) =>
+            EconomyService eco, IdempotencyService idem, CardFactory factory, AchievementService ach) =>
             idem.Run(ctx, "packs.open", req, async () =>
             {
                 var (sid, mid) = ctx.User.Player();
@@ -75,22 +75,13 @@ public static class PackEndpoints
                 await eco.Packs(mid, sid, p.Id, -1, "pack_open", opening.Id.ToString("N"));
                 var rolled = PackRoller.Roll(data.Catalog, p, new SecureRandomSource());
                 if (rolled.Count != 5) throw new InvalidOperationException("pack must yield exactly 5 cards");
-                var now = DateTimeOffset.UtcNow;
-                var cards = rolled.Select(r => new CardInstance
-                {
-                    ServerId = sid, OwnerMembershipId = mid, FormId = r.FormId, Rarity = r.Rarity, Quality = r.Quality, Finish = r.Finish,
-                    Level = 1, Origin = "pack", OriginRef = opening.Id.ToString("N"), CreatedAt = now, UpdatedAt = now,
-                }).ToList();
                 db.PackOpenings.Add(opening);
-                db.Cards.AddRange(cards);
                 await db.SaveChangesAsync();
+                var cards = await factory.Create(sid, mid, rolled.Select(r => new NewCard(r.FormId, r.Rarity, r.Quality, r.Finish)).ToList(), "pack", opening.Id.ToString("N"));
                 for (int i = 0; i < cards.Count; i++)
-                {
                     opening.Results.Add(new PackOpeningResult { OpeningId = opening.Id, Slot = rolled[i].Slot, CardId = cards[i].Id, FormId = cards[i].FormId, Rarity = cards[i].Rarity, Quality = cards[i].Quality, Finish = cards[i].Finish });
-                    db.CardOwnership.Add(new CardOwnershipHistory { CardId = cards[i].Id, ServerId = sid, ToMembershipId = mid, Reason = "pack_open", RefId = opening.Id.ToString("N"), At = now });
-                }
                 await db.SaveChangesAsync();
-                foreach (var c in cards) await GameData.DiscoverCodex(db, mid, c.FormId, c.Id);
+                await ach.Evaluate(mid, sid, "pack_opened", "rare_obtained", "codex_count", "family_complete", "element_complete", "rare_owned_distinct");
                 return new PackOpeningDto { OpeningId = opening.Id, PackTypeId = p.Id, CreatedAt = opening.CreatedAt, Cards = cards.Select((c, i) => data.ToDto(c, rolled[i].Slot)).ToList() };
             }));
 
@@ -138,8 +129,8 @@ public static class PackEndpoints
             // show the card as it was rolled (rarity/quality/finish/form at opening time), with current id
             Cards = o.Results.OrderBy(r => r.Slot).Select(r =>
             {
-                var snapshot = new CardInstance { Id = r.CardId, FormId = r.FormId, Rarity = r.Rarity, Quality = r.Quality, Finish = r.Finish, Level = 1 };
-                if (cards.TryGetValue(r.CardId, out var c)) { snapshot.IsFavorite = c.IsFavorite; snapshot.IsLocked = c.IsLocked; }
+                var snapshot = new CardInstance { Id = r.CardId, FormId = r.FormId, Rarity = r.Rarity, Quality = r.Quality, Finish = r.Finish, Level = 1, SkillLevel = 1 };
+                if (cards.TryGetValue(r.CardId, out var c)) { snapshot.IsFavorite = c.IsFavorite; snapshot.IsLocked = c.IsLocked; snapshot.Serial = c.Serial; }
                 return data.ToDto(snapshot, r.Slot);
             }).ToList(),
         };

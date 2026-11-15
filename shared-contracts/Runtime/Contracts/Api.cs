@@ -115,6 +115,9 @@ namespace PetStar.Contracts
     public class CardDto
     {
         public long Id { get; set; }
+        /// <summary>12-char collectible serial (display only; never an ownership credential).</summary>
+        public string Serial { get; set; } = "";
+        public int SkillLevel { get; set; } = 1;
         public string FormId { get; set; } = "";
         public string Name { get; set; } = "";
         public string FamilyId { get; set; } = "";

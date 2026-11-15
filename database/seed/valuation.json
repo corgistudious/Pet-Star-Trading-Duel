@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "notes": "Reference values are informational only: never guaranteed, never auto-paid, never converted to real money. Each currency has its own independent table (no exchange rate).",
+  "base": {
+    "MINI_GREEN_BEAN": { "N": 10, "R": 30, "SR": 80, "SSR": 220, "UR": 600, "LR": 1500, "MR": 3500, "GR": 8000, "EX": 20000, "Secret": 50000 },
+    "RAINBOW_STAR":    { "N": 1,  "R": 2,  "SR": 5,  "SSR": 12,  "UR": 30,  "LR": 70,   "MR": 160,  "GR": 350,  "EX": 800,   "Secret": 2000 }
+  },
+  "quality": { "D": 0.85, "C": 0.92, "B": 1.0, "A": 1.12, "S": 1.3, "SS": 1.6, "SSS": 2.2 },
+  "finish": { "Normal": 1.0, "Foil": 1.25, "Holographic": 1.6, "Shiny": 2.2, "Prismatic": 3.0 },
+  "stage": { "1": 1.0, "2": 1.35, "3": 1.8, "standalone": 1.6 },
+  "origin": { "pack": 1.0, "pve_reward": 1.0, "event": 1.2, "admin": 1.0 },
+  "scarcity": { "targetSupplyPerFormRarity": 200, "exponent": 0.25, "min": 0.8, "max": 2.0 },
+  "market": {
+    "windowDays": 30,
+    "trimPct": 0.2,
+    "fullConfidenceSamples": 10,
+    "minDistinctTraders": 3,
+    "maxDeviationFromInitial": 20.0
+  },
+  "fraud": {
+    "pairTradesWindowDays": 7,
+    "maxPairTradesBeforeFlag": 2,
+    "roundTripWindowDays": 14,
+    "sharedIpWindowDays": 7
+  }
+}

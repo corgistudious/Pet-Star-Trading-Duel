@@ -115,6 +115,40 @@ public static class CatalogLoader
         };
     }
 
+    public static ValuationConfig LoadValuation(string dir) =>
+        new() { Raw = JsonNode.Parse(File.ReadAllText(Path.Combine(dir, "valuation.json")))!.AsObject() };
+
+    public static MarketConfig LoadMarket(string dir) =>
+        new() { Raw = JsonNode.Parse(File.ReadAllText(Path.Combine(dir, "market.json")))!.AsObject() };
+
+    public static AchievementCatalog LoadAchievements(string dir) =>
+        new() { Items = JsonSerializer.Deserialize<List<AchievementDef>>(JsonNode.Parse(File.ReadAllText(Path.Combine(dir, "achievements.json")))!["achievements"]!.ToJsonString(), Json)! };
+
     public static PveConfig LoadPve(string dir) =>
         JsonSerializer.Deserialize<PveConfig>(File.ReadAllText(Path.Combine(dir, "pve_stages.json")), Json)!;
+}
+
+public sealed class MarketConfig
+{
+    public required JsonObject Raw { get; init; }
+    public int FeeBps => Raw["feeBps"]!.GetValue<int>();
+    public int AuctionFeeBps => Raw["auctionFeeBps"]!.GetValue<int>();
+    public long L(string section, string key) => Raw[section]![key]!.GetValue<long>();
+    public double D(string section, string key) => Raw[section]![key]!.GetValue<double>();
+}
+
+public sealed class AchievementDef
+{
+    public string Id { get; set; } = "";
+    public string Trigger { get; set; } = "";
+    public int Threshold { get; set; } = 1;
+    public string? Element { get; set; }
+    public Dictionary<string, long> Currencies { get; set; } = new();
+    public Dictionary<string, int> Packs { get; set; } = new();
+    public bool Hidden { get; set; }
+}
+
+public sealed class AchievementCatalog
+{
+    public List<AchievementDef> Items { get; init; } = new();
 }

@@ -17,7 +17,12 @@ public class CatalogTests
     {
         var cat = TestCatalog.Get();
         Assert.Empty(cat.Validate());
-        Assert.Equal(10, cat.Forms.Count);
+        Assert.Equal(200, cat.Forms.Count);
+        Assert.Equal(80, cat.Families.Count);
+        Assert.Equal(50, cat.Families.Count(f => f.Stages == 3));
+        Assert.Equal(20, cat.Families.Count(f => f.Stages == 2));
+        Assert.Equal(10, cat.Families.Count(f => f.Stages == 1));
+        Assert.All(cat.Elements.Elements, e => Assert.Equal(10, cat.Families.Count(f => f.Element == e.Id)));
         Assert.Equal(10, cat.Rarities.Count);
         Assert.Equal(7, cat.Qualities.Count);
         Assert.Equal(5, cat.Finishes.Count);
@@ -44,6 +49,22 @@ public class CatalogTests
         Assert.Equal("pet_pyrelynx", cat.NextForm(cat.Form("pet_cinderlynx"))!.Id);
         Assert.Null(cat.NextForm(cat.Form("pet_pyrelynx")));
         Assert.Null(cat.NextForm(cat.Form("pet_halowl")));
+    }
+}
+
+public class ContentUniquenessTests
+{
+    [Fact]
+    public void Every_form_has_unique_name_and_a_mechanically_distinct_skill_kit()
+    {
+        var cat = TestCatalog.Get();
+        Assert.Equal(cat.Forms.Count, cat.Forms.Values.Select(f => f.Name.ToLowerInvariant()).Distinct().Count());
+        string Sig(string? id) => id == null ? "" : System.Text.Json.JsonSerializer.Serialize(new { cat.Skills[id].Cost, cat.Skills[id].Target, cat.Skills[id].Priority,
+            E = cat.Skills[id].Effects.Select(e => new { e.Type, e.Power, e.Status, e.Chance, e.Duration, e.Scale, e.TargetOverride }) });
+        var kits = cat.Forms.Values.Select(f => Sig(f.Skill) + "|" + Sig(f.Ultimate)).ToList();
+        Assert.Equal(kits.Count, kits.Distinct().Count());
+        // ultimates: all evolved forms and standalones have one; baby forms of multi-stage lines do not
+        Assert.All(cat.Forms.Values, f => Assert.Equal(f.FamilyStages == 1 || f.Stage >= 2, f.Ultimate != null));
     }
 }
 

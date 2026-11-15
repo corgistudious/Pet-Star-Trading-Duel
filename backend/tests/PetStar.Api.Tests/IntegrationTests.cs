@@ -297,8 +297,8 @@ public class MultiServerTests(ApiFactory f)
         var p = await f.NewPlayer();
         var mid = await f.Scalar<long>("SELECT id FROM server_memberships WHERE account_id=@p0 AND server_id=1", p.Uid);
         var ex = await Assert.ThrowsAsync<Npgsql.PostgresException>(() => f.Sql(
-            "INSERT INTO card_instances (server_id, owner_membership_id, form_id, rarity, quality, finish, level, exp, is_favorite, is_locked, origin, created_at, updated_at) " +
-            "VALUES (@p0, @p1, 'pet_emberkit', 'N', 'B', 'Normal', 1, 0, false, false, 'test', now(), now())", sid, mid));
+            "INSERT INTO card_instances (server_id, owner_membership_id, serial, form_id, rarity, quality, finish, level, exp, skill_level, is_favorite, is_locked, origin, created_at, updated_at) " +
+            "VALUES (@p0, @p1, 'ZZTEST000001', 'pet_emberkit', 'N', 'B', 'Normal', 1, 0, 1, false, false, 'test', now(), now())", sid, mid));
         Assert.Equal("23503", ex.SqlState); // foreign key violation (composite owner+server)
     }
 
@@ -345,8 +345,10 @@ public class EvolutionDeckBattleTests(ApiFactory f)
     public async Task Evolution_keeps_card_id_consumes_materials_once()
     {
         var (p, mid, cards) = await PlayerWithCards(1);
-        var card = cards.FirstOrDefault(c => c.FormId != "pet_halowl" && c.FormId != "pet_gloomoth");
-        if (card == null) return; // all standalone (very unlikely); nothing to evolve
+        CardDto? card = null;
+        foreach (var c in cards)
+            if ((await p.Get<EvolutionPreviewDto>($"/api/cards/{c.Id}/evolution-preview")).Next != null) { card = c; break; }
+        if (card == null) return; // all standalone (unlikely); nothing to evolve
         var element = card.Element;
         // too low level
         Assert.Equal("evolution_leveltoolow", await Player.Code(await p.Post($"/api/cards/{card.Id}/evolve", null, Player.Key())));
@@ -366,7 +368,7 @@ public class EvolutionDeckBattleTests(ApiFactory f)
         Assert.Equal(card.Rarity, after.Rarity); // rarity is not upgraded
         var me = await p.Me();
         Assert.Equal(2, me.Items["essence_" + element]);
-        Assert.Equal(0, me.Currencies["MINI_GREEN_BEAN"]);
+        Assert.Equal(1, await f.Scalar<long>("SELECT count(*) FROM economy_ledger WHERE reason = 'evolution' AND delta = -500 AND ref_id = @p0", $"card:{card.Id}:{card.FormId}"));
         Assert.Equal(1, await f.Scalar<long>("SELECT count(*) FROM card_evolution_history WHERE card_id=@p0", card.Id));
         var codex = await p.Get<CodexDto>("/api/codex");
         Assert.Contains(codex.Entries, e => e.FormId == after.FormId && e.Discovered);
@@ -403,7 +405,7 @@ public class EvolutionDeckBattleTests(ApiFactory f)
         await SaveValidDeck(p, cards);
         var b = await p.PostOk<BattleDto>("/api/battles/pve", new StartPveRequest { StageId = "c1_s1" }, Player.Key());
         Assert.Equal(10, b.Units.Count);
-        Assert.Equal(3, b.MyEnergy);
+        Assert.InRange(b.MyEnergy, 3, 5); // 3 base, +1 per "battle_start_energy" passive in the deck
         Assert.Equal("active", b.Status);
 
         // illegal: ultimate costs more than available energy / unit acts twice
@@ -452,9 +454,17 @@ public class EvolutionDeckBattleTests(ApiFactory f)
 public class IapTests(ApiFactory f)
 {
     [Fact]
-    public async Task Verified_purchase_grants_rainbow_star_exactly_once()
+    public async Task Real_money_purchases_are_disabled_by_default()
     {
         var p = await f.NewPlayer();
+        var r = await p.Post("/api/iap/verify", new IapVerifyRequest { Platform = "fake_store", ProductId = "rainbow_star_60", PurchaseToken = "fake-ok-x" });
+        Assert.Equal(HttpStatusCode.NotFound, r.StatusCode);
+    }
+
+    [Fact]
+    public async Task Verified_purchase_grants_rainbow_star_exactly_once()
+    {
+        var p = await f.NewPlayer(client: f.IapClient());
         var token = "fake-ok-" + Guid.NewGuid().ToString("N");
         var req = new IapVerifyRequest { Platform = "fake_store", ProductId = "rainbow_star_300", PurchaseToken = token };
         var r = await p.PostOk<IapVerifyResponse>("/api/iap/verify", req);
@@ -464,7 +474,7 @@ public class IapTests(ApiFactory f)
         var again = await Task.WhenAll(Enumerable.Range(0, 5).Select(_ => p.Post("/api/iap/verify", req)));
         Assert.Equal(330, (await p.Me()).Currencies["RAINBOW_STAR"]);
         // token replay from a different account is refused
-        var thief = await f.NewPlayer();
+        var thief = await f.NewPlayer(client: f.IapClient());
         Assert.Equal("purchase_already_used", await Player.Code(await thief.Post("/api/iap/verify", req)));
         Assert.Equal(0, (await thief.Me()).Currencies["RAINBOW_STAR"]);
     }
@@ -472,7 +482,7 @@ public class IapTests(ApiFactory f)
     [Fact]
     public async Task Invalid_purchase_and_unconfigured_store_grant_nothing()
     {
-        var p = await f.NewPlayer();
+        var p = await f.NewPlayer(client: f.IapClient());
         var r = await p.PostOk<IapVerifyResponse>("/api/iap/verify", new IapVerifyRequest { Platform = "fake_store", ProductId = "rainbow_star_60", PurchaseToken = "bogus-" + Guid.NewGuid() });
         Assert.Equal("rejected", r.Status);
         Assert.Equal(0, r.Granted);

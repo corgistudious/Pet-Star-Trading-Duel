@@ -48,6 +48,7 @@ public static class BattleEndpoints
                 var cards = await db.Cards.AsNoTracking().Where(c => ids.Contains(c.Id) && c.OwnerMembershipId == mid && c.ServerId == sid).ToDictionaryAsync(c => c.Id);
                 var err = DeckRules.Validate(data.Catalog, deck.Slots.Select(s => new DeckCardInfo { CardId = s.CardId, Position = s.Position, FormId = cards.TryGetValue(s.CardId, out var c) ? c.FormId : "" }).ToList());
                 if (err != null || cards.Count != 5) throw ApiException.Conflict("deck_invalid", err);
+                if (cards.Values.Any(c => c.BusyState != null)) throw ApiException.Conflict("deck_card_busy"); // listed / in auction / fraud lock
 
                 // one active battle at a time: abandon stale ones
                 var now = DateTimeOffset.UtcNow;
@@ -58,7 +59,7 @@ public static class BattleEndpoints
                 var mine = deck.Slots.OrderBy(s => s.Position).Select((s, i) =>
                 {
                     var c = cards[s.CardId];
-                    return BattleEngine.CreateUnit(cat, 0, i, s.Position, c.Id, c.FormId, c.Level, c.Rarity, c.Quality);
+                    return BattleEngine.CreateUnit(cat, 0, i, s.Position, c.Id, c.FormId, c.Level, c.Rarity, c.Quality, c.SkillLevel);
                 }).ToList();
                 var enemy = stage.Enemies.OrderBy(e => e.Position).Select((e, i) =>
                     BattleEngine.CreateUnit(cat, 1, i, e.Position, 0, e.FormId, e.Level, e.Rarity, e.Quality)).ToList();
@@ -87,7 +88,7 @@ public static class BattleEndpoints
 
         // Submitting a round is naturally idempotent: (battle, round) is a primary key and a stale round number
         // returns the already-resolved state instead of resolving again.
-        g.MapPost("/battles/{id:guid}/rounds", async (Guid id, SubmitRoundRequest req, HttpContext ctx, PetStarDb db, GameData data, EconomyService eco) =>
+        g.MapPost("/battles/{id:guid}/rounds", async (Guid id, SubmitRoundRequest req, HttpContext ctx, PetStarDb db, GameData data, EconomyService eco, AchievementService ach) =>
         {
             var (sid, mid) = ctx.User.Player();
             await using var tx = await db.Database.BeginTransactionAsync();
@@ -104,8 +105,8 @@ public static class BattleEndpoints
             }
             if (req.Round != st.Round) throw ApiException.Conflict("round_mismatch");
             var engine = new BattleEngine(data.Catalog);
-            var stage = data.Pve.Stages.First(s => s.Id == b.StageId);
-            var aiPlan = new BattleAi(data.Catalog).Plan(st, 1, stage.Difficulty);
+            var stage = b.Mode == "pve" ? data.Pve.Stages.First(s => s.Id == b.StageId) : null;
+            var aiPlan = new BattleAi(data.Catalog).Plan(st, 1, stage?.Difficulty ?? 2);
             int round = st.Round;
             var events = engine.ResolveRound(st, req.Actions, aiPlan);
             db.BattleRounds.Add(new BattleRound
@@ -115,7 +116,7 @@ public static class BattleEndpoints
             });
             BattleRewardsDto? rewards = null;
             ApplyState(b, st);
-            if (st.Finished) rewards = await FinishPve(db, eco, data, b, st, stage, sid, mid);
+            if (st.Finished) rewards = stage != null ? await FinishPve(db, eco, data, b, st, stage, sid, mid, ach) : await RankedEndpoints.Finish(db, eco, ach, b, st, sid, mid);
             await db.SaveChangesAsync();
             await tx.CommitAsync();
             return ToDto(b, st, events, rewards);
@@ -152,7 +153,7 @@ public static class BattleEndpoints
 
     /// <summary>Grants rewards once (battle id is the ledger reference). Daily cap per stage limits farming.</summary>
     private static async Task<BattleRewardsDto> FinishPve(PetStarDb db, EconomyService eco, GameData data, Battle b, BattleState st,
-        PveStage stage, int sid, long mid)
+        PveStage stage, int sid, long mid, AchievementService? ach = null)
     {
         var rewards = new BattleRewardsDto();
         if (st.Winner == 0)
@@ -184,12 +185,16 @@ public static class BattleEndpoints
                 var cards = await db.Cards.Where(c => ids.Contains(c.Id) && c.OwnerMembershipId == mid).ToListAsync();
                 foreach (var c in cards)
                 {
+                    int before = c.Level;
                     (c.Level, c.Exp) = StatCalculator.AddExp(c.Level, c.Exp, rewards.CardExp);
                     c.UpdatedAt = DateTimeOffset.UtcNow;
+                    if (c.Level > before)
+                        db.CardProgress.Add(new CardProgressEvent { CardId = c.Id, Type = "level_up", DataJson = JsonSerializer.Serialize(new { from = before, to = c.Level, source = "battle:" + b.Id.ToString("N") }), At = DateTimeOffset.UtcNow });
                 }
             }
         }
         db.BattleResults.Add(new BattleResult { BattleId = b.Id, WinnerMembershipId = st.Winner == 0 ? mid : null, RewardsJson = JsonSerializer.Serialize(rewards, J), At = DateTimeOffset.UtcNow });
+        if (ach != null && st.Winner == 0) { await db.SaveChangesAsync(); await ach.Evaluate(mid, sid, "duel_win"); }
         return rewards;
     }
 

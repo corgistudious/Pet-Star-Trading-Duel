@@ -35,7 +35,8 @@ var connStr = cfg.GetConnectionString("Postgres") ?? throw new InvalidOperationE
 builder.Services.AddDbContext<PetStarDb>(o => o.UseNpgsql(connStr).UseSnakeCaseNamingConvention());
 
 var seedDir = CatalogLoader.SeedDir(env.ContentRootPath);
-builder.Services.AddSingleton(new GameData(CatalogLoader.LoadCatalog(seedDir), CatalogLoader.LoadEconomy(seedDir), CatalogLoader.LoadPve(seedDir)));
+builder.Services.AddSingleton(new GameData(CatalogLoader.LoadCatalog(seedDir), CatalogLoader.LoadEconomy(seedDir), CatalogLoader.LoadPve(seedDir),
+    CatalogLoader.LoadValuation(seedDir), CatalogLoader.LoadMarket(seedDir), CatalogLoader.LoadAchievements(seedDir)));
 
 var redisConn = cfg.GetConnectionString("Redis");
 if (!string.IsNullOrEmpty(redisConn))
@@ -53,6 +54,13 @@ builder.Services.AddScoped<AuditService>();
 builder.Services.AddScoped<EconomyService>();
 builder.Services.AddScoped<IdempotencyService>();
 builder.Services.AddScoped<ServerGate>();
+builder.Services.AddScoped<ValuationService>();
+builder.Services.AddScoped<CardFactory>();
+builder.Services.AddScoped<NotificationService>();
+builder.Services.AddScoped<AchievementService>();
+builder.Services.AddScoped<FraudService>();
+builder.Services.AddScoped<ContentGuard>();
+builder.Services.AddHostedService<MarketMaintenanceService>();
 builder.Services.AddSingleton<IStoreVerifier, GooglePlayVerifier>();
 if ((env.IsDevelopment() || env.IsEnvironment("Testing")) && cfg.GetValue("Iap:AllowFakeStore", false))
     builder.Services.AddSingleton<IStoreVerifier, FakeStoreVerifier>();
@@ -79,7 +87,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("InServer", p => p.RequireAuthenticatedUser().RequireClaim(ClaimsExtensions.ServerClaim).RequireClaim(ClaimsExtensions.MembershipClaim))
-    .AddPolicy("ServerAdmin", p => p.RequireRole("owner", "admin"));
+    .AddPolicy("ServerAdmin", p => p.RequireRole("owner", "admin"))
+    .AddPolicy("GameMaster", p => p.RequireRole("owner", "admin", "gm"))
+    .AddPolicy("Moderation", p => p.RequireRole("owner", "admin", "gm", "moderator"))
+    .AddPolicy("Owner", p => p.RequireRole("owner"));
 
 // ---------- rate limiting ----------
 builder.Services.AddRateLimiter(o =>
@@ -122,7 +133,17 @@ PackEndpoints.Map(app);
 CardEndpoints.Map(app);
 DeckEndpoints.Map(app);
 BattleEndpoints.Map(app);
-IapEndpoints.Map(app);
+// Real-money purchases are disabled in this phase (owner decision); the verification code stays for a future,
+// separately approved payment system and is only mapped when Iap:Enabled=true.
+if (cfg.GetValue("Iap:Enabled", false)) IapEndpoints.Map(app);
+PassportEndpoints.Map(app);
+MarketEndpoints.Map(app);
+AuctionEndpoints.Map(app);
+SocialEndpoints.Map(app);
+FeedEndpoints.Map(app);
+CommunityEndpoints.Map(app);
+RankedEndpoints.Map(app);
+AdminEconomyEndpoints.Map(app);
 AdminEndpoints.Map(app);
 
 if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing"))

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "feeBps": 300,
+  "auctionFeeBps": 300,
+  "listing": { "minPrice": 1, "maxPrice": 1000000000, "minDays": 1, "maxDays": 14, "defaultDays": 7, "maxActivePerPlayer": 30,
+               "confirmBelowFraction": 0.1, "confirmAboveMultiple": 100 },
+  "auction": { "minHours": 1, "maxHours": 72, "minIncrementBps": 500, "antiSnipeSeconds": 60, "maxExtensions": 10, "maxActivePerPlayer": 10 },
+  "wishlist": { "maxEntries": 20, "maxAlertsPerHour": 10 },
+  "social": { "postsPerHour": 10, "commentsPerHour": 30, "captionMax": 500, "commentMax": 300, "duplicateWindowMinutes": 10, "maxCollections": 20, "maxCollectionItems": 60 }
+}

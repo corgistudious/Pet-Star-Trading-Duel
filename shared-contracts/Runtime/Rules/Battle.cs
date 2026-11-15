@@ -30,6 +30,7 @@ namespace PetStar.Rules.Battle
         public string FormId { get; set; } = "";
         public string Element { get; set; } = "";
         public int Level { get; set; }
+        public int SkillLevel { get; set; } = 1;
         public string Rarity { get; set; } = "N";
         public int MaxHp { get; set; }
         public int Hp { get; set; }
@@ -77,6 +78,14 @@ namespace PetStar.Rules.Battle
         public double PoisonPct { get; set; } = 0.08;
         public double WeakenAtk { get; set; } = 0.75;
         public int DefendPriority { get; set; } = 3;
+        /// <summary>Skill/ultimate power bonus per skill level above 1 (max level 5 → +24%).</summary>
+        public double SkillLevelBonus { get; set; } = 0.06;
+        /// <summary>3+ cards of one element: +ATK for those cards.</summary>
+        public double ElementSynergyAtk { get; set; } = 0.06;
+        /// <summary>4+ different elements: +HP for the whole team.</summary>
+        public double HarmonySynergyHp { get; set; } = 0.05;
+        /// <summary>Guardian in front and Support in back: +DEF for the whole team.</summary>
+        public double FormationSynergyDef { get; set; } = 0.05;
     }
 
     public sealed class BattleState
@@ -90,6 +99,8 @@ namespace PetStar.Rules.Battle
         public string? EndReason { get; set; }
         public ulong RngState { get; set; }
         public BattleConfig Config { get; set; } = new BattleConfig();
+        public List<string> SynergiesA { get; set; } = new List<string>();
+        public List<string> SynergiesB { get; set; } = new List<string>();
 
         public IEnumerable<BattleUnit> Side(int side) => Units.Where(u => u.Side == side);
         public BattleUnit Unit(int side, int index) => Units.First(u => u.Side == side && u.Index == index);
@@ -108,7 +119,7 @@ namespace PetStar.Rules.Battle
         public BattleEngine(GameCatalog cat) { _cat = cat; }
 
         public static BattleUnit CreateUnit(GameCatalog cat, int side, int index, int position, long cardId,
-            string formId, int level, string rarity, string quality)
+            string formId, int level, string rarity, string quality, int skillLevel = 1)
         {
             var f = cat.Form(formId);
             var s = StatCalculator.Compute(cat, formId, level, rarity, quality);
@@ -117,6 +128,7 @@ namespace PetStar.Rules.Battle
                 Side = side, Index = index, Position = position, CardId = cardId, FormId = formId,
                 Element = f.Element, Level = level, Rarity = rarity, MaxHp = s.Hp, Hp = s.Hp, Atk = s.Atk, Def = s.Def,
                 Spd = s.Spd, Crit = s.Crit, SkillId = f.Skill, UltimateId = f.Ultimate, PassiveId = f.Passive,
+                SkillLevel = Math.Max(1, Math.Min(5, skillLevel)),
             };
             // permanent stat passives are folded in at creation
             var p = u.PassiveId != null ? cat.Passives[u.PassiveId] : null;
@@ -138,6 +150,8 @@ namespace PetStar.Rules.Battle
             var st = new BattleState { RngState = seed, Config = config ?? new BattleConfig() };
             st.Units.AddRange(sideA);
             st.Units.AddRange(sideB);
+            ApplySynergies(st, 0, st.SynergiesA);
+            ApplySynergies(st, 1, st.SynergiesB);
             for (int side = 0; side < 2; side++)
             {
                 int bonus = st.Side(side).Where(u => u.PassiveId != null)
@@ -145,6 +159,30 @@ namespace PetStar.Rules.Battle
                 st.Energy[side] = Math.Min(st.Config.MaxEnergy, st.Config.StartEnergy + bonus);
             }
             return st;
+        }
+
+        /// <summary>Team synergies (configurable, applied once at battle start, server-side).</summary>
+        public void ApplySynergies(BattleState st, int side, List<string> applied)
+        {
+            var team = st.Side(side).ToList();
+            var cfg = st.Config;
+            foreach (var g in team.GroupBy(u => u.Element).Where(g => g.Count() >= 3))
+            {
+                foreach (var u in g) u.Atk = (int)Math.Round(u.Atk * (1 + cfg.ElementSynergyAtk));
+                applied.Add("element_" + g.Key);
+            }
+            if (team.Select(u => u.Element).Distinct().Count() >= 4)
+            {
+                foreach (var u in team) { u.MaxHp = (int)Math.Round(u.MaxHp * (1 + cfg.HarmonySynergyHp)); u.Hp = u.MaxHp; }
+                applied.Add("harmony");
+            }
+            bool guardFront = team.Any(u => u.IsFront && _cat.Forms.TryGetValue(u.FormId, out var f) && f.Role == "guardian");
+            bool supportBack = team.Any(u => !u.IsFront && _cat.Forms.TryGetValue(u.FormId, out var f) && f.Role == "support");
+            if (guardFront && supportBack)
+            {
+                foreach (var u in team) u.Def = (int)Math.Round(u.Def * (1 + cfg.FormationSynergyDef));
+                applied.Add("formation");
+            }
         }
 
         public int Cost(BattleUnit u, ActionType t)
@@ -328,11 +366,12 @@ namespace PetStar.Rules.Battle
             SeededRandom rng, List<BattleEvent> events)
         {
             var cfg = st.Config;
+            double lvl = skill.Kind == "basic" ? 1.0 : 1.0 + cfg.SkillLevelBonus * (actor.SkillLevel - 1);
             switch (eff.Type)
             {
                 case "damage":
                 {
-                    double raw = eff.Power * EffectiveAtk(st, actor);
+                    double raw = eff.Power * lvl * EffectiveAtk(st, actor);
                     double mitig = cfg.DefenseConstant / (cfg.DefenseConstant + t.Def);
                     double elem = _cat.Elements.Multiplier(actor.Element, t.Element);
                     bool crit = rng.Chance(actor.Crit);
@@ -357,7 +396,7 @@ namespace PetStar.Rules.Battle
                 }
                 case "heal":
                 {
-                    double amt = eff.Power * EffectiveAtk(st, actor);
+                    double amt = eff.Power * lvl * EffectiveAtk(st, actor);
                     var ap = Passive(actor);
                     if (ap != null && ap.Type == "heal_bonus") amt *= 1 + ap.Pct;
                     Heal(st, actor, t, (int)Math.Round(amt), events);
@@ -366,7 +405,7 @@ namespace PetStar.Rules.Battle
                 case "shield":
                 {
                     int basis = eff.Scale == "def" ? actor.Def : eff.Scale == "maxhp" ? actor.MaxHp : EffectiveAtk(st, actor);
-                    int amt = (int)Math.Round(eff.Power * basis);
+                    int amt = (int)Math.Round(eff.Power * lvl * basis);
                     t.Shield += amt;
                     var e = Ev(st, "shield", actor, t); e.Amount = amt; events.Add(e);
                     break;

@@ -35,6 +35,40 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
     public DbSet<PveProgress> PveProgress => Set<PveProgress>();
     public DbSet<IdempotencyRecord> Idempotency => Set<IdempotencyRecord>();
     public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+    public DbSet<CardSerialRegistry> SerialRegistry => Set<CardSerialRegistry>();
+    public DbSet<CardPassport> Passports => Set<CardPassport>();
+    public DbSet<CardProgressEvent> CardProgress => Set<CardProgressEvent>();
+    public DbSet<CardValuationSnapshot> ValuationSnapshots => Set<CardValuationSnapshot>();
+    public DbSet<MarketListing> Listings => Set<MarketListing>();
+    public DbSet<MarketTransaction> MarketTransactions => Set<MarketTransaction>();
+    public DbSet<MarketPriceHistory> PriceHistory => Set<MarketPriceHistory>();
+    public DbSet<AuctionListing> Auctions => Set<AuctionListing>();
+    public DbSet<AuctionBid> AuctionBids => Set<AuctionBid>();
+    public DbSet<AuctionSettlement> AuctionSettlements => Set<AuctionSettlement>();
+    public DbSet<ReservedBalance> ReservedBalances => Set<ReservedBalance>();
+    public DbSet<EconomySystemLedger> SystemLedger => Set<EconomySystemLedger>();
+    public DbSet<EconomyAuditEvent> EconomyAudit => Set<EconomyAuditEvent>();
+    public DbSet<WishlistEntry> Wishlists => Set<WishlistEntry>();
+    public DbSet<PriceAlert> PriceAlerts => Set<PriceAlert>();
+    public DbSet<UserFollow> Follows => Set<UserFollow>();
+    public DbSet<Friendship> Friendships => Set<Friendship>();
+    public DbSet<UserBlock> Blocks => Set<UserBlock>();
+    public DbSet<UserMute> Mutes => Set<UserMute>();
+    public DbSet<UserReport> Reports => Set<UserReport>();
+    public DbSet<FeedPost> Posts => Set<FeedPost>();
+    public DbSet<FeedPostCard> PostCards => Set<FeedPostCard>();
+    public DbSet<FeedLike> Likes => Set<FeedLike>();
+    public DbSet<FeedSave> Saves => Set<FeedSave>();
+    public DbSet<FeedComment> Comments => Set<FeedComment>();
+    public DbSet<ModerationAction> ModerationActions => Set<ModerationAction>();
+    public DbSet<AccountRestriction> Restrictions => Set<AccountRestriction>();
+    public DbSet<Notification> Notifications => Set<Notification>();
+    public DbSet<MailboxMessage> Mailbox => Set<MailboxMessage>();
+    public DbSet<AchievementProgress> Achievements => Set<AchievementProgress>();
+    public DbSet<Collection> Collections => Set<Collection>();
+    public DbSet<CollectionItem> CollectionItems => Set<CollectionItem>();
+    public DbSet<RankedSeason> Seasons => Set<RankedSeason>();
+    public DbSet<RankedRecord> RankedRecords => Set<RankedRecord>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {
@@ -266,6 +300,170 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
             e.Property(x => x.DataJson).HasColumnType("jsonb");
             e.HasIndex(x => x.At);
             e.HasIndex(x => new { x.ActorAccountId, x.At });
+        });
+        ConfigureExpansion(b);
+    }
+
+    private static void MembershipFk<T>(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<T> e,
+        System.Linq.Expressions.Expression<Func<T, object?>> fk) where T : class =>
+        e.HasOne<ServerMembership>().WithMany().HasForeignKey(fk).HasPrincipalKey(m => new { m.Id, m.ServerId }).OnDelete(DeleteBehavior.Restrict);
+
+    private static void ConfigureExpansion(ModelBuilder b)
+    {
+        b.Entity<CardInstance>(e =>
+        {
+            e.HasIndex(x => x.Serial).IsUnique();
+            e.Property(x => x.Serial).HasMaxLength(12).IsFixedLength();
+            e.ToTable(t =>
+            {
+                t.HasCheckConstraint("ck_card_serial", "serial ~ '^[A-Z0-9]{12}$'");
+                t.HasCheckConstraint("ck_card_skill_level", "skill_level BETWEEN 1 AND 5");
+            });
+        });
+        b.Entity<CardSerialRegistry>(e =>
+        {
+            e.ToTable("card_serial_registry", t => t.HasCheckConstraint("ck_registry_serial", "serial ~ '^[A-Z0-9]{12}$'"));
+            e.HasKey(x => x.Serial);
+            e.Property(x => x.Serial).HasMaxLength(12).IsFixedLength();
+            e.HasIndex(x => x.CardId).IsUnique();
+        });
+        b.Entity<CardPassport>(e =>
+        {
+            e.ToTable("card_passports");
+            e.HasKey(x => x.CardId);
+            e.HasIndex(x => x.Serial).IsUnique();
+            e.HasOne<CardInstance>().WithOne().HasForeignKey<CardPassport>(x => x.CardId).OnDelete(DeleteBehavior.Restrict);
+        });
+        b.Entity<CardProgressEvent>(e => { e.ToTable("card_progress_events"); e.Property(x => x.DataJson).HasColumnType("jsonb"); e.HasIndex(x => x.CardId); });
+        b.Entity<CardValuationSnapshot>(e =>
+        {
+            e.ToTable("card_valuation_snapshots");
+            e.HasIndex(x => new { x.ServerId, x.FormId, x.Rarity, x.Currency, x.Day }).IsUnique();
+        });
+        b.Entity<MarketListing>(e =>
+        {
+            e.ToTable("market_listings", t =>
+            {
+                t.HasCheckConstraint("ck_listing_price", "price > 0");
+                t.HasCheckConstraint("ck_listing_currency", "currency IN ('RAINBOW_STAR','MINI_GREEN_BEAN')");
+            });
+            e.HasIndex(x => x.CardId).HasFilter("status = 'active'").IsUnique().HasDatabaseName("ux_listing_one_active_per_card");
+            e.HasIndex(x => new { x.ServerId, x.Status, x.CreatedAt });
+            e.HasIndex(x => new { x.SellerMembershipId, x.Status });
+            MembershipFk(e, x => new { x.SellerMembershipId, x.ServerId });
+            e.HasOne<CardInstance>().WithMany().HasForeignKey(x => x.CardId).OnDelete(DeleteBehavior.Restrict);
+        });
+        b.Entity<MarketTransaction>(e =>
+        {
+            e.ToTable("market_transactions", t => t.HasCheckConstraint("ck_tx_amounts", "price > 0 AND fee >= 0 AND seller_net = price - fee"));
+            e.HasIndex(x => new { x.Kind, x.RefId }).IsUnique();
+            e.HasIndex(x => new { x.ServerId, x.FormId, x.Rarity, x.Currency, x.At });
+            e.HasIndex(x => x.BuyerMembershipId); e.HasIndex(x => x.SellerMembershipId); e.HasIndex(x => x.CardId);
+        });
+        b.Entity<MarketPriceHistory>(e =>
+        {
+            e.ToTable("market_price_history");
+            e.HasIndex(x => x.TransactionId).IsUnique();
+            e.HasIndex(x => new { x.ServerId, x.FormId, x.Rarity, x.Currency, x.At });
+        });
+        b.Entity<AuctionListing>(e =>
+        {
+            e.ToTable("auction_listings", t => t.HasCheckConstraint("ck_auction_prices", "start_price > 0 AND (buyout_price IS NULL OR buyout_price >= start_price)"));
+            e.HasIndex(x => x.CardId).HasFilter("status = 'active'").IsUnique().HasDatabaseName("ux_auction_one_active_per_card");
+            e.HasIndex(x => new { x.Status, x.EndsAt });
+            MembershipFk(e, x => new { x.SellerMembershipId, x.ServerId });
+        });
+        b.Entity<AuctionBid>(e =>
+        {
+            e.ToTable("auction_bids", t => t.HasCheckConstraint("ck_bid_amount", "amount > 0"));
+            e.HasIndex(x => new { x.AuctionId, x.Amount });
+            e.HasOne<AuctionListing>().WithMany().HasForeignKey(x => x.AuctionId);
+        });
+        b.Entity<AuctionSettlement>(e => { e.ToTable("auction_settlements"); e.HasKey(x => x.AuctionId); });
+        b.Entity<ReservedBalance>(e =>
+        {
+            e.ToTable("reserved_balances", t => t.HasCheckConstraint("ck_reserved_amount", "amount > 0"));
+            e.HasIndex(x => new { x.Reason, x.RefId }).IsUnique();
+            e.HasIndex(x => new { x.MembershipId, x.Status });
+        });
+        b.Entity<EconomySystemLedger>(e => { e.ToTable("economy_system_ledger"); e.HasIndex(x => new { x.ServerId, x.Currency, x.Reason, x.RefId }).IsUnique(); });
+        b.Entity<EconomyAuditEvent>(e => { e.ToTable("economy_audit_events"); e.Property(x => x.DataJson).HasColumnType("jsonb"); e.HasIndex(x => new { x.ServerId, x.Status, x.At }); });
+        b.Entity<WishlistEntry>(e => { e.ToTable("wishlists"); e.HasIndex(x => x.MembershipId); e.HasIndex(x => new { x.ServerId, x.FormId }); MembershipFk(e, x => new { x.MembershipId, x.ServerId }); });
+        b.Entity<PriceAlert>(e => { e.ToTable("price_alerts"); e.HasIndex(x => new { x.WishlistId, x.Kind, x.RefId }).IsUnique(); e.HasIndex(x => new { x.MembershipId, x.At }); });
+        b.Entity<UserFollow>(e =>
+        {
+            e.ToTable("user_follows", t => t.HasCheckConstraint("ck_no_self_follow", "follower_membership_id <> followee_membership_id"));
+            e.HasKey(x => new { x.FollowerMembershipId, x.FolloweeMembershipId });
+            e.HasIndex(x => x.FolloweeMembershipId);
+            MembershipFk(e, x => new { x.FollowerMembershipId, x.ServerId });
+            e.HasOne<ServerMembership>().WithMany().HasForeignKey(x => new { x.FolloweeMembershipId, x.ServerId }).HasPrincipalKey(m => new { m.Id, m.ServerId }).OnDelete(DeleteBehavior.Restrict);
+        });
+        b.Entity<Friendship>(e =>
+        {
+            e.ToTable("friendships", t => t.HasCheckConstraint("ck_no_self_friend", "requester_membership_id <> addressee_membership_id"));
+            e.HasIndex(x => new { x.RequesterMembershipId, x.AddresseeMembershipId }).IsUnique();
+            e.HasIndex(x => x.AddresseeMembershipId);
+            MembershipFk(e, x => new { x.RequesterMembershipId, x.ServerId });
+            e.HasOne<ServerMembership>().WithMany().HasForeignKey(x => new { x.AddresseeMembershipId, x.ServerId }).HasPrincipalKey(m => new { m.Id, m.ServerId }).OnDelete(DeleteBehavior.Restrict);
+        });
+        b.Entity<UserBlock>(e => { e.ToTable("user_blocks"); e.HasKey(x => new { x.BlockerMembershipId, x.BlockedMembershipId }); });
+        b.Entity<UserMute>(e => { e.ToTable("user_mutes"); e.HasKey(x => new { x.MuterMembershipId, x.MutedMembershipId }); });
+        b.Entity<UserReport>(e => { e.ToTable("user_reports"); e.HasIndex(x => new { x.ServerId, x.Status, x.CreatedAt }); e.HasIndex(x => new { x.ReporterMembershipId, x.TargetType, x.TargetId }).IsUnique(); });
+        b.Entity<FeedPost>(e =>
+        {
+            e.ToTable("feed_posts");
+            e.Property(x => x.DataJson).HasColumnType("jsonb");
+            e.HasIndex(x => new { x.ServerId, x.Status, x.CreatedAt });
+            e.HasIndex(x => new { x.AuthorMembershipId, x.CreatedAt });
+            MembershipFk(e, x => new { x.AuthorMembershipId, x.ServerId });
+        });
+        b.Entity<FeedPostCard>(e =>
+        {
+            e.ToTable("feed_post_cards");
+            e.HasKey(x => new { x.PostId, x.Position });
+            e.Property(x => x.SnapshotJson).HasColumnType("jsonb");
+            e.HasOne<FeedPost>().WithMany().HasForeignKey(x => x.PostId);
+            e.HasOne<CardInstance>().WithMany().HasForeignKey(x => x.CardId).OnDelete(DeleteBehavior.Restrict);
+        });
+        b.Entity<FeedLike>(e => { e.ToTable("feed_likes"); e.HasKey(x => new { x.PostId, x.MembershipId }); e.HasOne<FeedPost>().WithMany().HasForeignKey(x => x.PostId); });
+        b.Entity<FeedSave>(e => { e.ToTable("feed_saves"); e.HasKey(x => new { x.PostId, x.MembershipId }); e.HasOne<FeedPost>().WithMany().HasForeignKey(x => x.PostId); });
+        b.Entity<FeedComment>(e => { e.ToTable("feed_comments"); e.HasIndex(x => new { x.PostId, x.CreatedAt }); e.HasOne<FeedPost>().WithMany().HasForeignKey(x => x.PostId); });
+        b.Entity<ModerationAction>(e => { e.ToTable("moderation_actions"); e.HasIndex(x => x.At); });
+        b.Entity<AccountRestriction>(e => { e.ToTable("account_restrictions"); e.HasIndex(x => new { x.AccountId, x.Until }); });
+        b.Entity<Notification>(e =>
+        {
+            e.ToTable("notifications");
+            e.Property(x => x.DataJson).HasColumnType("jsonb");
+            e.HasIndex(x => new { x.MembershipId, x.DedupeKey }).IsUnique();
+            e.HasIndex(x => new { x.MembershipId, x.CreatedAt });
+        });
+        b.Entity<MailboxMessage>(e =>
+        {
+            e.ToTable("mailbox_messages");
+            e.Property(x => x.AttachmentsJson).HasColumnType("jsonb");
+            e.HasIndex(x => new { x.MembershipId, x.DedupeKey }).IsUnique();
+        });
+        b.Entity<AchievementProgress>(e => { e.ToTable("achievement_progress"); e.HasKey(x => new { x.MembershipId, x.AchievementId }); });
+        b.Entity<Collection>(e =>
+        {
+            e.ToTable("collections");
+            e.HasMany(x => x.Items).WithOne().HasForeignKey(i => i.CollectionId).OnDelete(DeleteBehavior.Cascade);
+            e.HasIndex(x => new { x.MembershipId, x.Name }).IsUnique();
+            MembershipFk(e, x => new { x.MembershipId, x.ServerId });
+        });
+        b.Entity<CollectionItem>(e =>
+        {
+            e.ToTable("collection_items");
+            e.HasKey(x => new { x.CollectionId, x.CardId });
+            e.HasOne<CardInstance>().WithMany().HasForeignKey(x => x.CardId).OnDelete(DeleteBehavior.Cascade);
+        });
+        b.Entity<RankedSeason>(e => { e.ToTable("ranked_seasons"); e.HasIndex(x => new { x.ServerId, x.Status }); });
+        b.Entity<RankedRecord>(e =>
+        {
+            e.ToTable("ranked_records");
+            e.HasKey(x => new { x.SeasonId, x.MembershipId });
+            e.HasIndex(x => new { x.SeasonId, x.Rating });
+            e.HasOne<RankedSeason>().WithMany().HasForeignKey(x => x.SeasonId);
         });
     }
 }

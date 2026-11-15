@@ -147,12 +147,15 @@ public class CardInstance
     public long Id { get; set; }
     public int ServerId { get; set; }
     public long OwnerMembershipId { get; set; }
+    /// <summary>12-char collectible serial (A-Z0-9), unique forever, never changes. Not an ownership credential.</summary>
+    public string Serial { get; set; } = "";
     public string FormId { get; set; } = "";
     public string Rarity { get; set; } = "";
     public string Quality { get; set; } = "";
     public string Finish { get; set; } = "";
     public int Level { get; set; } = 1;
     public int Exp { get; set; }
+    public int SkillLevel { get; set; } = 1;
     public bool IsFavorite { get; set; }
     public bool IsLocked { get; set; }
     /// <summary>Business lock (e.g. "trade:{id}"). Cards with a busy state cannot be traded/evolved/consumed.</summary>

@@ -128,3 +128,29 @@ namespace PetStar.Rules
         }
     }
 }
+
+namespace PetStar.Rules
+{
+    public sealed class TrainingStep
+    {
+        public int MinCardLevel;
+        public int Scrolls;
+        public int Beans;
+    }
+
+    /// <summary>Skill upgrade (training) rules: capped at level 5; requirements validated by the server.</summary>
+    public static class TrainingRules
+    {
+        public const int MaxSkillLevel = 5;
+        public const string ScrollItemId = "training_scroll";
+
+        public static TrainingStep? Next(int currentSkillLevel) => currentSkillLevel switch
+        {
+            1 => new TrainingStep { MinCardLevel = 10, Scrolls = 1, Beans = 200 },
+            2 => new TrainingStep { MinCardLevel = 20, Scrolls = 2, Beans = 500 },
+            3 => new TrainingStep { MinCardLevel = 30, Scrolls = 4, Beans = 1000 },
+            4 => new TrainingStep { MinCardLevel = 40, Scrolls = 8, Beans = 2000 },
+            _ => null,
+        };
+    }
+}

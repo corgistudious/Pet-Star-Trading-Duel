@@ -1,0 +1,267 @@
+{
+ "version": 1,
+ "notes": "Discovery/collection rewards are granted once per membership (ledger ref achievement:{id}); codex entries are never removed, so trading cards back and forth cannot farm them.",
+ "achievements": [
+  {
+   "id": "first_pack",
+   "trigger": "pack_opened",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 50
+   },
+   "packs": {}
+  },
+  {
+   "id": "first_rare",
+   "trigger": "rare_obtained",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 100
+   },
+   "packs": {}
+  },
+  {
+   "id": "first_evolution",
+   "trigger": "evolution",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 150
+   },
+   "packs": {}
+  },
+  {
+   "id": "first_duel_win",
+   "trigger": "duel_win",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 100
+   },
+   "packs": {}
+  },
+  {
+   "id": "first_market_sale",
+   "trigger": "market_sale",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 50
+   },
+   "packs": {}
+  },
+  {
+   "id": "first_market_purchase",
+   "trigger": "market_purchase",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 50
+   },
+   "packs": {}
+  },
+  {
+   "id": "first_auction_win",
+   "trigger": "auction_win",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 80
+   },
+   "packs": {}
+  },
+  {
+   "id": "first_post",
+   "trigger": "feed_post",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 20
+   },
+   "packs": {}
+  },
+  {
+   "id": "codex_10",
+   "trigger": "codex_count",
+   "threshold": 10,
+   "currencies": {
+    "MINI_GREEN_BEAN": 200
+   },
+   "packs": {}
+  },
+  {
+   "id": "codex_25",
+   "trigger": "codex_count",
+   "threshold": 25,
+   "currencies": {
+    "MINI_GREEN_BEAN": 400
+   },
+   "packs": {}
+  },
+  {
+   "id": "codex_50",
+   "trigger": "codex_count",
+   "threshold": 50,
+   "currencies": {
+    "MINI_GREEN_BEAN": 800,
+    "RAINBOW_STAR": 10
+   },
+   "packs": {}
+  },
+  {
+   "id": "codex_100",
+   "trigger": "codex_count",
+   "threshold": 100,
+   "currencies": {
+    "MINI_GREEN_BEAN": 1500,
+    "RAINBOW_STAR": 25
+   },
+   "packs": {}
+  },
+  {
+   "id": "codex_200",
+   "trigger": "codex_count",
+   "threshold": 200,
+   "currencies": {
+    "MINI_GREEN_BEAN": 5000,
+    "RAINBOW_STAR": 100
+   },
+   "packs": {}
+  },
+  {
+   "id": "family_complete_1",
+   "trigger": "family_complete",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 150
+   },
+   "packs": {}
+  },
+  {
+   "id": "family_complete_10",
+   "trigger": "family_complete",
+   "threshold": 10,
+   "currencies": {
+    "MINI_GREEN_BEAN": 1000
+   },
+   "packs": {}
+  },
+  {
+   "id": "rare_collector_10",
+   "trigger": "rare_owned_distinct",
+   "threshold": 10,
+   "currencies": {
+    "MINI_GREEN_BEAN": 500
+   },
+   "packs": {}
+  },
+  {
+   "id": "duel_wins_25",
+   "trigger": "duel_win",
+   "threshold": 25,
+   "currencies": {
+    "MINI_GREEN_BEAN": 500
+   },
+   "packs": {}
+  },
+  {
+   "id": "ranked_wins_10",
+   "trigger": "ranked_win",
+   "threshold": 10,
+   "currencies": {
+    "MINI_GREEN_BEAN": 600
+   },
+   "packs": {}
+  },
+  {
+   "id": "element_set_fire",
+   "trigger": "element_complete",
+   "element": "fire",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 1000
+   },
+   "packs": {
+    "basic_pack": 1
+   }
+  },
+  {
+   "id": "element_set_water",
+   "trigger": "element_complete",
+   "element": "water",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 1000
+   },
+   "packs": {
+    "basic_pack": 1
+   }
+  },
+  {
+   "id": "element_set_nature",
+   "trigger": "element_complete",
+   "element": "nature",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 1000
+   },
+   "packs": {
+    "basic_pack": 1
+   }
+  },
+  {
+   "id": "element_set_earth",
+   "trigger": "element_complete",
+   "element": "earth",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 1000
+   },
+   "packs": {
+    "basic_pack": 1
+   }
+  },
+  {
+   "id": "element_set_lightning",
+   "trigger": "element_complete",
+   "element": "lightning",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 1000
+   },
+   "packs": {
+    "basic_pack": 1
+   }
+  },
+  {
+   "id": "element_set_wind",
+   "trigger": "element_complete",
+   "element": "wind",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 1000
+   },
+   "packs": {
+    "basic_pack": 1
+   }
+  },
+  {
+   "id": "element_set_light",
+   "trigger": "element_complete",
+   "element": "light",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 1000
+   },
+   "packs": {
+    "basic_pack": 1
+   }
+  },
+  {
+   "id": "element_set_dark",
+   "trigger": "element_complete",
+   "element": "dark",
+   "threshold": 1,
+   "currencies": {
+    "MINI_GREEN_BEAN": 1000
+   },
+   "packs": {
+    "basic_pack": 1
+   }
+  }
+ ]
+}
