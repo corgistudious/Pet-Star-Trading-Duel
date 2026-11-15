@@ -1,0 +1,14 @@
+{
+  "name": "PetStar.Editor",
+  "rootNamespace": "PetStar.EditorTools",
+  "references": [
+    "PetStar.Client",
+    "Unity.TextMeshPro",
+    "Unity.Addressables",
+    "Unity.Addressables.Editor",
+    "Unity.ResourceManager"
+  ],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "autoReferenced": false
+}

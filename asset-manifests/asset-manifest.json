@@ -939,6 +939,356 @@
       },
       "reference": "ui_currency_mini_green_bean",
       "history": []
+    },
+    "ui_pack_basic": {
+      "assetId": "ui_pack_basic",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in sky blue and white with sapphire accents and a large stylized golden five-pointed star emblem in the center, soft sparkles on the foil, cute and premium, no text, no letters, no logos besides the abstract star.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "8903641f972d48c8b6d5bfcebd0cbaa4233b55e1e12dc320d5206ec8241eb37c",
+      "bytes": 2122041,
+      "version": 1,
+      "generationCost": 0.063412,
+      "usage": {
+        "input_tokens": 164,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 164
+        },
+        "output_tokens": 1956,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 372
+        },
+        "total_tokens": 2120
+      },
+      "jobKey": "f12f8dc57656f202",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "8903641f972d48c8b6d5bfcebd0cbaa4233b55e1e12dc320d5206ec8241eb37c",
+        "bytes": 2122041,
+        "alphaCoverage": 0.2885,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_pack_basic_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:46:16Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_pack_premium": {
+      "assetId": "ui_pack_premium",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in royal purple and rose-gold with a large stylized rainbow crystal five-pointed star emblem in the center surrounded by small gold sparkles, luxurious and premium, no text, no letters, no logos besides the abstract star.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "f44723b1469bbeea4647d1071c70600e640bd2a3e0221cf13c0aabe832320f72",
+      "bytes": 2399632,
+      "version": 1,
+      "generationCost": 0.062383,
+      "usage": {
+        "input_tokens": 163,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 163
+        },
+        "output_tokens": 1924,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 340
+        },
+        "total_tokens": 2087
+      },
+      "jobKey": "0ae5383aeedb9255",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "f44723b1469bbeea4647d1071c70600e640bd2a3e0221cf13c0aabe832320f72",
+        "bytes": 2399632,
+        "alphaCoverage": 0.3566,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_pack_premium_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:46:33Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "bg_lobby_portrait": {
+      "assetId": "bg_lobby_portrait",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nPremium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a floating cozy sky island plaza with soft clouds, rounded white stone paths, little pastel gardens and a gentle golden glow at the horizon, viewed from slightly above, portrait composition.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "opaque",
+      "dimensions": "1024x1536",
+      "sha256": "5b469f533cc22ad60f82da37f5034c8461c84741745b271426f385bf50e266df",
+      "bytes": 1817694,
+      "version": 1,
+      "generationCost": 0.063851,
+      "usage": {
+        "input_tokens": 207,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 207
+        },
+        "output_tokens": 1963,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 379
+        },
+        "total_tokens": 2170
+      },
+      "jobKey": "08a993d137e95759",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGB",
+        "sha256": "5b469f533cc22ad60f82da37f5034c8461c84741745b271426f385bf50e266df",
+        "bytes": 1817694,
+        "alphaCoverage": null,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/bg_lobby_portrait_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:46:48Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "bg_lobby_landscape": {
+      "assetId": "bg_lobby_landscape",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nPremium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a floating cozy sky island plaza with soft clouds, rounded white stone paths, little pastel gardens and a gentle golden glow at the horizon, viewed from slightly above, wide landscape composition.",
+      "model": "gpt-image-1.5",
+      "size": "1536x1024",
+      "quality": "medium",
+      "background": "opaque",
+      "dimensions": "1536x1024",
+      "sha256": "6e28cb929f254a22363dfdc155e34a800ba3e6d29c8e811cadfdfeabed78befa",
+      "bytes": 1976315,
+      "version": 1,
+      "generationCost": 0.06424,
+      "usage": {
+        "input_tokens": 208,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 208
+        },
+        "output_tokens": 1975,
+        "output_tokens_details": {
+          "image_tokens": 1568,
+          "text_tokens": 407
+        },
+        "total_tokens": 2183
+      },
+      "jobKey": "144587f6e36c08c3",
+      "status": "generated",
+      "validation": {
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB",
+        "sha256": "6e28cb929f254a22363dfdc155e34a800ba3e6d29c8e811cadfdfeabed78befa",
+        "bytes": 1976315,
+        "alphaCoverage": null,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/bg_lobby_landscape_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:47:03Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "bg_pack_opening": {
+      "assetId": "bg_pack_opening",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nPremium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a soft radiant spotlight stage among clouds with a circular pedestal glow in the center and floating light motes, portrait composition, the center must stay calm and empty.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "opaque",
+      "dimensions": "1024x1536",
+      "sha256": "10563d333abae039da5233951ae4bb8c92cbd28c2e3cdbb5a80f592bded58f66",
+      "bytes": 1661862,
+      "version": 1,
+      "generationCost": 0.063388,
+      "usage": {
+        "input_tokens": 204,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 204
+        },
+        "output_tokens": 1949,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 365
+        },
+        "total_tokens": 2153
+      },
+      "jobKey": "e428c52e22d28797",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGB",
+        "sha256": "10563d333abae039da5233951ae4bb8c92cbd28c2e3cdbb5a80f592bded58f66",
+        "bytes": 1661862,
+        "alphaCoverage": null,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/bg_pack_opening_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:47:16Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "bg_duel_landscape": {
+      "assetId": "bg_duel_landscape",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nPremium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a clean top-down magical card duel table made of light polished stone with a subtle sapphire and gold geometric border, two mirrored halves divided by a soft glowing center line, five faint card slots on each side, wide landscape composition.",
+      "model": "gpt-image-1.5",
+      "size": "1536x1024",
+      "quality": "medium",
+      "background": "opaque",
+      "dimensions": "1536x1024",
+      "sha256": "350519a044123d35324d0c766fa17cfd60dbb3169b593748931d05e581f10703",
+      "bytes": 2035321,
+      "version": 1,
+      "generationCost": 0.062813,
+      "usage": {
+        "input_tokens": 217,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 217
+        },
+        "output_tokens": 1929,
+        "output_tokens_details": {
+          "image_tokens": 1568,
+          "text_tokens": 361
+        },
+        "total_tokens": 2146
+      },
+      "jobKey": "d406747eaf5f4bc2",
+      "status": "generated",
+      "validation": {
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB",
+        "sha256": "350519a044123d35324d0c766fa17cfd60dbb3169b593748931d05e581f10703",
+        "bytes": 2035321,
+        "alphaCoverage": null,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/bg_duel_landscape_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:47:31Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "bg_duel_portrait": {
+      "assetId": "bg_duel_portrait",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nPremium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a clean top-down magical card duel table made of light polished stone with a subtle sapphire and gold geometric border, two mirrored halves (top and bottom) divided by a soft glowing horizontal center line, faint card slots on each half, portrait composition.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "opaque",
+      "dimensions": "1024x1536",
+      "sha256": "4a3342b50da3726ac7d0cfa2f9442094c7bbade636108847435c3bd5ee9f26d7",
+      "bytes": 1881872,
+      "version": 1,
+      "generationCost": 0.063441,
+      "usage": {
+        "input_tokens": 221,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 221
+        },
+        "output_tokens": 1948,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 364
+        },
+        "total_tokens": 2169
+      },
+      "jobKey": "9de19e7dc3044a96",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGB",
+        "sha256": "4a3342b50da3726ac7d0cfa2f9442094c7bbade636108847435c3bd5ee9f26d7",
+        "bytes": 1881872,
+        "alphaCoverage": null,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/bg_duel_portrait_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:47:45Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
     }
   }
 }

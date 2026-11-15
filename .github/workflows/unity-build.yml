@@ -1,0 +1,73 @@
+# Builds the Unity client in the cloud (no local PC needed). Requires repository secrets:
+#   UNITY_LICENSE (or UNITY_SERIAL), UNITY_EMAIL, UNITY_PASSWORD   – a valid Unity license (Personal/Pro)
+#   ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASS, ANDROID_KEYALIAS_NAME, ANDROID_KEYALIAS_PASS – release signing (AAB)
+# Triggered manually or by pushing a tag v*. Artifacts (APK/AAB/Windows zip) are attached to the run.
+name: Unity client builds
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "API environment baked into the build"
+        default: "staging"
+        type: choice
+        options: [development, staging, production]
+  push:
+    tags: ["v*"]
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: android-apk
+            targetPlatform: Android
+            buildMethod: PetStar.EditorTools.PetStarBuild.BuildAndroidApk
+          - name: android-aab
+            targetPlatform: Android
+            buildMethod: PetStar.EditorTools.PetStarBuild.BuildAndroidAab
+          - name: windows-x64
+            targetPlatform: StandaloneWindows64
+            buildMethod: PetStar.EditorTools.PetStarBuild.BuildWindows
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: jlumbroso/free-disk-space@v1.3.1
+        with: { tool-cache: false, android: false }
+      - uses: actions/cache@v4
+        with:
+          path: client-unity/Library
+          key: Library-${{ matrix.targetPlatform }}-${{ hashFiles('client-unity/Packages/manifest.json') }}
+      - name: Prepare keystore
+        if: matrix.targetPlatform == 'Android'
+        env:
+          KS: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KS" ]; then echo "$KS" | base64 -d > "$RUNNER_TEMP/petstar.keystore"; echo "ANDROID_KEYSTORE_PATH=/github/workspace/../_temp/petstar.keystore" >> $GITHUB_ENV; fi
+      - uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          PETSTAR_ENV: ${{ inputs.environment || 'staging' }}
+          PETSTAR_VERSION: ${{ github.ref_type == 'tag' && github.ref_name || '0.1.0' }}
+          PETSTAR_BUILD_NUMBER: ${{ github.run_number }}
+          ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          ANDROID_KEYALIAS_NAME: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+          ANDROID_KEYALIAS_PASS: ${{ secrets.ANDROID_KEYALIAS_PASS }}
+        with:
+          projectPath: client-unity
+          targetPlatform: ${{ matrix.targetPlatform }}
+          buildMethod: ${{ matrix.buildMethod }}
+          customParameters: -nographics
+      - uses: actions/upload-artifact@v4
+        with:
+          name: petstar-${{ matrix.name }}
+          path: client-unity/Builds/**
+          if-no-files-found: error

@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "notes": "Master Pet Card Template. Reference canvas 1080x1920 (9:16). Rects are [x, y, width, height] from the top-left in reference pixels. Every card uses this exact layout; only artwork, texts, stats, rarity frame color and finish effect change.",
+  "canvas": [1080, 1920],
+  "cornerRadius": 72,
+  "frameThickness": 26,
+  "regions": {
+    "nameBar":     [70, 56, 940, 124],
+    "name":        [110, 66, 700, 104],
+    "element":     [890, 70, 96, 96],
+    "rarity":      [70, 200, 210, 72],
+    "quality":     [296, 200, 150, 72],
+    "level":       [790, 200, 220, 72],
+    "artWindow":   [70, 292, 940, 860],
+    "artwork":     [110, 312, 860, 820],
+    "statHp":      [70, 1178, 300, 150],
+    "statAtk":     [390, 1178, 300, 150],
+    "statDef":     [710, 1178, 300, 150],
+    "skillPanel":  [70, 1352, 940, 420],
+    "skillName":   [110, 1380, 640, 70],
+    "skillCost":   [770, 1384, 200, 62],
+    "skillText":   [110, 1460, 860, 150],
+    "ultName":     [110, 1630, 640, 64],
+    "ultCost":     [770, 1632, 200, 60],
+    "footer":      [70, 1796, 940, 70]
+  },
+  "palette": {
+    "panel": "#FFFFFF",
+    "panelSoft": "#F2F7FF",
+    "ink": "#1D2B4F",
+    "inkSoft": "#5B6B8F",
+    "sapphire": "#2457C5",
+    "gold": "#E8C46A"
+  }
+}

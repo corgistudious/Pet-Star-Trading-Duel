@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "notes": "Prototype design database: 10 sample forms (5 lines). Full catalog (~200 forms / 80 lines) is produced in Phase 5 after art approval. Pet names are proper nouns and are not translated; lore is localized.",
+  "evolutionRules": {
+    "1to2": { "minLevel": 15, "essenceAmount": 5,  "beans": 500 },
+    "2to3": { "minLevel": 30, "essenceAmount": 15, "beans": 2000 }
+  },
+  "families": [
+    {
+      "id": "fam_emberkit", "element": "fire", "role": "striker", "stages": 3,
+      "identity": "small fox-cat; cream face mask; amber eyes with tiny star-shaped highlights; tall ears with ember-orange tufts; tail tip is a living flame; soot-grey sock markings on paws",
+      "forms": [
+        { "id": "pet_emberkit", "name": "Emberkit", "stage": 1,
+          "stats": { "hp": 420, "atk": 68, "def": 36, "spd": 78, "crit": 0.08 },
+          "skill": "ember_pounce", "ultimate": null, "passive": "warm_fur",
+          "art": "a tiny round fox-cat kitten sitting playfully, oversized head, huge sparkling amber eyes, short legs, fluffy orange-red fur, cream face mask, tall ears with ember-orange tufts, a small candle-like flame on the tip of its tail, soot-grey paws",
+          "lore": { "en": "Emberkit naps in warm hearth ashes. When it sneezes, its tail flame flickers into tiny sparks.", "vi": "Emberkit thích ngủ trong tro bếp ấm. Mỗi lần hắt hơi, ngọn lửa ở đuôi lại bắn ra những tia lửa nhỏ." } },
+        { "id": "pet_cinderlynx", "name": "Cinderlynx", "stage": 2,
+          "stats": { "hp": 610, "atk": 99, "def": 52, "spd": 84, "crit": 0.10 },
+          "skill": "cinder_claws", "ultimate": "lynx_flare_rush", "passive": "kindling",
+          "art": "a young lynx-like fire cat in an agile pouncing stance, slimmer body but still chibi proportions, amber eyes with star highlights, cream face mask, longer ear tufts glowing like embers, flame tail now split into two flickering tongues, soot-grey socks, faint glowing ember stripes on its back",
+          "lore": { "en": "Cinderlynx dashes across rooftops at dusk, leaving a trail of warm cinders that never burn the ground.", "vi": "Cinderlynx lướt qua những mái nhà lúc chạng vạng, để lại vệt tro ấm không bao giờ làm cháy mặt đất." } },
+        { "id": "pet_pyrelynx", "name": "Pyrelynx", "stage": 3,
+          "stats": { "hp": 800, "atk": 132, "def": 68, "spd": 90, "crit": 0.12 },
+          "skill": "pyre_fang", "ultimate": "sunfall_blaze", "passive": "blazing_heart",
+          "art": "a majestic chibi fire lynx standing proudly, regal flowing mane of soft flames around its neck, amber eyes with star highlights, cream face mask, long ember ear tufts like little torches, a large blazing tail shaped like a sunburst, soot-grey socks with glowing orange paw pads, ember stripes forming a sun pattern on its back",
+          "lore": { "en": "Legends say a Pyrelynx guards the first sunrise of every year, roaring until the sky turns gold.", "vi": "Truyền thuyết kể rằng Pyrelynx canh giữ bình minh đầu tiên của mỗi năm, gầm vang cho tới khi bầu trời nhuộm vàng." } }
+      ]
+    },
+    {
+      "id": "fam_puddlotl", "element": "water", "role": "guardian", "stages": 3,
+      "identity": "axolotl-like amphibian; pastel teal skin; frilly external gills that become a coral crown; round pearl-white belly; calm sleepy half-lidded eyes; scalloped tail fin with wave pattern",
+      "forms": [
+        { "id": "pet_puddlotl", "name": "Puddlotl", "stage": 1,
+          "stats": { "hp": 520, "atk": 48, "def": 58, "spd": 52, "crit": 0.05 },
+          "skill": "bubble_guard", "ultimate": null, "passive": "slick_skin",
+          "art": "a tiny chubby axolotl creature sitting upright, oversized head, calm sleepy half-lidded eyes with big shiny pupils, smooth pastel teal skin, three soft frilly pink-teal gills on each side of its head, round pearl-white belly, small scalloped tail fin with a wave pattern, holding a floating soap-like bubble",
+          "lore": { "en": "Puddlotl blows sturdy bubbles to shelter tadpoles from the rain.", "vi": "Puddlotl thổi những bong bóng chắc chắn để che mưa cho lũ nòng nọc." } },
+        { "id": "pet_ripplotl", "name": "Ripplotl", "stage": 2,
+          "stats": { "hp": 760, "atk": 66, "def": 86, "spd": 54, "crit": 0.05 },
+          "skill": "ripple_wall", "ultimate": "tidal_taunt", "passive": "regen_gills",
+          "art": "a sturdy chibi axolotl guardian standing on two legs, calm half-lidded eyes, pastel teal skin with darker teal wave stripes, larger frilly gills beginning to harden into small coral branches, pearl-white belly plate like a shield, broad scalloped tail fin, a ring of swirling water around its arms",
+          "lore": { "en": "When the tide rises, Ripplotl plants its tail and holds back the waves for its friends.", "vi": "Khi thủy triều dâng, Ripplotl cắm chặt đuôi xuống và chặn sóng để bảo vệ bạn bè." } },
+        { "id": "pet_tidecrown", "name": "Tidecrown", "stage": 3,
+          "stats": { "hp": 1000, "atk": 84, "def": 112, "spd": 56, "crit": 0.05 },
+          "skill": "coral_bastion", "ultimate": "crown_of_tides", "passive": "abyssal_guard",
+          "art": "a noble chibi axolotl monarch, calm wise half-lidded eyes, pastel teal skin with deep sapphire wave stripes, its gills fully grown into a radiant pink-and-teal coral crown, pearl-white belly armor with shell motifs, majestic flowing scalloped tail fin, a gentle whirlpool of water and pearls orbiting around it",
+          "lore": { "en": "Tidecrown rules a quiet reef where no storm has ever broken a single shell.", "vi": "Tidecrown cai quản một rạn san hô yên bình, nơi chưa cơn bão nào làm vỡ dù chỉ một vỏ sò." } }
+      ]
+    },
+    {
+      "id": "fam_zipmunk", "element": "lightning", "role": "controller", "stages": 2,
+      "identity": "chipmunk-like rodent; butter-yellow fur; three zigzag lightning-bolt stripes on its back; huge bushy tail that crackles with static; bright cyan eyes; acorn motif",
+      "forms": [
+        { "id": "pet_zipmunk", "name": "Zipmunk", "stage": 1,
+          "stats": { "hp": 400, "atk": 58, "def": 38, "spd": 92, "crit": 0.07 },
+          "skill": "static_nibble", "ultimate": null, "passive": "quick_paws",
+          "art": "a tiny hyperactive chipmunk creature mid-hop, oversized head, bright cyan eyes, butter-yellow fur, three dark zigzag lightning-bolt stripes down its back, cheeks puffed with glowing acorns, a huge fluffy tail with little static sparks",
+          "lore": { "en": "Zipmunk stores electric acorns in its cheeks and zaps anyone who tries to steal them.", "vi": "Zipmunk giữ những hạt dẻ điện trong má và giật tê bất cứ ai định lấy trộm." } },
+        { "id": "pet_fulgurmunk", "name": "Fulgurmunk", "stage": 2,
+          "stats": { "hp": 600, "atk": 86, "def": 54, "spd": 104, "crit": 0.09 },
+          "skill": "chain_spark", "ultimate": "storm_acorn", "passive": "overcharge",
+          "art": "a confident chibi chipmunk storm warrior balancing on its tail, bright cyan eyes, butter-yellow fur with glowing zigzag lightning stripes, an enormous bushy tail shaped like a crackling thundercloud, holding a large glowing acorn charged with electricity, small storm goggles pushed up on its forehead",
+          "lore": { "en": "Fulgurmunk hurls storm acorns that burst into harmless but dazzling thunder.", "vi": "Fulgurmunk ném những hạt dẻ bão nổ thành tiếng sấm chói lóa nhưng vô hại." } }
+      ]
+    },
+    {
+      "id": "fam_halowl", "element": "light", "role": "support", "stages": 1,
+      "identity": "round owl; snow-white and pale gold plumage; floating golden halo ring; soft rose-gold eyes; crescent-shaped ear feathers",
+      "forms": [
+        { "id": "pet_halowl", "name": "Halowl", "stage": 1,
+          "stats": { "hp": 640, "atk": 74, "def": 60, "spd": 70, "crit": 0.06 },
+          "skill": "dawn_hymn", "ultimate": "halo_sanctuary", "passive": "radiance",
+          "art": "a round fluffy chibi owl floating gently, almost spherical body, snow-white feathers with pale gold tips, soft warm rose-gold eyes, small crescent-shaped ear feathers, a glowing golden halo ring hovering above its head, tiny wings spread with soft light motes drifting around",
+          "lore": { "en": "Halowl sings at dawn; travelers who hear it wake up feeling brand new.", "vi": "Halowl cất tiếng hát lúc bình minh; lữ khách nào nghe thấy đều tỉnh dậy với cảm giác hoàn toàn khỏe khoắn." } }
+      ]
+    },
+    {
+      "id": "fam_gloomoth", "element": "dark", "role": "mage", "stages": 1,
+      "identity": "fuzzy moth; deep violet and midnight-blue wings with crescent-moon eye spots; feathery antennae; glowing lilac eyes; silver dust",
+      "forms": [
+        { "id": "pet_gloomoth", "name": "Gloomoth", "stage": 1,
+          "stats": { "hp": 560, "atk": 96, "def": 46, "spd": 82, "crit": 0.08 },
+          "skill": "dusk_powder", "ultimate": "eclipse_veil", "passive": "moonlit_drain",
+          "art": "a fuzzy chibi moth creature hovering, round fluffy lavender body, big glowing lilac eyes, long feathery antennae, large deep violet and midnight-blue wings decorated with silver crescent-moon eye spots, sprinkling sparkling silver dust",
+          "lore": { "en": "Gloomoth's wing dust carries dreams; too much of it brings long, heavy sleep.", "vi": "Phấn cánh của Gloomoth mang theo giấc mơ; hít quá nhiều sẽ chìm vào giấc ngủ dài nặng trĩu." } }
+      ]
+    }
+  ]
+}

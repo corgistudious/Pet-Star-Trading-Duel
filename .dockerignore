@@ -1,0 +1,8 @@
+**/bin
+**/obj
+client-unity
+assets-source
+asset-manifests
+docs
+.git
+**/node_modules

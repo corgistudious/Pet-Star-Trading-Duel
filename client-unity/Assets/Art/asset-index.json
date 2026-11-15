@@ -1,0 +1,142 @@
+{
+  "pet_cinderlynx": {
+    "path": "Assets/Art/Pets/pet_cinderlynx.png",
+    "category": "pet",
+    "sourceSha256": "3abceef554bf1a429bd8c837defbfdf532cc73f00cf59eaa083af30e13669eaa",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_emberkit": {
+    "path": "Assets/Art/Pets/pet_emberkit.png",
+    "category": "pet",
+    "sourceSha256": "00e7cd52b0706baac2cf0d3bab50580b379077e0fb39bc6223d14ee79665d5c6",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_fulgurmunk": {
+    "path": "Assets/Art/Pets/pet_fulgurmunk.png",
+    "category": "pet",
+    "sourceSha256": "3e63945d98580b9db385d681ac91e763743f333d4b8d7781801f7463170b78a6",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_gloomoth": {
+    "path": "Assets/Art/Pets/pet_gloomoth.png",
+    "category": "pet",
+    "sourceSha256": "cd043a536a261963fb5a16f3701f58acef8a60484094d75ee61e46f63578218d",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_halowl": {
+    "path": "Assets/Art/Pets/pet_halowl.png",
+    "category": "pet",
+    "sourceSha256": "5434a70d88adc62c0e3a136e7edf2cf9c80b29b8f78e92cf726c78580ad5adc1",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_puddlotl": {
+    "path": "Assets/Art/Pets/pet_puddlotl.png",
+    "category": "pet",
+    "sourceSha256": "4ea5962de9da0b81a8acc899fc3a40ecb7e6315abee155805221756aab8e0a78",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_pyrelynx": {
+    "path": "Assets/Art/Pets/pet_pyrelynx.png",
+    "category": "pet",
+    "sourceSha256": "a35613a1f482afacc52f022cc24413bb77d17ba7634b71b1cd62397f235ff1aa",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_ripplotl": {
+    "path": "Assets/Art/Pets/pet_ripplotl.png",
+    "category": "pet",
+    "sourceSha256": "976ef6bc52585ae7d57818ae707aad8fc6d7113a9557a3e44a4331990aff17e5",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_tidecrown": {
+    "path": "Assets/Art/Pets/pet_tidecrown.png",
+    "category": "pet",
+    "sourceSha256": "565be72af807220d711fe6bbd80542a67f4227cfa6f2f0ec16710f283665d455",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_zipmunk": {
+    "path": "Assets/Art/Pets/pet_zipmunk.png",
+    "category": "pet",
+    "sourceSha256": "27b57b8fc42024fe788caf5a51816deac68ceea16b4e78b4032fc3208440d301",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_currency_mini_green_bean": {
+    "path": "Assets/Art/UI/Currency/ui_currency_mini_green_bean.png",
+    "category": "ui",
+    "sourceSha256": "79bc3e6e5b74d27c20e4f11d844d76a684d55c2dbb60b8b51d52a1f125f7b6b9",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_currency_mini_green_bean_bag": {
+    "path": "Assets/Art/UI/Currency/ui_currency_mini_green_bean_bag.png",
+    "category": "ui",
+    "sourceSha256": "791f6c873359b905933ef6cc3baceb138ba26bc771f55fb4c911d39af8fc38cf",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_currency_mini_green_bean_chest": {
+    "path": "Assets/Art/UI/Currency/ui_currency_mini_green_bean_chest.png",
+    "category": "ui",
+    "sourceSha256": "f7511fc8ed7a2f955212c6d0a8644abe5b24edc4d99e24c3e94ee5f76e5a541f",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_currency_mini_green_bean_cluster": {
+    "path": "Assets/Art/UI/Currency/ui_currency_mini_green_bean_cluster.png",
+    "category": "ui",
+    "sourceSha256": "d74787fdba9d38e05057ee62fbc722cab7e49ea01840de682b1e86b924489776",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_currency_rainbow_star": {
+    "path": "Assets/Art/UI/Currency/ui_currency_rainbow_star.png",
+    "category": "ui",
+    "sourceSha256": "74679b457a6d59299f62c64a033847a4952b0fe632f040bc0b655309aef8640f",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_currency_rainbow_star_bag": {
+    "path": "Assets/Art/UI/Currency/ui_currency_rainbow_star_bag.png",
+    "category": "ui",
+    "sourceSha256": "0408c69da65ddb0fb83ec9d16d51a007795bf419ee7e339811b6ced74ab7efda",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_currency_rainbow_star_chest": {
+    "path": "Assets/Art/UI/Currency/ui_currency_rainbow_star_chest.png",
+    "category": "ui",
+    "sourceSha256": "86b1f2e9568397db50f43ebba9eb190409b861b9bfc542c382e930fc054750f5",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_currency_rainbow_star_cluster": {
+    "path": "Assets/Art/UI/Currency/ui_currency_rainbow_star_cluster.png",
+    "category": "ui",
+    "sourceSha256": "071beae31e8312e0d2a7d04d2188f2fab40faa4c796dca89103ed6cf067c473f",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_pack_basic": {
+    "path": "Assets/Art/UI/Packs/ui_pack_basic.png",
+    "category": "ui",
+    "sourceSha256": "8903641f972d48c8b6d5bfcebd0cbaa4233b55e1e12dc320d5206ec8241eb37c",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_pack_premium": {
+    "path": "Assets/Art/UI/Packs/ui_pack_premium.png",
+    "category": "ui",
+    "sourceSha256": "f44723b1469bbeea4647d1071c70600e640bd2a3e0221cf13c0aabe832320f72",
+    "version": 1,
+    "status": "generated"
+  }
+}

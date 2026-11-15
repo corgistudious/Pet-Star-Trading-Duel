@@ -1,21 +1,98 @@
 {
   "style": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.",
   "assets": [
-    { "id": "ui_currency_rainbow_star", "quality": "high",
-      "prompt": "A single five-pointed crystal star icon. The star is faceted translucent crystal with rainbow refraction across its facets (red, orange, yellow, green, cyan, blue, violet blending smoothly), framed by a thick polished gold rim with soft bevel, bright specular highlights and a few tiny sparkles around it. Slightly plump rounded points for a cute chibi feel." },
-    { "id": "ui_currency_mini_green_bean", "quality": "high",
-      "prompt": "A single small plump mung-bean-shaped icon, glossy jade green (emerald to mint gradient), very shiny with a big soft specular highlight, smooth kidney bean shape, with one tiny fresh light-green sprout leaf growing from the top. Cute, round, juicy and sharp." },
-    { "id": "ui_currency_rainbow_star_cluster", "quality": "medium", "reference": "ui_currency_rainbow_star",
-      "prompt": "Using the exact same rainbow crystal star with gold rim from the reference image, create a small pile of five of those stars of slightly different sizes overlapping, with tiny sparkles. Keep identical materials, colors and rendering style." },
-    { "id": "ui_currency_mini_green_bean_cluster", "quality": "medium", "reference": "ui_currency_mini_green_bean",
-      "prompt": "Using the exact same glossy jade green bean from the reference image, create a small heap of about seven of those beans, a couple of them with the tiny sprout leaf. Keep identical materials, colors and rendering style." },
-    { "id": "ui_currency_rainbow_star_bag", "quality": "medium", "reference": "ui_currency_rainbow_star",
-      "prompt": "A cute plump royal purple velvet drawstring pouch tied with a gold cord, open at the top and overflowing with the exact same rainbow crystal stars with gold rims from the reference image, two stars spilling in front. Keep identical star materials and rendering style." },
-    { "id": "ui_currency_mini_green_bean_bag", "quality": "medium", "reference": "ui_currency_mini_green_bean",
-      "prompt": "A cute plump cream-colored burlap drawstring sack tied with twine, with a small green leaf emblem stitched on it, open at the top and overflowing with the exact same glossy jade green beans from the reference image, a few beans spilling in front. Keep identical bean materials and rendering style." },
-    { "id": "ui_currency_rainbow_star_chest", "quality": "medium", "reference": "ui_currency_rainbow_star",
-      "prompt": "A cute chunky treasure chest with magenta-violet lacquered panels and ornate gold trim, lid open, filled to overflowing with the exact same rainbow crystal stars with gold rims from the reference image, soft magical glow from inside. Keep identical star materials and rendering style." },
-    { "id": "ui_currency_mini_green_bean_chest", "quality": "medium", "reference": "ui_currency_mini_green_bean",
-      "prompt": "A cute chunky wooden treasure chest with warm honey-brown planks and bronze corner fittings, lid open, filled to overflowing with the exact same glossy jade green beans from the reference image, a few small green leaves among them. Keep identical bean materials and rendering style." }
+    {
+      "id": "ui_currency_rainbow_star",
+      "quality": "high",
+      "prompt": "A single five-pointed crystal star icon. The star is faceted translucent crystal with rainbow refraction across its facets (red, orange, yellow, green, cyan, blue, violet blending smoothly), framed by a thick polished gold rim with soft bevel, bright specular highlights and a few tiny sparkles around it. Slightly plump rounded points for a cute chibi feel."
+    },
+    {
+      "id": "ui_currency_mini_green_bean",
+      "quality": "high",
+      "prompt": "A single small plump mung-bean-shaped icon, glossy jade green (emerald to mint gradient), very shiny with a big soft specular highlight, smooth kidney bean shape, with one tiny fresh light-green sprout leaf growing from the top. Cute, round, juicy and sharp."
+    },
+    {
+      "id": "ui_currency_rainbow_star_cluster",
+      "quality": "medium",
+      "reference": "ui_currency_rainbow_star",
+      "prompt": "Using the exact same rainbow crystal star with gold rim from the reference image, create a small pile of five of those stars of slightly different sizes overlapping, with tiny sparkles. Keep identical materials, colors and rendering style."
+    },
+    {
+      "id": "ui_currency_mini_green_bean_cluster",
+      "quality": "medium",
+      "reference": "ui_currency_mini_green_bean",
+      "prompt": "Using the exact same glossy jade green bean from the reference image, create a small heap of about seven of those beans, a couple of them with the tiny sprout leaf. Keep identical materials, colors and rendering style."
+    },
+    {
+      "id": "ui_currency_rainbow_star_bag",
+      "quality": "medium",
+      "reference": "ui_currency_rainbow_star",
+      "prompt": "A cute plump royal purple velvet drawstring pouch tied with a gold cord, open at the top and overflowing with the exact same rainbow crystal stars with gold rims from the reference image, two stars spilling in front. Keep identical star materials and rendering style."
+    },
+    {
+      "id": "ui_currency_mini_green_bean_bag",
+      "quality": "medium",
+      "reference": "ui_currency_mini_green_bean",
+      "prompt": "A cute plump cream-colored burlap drawstring sack tied with twine, with a small green leaf emblem stitched on it, open at the top and overflowing with the exact same glossy jade green beans from the reference image, a few beans spilling in front. Keep identical bean materials and rendering style."
+    },
+    {
+      "id": "ui_currency_rainbow_star_chest",
+      "quality": "medium",
+      "reference": "ui_currency_rainbow_star",
+      "prompt": "A cute chunky treasure chest with magenta-violet lacquered panels and ornate gold trim, lid open, filled to overflowing with the exact same rainbow crystal stars with gold rims from the reference image, soft magical glow from inside. Keep identical star materials and rendering style."
+    },
+    {
+      "id": "ui_currency_mini_green_bean_chest",
+      "quality": "medium",
+      "reference": "ui_currency_mini_green_bean",
+      "prompt": "A cute chunky wooden treasure chest with warm honey-brown planks and bronze corner fittings, lid open, filled to overflowing with the exact same glossy jade green beans from the reference image, a few small green leaves among them. Keep identical bean materials and rendering style."
+    },
+    {
+      "id": "ui_pack_basic",
+      "quality": "medium",
+      "size": "1024x1536",
+      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in sky blue and white with sapphire accents and a large stylized golden five-pointed star emblem in the center, soft sparkles on the foil, cute and premium, no text, no letters, no logos besides the abstract star."
+    },
+    {
+      "id": "ui_pack_premium",
+      "quality": "medium",
+      "size": "1024x1536",
+      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in royal purple and rose-gold with a large stylized rainbow crystal five-pointed star emblem in the center surrounded by small gold sparkles, luxurious and premium, no text, no letters, no logos besides the abstract star."
+    },
+    {
+      "id": "bg_lobby_portrait",
+      "quality": "medium",
+      "size": "1024x1536",
+      "background": "opaque",
+      "prompt": "Premium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a floating cozy sky island plaza with soft clouds, rounded white stone paths, little pastel gardens and a gentle golden glow at the horizon, viewed from slightly above, portrait composition."
+    },
+    {
+      "id": "bg_lobby_landscape",
+      "quality": "medium",
+      "size": "1536x1024",
+      "background": "opaque",
+      "prompt": "Premium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a floating cozy sky island plaza with soft clouds, rounded white stone paths, little pastel gardens and a gentle golden glow at the horizon, viewed from slightly above, wide landscape composition."
+    },
+    {
+      "id": "bg_pack_opening",
+      "quality": "medium",
+      "size": "1024x1536",
+      "background": "opaque",
+      "prompt": "Premium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a soft radiant spotlight stage among clouds with a circular pedestal glow in the center and floating light motes, portrait composition, the center must stay calm and empty."
+    },
+    {
+      "id": "bg_duel_landscape",
+      "quality": "medium",
+      "size": "1536x1024",
+      "background": "opaque",
+      "prompt": "Premium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a clean top-down magical card duel table made of light polished stone with a subtle sapphire and gold geometric border, two mirrored halves divided by a soft glowing center line, five faint card slots on each side, wide landscape composition."
+    },
+    {
+      "id": "bg_duel_portrait",
+      "quality": "medium",
+      "size": "1024x1536",
+      "background": "opaque",
+      "prompt": "Premium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a clean top-down magical card duel table made of light polished stone with a subtle sapphire and gold geometric border, two mirrored halves (top and bottom) divided by a soft glowing horizontal center line, faint card slots on each half, portrait composition."
+    }
   ]
 }

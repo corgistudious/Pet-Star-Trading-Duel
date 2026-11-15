@@ -148,7 +148,7 @@ def cmd_gen_ui(args) -> None:
             continue
         prompt = spec["style"] + "\n" + a["prompt"]
         run_job(a["id"], "ui", prompt, f"assets-source/generated/ui/{a['id']}_{{v}}.png", None, cfg["model"],
-                a.get("size", "1024x1024"), a["quality"], "transparent", args.dry_run, args.force_new, a.get("reference"))
+                a.get("size", "1024x1024"), a["quality"], a.get("background", "transparent"), args.dry_run, args.force_new, a.get("reference"))
     cmd_status(None)
 
 

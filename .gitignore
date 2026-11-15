@@ -31,3 +31,5 @@ deployment/secrets/
 # Pipeline runtime
 asset-manifests/.pipeline.lock
 asset-manifests/*.tmp
+deployment/nginx/certs/
+deployment/env/*.env

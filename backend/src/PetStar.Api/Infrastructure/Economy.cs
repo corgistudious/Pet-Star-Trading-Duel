@@ -4,6 +4,10 @@ using PetStar.Rules;
 
 namespace PetStar.Api.Infrastructure;
 
+// Table/column names concatenated below are private compile-time constants chosen by this class (never user input);
+// every value is passed as a SQL parameter.
+#pragma warning disable EF1002, EF1003
+
 /// <summary>
 /// The only code path that changes balances. Every change:
 ///  1. inserts a ledger row first (unique on membership+asset+reason+refId → a business reference can never

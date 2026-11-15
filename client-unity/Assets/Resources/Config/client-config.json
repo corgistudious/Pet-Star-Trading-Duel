@@ -1,0 +1,9 @@
+{
+  "environment": "development",
+  "environments": {
+    "development": { "apiBaseUrl": "http://127.0.0.1:5080", "androidEmulatorApiBaseUrl": "http://10.0.2.2:5080" },
+    "staging":     { "apiBaseUrl": "https://staging-api.petstar.example" },
+    "production":  { "apiBaseUrl": "https://api.petstar.example" }
+  },
+  "notes": "Hostnames for staging/production are placeholders until the owner provides the real domain. Build scripts override 'environment' per build."
+}
