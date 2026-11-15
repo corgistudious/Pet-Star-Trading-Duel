@@ -4,13 +4,14 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { api, refreshSession, tokens } from '../api/client';
 import type { AuthResponse, PlayerDto, ProfileDto } from '../api/types';
 
-type Status = 'loading' | 'anonymous' | 'account' | 'in_server';
+type Status = 'loading' | 'anonymous' | 'account' | 'in_server' | 'unreachable';
 
 interface Session {
   status: Status;
   profile: ProfileDto | null;
   player: PlayerDto | null;
   login: (a: AuthResponse) => Promise<void>;
+  retry: () => void;
   logout: () => Promise<void>;
   enterServer: (id: number, nickname?: string) => Promise<void>;
   leaveServer: () => void;
@@ -32,7 +33,11 @@ export function SessionProvider({ children }: { children: ReactNode }) {
 
   const bootstrap = useCallback(async () => {
     try {
-      if (!tokens.access && !(await refreshSession())) { setStatus('anonymous'); return; }
+      if (!tokens.access && !(await refreshSession())) {
+        // a rejected token is cleared by refreshSession; if one is still stored the server was unreachable
+        setStatus(tokens.refresh ? 'unreachable' : 'anonymous');
+        return;
+      }
       setProfile(await api.get<ProfileDto>('/api/me'));
       if (tokens.serverId != null) {
         try {
@@ -48,6 +53,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => { void bootstrap(); }, [bootstrap]);
+  useEffect(() => {
+    if (status !== 'unreachable') return;
+    const again = () => { setStatus('loading'); void bootstrap(); };
+    window.addEventListener('online', again);
+    return () => window.removeEventListener('online', again);
+  }, [status, bootstrap]);
+  const retry = useCallback(() => { setStatus('loading'); void bootstrap(); }, [bootstrap]);
   useEffect(() => tokens.subscribe(() => { if (!tokens.access && !tokens.refresh) { setStatus('anonymous'); setPlayer(null); setProfile(null); } }), []);
 
   const login = useCallback(async (a: AuthResponse) => {
@@ -79,8 +91,8 @@ export function SessionProvider({ children }: { children: ReactNode }) {
 
   const hasRole = useCallback((...roles: string[]) => !!profile?.roles.some((r) => roles.includes(r)), [profile]);
 
-  const value = useMemo<Session>(() => ({ status, profile, player, login, logout, enterServer, leaveServer, reloadPlayer, applyCurrencies, reloadProfile, hasRole }),
-    [status, profile, player, login, logout, enterServer, leaveServer, reloadPlayer, applyCurrencies, reloadProfile, hasRole]);
+  const value = useMemo<Session>(() => ({ status, profile, player, login, retry, logout, enterServer, leaveServer, reloadPlayer, applyCurrencies, reloadProfile, hasRole }),
+    [status, profile, player, login, retry, logout, enterServer, leaveServer, reloadPlayer, applyCurrencies, reloadProfile, hasRole]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 

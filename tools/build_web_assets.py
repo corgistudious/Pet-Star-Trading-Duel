@@ -114,8 +114,24 @@ def build_catalog() -> dict:
     }
 
 
+def build_icons(sizes: dict) -> None:
+    """PWA / home-screen icons from the approved Rainbow Star art (PNG: iOS ignores WebP touch icons)."""
+    manifest = json.loads(MANIFEST.read_text())["assets"]
+    src = Image.open(ROOT / manifest["ui_currency_rainbow_star"]["filePath"]).convert("RGBA")
+    out = OUT / "icons"
+    out.mkdir(parents=True, exist_ok=True)
+    bg = (27, 20, 64, 255)  # --bg of the web client
+    for name, size, margin in (("icon-192.png", 192, 0.10), ("icon-512.png", 512, 0.10),
+                               ("icon-maskable-512.png", 512, 0.22), ("apple-touch-icon.png", 180, 0.12)):
+        canvas = Image.new("RGBA", (size, size), bg)
+        canvas.alpha_composite(fit(src, size, margin))
+        canvas.convert("RGB").save(out / name, optimize=True)
+        sizes["icons/" + name] = (out / name).stat().st_size
+
+
 def main() -> int:
     sizes = build_art()
+    build_icons(sizes)
     data = OUT / "data"
     data.mkdir(parents=True, exist_ok=True)
     cat = build_catalog()

@@ -28,6 +28,8 @@ namespace PetStar.Client.UI
         public virtual bool ShowCurrencyBar => true;
         public virtual bool ShowBackButton => true;
         public virtual string TitleKey => "";
+        /// <summary>PvE / PvP duel: the only screens that use Landscape 16:9 (official viewport rule).</summary>
+        public virtual bool IsDuel => false;
 
         /// <summary>Runs an API call with loading overlay and localized error toast.</summary>
         protected async Task<T?> Call<T>(Func<Task<T>> fn, bool overlay = true) where T : class
@@ -49,7 +51,9 @@ namespace PetStar.Client.UI
         public static Navigator I { get; private set; } = null!;
         public LayoutMode Mode { get; private set; }
         public RectTransform ScreenLayer = null!;
-        private RectTransform _overlay = null!, _toastLayer = null!, _chrome = null!;
+        private RectTransform _overlay = null!, _toastLayer = null!, _chrome = null!, _frame = null!;
+        private AspectRatioFitter _fitter = null!;
+        private bool _duel, _lastDuel;
         private CanvasScaler _scaler = null!;
         private readonly Stack<ScreenBase> _stack = new();
         private Vector2Int _lastSize;
@@ -66,12 +70,19 @@ namespace PetStar.Client.UI
             var nav = canvasGo.AddComponent<Navigator>();
             nav._scaler = canvasGo.GetComponent<CanvasScaler>();
             nav._scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            var bg = UiKit.Rect(canvasGo.transform, "Background").Stretch();
-            bg.gameObject.AddComponent<Image>().color = UiKit.Sky;
-            nav.ScreenLayer = UiKit.Rect(canvasGo.transform, "Screens").Stretch();
-            nav._chrome = UiKit.Rect(canvasGo.transform, "Chrome").Stretch();
-            nav._overlay = UiKit.Rect(canvasGo.transform, "Overlay").Stretch();
-            nav._toastLayer = UiKit.Rect(canvasGo.transform, "Toasts").Stretch();
+            // letterbox / pillarbox bars are pure black; the game frame (9:16 or 16:9) sits on top
+            var bg = UiKit.Rect(canvasGo.transform, "Letterbox").Stretch();
+            bg.gameObject.AddComponent<Image>().color = Color.black;
+            nav._frame = UiKit.Rect(canvasGo.transform, "Frame");
+            nav._frame.anchorMin = nav._frame.anchorMax = new Vector2(0.5f, 0.5f);
+            nav._fitter = nav._frame.gameObject.AddComponent<AspectRatioFitter>();
+            nav._frame.gameObject.AddComponent<RectMask2D>();
+            var frameBg = UiKit.Rect(nav._frame, "Background").Stretch();
+            frameBg.gameObject.AddComponent<Image>().color = UiKit.Sky;
+            nav.ScreenLayer = UiKit.Rect(nav._frame, "Screens").Stretch();
+            nav._chrome = UiKit.Rect(nav._frame, "Chrome").Stretch();
+            nav._overlay = UiKit.Rect(nav._frame, "Overlay").Stretch();
+            nav._toastLayer = UiKit.Rect(nav._frame, "Toasts").Stretch();
             I = nav;
             nav.UpdateMode(force: true);
             return nav;
@@ -79,20 +90,63 @@ namespace PetStar.Client.UI
 
         private void Update() => UpdateMode(false);
 
+        /// <summary>Official viewport rule: Portrait 9:16 everywhere except PvE/PvP duels (Landscape 16:9).
+        /// The layout follows the GAME STATE, not the window shape. Android rotates natively; Windows never
+        /// rotates the display: wide windows pillarbox the portrait frame, tall windows letterbox the duel.</summary>
         private void UpdateMode(bool force)
         {
             var size = new Vector2Int(Screen.width, Screen.height);
-            if (!force && size == _lastSize) return;
-            _lastSize = size;
+            if (!force && size == _lastSize && _duel == _lastDuel) return;
+            bool duelChanged = _duel != _lastDuel || force;
+            _lastSize = size; _lastDuel = _duel;
+            if (duelChanged) ApplyPlatformOrientation(_duel);
+
+            float target = _duel ? 16f / 9f : 9f / 16f;
+            float screenAspect = size.y > 0 ? size.x / (float)size.y : target;
+            // duel: always exactly 16:9 inside the screen. Portrait: 9:16 column when the screen is wider than 9:16;
+            // taller phones (19.5:9) use the full screen so nothing is wasted or cut.
+            bool fit = _duel || screenAspect > target;
+            _fitter.aspectMode = fit ? AspectRatioFitter.AspectMode.FitInParent : AspectRatioFitter.AspectMode.None;
+            _fitter.aspectRatio = target;
+            if (!fit) { _frame.anchorMin = Vector2.zero; _frame.anchorMax = Vector2.one; _frame.sizeDelta = Vector2.zero; }
+            else { _frame.anchorMin = _frame.anchorMax = new Vector2(0.5f, 0.5f); }
+
             bool desktop = Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.OSXEditor;
-            var mode = size.x < size.y ? LayoutMode.Portrait : desktop ? LayoutMode.Desktop : LayoutMode.Landscape;
-            // reference resolutions per layout: portrait matches width, landscape/desktop match height
-            if (mode == LayoutMode.Portrait) { _scaler.referenceResolution = new Vector2(1080, 1920); _scaler.matchWidthOrHeight = 0f; }
-            else { _scaler.referenceResolution = new Vector2(1920, 1080); _scaler.matchWidthOrHeight = 1f; }
+            var mode = !_duel ? LayoutMode.Portrait : desktop ? LayoutMode.Desktop : LayoutMode.Landscape;
+            if (mode == LayoutMode.Portrait) _scaler.referenceResolution = new Vector2(1080, 1920);
+            else _scaler.referenceResolution = new Vector2(1920, 1080);
+            // match the axis that the fitted frame fills, so the reference canvas maps 1:1 onto the frame
+            _scaler.matchWidthOrHeight = screenAspect > target ? 1f : 0f;
             bool changed = mode != Mode;
             Mode = mode;
-            if ((changed || force) && _stack.Count > 0) Rebuild();
+            // a freshly pushed screen has no Root yet: Show() builds it right after with the new mode
+            if ((changed || force) && _stack.Count > 0 && _stack.Peek().Root != null) Rebuild();
         }
+
+        private static void ApplyPlatformOrientation(bool duel)
+        {
+#if UNITY_ANDROID || UNITY_IOS
+            // Native mobile: lock to the orientation the game state needs (both landscape sides allowed in duels).
+            Screen.autorotateToPortrait = !duel;
+            Screen.autorotateToPortraitUpsideDown = false;
+            Screen.autorotateToLandscapeLeft = duel;
+            Screen.autorotateToLandscapeRight = duel;
+            Screen.orientation = duel ? ScreenOrientation.LandscapeLeft : ScreenOrientation.Portrait;
+            Screen.orientation = ScreenOrientation.AutoRotation; // keep auto-rotation within the allowed set
+#elif UNITY_STANDALONE_WIN
+            // Windows: never rotate the physical display. In windowed mode, reshape the window to suit the screen.
+            if (Screen.fullScreenMode == FullScreenMode.Windowed)
+            {
+                var d = Screen.currentResolution;
+                int w, h;
+                if (duel) { w = Mathf.Min(1600, Mathf.RoundToInt(d.width * 0.8f)); h = Mathf.RoundToInt(w * 9f / 16f); }
+                else { h = Mathf.Min(1280, Mathf.RoundToInt(d.height * 0.85f)); w = Mathf.RoundToInt(h * 9f / 16f); }
+                Screen.SetResolution(w, h, FullScreenMode.Windowed);
+            }
+#endif
+        }
+
+        private void SetDuel(ScreenBase s) { _duel = s.IsDuel; UpdateMode(false); }
 
         public void Push(ScreenBase s)
         {
@@ -114,12 +168,23 @@ namespace PetStar.Client.UI
             var old = _stack.Pop(); old.OnHide(); Destroy(old.Root.gameObject);
             var top = _stack.Peek();
             top.Root.gameObject.SetActive(true);
+            bool wasDuel = _duel;
+            _duel = top.IsDuel;
+            if (wasDuel != _duel)
+            {
+                // leaving a duel: back to Portrait. If the layout mode changed, UpdateMode already rebuilt the top
+                // screen (Build + chrome + OnShow), so do not show it twice.
+                var before = Mode;
+                UpdateMode(false);
+                if (Mode != before) return;
+            }
             BuildChrome(top);
             top.OnShow();
         }
 
         private void Show(ScreenBase s, bool animate)
         {
+            SetDuel(s);   // switch Portrait/Landscape BEFORE building so the screen gets the right layout
             s.Root = UiKit.Rect(ScreenLayer, s.GetType().Name).Stretch();
             s.Build();
             BuildChrome(s);

@@ -2579,6 +2579,39 @@ namespace PetStar.Api.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PetStar.Api.Data.MissionClaim", b =>
+                {
+                    b.Property<long>("MembershipId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("membership_id");
+
+                    b.Property<string>("MissionId")
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)")
+                        .HasColumnName("mission_id");
+
+                    b.Property<string>("PeriodKey")
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)")
+                        .HasColumnName("period_key");
+
+                    b.Property<DateTimeOffset>("At")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("at");
+
+                    b.Property<int>("ServerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("server_id");
+
+                    b.HasKey("MembershipId", "MissionId", "PeriodKey")
+                        .HasName("pk_mission_claims");
+
+                    b.HasIndex("MembershipId", "ServerId")
+                        .HasDatabaseName("ix_mission_claims_membership_id_server_id");
+
+                    b.ToTable("mission_claims", (string)null);
+                });
+
             modelBuilder.Entity("PetStar.Api.Data.ModerationAction", b =>
                 {
                     b.Property<long>("Id")
@@ -4051,6 +4084,17 @@ namespace PetStar.Api.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("fk_market_listings_server_memberships_seller_membership_id_ser");
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.MissionClaim", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.ServerMembership", null)
+                        .WithMany()
+                        .HasForeignKey("MembershipId", "ServerId")
+                        .HasPrincipalKey("Id", "ServerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_mission_claims_server_memberships_membership_id_server_id");
                 });
 
             modelBuilder.Entity("PetStar.Api.Data.PackInventory", b =>

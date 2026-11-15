@@ -58,6 +58,8 @@ builder.Services.AddScoped<ValuationService>();
 builder.Services.AddScoped<CardFactory>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<AchievementService>();
+builder.Services.AddSingleton(MissionCatalog.Load(seedDir));
+builder.Services.AddScoped<MissionService>();
 builder.Services.AddScoped<FraudService>();
 builder.Services.AddScoped<ContentGuard>();
 builder.Services.AddHostedService<MarketMaintenanceService>();
@@ -162,6 +164,7 @@ AdminEconomyEndpoints.Map(app);
 GuildChatEndpoints.Map(app);
 LivePvpEndpoints.Map(app);
 RewardsEndpoints.Map(app);
+MissionEndpoints.Map(app);
 AdminEndpoints.Map(app);
 
 if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing"))

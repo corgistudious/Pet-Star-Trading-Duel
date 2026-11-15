@@ -4,6 +4,7 @@ import type { PackOpeningDto } from '../api/types';
 import { useT } from '../i18n';
 import { useSession } from '../state/session';
 import { useLoad } from '../components/ui';
+import { claimable, type MissionsDto } from './Missions';
 import { uiArt } from '../state/catalog';
 
 export default function LobbyScreen() {
@@ -11,6 +12,7 @@ export default function LobbyScreen() {
   const nav = useNavigate();
   const { player, hasRole } = useSession();
   const pending = useLoad(() => api.get<PackOpeningDto[]>('/api/packs/openings?unacknowledged=true&limit=1'), []);
+  const missions = useLoad(() => api.get<MissionsDto>('/api/missions'), []);
   const login = useLoad(() => api.get<{ claimedToday: boolean; streakDay: number }>('/api/rewards/login'), []);
   const packs = Object.values(player?.packs ?? {}).reduce((a, b) => a + b, 0);
   const staff = hasRole('owner', 'admin', 'gm', 'moderator');
@@ -27,6 +29,7 @@ export default function LobbyScreen() {
     ['/guild', '🏰', t('web.guild')],
     ['/chat', '💬', t('web.chat')],
     ['/friends', '👥', t('web.friends')],
+    ['/missions', '🎯', t('web.missions'), claimable(missions.data) > 0 ? String(claimable(missions.data)) : undefined],
     ['/rewards', '🎁', t('web.rewards'), login.data && !login.data.claimedToday ? '!' : undefined],
     ['/mailbox', '✉️', t('lobby.mailbox')],
     ['/albums', '🗂️', t('web.albums')],

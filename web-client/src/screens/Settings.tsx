@@ -4,6 +4,7 @@ import { api } from '../api/client';
 import type { LedgerEntryDto, SessionDto } from '../api/types';
 import { useI18n, type Lang } from '../i18n';
 import { useSession } from '../state/session';
+import { usePwa } from '../state/pwa';
 import { PageHead } from '../components/Layout';
 import { Loading, Price, Tabs, timeAgo, useAction, useLoad } from '../components/ui';
 
@@ -14,6 +15,7 @@ export default function Settings() {
   const { busy, run } = useAction();
   const [tab, setTab] = useState<'general' | 'ledger' | 'sessions'>('general');
   const [name, setName] = useState(profile?.displayName ?? '');
+  const pwa = usePwa();
   const changeLang = (l: Lang) => { setLang(l); void api.patch('/api/me', { language: l }).catch(() => {}); };
   return (
     <div className="page">
@@ -31,6 +33,12 @@ export default function Settings() {
           </label>
           <p className="muted small">{profile?.email} · {profile?.emailVerified ? t('profile.email_verified') : t('profile.email_unverified')}</p>
           {!profile?.emailVerified && <button className="btn ghost" disabled={busy} onClick={() => run(() => api.post('/api/auth/resend-verification'), t('auth.check_email'))}>{t('profile.resend')}</button>}
+          <div role="group" aria-labelledby="install-label">
+            <span id="install-label" className="muted small">{t('web.install_app')}</span>
+            {pwa.standalone ? <p className="small">{t('web.installed')}</p>
+              : pwa.canInstall ? <button className="btn" onClick={() => void pwa.install()}>{t('web.install')}</button>
+              : <p className="small muted">{pwa.ios ? t('web.install_ios') : t('web.install_unavailable')}</p>}
+          </div>
           <p className="muted small">UID {profile?.uid} · {player?.serverCode} · {player?.nickname}</p>
           <button className="btn" onClick={() => nav(`/player/${profile?.uid}`)}>{t('profile.title')}</button>
           <button className="btn" onClick={() => { leaveServer(); nav('/'); }}>{t('settings.switch_server')}</button>

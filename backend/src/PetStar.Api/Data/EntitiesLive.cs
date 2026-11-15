@@ -149,3 +149,13 @@ public class LoginRewardClaim
     public int StreakDay { get; set; }
     public DateTimeOffset At { get; set; }
 }
+
+/// <summary>One claimed daily/weekly mission per membership per period (period key d:yyyy-MM-dd / w:yyyy-Www).</summary>
+public class MissionClaim
+{
+    public long MembershipId { get; set; }
+    public int ServerId { get; set; }
+    public string MissionId { get; set; } = "";
+    public string PeriodKey { get; set; } = "";
+    public DateTimeOffset At { get; set; }
+}

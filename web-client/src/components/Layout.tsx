@@ -51,7 +51,7 @@ export function Layout({ children }: { children: ReactNode }) {
   });
   useRealtimeEvent<{ battleId: string }>('pvp_start', (d) => nav(`/pvp/${d.battleId}`));
 
-  const full = loc.pathname.startsWith('/open') || loc.pathname.startsWith('/battle/') || loc.pathname.startsWith('/pvp/');
+  const full = loc.pathname.startsWith('/open');
   return (
     <div className={`app ${full ? 'fullscreen' : ''}`}>
       {!full && (

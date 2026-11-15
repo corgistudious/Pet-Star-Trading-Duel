@@ -61,6 +61,7 @@ Game routes need a token from `POST /api/servers/{id}/enter` and an online serve
 | POST | /api/realtime/ticket → `GET /ws?ticket=` | single-use 60 s ticket; browser Origin must be in `Cors:AllowedOrigins` |
 | POST/GET | /api/pvp/challenges, /pvp/challenges/{id}/{accept\|decline\|cancel}, POST/DELETE /api/pvp/queue | live PvP lobby & matchmaking |
 | GET/POST | /api/pvp/battles/{id}, /rounds, /surrender | sealed per-round plans, 30 s deadline, forfeit after 3 missed rounds |
+| GET/POST | /api/missions, /missions/{id}/claim | daily (00:00 UTC) / weekly (Mon 00:00 UTC); progress derived from authoritative records; one claim per period (PK + ledger ref) |
 | POST | /api/giftcodes/redeem | rate-limited; once per account per server |
 | GET/POST | /api/rewards/login, /rewards/login/claim, /api/events, /events/{id}/claim | 7-day login cycle, events (ledger-paid) |
 | * | /api/admin/giftcodes, /events, /accounts (admin+), /accounts/{uid}/roles (owner), /chat/{id}/hide (moderator+) | live-ops admin |

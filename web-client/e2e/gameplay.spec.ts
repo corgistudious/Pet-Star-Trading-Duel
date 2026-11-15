@@ -80,6 +80,9 @@ test('core loop on iPhone: register, shop, tear & flip a pack, deck 3+2, PvE due
   await page.goto('/duel');
   await page.getByTestId('fight-c1_s1').click();
   await expect(page).toHaveURL(/\/battle\//);
+  await expect(page.getByTestId('rotate-overlay')).toBeVisible(); // held portrait: rotate first
+  await page.setViewportSize({ width: 844, height: 390 });
+  await expect(page.getByTestId('rotate-overlay')).toHaveCount(0);
   await expect(page.locator('.side.mine .brow.three .slot')).toHaveCount(3);
   await expect(page.locator('.side.mine .brow.two .slot')).toHaveCount(2);
   await expect(page.locator('.side.enemy .slot.unit')).not.toHaveCount(0);
@@ -101,6 +104,9 @@ test('core loop on iPhone: register, shop, tear & flip a pack, deck 3+2, PvE due
   await expect(page.locator('.result h2')).toBeVisible();
   await page.getByRole('button', { name: 'Continue' }).click();
   await expect(page).toHaveURL(/\/duel$/);
+  await expect(page.getByTestId('rotate-overlay')).toBeVisible(); // outside duels the phone must be portrait again
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(page.getByTestId('rotate-overlay')).toHaveCount(0);
 });
 
 test('two players: market sale with live notification, world chat, live PvP round', async ({ browser }) => {
@@ -172,6 +178,7 @@ test('two players: market sale with live notification, world chat, live PvP roun
   await buyer.getByTestId('pvp-queue').click();
   await expect(buyer).toHaveURL(/\/pvp\//, { timeout: 20_000 });
   await expect(seller).toHaveURL(/\/pvp\//, { timeout: 20_000 });
+  for (const pl of [seller, buyer]) { await pl.setViewportSize({ width: 844, height: 390 }); await expect(pl.getByTestId('rotate-overlay')).toHaveCount(0); }
   await expect(seller.locator('.countdown')).toBeVisible();
 
   // sealed plans: first submit waits, second submit resolves the round for both

@@ -82,6 +82,7 @@ namespace PetStar.Client.Screens
     /// </summary>
     public sealed class DuelBattleScreen : ScreenBase
     {
+        public override bool IsDuel => true;
         public override bool ShowCurrencyBar => false;
         public override bool ShowBackButton => false;
         private BattleDto _b;

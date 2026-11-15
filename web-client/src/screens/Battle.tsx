@@ -156,7 +156,7 @@ export default function Battle({ live }: { live: boolean }) {
 
   const won = shown.winnerSide === me;
   return (
-    <div className="battle" style={{ '--board-p': `url(${uiArt('bg_duel_board_portrait')})`, '--board-l': `url(${uiArt('bg_duel_board_landscape')})` } as CSSProperties}>
+    <div className="battle" style={{ '--board-l': `url(${uiArt('bg_duel_board_landscape')})` } as CSSProperties}>
       <div className="battle-top">
         <button className="icon-btn" onClick={() => nav('/duel')} aria-label="back">‹</button>
         <span>{t('duel.round', shown.round)}</span>
@@ -164,15 +164,16 @@ export default function Battle({ live }: { live: boolean }) {
         <span className="energy enemy">{t('duel.enemy')} ⚡{shown.opponentEnergy}</span>
         {active && <button className="btn ghost small" onClick={() => setSurrender(true)}>{t('duel.surrender')}</button>}
       </div>
-      <div className="board">
-        <div className="side enemy">
-          <div className="brow two">{eBack.map((u, i) => slot(u, 'eb' + i))}</div>
-          <div className="brow three">{eFront.map((u, i) => slot(u, 'ef' + i))}</div>
+      {/* Landscape 16:9 board: my Backline | my Frontline || enemy Frontline | enemy Backline (3 front + 2 back each) */}
+      <div className="board" data-testid="board">
+        <div className="side mine">
+          <div className="brow two back" aria-label={t('web.back_row')}>{mBack.map((u, i) => slot(u, 'mb' + i))}</div>
+          <div className="brow three front" aria-label={t('web.front_row')}>{mFront.map((u, i) => slot(u, 'mf' + i))}</div>
         </div>
         <div className="midline" />
-        <div className="side mine">
-          <div className="brow three">{mFront.map((u, i) => slot(u, 'mf' + i))}</div>
-          <div className="brow two">{mBack.map((u, i) => slot(u, 'mb' + i))}</div>
+        <div className="side enemy">
+          <div className="brow three front">{eFront.map((u, i) => slot(u, 'ef' + i))}</div>
+          <div className="brow two back">{eBack.map((u, i) => slot(u, 'eb' + i))}</div>
         </div>
       </div>
 

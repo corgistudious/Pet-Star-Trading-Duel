@@ -21,7 +21,7 @@ export default defineConfig({
     { name: 'desktop-chromium', use: { ...devices['Desktop Chrome'] }, testMatch: /desktop\.spec\.ts/ },
   ],
   webServer: {
-    command: `VITE_API_BASE=${API} npx vite build --logLevel warn && npx vite preview --port 4173 --strictPort`,
+    command: `VITE_API_BASE=${API} npm run build --silent && npx vite preview --port 4173 --strictPort`,
     url: 'http://localhost:4173',
     reuseExistingServer: true,
     timeout: 180_000,

@@ -7,10 +7,14 @@ import { CatalogProvider } from './state/catalog';
 import { SessionProvider } from './state/session';
 import { RealtimeProvider } from './state/realtime';
 import { ToastProvider } from './components/ui';
+import { ViewportProvider } from './state/viewport';
+import { PwaProvider } from './state/pwa';
 import './styles.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <ViewportProvider>
+    <PwaProvider>
     <I18nProvider>
       <CatalogProvider>
         <ToastProvider>
@@ -24,5 +28,7 @@ createRoot(document.getElementById('root')!).render(
         </ToastProvider>
       </CatalogProvider>
     </I18nProvider>
+    </PwaProvider>
+    </ViewportProvider>
   </StrictMode>,
 );

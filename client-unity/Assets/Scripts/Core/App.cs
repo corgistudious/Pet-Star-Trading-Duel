@@ -25,10 +25,11 @@ namespace PetStar.Client.Core
         {
             Application.targetFrameRate = 60;
             Screen.sleepTimeout = SleepTimeout.SystemSetting;
-#if UNITY_ANDROID
+#if UNITY_ANDROID || UNITY_IOS
+            // Portrait outside duels; Navigator switches to landscape only for PvE/PvP (official viewport rule).
             Screen.autorotateToPortrait = true; Screen.autorotateToPortraitUpsideDown = false;
-            Screen.autorotateToLandscapeLeft = true; Screen.autorotateToLandscapeRight = true;
-            Screen.orientation = ScreenOrientation.AutoRotation;
+            Screen.autorotateToLandscapeLeft = false; Screen.autorotateToLandscapeRight = false;
+            Screen.orientation = ScreenOrientation.Portrait;
 #endif
             L.Init();
             UiKit.LoadFonts();

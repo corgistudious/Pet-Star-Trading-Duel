@@ -1,8 +1,10 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useSession } from './state/session';
+import { useT } from './i18n';
 import { Layout } from './components/Layout';
 import { Loading } from './components/ui';
+import { BattleFrame, PortraitFrame } from './components/Frames';
 import AuthScreen from './screens/Auth';
 import ServersScreen from './screens/Servers';
 import LobbyScreen from './screens/Lobby';
@@ -30,6 +32,7 @@ const PlayerProfile = lazy(() => import('./screens/PlayerProfile'));
 const Notifications = lazy(() => import('./screens/Notifications'));
 const Mailbox = lazy(() => import('./screens/Mailbox'));
 const Rewards = lazy(() => import('./screens/Rewards'));
+const Missions = lazy(() => import('./screens/Missions'));
 const Albums = lazy(() => import('./screens/Albums'));
 const Achievements = lazy(() => import('./screens/Achievements'));
 const Settings = lazy(() => import('./screens/Settings'));
@@ -37,9 +40,21 @@ const Admin = lazy(() => import('./screens/Admin'));
 
 export default function App() {
   const { status } = useSession();
-  if (status === 'loading') return <div className="boot"><div className="spinner" /></div>;
-  if (status === 'anonymous') return <Routes><Route path="*" element={<AuthScreen />} /></Routes>;
-  if (status === 'account') return <Routes><Route path="*" element={<ServersScreen />} /></Routes>;
+  if (status === 'loading') return <PortraitFrame><div className="boot"><div className="spinner" /></div></PortraitFrame>;
+  if (status === 'unreachable') return <PortraitFrame><Unreachable /></PortraitFrame>;
+  if (status === 'anonymous') return <PortraitFrame><Routes><Route path="*" element={<AuthScreen />} /></Routes></PortraitFrame>;
+  if (status === 'account') return <PortraitFrame><Routes><Route path="*" element={<ServersScreen />} /></Routes></PortraitFrame>;
+  // Duels are the only Landscape 16:9 screens; everything else lives in the Portrait 9:16 frame.
+  return (
+    <Routes>
+      <Route path="/battle/:id" element={<BattleFrame><Suspense fallback={<Loading />}><Battle live={false} /></Suspense></BattleFrame>} />
+      <Route path="/pvp/:id" element={<BattleFrame><Suspense fallback={<Loading />}><Battle live /></Suspense></BattleFrame>} />
+      <Route path="*" element={<PortraitFrame><PortraitRoutes /></PortraitFrame>} />
+    </Routes>
+  );
+}
+
+function PortraitRoutes() {
   return (
     <Layout>
       <Suspense fallback={<Loading />}>
@@ -54,8 +69,6 @@ export default function App() {
           <Route path="/codex" element={<Codex />} />
           <Route path="/decks" element={<Decks />} />
           <Route path="/duel" element={<DuelHub />} />
-          <Route path="/battle/:id" element={<Battle live={false} />} />
-          <Route path="/pvp/:id" element={<Battle live />} />
           <Route path="/market" element={<Market />} />
           <Route path="/market/:id" element={<ListingDetail />} />
           <Route path="/auctions" element={<Auctions />} />
@@ -69,6 +82,7 @@ export default function App() {
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/mailbox" element={<Mailbox />} />
           <Route path="/rewards" element={<Rewards />} />
+          <Route path="/missions" element={<Missions />} />
           <Route path="/albums" element={<Albums />} />
           <Route path="/achievements" element={<Achievements />} />
           <Route path="/settings" element={<Settings />} />
@@ -77,5 +91,15 @@ export default function App() {
         </Routes>
       </Suspense>
     </Layout>
+  );
+}
+
+function Unreachable() {
+  const { retry } = useSession();
+  const t = useT();
+  return (
+    <div className="boot">
+      <div><p>{t('web.server_unreachable')}</p><button className="btn primary" onClick={retry}>{t('web.retry')}</button></div>
+    </div>
   );
 }

@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "notes": "Daily missions reset at 00:00 UTC, weekly missions at Monday 00:00 UTC. Progress is DERIVED from authoritative records inside the period (pack openings, battle results, evolutions, ledger, login claims), never from client counters. Each mission can be claimed once per membership per period (PK + ledger ref mission:{id}:{period}). Surrendered/forfeited battles do not count; only battles the player actually played (attacker in PvE/ranked/friend, either side in live PvP).",
+  "daily": [
+    { "id": "d_login", "trigger": "login_claimed", "target": 1, "rewards": { "currencies": { "MINI_GREEN_BEAN": 30 } } },
+    { "id": "d_open_pack", "trigger": "pack_opened", "target": 1, "rewards": { "currencies": { "MINI_GREEN_BEAN": 60 } } },
+    { "id": "d_play_battles", "trigger": "battle_completed", "target": 3, "rewards": { "currencies": { "MINI_GREEN_BEAN": 60 } } },
+    { "id": "d_win_battles", "trigger": "battle_won", "target": 2, "rewards": { "currencies": { "MINI_GREEN_BEAN": 80 } } },
+    { "id": "d_all", "trigger": "missions_claimed", "target": 4, "rewards": { "packs": { "basic_pack": 1 } } }
+  ],
+  "weekly": [
+    { "id": "w_login", "trigger": "login_claimed", "target": 5, "rewards": { "items": { "training_scroll": 2 } } },
+    { "id": "w_open_packs", "trigger": "pack_opened", "target": 10, "rewards": { "currencies": { "MINI_GREEN_BEAN": 300 } } },
+    { "id": "w_win_battles", "trigger": "battle_won", "target": 15, "rewards": { "currencies": { "MINI_GREEN_BEAN": 200 }, "items": { "training_scroll": 1 } } },
+    { "id": "w_ranked_wins", "trigger": "ranked_won", "target": 3, "rewards": { "packs": { "basic_pack": 1 } } },
+    { "id": "w_live_pvp", "trigger": "live_pvp_completed", "target": 3, "rewards": { "currencies": { "MINI_GREEN_BEAN": 300 } } },
+    { "id": "w_evolve", "trigger": "evolution", "target": 1, "rewards": { "currencies": { "MINI_GREEN_BEAN": 250 } } },
+    { "id": "w_train", "trigger": "skill_trained", "target": 1, "rewards": { "currencies": { "MINI_GREEN_BEAN": 200 } } },
+    { "id": "w_all", "trigger": "missions_claimed", "target": 7, "rewards": { "currencies": { "RAINBOW_STAR": 10 } } }
+  ]
+}

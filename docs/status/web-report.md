@@ -1,5 +1,34 @@
 # Web-first report: live features, web client, deployment (2026-11-15)
 
+## Update: missions, PWA, viewport rules
+
+- **Daily/weekly missions:** server-side, with progress derived from pack openings, battle results, evolutions, the
+  ledger and login claims inside the UTC period.
+  - Surrender/forfeit and opponent-only battles don't count.
+  - One claim per period (PK + ledger ref `mission:{id}:{period}`); rewards are paid through the ledger.
+  - Web Missions screen with a lobby badge.
+  - Migration `Missions`; API tests cover periods, derivation, concurrent double claims, the all-missions bonus
+    and per-server isolation.
+- **PWA:**
+  - Manifest and icons, a build-generated service worker, an update prompt and an install button. iOS gets
+    instructions instead, since Safari has no install prompt.
+  - An offline shell that keeps the session.
+  - Two bugs found by tests and fixed: the first SW install reloaded the page, and `Vary: Origin` made the
+    precache miss.
+- **Viewport rules** ([../viewport-rules.md](../viewport-rules.md)):
+  - Portrait 9:16 frame outside duels; Landscape 16:9 duel stage (3+2 per side).
+  - `#000000` rotate overlay on phones, with `visualViewport` / safe-area / keyboard handling.
+  - Unity: Android orientation per game state; Windows windowed resizing with no display rotation. The Unity side
+    is **not compiled**.
+- **Tests:**
+  - Backend API 65/65 (one earlier full run had an intermittent failure in the older concurrent-market test; not
+    reproduced in 8 later runs).
+  - Rules 46/46.
+  - Web unit 39/39.
+  - Web e2e 8/8 (gameplay, viewport, PWA, desktop resize).
+- Missing (unchanged): Web Push, real-iPhone manual pass, Unity compile.
+
+
 Branch `claude/pet-star-trading-duel-luftdb`. Backend live features were committed in `a12daab`, the web client
 in `1eabcdb`, and deployment and docs in the commit that adds this file. **Nothing has been deployed** to the VPS
 or to Cloudflare. Production deploys wait for the owner's approval.
@@ -78,12 +107,10 @@ There are no mocks.
 
 ## 3. Missing or not done (reported, not simulated)
 
-- Daily/weekly **missions**: not implemented (backend or client).
 - **Real Safari/WebKit** testing is not possible here. Chromium iPhone emulation is not WebKit, so one manual
   play-through on a real iPhone is still needed.
 - **Web Push** notifications while the tab is closed: not implemented. Realtime works only while the page is
   open; the app refetches on return.
-- PWA offline/installable manifest with service worker: not added (only the apple-touch icon and meta tags).
 - **Unity:** scripts are still uncompiled. This phase switched the duel background to the slot-free board and
   synced the new art and backgrounds. Addressables entries for the board sprites must be added in the Editor.
   The license and keystore are deferred.
