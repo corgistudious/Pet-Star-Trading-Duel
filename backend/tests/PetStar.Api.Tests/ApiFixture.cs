@@ -18,7 +18,7 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
     public static readonly string BaseConn = Environment.GetEnvironmentVariable("PETSTAR_TEST_PG")
         ?? "Host=localhost;Port=5432;Username=petstar;Password=petstar_dev_only";
     public readonly string DbName = "petstar_test_" + Guid.NewGuid().ToString("N")[..12];
-    public string Conn => BaseConn + ";Database=" + DbName;
+    public string Conn => BaseConn + ";Database=" + DbName + ";Maximum Pool Size=40";
 
     protected override void ConfigureWebHost(Microsoft.AspNetCore.Hosting.IWebHostBuilder b)
     {

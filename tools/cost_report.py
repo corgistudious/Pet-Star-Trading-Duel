@@ -28,8 +28,17 @@ for aid, a in sorted(manifest.items()):
     lines.append(f"| {aid} | {a['category']} | {a['model']} | {a['size']} | {a['quality']} | ${a['generationCost']:.4f} | {a['status']} |")
 pets = [a for a in manifest.values() if a["category"] == "pet"]
 avg = sum(a["generationCost"] for a in pets) / max(1, len(pets))
-lines += ["", "## Projection for the full Pet catalog", "",
-          f"Average actual cost per pet artwork: ${avg:.4f}. Remaining 190 pets ≈ ${avg * 190:.2f}"
-          f" (+10% regeneration allowance ≈ ${avg * 190 * 1.1:.2f}) against ${budget['categories']['pet'] - settled.get('pet', 0):.2f} left in the pet budget."]
+pets_db = json.loads((ROOT / "database/seed/pets.json").read_text())
+all_forms = [f["id"] for fam in pets_db["families"] for f in fam["forms"]]
+remaining = [f for f in all_forms if "art_" + f not in manifest]
+open_res = {}
+for e in ledger:
+    if e["type"] == "reserve": open_res[e["id"]] = e
+    elif e["type"] in ("settle", "release"): open_res.pop(e["id"], None)
+lines += ["", "## Pet catalog coverage", "",
+          f"{len(all_forms) - len(remaining)} / {len(all_forms)} forms have artwork. Average actual cost per pet artwork: ${avg:.4f}.",
+          f"Remaining forms without art: {len(remaining)}.", "",
+          f"Open (unsettled) reservations: {len(open_res)} totalling ${sum(e['amount'] for e in open_res.values()):.4f} — a call interrupted by a sandbox restart; "
+          "the budget guard keeps counting it as spent (conservative)."]
 (ROOT / "docs/asset-budget.md").write_text("\n".join(lines) + "\n")
 print("\n".join(lines[6:10] + lines[-1:]))

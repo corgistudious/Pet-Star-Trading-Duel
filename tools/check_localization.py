@@ -38,6 +38,24 @@ derived |= {p["nameKey"] for p in json.loads((SEED / "packs.json").read_text())[
 derived |= {f"currency.{c['id'].lower()}" for c in json.loads((SEED / "economy.json").read_text())["currencies"]}
 derived |= {f"server.status.{s}" for s in ("online", "maintenance", "coming_soon", "merged")}
 derived |= {f"duel.short.{a}" for a in ("Basic", "Skill", "Ultimate", "Defend")}
+derived |= {f"ach.{a['id']}" for a in json.loads((SEED / "achievements.json").read_text())["achievements"]}
+derived |= {f"album.{x}" for x in ("starter", "evolution", "standalone", "rare", "event")} | {f"album.element_{e['id']}" for e in elements}
+derived |= {f"hub.{x}" for x in ("home", "collection", "market", "social", "battle")}
+derived |= {f"market.status.{x}" for x in ("active", "sold", "cancelled", "expired", "removed", "settled", "expired_no_bids")}
+derived |= {f"market.kind.{x}" for x in ("listing", "auction")}
+derived |= {f"market.warning.{x}" for x in ("price_far_below_reference", "price_far_above_reference")}
+derived |= {f"auction.status.{x}" for x in ("active", "settled", "cancelled", "expired_no_bids")}
+derived |= {f"confidence.{x}" for x in ("initial_only", "low", "medium", "high")}
+derived |= {f"passport.lock.{x}" for x in ("free", "player_locked", "listed", "in_auction", "under_review")}
+derived |= {f"passport.upgrade.{x}" for x in ("level_up", "skill_upgrade")}
+derived |= {f"report.reason.{x}" for x in ("spam", "harassment", "inappropriate", "scam", "cheating", "other")}
+derived |= {f"feed.type.{x}" for x in ("text", "card", "pack_opening", "evolution", "duel", "achievement", "album", "share")}
+derived |= {f"notif.{x}" for x in ("market_sold", "market_bought", "listing_expired", "wishlist_match", "auction_outbid", "auction_won", "auction_sold",
+            "auction_ended_no_sale", "post_liked", "post_commented", "new_follower", "friend_request", "friend_accepted", "duel_challenge",
+            "achievement_unlocked", "admin_notice")}
+derived |= {f"battle.mode.{x}" for x in ("pve", "ranked", "friend")} | {f"origin.{x}" for x in ("pack", "pve_reward", "event", "admin")}
+derived |= {f"friends.status.{x}" for x in ("friends", "incoming", "outgoing")} | {f"moderation.{x}" for x in ("dismiss", "hide", "restrict")}
+derived |= {"item.training_scroll", "mail.admin"}
 for k in sorted(static | derived):
     for c, t in tables.items():
         if k not in t:

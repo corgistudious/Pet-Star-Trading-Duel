@@ -21,7 +21,7 @@ MANIFEST = ROOT / "asset-manifests" / "asset-manifest.json"
 UNITY_ART = ROOT / "client-unity" / "Assets" / "Art"
 
 TARGETS = {
-    "pet": {"dir": "Pets", "size": 768, "margin": 0.06},
+    "pet": {"dir": "Pets", "size": 640, "margin": 0.06},
     "ui": {"dir": "UI/Currency", "size": 512, "margin": 0.12},
 }
 

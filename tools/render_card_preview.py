@@ -164,7 +164,8 @@ def render(pet_id: str, rarity: str, quality: str = "A", level: int = 12, finish
         cx = fx + 30 + i * 44
         d.ellipse([cx - 13, fy + fh / 2 - 13, cx + 13, fy + fh / 2 + 13], fill=rc if filled else hex2rgb("#FFFFFF"), outline=rc, width=4)
     d.text((fx + fw / 2, fy + fh / 2), fam["role"].upper(), font=font("Bold", 30), fill=hex2rgb(PAL["inkSoft"]), anchor="mm")
-    d.text((fx + fw - 10, fy + fh / 2), finish, font=font("SemiBold", 28), fill=hex2rgb(PAL["inkSoft"]), anchor="rm")
+    serial = "".join("ABCDEFGHJKMNPQRSTUVWXYZ0123456789"[(hash(pet_id + rarity) >> (5 * i)) % 32] for i in range(12))
+    d.text((fx + fw - 10, fy + fh / 2), serial, font=font("Bold", 28), fill=hex2rgb(PAL["ink"]), anchor="rm")
     return card
 
 

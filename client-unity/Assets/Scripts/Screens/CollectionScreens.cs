@@ -104,7 +104,7 @@ namespace PetStar.Client.Screens
         public static void Show(CardDto card, Action<CardDto> onChanged)
         {
             var nav = Navigator.I;
-            var panel = nav.Popup(new Vector2(1000, 1760), new Vector2(1700, 960), out var close);
+            var panel = nav.Popup(new Vector2(1000, 1820), new Vector2(1760, 1000), out var close);
             bool wide = nav.Mode != LayoutMode.Portrait;
             float cw = wide ? 470 : 520;
             var cv = CardView.Create(panel, card, cw);
@@ -113,7 +113,7 @@ namespace PetStar.Client.Screens
             var info = UiKit.Rect(panel, "Info");
             if (wide) info.Stretch(cw + 100, 50, 50, 50); else info.Stretch(50, cw / CardView.Aspect + 70, 50, 40);
             UiKit.VStack(info, 18, null, TextAnchor.UpperLeft);
-            UiKit.Text(info, $"{card.Name}  <size=60%><color=#5B6B8F>#{card.Id}</color></size>", 56, UiKit.Ink, UiKit.Weight.ExtraBold, TextAlignmentOptions.MidlineLeft).Size(-1, 80);
+            UiKit.Text(info, $"{card.Name}  <size=60%><color=#5B6B8F>{card.Serial}</color></size>", 56, UiKit.Ink, UiKit.Weight.ExtraBold, TextAlignmentOptions.MidlineLeft).Size(-1, 80);
             UiKit.Text(info, $"{L.T("element." + card.Element)} · {L.T("role." + card.Role)} · SPD {card.Spd} · CRIT {Mathf.RoundToInt((float)card.Crit * 100)}% · {L.T("card.power")} {card.Power}",
                 30, UiKit.InkSoft, UiKit.Weight.Bold, TextAlignmentOptions.MidlineLeft).Size(-1, 50);
             UiKit.Text(info, GameDataClient.Lore(card.FormId), 32, UiKit.Ink, UiKit.Weight.Regular, TextAlignmentOptions.TopLeft).Size(-1, 110);
@@ -132,7 +132,29 @@ namespace PetStar.Client.Screens
                 try { var r = await App.Api.Post<CardDto>($"/api/cards/{card.Id}/lock", new FlagRequest { Value = !card.IsLocked }); close(); onChanged(r); }
                 catch (ApiError e) { nav.Toast(L.Error(e.Code), true); }
             }, UiKit.ButtonStyle.Secondary, 32).Size(-1, 100, 1);
-            UiKit.Button(info, L.T("card.evolve"), () => { close(); nav.Push(new EvolutionScreen(card)); }, UiKit.ButtonStyle.Gold, 38).Size(-1, 110);
+            var row2 = UiKit.Rect(info, "Actions2"); row2.Size(-1, 110);
+            UiKit.HStack(row2, 16).childForceExpandWidth = true;
+            UiKit.Button(row2, L.T("card.evolve"), () => { close(); nav.Push(new EvolutionScreen(card)); }, UiKit.ButtonStyle.Gold, 32).Size(-1, 100, 1);
+            UiKit.Button(row2, L.T("card.train"), async () =>
+            {
+                try
+                {
+                    var t = await App.Api.Get<Newtonsoft.Json.Linq.JObject>($"/api/cards/{card.Id}/training");
+                    var next = t["next"];
+                    if (next == null || next.Type == Newtonsoft.Json.Linq.JTokenType.Null) { nav.Toast(L.T("training.max")); return; }
+                    W.Confirm(L.T("training.title"), L.T("training.body", (int)t["skillLevel"]! + 1, (int)next["minCardLevel"]!, (int)next["scrolls"]!, (long)t["scrollsOwned"]!, L.Number((long)next["beans"]!)), L.T("card.train"), async () =>
+                    {
+                        try { var r = await App.Api.Post<Newtonsoft.Json.Linq.JObject>($"/api/cards/{card.Id}/train", null, ApiClient.NewIdempotencyKey()); App.Session.UpdateCurrencies(r["currencies"]?.ToObject<Dictionary<string, long>>()); nav.Toast(L.T("training.done")); close(); }
+                        catch (ApiError e) { nav.Toast(L.Error(e.Code), true); }
+                    });
+                }
+                catch (ApiError e) { nav.Toast(L.Error(e.Code), true); }
+            }, UiKit.ButtonStyle.Secondary, 32).Size(-1, 100, 1);
+            var row3 = UiKit.Rect(info, "Actions3"); row3.Size(-1, 110);
+            UiKit.HStack(row3, 16).childForceExpandWidth = true;
+            UiKit.Button(row3, L.T("passport.open"), () => { close(); nav.Push(new PassportScreen(card.Id)); }, UiKit.ButtonStyle.Secondary, 30).Size(-1, 100, 1);
+            UiKit.Button(row3, L.T("market.sell"), () => { close(); nav.Push(new SellCardScreen(card)); }, UiKit.ButtonStyle.Secondary, 30).Size(-1, 100, 1);
+            UiKit.Button(row3, L.T("passport.share"), () => { close(); nav.Push(new CreatePostScreen(card)); }, UiKit.ButtonStyle.Secondary, 30).Size(-1, 100, 1);
             UiKit.Button(info, L.T("common.close"), close, UiKit.ButtonStyle.Ghost, 34).Size(-1, 90);
         }
     }

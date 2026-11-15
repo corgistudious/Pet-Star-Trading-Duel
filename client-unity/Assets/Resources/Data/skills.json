@@ -2,55 +2,8244 @@
   "version": 1,
   "notes": "Effect DSL interpreted by PetStar.Rules BattleEngine. power is a multiplier of the scale stat (default atk). Costs and powers are balance baselines.",
   "skills": [
-    { "id": "ember_pounce", "kind": "skill", "cost": 1, "priority": 0, "target": "enemy_single",
-      "effects": [ { "type": "damage", "power": 1.5 }, { "type": "status", "status": "burn", "chance": 0.3, "duration": 2 } ] },
-    { "id": "cinder_claws", "kind": "skill", "cost": 2, "priority": 0, "target": "enemy_single",
-      "effects": [ { "type": "damage", "power": 1.8 }, { "type": "status", "status": "burn", "chance": 0.5, "duration": 2 } ] },
-    { "id": "lynx_flare_rush", "kind": "ultimate", "cost": 4, "priority": 0, "target": "enemy_front_row",
-      "effects": [ { "type": "damage", "power": 1.6 } ] },
-    { "id": "pyre_fang", "kind": "skill", "cost": 2, "priority": 0, "target": "enemy_single",
-      "effects": [ { "type": "damage", "power": 2.0 }, { "type": "status", "status": "burn", "chance": 0.6, "duration": 2 } ] },
-    { "id": "sunfall_blaze", "kind": "ultimate", "cost": 5, "priority": 0, "target": "enemy_all",
-      "effects": [ { "type": "damage", "power": 1.4 }, { "type": "status", "status": "burn", "chance": 0.4, "duration": 2 } ] },
-
-    { "id": "bubble_guard", "kind": "skill", "cost": 1, "priority": 1, "target": "self",
-      "effects": [ { "type": "shield", "power": 1.6, "scale": "def" } ] },
-    { "id": "ripple_wall", "kind": "skill", "cost": 2, "priority": 1, "target": "ally_all",
-      "effects": [ { "type": "shield", "power": 0.7, "scale": "def" } ] },
-    { "id": "tidal_taunt", "kind": "ultimate", "cost": 4, "priority": 1, "target": "self",
-      "effects": [ { "type": "status", "status": "taunt", "chance": 1.0, "duration": 2 }, { "type": "shield", "power": 2.2, "scale": "def" } ] },
-    { "id": "coral_bastion", "kind": "skill", "cost": 2, "priority": 1, "target": "ally_all",
-      "effects": [ { "type": "shield", "power": 0.9, "scale": "def" } ] },
-    { "id": "crown_of_tides", "kind": "ultimate", "cost": 5, "priority": 0, "target": "enemy_all",
-      "effects": [ { "type": "damage", "power": 1.0 }, { "type": "shield", "power": 0.8, "scale": "def", "targetOverride": "ally_all" } ] },
-
-    { "id": "static_nibble", "kind": "skill", "cost": 1, "priority": 0, "target": "enemy_single",
-      "effects": [ { "type": "damage", "power": 1.2 }, { "type": "status", "status": "stun", "chance": 0.25, "duration": 1 } ] },
-    { "id": "chain_spark", "kind": "skill", "cost": 2, "priority": 0, "target": "enemy_front_row",
-      "effects": [ { "type": "damage", "power": 1.0 }, { "type": "status", "status": "stun", "chance": 0.2, "duration": 1 } ] },
-    { "id": "storm_acorn", "kind": "ultimate", "cost": 4, "priority": 0, "target": "enemy_single",
-      "effects": [ { "type": "damage", "power": 2.2 }, { "type": "status", "status": "stun", "chance": 0.6, "duration": 1 } ] },
-
-    { "id": "dawn_hymn", "kind": "skill", "cost": 2, "priority": 0, "target": "ally_lowest_hp",
-      "effects": [ { "type": "heal", "power": 1.6 } ] },
-    { "id": "halo_sanctuary", "kind": "ultimate", "cost": 4, "priority": 0, "target": "ally_all",
-      "effects": [ { "type": "heal", "power": 1.0 }, { "type": "cleanse" } ] },
-
-    { "id": "dusk_powder", "kind": "skill", "cost": 2, "priority": 0, "target": "enemy_all",
-      "effects": [ { "type": "damage", "power": 0.8 }, { "type": "status", "status": "poison", "chance": 0.5, "duration": 2 } ] },
-    { "id": "eclipse_veil", "kind": "ultimate", "cost": 5, "priority": 0, "target": "enemy_all",
-      "effects": [ { "type": "damage", "power": 1.5 }, { "type": "status", "status": "weaken", "chance": 0.5, "duration": 2 } ] }
+    {
+      "id": "ember_pounce",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.5
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.3,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Ember Pounce",
+        "vi": "Vồ Than Hồng"
+      }
+    },
+    {
+      "id": "cinder_claws",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.8
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Cinder Claws",
+        "vi": "Vuốt Tro Lửa"
+      }
+    },
+    {
+      "id": "lynx_flare_rush",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.6
+        }
+      ],
+      "name": {
+        "en": "Lynx Flare Rush",
+        "vi": "Lao Lửa Linh Miêu"
+      }
+    },
+    {
+      "id": "pyre_fang",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.0
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Pyre Fang",
+        "vi": "Nanh Hỏa Đài"
+      }
+    },
+    {
+      "id": "sunfall_blaze",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.4
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.4,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Sunfall Blaze",
+        "vi": "Mặt Trời Rực Cháy"
+      }
+    },
+    {
+      "id": "bubble_guard",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.6,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Bubble Guard",
+        "vi": "Khiên Bong Bóng"
+      }
+    },
+    {
+      "id": "ripple_wall",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 0.7,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Ripple Wall",
+        "vi": "Tường Gợn Sóng"
+      }
+    },
+    {
+      "id": "tidal_taunt",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 2
+        },
+        {
+          "type": "shield",
+          "power": 2.2,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Tidal Taunt",
+        "vi": "Thủy Triều Khiêu Chiến"
+      }
+    },
+    {
+      "id": "coral_bastion",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 0.9,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Coral Bastion",
+        "vi": "Thành Lũy San Hô"
+      }
+    },
+    {
+      "id": "crown_of_tides",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.0
+        },
+        {
+          "type": "shield",
+          "power": 0.8,
+          "scale": "def",
+          "targetOverride": "ally_all"
+        }
+      ],
+      "name": {
+        "en": "Crown of Tides",
+        "vi": "Vương Miện Thủy Triều"
+      }
+    },
+    {
+      "id": "static_nibble",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.2
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.25,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Static Nibble",
+        "vi": "Cắn Tĩnh Điện"
+      }
+    },
+    {
+      "id": "chain_spark",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.0
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.2,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Chain Spark",
+        "vi": "Chuỗi Tia Điện"
+      }
+    },
+    {
+      "id": "storm_acorn",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.2
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.6,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Storm Acorn",
+        "vi": "Hạt Dẻ Bão Tố"
+      }
+    },
+    {
+      "id": "dawn_hymn",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.6
+        }
+      ],
+      "name": {
+        "en": "Dawn Hymn",
+        "vi": "Khúc Ca Bình Minh"
+      }
+    },
+    {
+      "id": "halo_sanctuary",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.0
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Halo Sanctuary",
+        "vi": "Thánh Địa Hào Quang"
+      }
+    },
+    {
+      "id": "dusk_powder",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.8
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Dusk Powder",
+        "vi": "Phấn Hoàng Hôn"
+      }
+    },
+    {
+      "id": "eclipse_veil",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.5
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Eclipse Veil",
+        "vi": "Màn Che Nhật Thực"
+      }
+    },
+    {
+      "id": "teapip_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.75
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.35,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Teapip Nova",
+        "vi": "Tân Tinh Teapip"
+      }
+    },
+    {
+      "id": "kettlewyrm_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.9
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Kettlewyrm Torrent",
+        "vi": "Cuồng Lưu Kettlewyrm"
+      }
+    },
+    {
+      "id": "kettlewyrm_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.55
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Kettlewyrm Ultimate: Spell",
+        "vi": "Tuyệt Kỹ Phép Kettlewyrm"
+      }
+    },
+    {
+      "id": "samovaragon_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.05
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Samovaragon Spell",
+        "vi": "Phép Samovaragon"
+      }
+    },
+    {
+      "id": "samovaragon_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.7
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Samovaragon Ultimate: Burst",
+        "vi": "Tuyệt Kỹ Bùng Nổ Samovaragon"
+      }
+    },
+    {
+      "id": "wickling_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.5
+        }
+      ],
+      "name": {
+        "en": "Wickling Hymn",
+        "vi": "Thánh Ca Wickling"
+      }
+    },
+    {
+      "id": "waxsala_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.65
+        }
+      ],
+      "name": {
+        "en": "Waxsala Mend",
+        "vi": "Hồi Phục Waxsala"
+      }
+    },
+    {
+      "id": "waxsala_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.15
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Waxsala Ultimate: Grace",
+        "vi": "Tuyệt Kỹ Ân Điển Waxsala"
+      }
+    },
+    {
+      "id": "chandelord_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.8
+        }
+      ],
+      "name": {
+        "en": "Chandelord Grace",
+        "vi": "Ân Điển Chandelord"
+      }
+    },
+    {
+      "id": "chandelord_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.3
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Chandelord Ultimate: Blessing",
+        "vi": "Tuyệt Kỹ Phúc Lành Chandelord"
+      }
+    },
+    {
+      "id": "chilipop_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.05
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.3,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Chilipop Slash",
+        "vi": "Chém Chilipop"
+      }
+    },
+    {
+      "id": "pepperquill_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.2
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.4,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Pepperquill Strike",
+        "vi": "Đòn Pepperquill"
+      }
+    },
+    {
+      "id": "pepperquill_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.85
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Pepperquill Ultimate: Rush",
+        "vi": "Tuyệt Kỹ Lao Tới Pepperquill"
+      }
+    },
+    {
+      "id": "habanerox_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.35
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Habanerox Rush",
+        "vi": "Lao Tới Habanerox"
+      }
+    },
+    {
+      "id": "habanerox_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 3.0
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Habanerox Ultimate: Fang",
+        "vi": "Tuyệt Kỹ Nanh Habanerox"
+      }
+    },
+    {
+      "id": "magmite_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.5,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Magmite Guard",
+        "vi": "Hộ Thể Magmite"
+      }
+    },
+    {
+      "id": "cratortle_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.7,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Cratortle Aegis",
+        "vi": "Khiên Thần Cratortle"
+      }
+    },
+    {
+      "id": "cratortle_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 2,
+          "power": 1.05
+        },
+        {
+          "type": "shield",
+          "power": 2.2,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Cratortle Ultimate: Ward",
+        "vi": "Tuyệt Kỹ Phòng Ngự Cratortle"
+      }
+    },
+    {
+      "id": "calderon_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.9,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Calderon Ward",
+        "vi": "Phòng Ngự Calderon"
+      }
+    },
+    {
+      "id": "calderon_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 2
+        },
+        {
+          "type": "shield",
+          "power": 2.4,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Calderon Ultimate: Bulwark",
+        "vi": "Tuyệt Kỹ Thành Lũy Calderon"
+      }
+    },
+    {
+      "id": "flickfinch_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.1
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.3,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Flickfinch Slash",
+        "vi": "Chém Flickfinch"
+      }
+    },
+    {
+      "id": "pyrewing_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.25
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.4,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Pyrewing Strike",
+        "vi": "Đòn Pyrewing"
+      }
+    },
+    {
+      "id": "pyrewing_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.9
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Pyrewing Ultimate: Rush",
+        "vi": "Tuyệt Kỹ Lao Tới Pyrewing"
+      }
+    },
+    {
+      "id": "solarquill_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.4
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Solarquill Rush",
+        "vi": "Lao Tới Solarquill"
+      }
+    },
+    {
+      "id": "solarquill_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 3.05
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Solarquill Ultimate: Fang",
+        "vi": "Tuyệt Kỹ Nanh Solarquill"
+      }
+    },
+    {
+      "id": "coalcub_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 1,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 0.65,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Coalcub Aegis",
+        "vi": "Khiên Thần Coalcub"
+      }
+    },
+    {
+      "id": "hearthursa_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 0.85,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Hearthursa Ward",
+        "vi": "Phòng Ngự Hearthursa"
+      }
+    },
+    {
+      "id": "hearthursa_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 1,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.1
+        },
+        {
+          "type": "shield",
+          "power": 0.85,
+          "scale": "def",
+          "targetOverride": "ally_all"
+        }
+      ],
+      "name": {
+        "en": "Hearthursa Ultimate: Bulwark",
+        "vi": "Tuyệt Kỹ Thành Lũy Hearthursa"
+      }
+    },
+    {
+      "id": "kilnbear_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.05,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Kilnbear Bulwark",
+        "vi": "Thành Lũy Kilnbear"
+      }
+    },
+    {
+      "id": "kilnbear_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 1,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.25
+        },
+        {
+          "type": "shield",
+          "power": 0.95,
+          "scale": "def",
+          "targetOverride": "ally_all"
+        }
+      ],
+      "name": {
+        "en": "Kilnbear Ultimate: Guard",
+        "vi": "Tuyệt Kỹ Hộ Thể Kilnbear"
+      }
+    },
+    {
+      "id": "blazelamb_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.15
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.3,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Blazelamb Hex",
+        "vi": "Ếm Blazelamb"
+      }
+    },
+    {
+      "id": "forgeram_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.3
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.4,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Forgeram Jolt",
+        "vi": "Chấn Forgeram"
+      }
+    },
+    {
+      "id": "forgeram_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.15
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.65,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Forgeram Ultimate: Lock",
+        "vi": "Tuyệt Kỹ Khóa Forgeram"
+      }
+    },
+    {
+      "id": "toastbun_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.55
+        }
+      ],
+      "name": {
+        "en": "Toastbun Hymn",
+        "vi": "Thánh Ca Toastbun"
+      }
+    },
+    {
+      "id": "bakeburrow_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.7
+        }
+      ],
+      "name": {
+        "en": "Bakeburrow Mend",
+        "vi": "Hồi Phục Bakeburrow"
+      }
+    },
+    {
+      "id": "bakeburrow_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.2
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Bakeburrow Ultimate: Grace",
+        "vi": "Tuyệt Kỹ Ân Điển Bakeburrow"
+      }
+    },
+    {
+      "id": "furnacrab_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.8,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Furnacrab Guard",
+        "vi": "Hộ Thể Furnacrab"
+      }
+    },
+    {
+      "id": "furnacrab_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 2
+        },
+        {
+          "type": "shield",
+          "power": 2.3,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Furnacrab Ultimate: Aegis",
+        "vi": "Tuyệt Kỹ Khiên Thần Furnacrab"
+      }
+    },
+    {
+      "id": "jellume_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.65
+        },
+        {
+          "type": "shield",
+          "power": 0.55,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Jellume Blessing",
+        "vi": "Phúc Lành Jellume"
+      }
+    },
+    {
+      "id": "medulamp_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.8
+        },
+        {
+          "type": "shield",
+          "power": 0.6,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Medulamp Hymn",
+        "vi": "Thánh Ca Medulamp"
+      }
+    },
+    {
+      "id": "medulamp_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.0
+        },
+        {
+          "type": "energy",
+          "power": 2
+        }
+      ],
+      "name": {
+        "en": "Medulamp Ultimate: Mend",
+        "vi": "Tuyệt Kỹ Hồi Phục Medulamp"
+      }
+    },
+    {
+      "id": "abyssalume_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.95
+        },
+        {
+          "type": "shield",
+          "power": 0.65,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Abyssalume Mend",
+        "vi": "Hồi Phục Abyssalume"
+      }
+    },
+    {
+      "id": "abyssalume_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.15
+        },
+        {
+          "type": "energy",
+          "power": 2
+        }
+      ],
+      "name": {
+        "en": "Abyssalume Ultimate: Grace",
+        "vi": "Tuyệt Kỹ Ân Điển Abyssalume"
+      }
+    },
+    {
+      "id": "pupsplash_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.55,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Pupsplash Guard",
+        "vi": "Hộ Thể Pupsplash"
+      }
+    },
+    {
+      "id": "floeseal_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.75,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Floeseal Aegis",
+        "vi": "Khiên Thần Floeseal"
+      }
+    },
+    {
+      "id": "floeseal_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 2,
+          "power": 1.1
+        },
+        {
+          "type": "shield",
+          "power": 2.2,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Floeseal Ultimate: Ward",
+        "vi": "Tuyệt Kỹ Phòng Ngự Floeseal"
+      }
+    },
+    {
+      "id": "glaciarch_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.95,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Glaciarch Ward",
+        "vi": "Phòng Ngự Glaciarch"
+      }
+    },
+    {
+      "id": "glaciarch_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 2,
+          "power": 1.05
+        },
+        {
+          "type": "shield",
+          "power": 2.4,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Glaciarch Ultimate: Bulwark",
+        "vi": "Tuyệt Kỹ Thành Lũy Glaciarch"
+      }
+    },
+    {
+      "id": "seacolt_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.05
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.3,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Seacolt Slash",
+        "vi": "Chém Seacolt"
+      }
+    },
+    {
+      "id": "wavestallion_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.2
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.4,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Wavestallion Strike",
+        "vi": "Đòn Wavestallion"
+      }
+    },
+    {
+      "id": "wavestallion_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.85
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Wavestallion Ultimate: Rush",
+        "vi": "Tuyệt Kỹ Lao Tới Wavestallion"
+      }
+    },
+    {
+      "id": "tsunamare_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.35
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Tsunamare Rush",
+        "vi": "Lao Tới Tsunamare"
+      }
+    },
+    {
+      "id": "tsunamare_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 3.0
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Tsunamare Ultimate: Fang",
+        "vi": "Tuyệt Kỹ Nanh Tsunamare"
+      }
+    },
+    {
+      "id": "shellotter_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.1
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Shellotter Lock",
+        "vi": "Khóa Shellotter"
+      }
+    },
+    {
+      "id": "riverine_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.25
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Riverine Snare",
+        "vi": "Trói Buộc Riverine"
+      }
+    },
+    {
+      "id": "riverine_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.55
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Riverine Ultimate: Hex",
+        "vi": "Tuyệt Kỹ Ếm Riverine"
+      }
+    },
+    {
+      "id": "torrentter_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.4
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.65,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Torrentter Hex",
+        "vi": "Ếm Torrentter"
+      }
+    },
+    {
+      "id": "torrentter_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.7
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.7,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Torrentter Ultimate: Jolt",
+        "vi": "Tuyệt Kỹ Chấn Torrentter"
+      }
+    },
+    {
+      "id": "puddleap_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.75
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.35,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Puddleap Nova",
+        "vi": "Tân Tinh Puddleap"
+      }
+    },
+    {
+      "id": "raincroak_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.9
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Raincroak Torrent",
+        "vi": "Cuồng Lưu Raincroak"
+      }
+    },
+    {
+      "id": "raincroak_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.55
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Raincroak Ultimate: Spell",
+        "vi": "Tuyệt Kỹ Phép Raincroak"
+      }
+    },
+    {
+      "id": "stormtoad_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.05
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Stormtoad Spell",
+        "vi": "Phép Stormtoad"
+      }
+    },
+    {
+      "id": "stormtoad_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.7
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Stormtoad Ultimate: Burst",
+        "vi": "Tuyệt Kỹ Bùng Nổ Stormtoad"
+      }
+    },
+    {
+      "id": "inklet_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.8
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.35,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Inklet Nova",
+        "vi": "Tân Tinh Inklet"
+      }
+    },
+    {
+      "id": "scribopus_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.95
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Scribopus Torrent",
+        "vi": "Cuồng Lưu Scribopus"
+      }
+    },
+    {
+      "id": "scribopus_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.6
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Scribopus Ultimate: Spell",
+        "vi": "Tuyệt Kỹ Phép Scribopus"
+      }
+    },
+    {
+      "id": "calligrapus_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.1
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Calligrapus Spell",
+        "vi": "Phép Calligrapus"
+      }
+    },
+    {
+      "id": "calligrapus_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.75
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Calligrapus Ultimate: Burst",
+        "vi": "Tuyệt Kỹ Bùng Nổ Calligrapus"
+      }
+    },
+    {
+      "id": "raylet_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.15
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Raylet Lock",
+        "vi": "Khóa Raylet"
+      }
+    },
+    {
+      "id": "mantaroyal_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.3
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Mantaroyal Snare",
+        "vi": "Trói Buộc Mantaroyal"
+      }
+    },
+    {
+      "id": "mantaroyal_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.6
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Mantaroyal Ultimate: Hex",
+        "vi": "Tuyệt Kỹ Ếm Mantaroyal"
+      }
+    },
+    {
+      "id": "clamby_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 1,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.25,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Clamby Bulwark",
+        "vi": "Thành Lũy Clamby"
+      }
+    },
+    {
+      "id": "pearlord_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.45,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Pearlord Guard",
+        "vi": "Hộ Thể Pearlord"
+      }
+    },
+    {
+      "id": "pearlord_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 2.95,
+          "scale": "def"
+        },
+        {
+          "type": "heal",
+          "power": 1.1
+        }
+      ],
+      "name": {
+        "en": "Pearlord Ultimate: Aegis",
+        "vi": "Tuyệt Kỹ Khiên Thần Pearlord"
+      }
+    },
+    {
+      "id": "moonwhale_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.97
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Moonwhale Nova",
+        "vi": "Tân Tinh Moonwhale"
+      }
+    },
+    {
+      "id": "moonwhale_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.62
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Moonwhale Ultimate: Torrent",
+        "vi": "Tuyệt Kỹ Cuồng Lưu Moonwhale"
+      }
+    },
+    {
+      "id": "sporelet_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.4
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Sporelet Grace",
+        "vi": "Ân Điển Sporelet"
+      }
+    },
+    {
+      "id": "mossbuck_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.55
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Mossbuck Blessing",
+        "vi": "Phúc Lành Mossbuck"
+      }
+    },
+    {
+      "id": "mossbuck_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.45
+        }
+      ],
+      "name": {
+        "en": "Mossbuck Ultimate: Hymn",
+        "vi": "Tuyệt Kỹ Thánh Ca Mossbuck"
+      }
+    },
+    {
+      "id": "myceliord_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.7
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Myceliord Hymn",
+        "vi": "Thánh Ca Myceliord"
+      }
+    },
+    {
+      "id": "myceliord_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.6
+        }
+      ],
+      "name": {
+        "en": "Myceliord Ultimate: Mend",
+        "vi": "Tuyệt Kỹ Hồi Phục Myceliord"
+      }
+    },
+    {
+      "id": "budbun_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.05
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.3,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Budbun Slash",
+        "vi": "Chém Budbun"
+      }
+    },
+    {
+      "id": "bloomhare_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.2
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.4,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Bloomhare Strike",
+        "vi": "Đòn Bloomhare"
+      }
+    },
+    {
+      "id": "bloomhare_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.85
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Bloomhare Ultimate: Rush",
+        "vi": "Tuyệt Kỹ Lao Tới Bloomhare"
+      }
+    },
+    {
+      "id": "verdantlop_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.35
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Verdantlop Rush",
+        "vi": "Lao Tới Verdantlop"
+      }
+    },
+    {
+      "id": "verdantlop_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 3.0
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Verdantlop Ultimate: Fang",
+        "vi": "Tuyệt Kỹ Nanh Verdantlop"
+      }
+    },
+    {
+      "id": "pricklet_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.65,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Pricklet Guard",
+        "vi": "Hộ Thể Pricklet"
+      }
+    },
+    {
+      "id": "cactabby_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.85,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Cactabby Aegis",
+        "vi": "Khiên Thần Cactabby"
+      }
+    },
+    {
+      "id": "cactabby_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 2,
+          "power": 1.15
+        },
+        {
+          "type": "shield",
+          "power": 2.2,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Cactabby Ultimate: Ward",
+        "vi": "Tuyệt Kỹ Phòng Ngự Cactabby"
+      }
+    },
+    {
+      "id": "saguaroar_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 2.0,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Saguaroar Ward",
+        "vi": "Phòng Ngự Saguaroar"
+      }
+    },
+    {
+      "id": "saguaroar_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 2,
+          "power": 1.1
+        },
+        {
+          "type": "shield",
+          "power": 2.4,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Saguaroar Ultimate: Bulwark",
+        "vi": "Tuyệt Kỹ Thành Lũy Saguaroar"
+      }
+    },
+    {
+      "id": "ladyling_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.75
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.3,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Ladyling Snare",
+        "vi": "Trói Buộc Ladyling"
+      }
+    },
+    {
+      "id": "elytrix_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.9
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.4,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Elytrix Hex",
+        "vi": "Ếm Elytrix"
+      }
+    },
+    {
+      "id": "elytrix_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.4
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Elytrix Ultimate: Jolt",
+        "vi": "Tuyệt Kỹ Chấn Elytrix"
+      }
+    },
+    {
+      "id": "scarabelle_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.05
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Scarabelle Jolt",
+        "vi": "Chấn Scarabelle"
+      }
+    },
+    {
+      "id": "scarabelle_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.55
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.7,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Scarabelle Ultimate: Lock",
+        "vi": "Tuyệt Kỹ Khóa Scarabelle"
+      }
+    },
+    {
+      "id": "matchub_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.65
+        }
+      ],
+      "name": {
+        "en": "Matchub Mend",
+        "vi": "Hồi Phục Matchub"
+      }
+    },
+    {
+      "id": "bambrew_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.8
+        }
+      ],
+      "name": {
+        "en": "Bambrew Grace",
+        "vi": "Ân Điển Bambrew"
+      }
+    },
+    {
+      "id": "bambrew_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.0
+        },
+        {
+          "type": "shield",
+          "power": 0.75,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Bambrew Ultimate: Blessing",
+        "vi": "Tuyệt Kỹ Phúc Lành Bambrew"
+      }
+    },
+    {
+      "id": "pandaroma_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.95
+        }
+      ],
+      "name": {
+        "en": "Pandaroma Blessing",
+        "vi": "Phúc Lành Pandaroma"
+      }
+    },
+    {
+      "id": "pandaroma_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.15
+        },
+        {
+          "type": "shield",
+          "power": 0.85,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Pandaroma Ultimate: Hymn",
+        "vi": "Tuyệt Kỹ Thánh Ca Pandaroma"
+      }
+    },
+    {
+      "id": "snailbloom_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.7,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Snailbloom Guard",
+        "vi": "Hộ Thể Snailbloom"
+      }
+    },
+    {
+      "id": "gardenshell_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 2.05,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Gardenshell Aegis",
+        "vi": "Khiên Thần Gardenshell"
+      }
+    },
+    {
+      "id": "gardenshell_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 2,
+          "power": 1.2
+        },
+        {
+          "type": "shield",
+          "power": 2.2,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Gardenshell Ultimate: Ward",
+        "vi": "Tuyệt Kỹ Phòng Ngự Gardenshell"
+      }
+    },
+    {
+      "id": "topiaroth_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 2.1,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Topiaroth Ward",
+        "vi": "Phòng Ngự Topiaroth"
+      }
+    },
+    {
+      "id": "topiaroth_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 2,
+          "power": 1.15
+        },
+        {
+          "type": "shield",
+          "power": 2.4,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Topiaroth Ultimate: Bulwark",
+        "vi": "Tuyệt Kỹ Thành Lũy Topiaroth"
+      }
+    },
+    {
+      "id": "pollibee_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.6
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.35,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Pollibee Strike",
+        "vi": "Đòn Pollibee"
+      }
+    },
+    {
+      "id": "honeyquill_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.75
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Honeyquill Rush",
+        "vi": "Lao Tới Honeyquill"
+      }
+    },
+    {
+      "id": "honeyquill_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.55
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Honeyquill Ultimate: Fang",
+        "vi": "Tuyệt Kỹ Nanh Honeyquill"
+      }
+    },
+    {
+      "id": "hivemonarch_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.9
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Hivemonarch Fang",
+        "vi": "Nanh Hivemonarch"
+      }
+    },
+    {
+      "id": "hivemonarch_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.7
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.65,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Hivemonarch Ultimate: Slash",
+        "vi": "Tuyệt Kỹ Chém Hivemonarch"
+      }
+    },
+    {
+      "id": "lotusling_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.0
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.35,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Lotusling Torrent",
+        "vi": "Cuồng Lưu Lotusling"
+      }
+    },
+    {
+      "id": "lilykoi_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.15
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Lilykoi Spell",
+        "vi": "Phép Lilykoi"
+      }
+    },
+    {
+      "id": "lilykoi_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.5
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Lilykoi Ultimate: Burst",
+        "vi": "Tuyệt Kỹ Bùng Nổ Lilykoi"
+      }
+    },
+    {
+      "id": "tendrilly_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.1
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Tendrilly Lock",
+        "vi": "Khóa Tendrilly"
+      }
+    },
+    {
+      "id": "ivyserpent_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.25
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Ivyserpent Snare",
+        "vi": "Trói Buộc Ivyserpent"
+      }
+    },
+    {
+      "id": "ivyserpent_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.55
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Ivyserpent Ultimate: Hex",
+        "vi": "Tuyệt Kỹ Ếm Ivyserpent"
+      }
+    },
+    {
+      "id": "elderbark_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.55,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Elderbark Bulwark",
+        "vi": "Thành Lũy Elderbark"
+      }
+    },
+    {
+      "id": "elderbark_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 3.05,
+          "scale": "def"
+        },
+        {
+          "type": "heal",
+          "power": 1.17
+        }
+      ],
+      "name": {
+        "en": "Elderbark Ultimate: Guard",
+        "vi": "Tuyệt Kỹ Hộ Thể Elderbark"
+      }
+    },
+    {
+      "id": "gemhog_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.75,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Gemhog Guard",
+        "vi": "Hộ Thể Gemhog"
+      }
+    },
+    {
+      "id": "quartzpine_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 2.15,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Quartzpine Aegis",
+        "vi": "Khiên Thần Quartzpine"
+      }
+    },
+    {
+      "id": "quartzpine_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 2,
+          "power": 1.25
+        },
+        {
+          "type": "shield",
+          "power": 2.2,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Quartzpine Ultimate: Ward",
+        "vi": "Tuyệt Kỹ Phòng Ngự Quartzpine"
+      }
+    },
+    {
+      "id": "geodehog_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 2.2,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Geodehog Ward",
+        "vi": "Phòng Ngự Geodehog"
+      }
+    },
+    {
+      "id": "geodehog_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 2,
+          "power": 1.2
+        },
+        {
+          "type": "shield",
+          "power": 2.4,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Geodehog Ultimate: Bulwark",
+        "vi": "Tuyệt Kỹ Thành Lũy Geodehog"
+      }
+    },
+    {
+      "id": "molepip_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.9
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.25,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Molepip Jolt",
+        "vi": "Chấn Molepip"
+      }
+    },
+    {
+      "id": "lanternmole_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.05
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.35,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Lanternmole Lock",
+        "vi": "Khóa Lanternmole"
+      }
+    },
+    {
+      "id": "lanternmole_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.2
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Lanternmole Ultimate: Snare",
+        "vi": "Tuyệt Kỹ Trói Buộc Lanternmole"
+      }
+    },
+    {
+      "id": "drillmajor_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.2
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Drillmajor Snare",
+        "vi": "Trói Buộc Drillmajor"
+      }
+    },
+    {
+      "id": "drillmajor_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.35
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Drillmajor Ultimate: Hex",
+        "vi": "Tuyệt Kỹ Ếm Drillmajor"
+      }
+    },
+    {
+      "id": "pebblet_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.6
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.35,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Pebblet Strike",
+        "vi": "Đòn Pebblet"
+      }
+    },
+    {
+      "id": "rockhound_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.75
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Rockhound Rush",
+        "vi": "Lao Tới Rockhound"
+      }
+    },
+    {
+      "id": "rockhound_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.55
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Rockhound Ultimate: Fang",
+        "vi": "Tuyệt Kỹ Nanh Rockhound"
+      }
+    },
+    {
+      "id": "cragmastiff_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.9
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Cragmastiff Fang",
+        "vi": "Nanh Cragmastiff"
+      }
+    },
+    {
+      "id": "cragmastiff_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.7
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.65,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Cragmastiff Ultimate: Slash",
+        "vi": "Tuyệt Kỹ Chém Cragmastiff"
+      }
+    },
+    {
+      "id": "rollpip_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 1,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.3,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Rollpip Bulwark",
+        "vi": "Thành Lũy Rollpip"
+      }
+    },
+    {
+      "id": "armadune_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.5,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Armadune Guard",
+        "vi": "Hộ Thể Armadune"
+      }
+    },
+    {
+      "id": "armadune_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 3.0,
+          "scale": "def"
+        },
+        {
+          "type": "heal",
+          "power": 1.1
+        }
+      ],
+      "name": {
+        "en": "Armadune Ultimate: Aegis",
+        "vi": "Tuyệt Kỹ Khiên Thần Armadune"
+      }
+    },
+    {
+      "id": "fortadillo_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.65,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Fortadillo Aegis",
+        "vi": "Khiên Thần Fortadillo"
+      }
+    },
+    {
+      "id": "fortadillo_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 3.15,
+          "scale": "def"
+        },
+        {
+          "type": "heal",
+          "power": 1.25
+        }
+      ],
+      "name": {
+        "en": "Fortadillo Ultimate: Ward",
+        "vi": "Tuyệt Kỹ Phòng Ngự Fortadillo"
+      }
+    },
+    {
+      "id": "sandmeer_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.7
+        },
+        {
+          "type": "shield",
+          "power": 0.55,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Sandmeer Blessing",
+        "vi": "Phúc Lành Sandmeer"
+      }
+    },
+    {
+      "id": "dunewatch_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.85
+        },
+        {
+          "type": "shield",
+          "power": 0.6,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Dunewatch Hymn",
+        "vi": "Thánh Ca Dunewatch"
+      }
+    },
+    {
+      "id": "dunewatch_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.05
+        },
+        {
+          "type": "energy",
+          "power": 2
+        }
+      ],
+      "name": {
+        "en": "Dunewatch Ultimate: Mend",
+        "vi": "Tuyệt Kỹ Hồi Phục Dunewatch"
+      }
+    },
+    {
+      "id": "mirasentry_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.0
+        },
+        {
+          "type": "shield",
+          "power": 0.65,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Mirasentry Mend",
+        "vi": "Hồi Phục Mirasentry"
+      }
+    },
+    {
+      "id": "mirasentry_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.2
+        },
+        {
+          "type": "energy",
+          "power": 2
+        }
+      ],
+      "name": {
+        "en": "Mirasentry Ultimate: Grace",
+        "vi": "Tuyệt Kỹ Ân Điển Mirasentry"
+      }
+    },
+    {
+      "id": "pebblehorn_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.65
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.35,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Pebblehorn Strike",
+        "vi": "Đòn Pebblehorn"
+      }
+    },
+    {
+      "id": "rhinostone_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.8
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Rhinostone Rush",
+        "vi": "Lao Tới Rhinostone"
+      }
+    },
+    {
+      "id": "rhinostone_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.6
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Rhinostone Ultimate: Fang",
+        "vi": "Tuyệt Kỹ Nanh Rhinostone"
+      }
+    },
+    {
+      "id": "basaltusk_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.95
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Basaltusk Fang",
+        "vi": "Nanh Basaltusk"
+      }
+    },
+    {
+      "id": "basaltusk_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.75
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.65,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Basaltusk Ultimate: Slash",
+        "vi": "Tuyệt Kỹ Chém Basaltusk"
+      }
+    },
+    {
+      "id": "orelet_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.4,
+          "scale": "def"
+        },
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Orelet Ward",
+        "vi": "Phòng Ngự Orelet"
+      }
+    },
+    {
+      "id": "ironboar_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.6,
+          "scale": "def"
+        },
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Ironboar Bulwark",
+        "vi": "Thành Lũy Ironboar"
+      }
+    },
+    {
+      "id": "ironboar_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.25,
+          "scale": "def"
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Ironboar Ultimate: Guard",
+        "vi": "Tuyệt Kỹ Hộ Thể Ironboar"
+      }
+    },
+    {
+      "id": "mythrilboar_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.8,
+          "scale": "def"
+        },
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Mythrilboar Guard",
+        "vi": "Hộ Thể Mythrilboar"
+      }
+    },
+    {
+      "id": "mythrilboar_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.4,
+          "scale": "def"
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Mythrilboar Ultimate: Aegis",
+        "vi": "Tuyệt Kỹ Khiên Thần Mythrilboar"
+      }
+    },
+    {
+      "id": "fossilet_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.7
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Fossilet Spell",
+        "vi": "Phép Fossilet"
+      }
+    },
+    {
+      "id": "ambersaur_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.85
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.65,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Ambersaur Burst",
+        "vi": "Bùng Nổ Ambersaur"
+      }
+    },
+    {
+      "id": "ambersaur_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 3.05
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Ambersaur Ultimate: Nova",
+        "vi": "Tuyệt Kỹ Tân Tinh Ambersaur"
+      }
+    },
+    {
+      "id": "terrapot_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.75
+        }
+      ],
+      "name": {
+        "en": "Terrapot Hymn",
+        "vi": "Thánh Ca Terrapot"
+      }
+    },
+    {
+      "id": "pithos_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.85
+        }
+      ],
+      "name": {
+        "en": "Pithos Mend",
+        "vi": "Hồi Phục Pithos"
+      }
+    },
+    {
+      "id": "pithos_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.25
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Pithos Ultimate: Grace",
+        "vi": "Tuyệt Kỹ Ân Điển Pithos"
+      }
+    },
+    {
+      "id": "peakwarden_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 0.95,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Peakwarden Aegis",
+        "vi": "Khiên Thần Peakwarden"
+      }
+    },
+    {
+      "id": "peakwarden_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 1,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.18
+        },
+        {
+          "type": "shield",
+          "power": 0.9,
+          "scale": "def",
+          "targetOverride": "ally_all"
+        }
+      ],
+      "name": {
+        "en": "Peakwarden Ultimate: Ward",
+        "vi": "Tuyệt Kỹ Phòng Ngự Peakwarden"
+      }
+    },
+    {
+      "id": "plugsnap_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.05
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.3,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Plugsnap Slash",
+        "vi": "Chém Plugsnap"
+      }
+    },
+    {
+      "id": "socketail_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.2
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.4,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Socketail Strike",
+        "vi": "Đòn Socketail"
+      }
+    },
+    {
+      "id": "socketail_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.85
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.5,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Socketail Ultimate: Rush",
+        "vi": "Tuyệt Kỹ Lao Tới Socketail"
+      }
+    },
+    {
+      "id": "gridraptor_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.35
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.5,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Gridraptor Rush",
+        "vi": "Lao Tới Gridraptor"
+      }
+    },
+    {
+      "id": "gridraptor_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 3.0
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.6,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Gridraptor Ultimate: Fang",
+        "vi": "Tuyệt Kỹ Nanh Gridraptor"
+      }
+    },
+    {
+      "id": "staticlamb_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.1
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.45,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Staticlamb Lock",
+        "vi": "Khóa Staticlamb"
+      }
+    },
+    {
+      "id": "voltewe_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.25
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.55,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Voltewe Snare",
+        "vi": "Trói Buộc Voltewe"
+      }
+    },
+    {
+      "id": "voltewe_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.55
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.6,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Voltewe Ultimate: Hex",
+        "vi": "Tuyệt Kỹ Ếm Voltewe"
+      }
+    },
+    {
+      "id": "tempestram_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.4
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.65,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Tempestram Hex",
+        "vi": "Ếm Tempestram"
+      }
+    },
+    {
+      "id": "tempestram_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.7
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.7,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Tempestram Ultimate: Jolt",
+        "vi": "Tuyệt Kỹ Chấn Tempestram"
+      }
+    },
+    {
+      "id": "coilbug_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.85
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.65,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Coilbug Burst",
+        "vi": "Bùng Nổ Coilbug"
+      }
+    },
+    {
+      "id": "teslaphid_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.0
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.75,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Teslaphid Nova",
+        "vi": "Tân Tinh Teslaphid"
+      }
+    },
+    {
+      "id": "teslaphid_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.1
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.65,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Teslaphid Ultimate: Torrent",
+        "vi": "Tuyệt Kỹ Cuồng Lưu Teslaphid"
+      }
+    },
+    {
+      "id": "arcbeetle_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.15
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.85,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Arcbeetle Torrent",
+        "vi": "Cuồng Lưu Arcbeetle"
+      }
+    },
+    {
+      "id": "arcbeetle_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.25
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.75,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Arcbeetle Ultimate: Spell",
+        "vi": "Tuyệt Kỹ Phép Arcbeetle"
+      }
+    },
+    {
+      "id": "kitezap_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.45
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.2,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Kitezap Rush",
+        "vi": "Lao Tới Kitezap"
+      }
+    },
+    {
+      "id": "joltkite_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.6
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.3,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Joltkite Fang",
+        "vi": "Nanh Joltkite"
+      }
+    },
+    {
+      "id": "joltkite_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.65
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.4,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Joltkite Ultimate: Slash",
+        "vi": "Tuyệt Kỹ Chém Joltkite"
+      }
+    },
+    {
+      "id": "stormkestrel_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.75
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.4,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Stormkestrel Slash",
+        "vi": "Chém Stormkestrel"
+      }
+    },
+    {
+      "id": "stormkestrel_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.8
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.5,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Stormkestrel Ultimate: Strike",
+        "vi": "Tuyệt Kỹ Đòn Stormkestrel"
+      }
+    },
+    {
+      "id": "boltcub_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.1
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.3,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Boltcub Slash",
+        "vi": "Chém Boltcub"
+      }
+    },
+    {
+      "id": "voltabby_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.25
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.4,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Voltabby Strike",
+        "vi": "Đòn Voltabby"
+      }
+    },
+    {
+      "id": "voltabby_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.9
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.5,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Voltabby Ultimate: Rush",
+        "vi": "Tuyệt Kỹ Lao Tới Voltabby"
+      }
+    },
+    {
+      "id": "thundertora_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.4
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.5,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Thundertora Rush",
+        "vi": "Lao Tới Thundertora"
+      }
+    },
+    {
+      "id": "thundertora_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 3.05
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.6,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Thundertora Ultimate: Fang",
+        "vi": "Tuyệt Kỹ Nanh Thundertora"
+      }
+    },
+    {
+      "id": "glowgecko_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.15
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.45,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Glowgecko Lock",
+        "vi": "Khóa Glowgecko"
+      }
+    },
+    {
+      "id": "neonmonitor_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.3
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.55,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Neonmonitor Snare",
+        "vi": "Trói Buộc Neonmonitor"
+      }
+    },
+    {
+      "id": "neonmonitor_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.6
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.6,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Neonmonitor Ultimate: Hex",
+        "vi": "Tuyệt Kỹ Ếm Neonmonitor"
+      }
+    },
+    {
+      "id": "plasmadrake_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.45
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.65,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Plasmadrake Hex",
+        "vi": "Ếm Plasmadrake"
+      }
+    },
+    {
+      "id": "plasmadrake_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.75
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.7,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Plasmadrake Ultimate: Jolt",
+        "vi": "Tuyệt Kỹ Chấn Plasmadrake"
+      }
+    },
+    {
+      "id": "zeelet_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.0
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.35,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Zeelet Torrent",
+        "vi": "Cuồng Lưu Zeelet"
+      }
+    },
+    {
+      "id": "lampreel_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.15
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.45,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Lampreel Spell",
+        "vi": "Phép Lampreel"
+      }
+    },
+    {
+      "id": "lampreel_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.5
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.55,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Lampreel Ultimate: Burst",
+        "vi": "Tuyệt Kỹ Bùng Nổ Lampreel"
+      }
+    },
+    {
+      "id": "antennut_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.75
+        },
+        {
+          "type": "shield",
+          "power": 0.55,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Antennut Blessing",
+        "vi": "Phúc Lành Antennut"
+      }
+    },
+    {
+      "id": "signalcrab_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.9
+        },
+        {
+          "type": "shield",
+          "power": 0.6,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Signalcrab Hymn",
+        "vi": "Thánh Ca Signalcrab"
+      }
+    },
+    {
+      "id": "signalcrab_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.1
+        },
+        {
+          "type": "energy",
+          "power": 2
+        }
+      ],
+      "name": {
+        "en": "Signalcrab Ultimate: Mend",
+        "vi": "Tuyệt Kỹ Hồi Phục Signalcrab"
+      }
+    },
+    {
+      "id": "stormherald_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.07
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.8,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Stormherald Burst",
+        "vi": "Bùng Nổ Stormherald"
+      }
+    },
+    {
+      "id": "stormherald_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.17
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.7,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Stormherald Ultimate: Nova",
+        "vi": "Tuyệt Kỹ Tân Tinh Stormherald"
+      }
+    },
+    {
+      "id": "puffwool_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.9
+        }
+      ],
+      "name": {
+        "en": "Puffwool Hymn",
+        "vi": "Thánh Ca Puffwool"
+      }
+    },
+    {
+      "id": "cumulamb_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.95
+        }
+      ],
+      "name": {
+        "en": "Cumulamb Mend",
+        "vi": "Hồi Phục Cumulamb"
+      }
+    },
+    {
+      "id": "cumulamb_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.35
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Cumulamb Ultimate: Grace",
+        "vi": "Tuyệt Kỹ Ân Điển Cumulamb"
+      }
+    },
+    {
+      "id": "nimbaram_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 2.0
+        }
+      ],
+      "name": {
+        "en": "Nimbaram Grace",
+        "vi": "Ân Điển Nimbaram"
+      }
+    },
+    {
+      "id": "nimbaram_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.4
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Nimbaram Ultimate: Blessing",
+        "vi": "Tuyệt Kỹ Phúc Lành Nimbaram"
+      }
+    },
+    {
+      "id": "foldlet_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.9
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.65,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Foldlet Burst",
+        "vi": "Bùng Nổ Foldlet"
+      }
+    },
+    {
+      "id": "papercrane_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.05
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.75,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Papercrane Nova",
+        "vi": "Tân Tinh Papercrane"
+      }
+    },
+    {
+      "id": "papercrane_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.15
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.65,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Papercrane Ultimate: Torrent",
+        "vi": "Tuyệt Kỹ Cuồng Lưu Papercrane"
+      }
+    },
+    {
+      "id": "origamonarch_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.2
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.85,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Origamonarch Torrent",
+        "vi": "Cuồng Lưu Origamonarch"
+      }
+    },
+    {
+      "id": "origamonarch_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.3
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.75,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Origamonarch Ultimate: Spell",
+        "vi": "Tuyệt Kỹ Phép Origamonarch"
+      }
+    },
+    {
+      "id": "dandefluff_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.75
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.3,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Dandefluff Snare",
+        "vi": "Trói Buộc Dandefluff"
+      }
+    },
+    {
+      "id": "seedsoar_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.9
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.4,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Seedsoar Hex",
+        "vi": "Ếm Seedsoar"
+      }
+    },
+    {
+      "id": "seedsoar_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.4
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.6,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Seedsoar Ultimate: Jolt",
+        "vi": "Tuyệt Kỹ Chấn Seedsoar"
+      }
+    },
+    {
+      "id": "zephyrion_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.05
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.5,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Zephyrion Jolt",
+        "vi": "Chấn Zephyrion"
+      }
+    },
+    {
+      "id": "zephyrion_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.55
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.7,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Zephyrion Ultimate: Lock",
+        "vi": "Tuyệt Kỹ Khóa Zephyrion"
+      }
+    },
+    {
+      "id": "hummbit_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.5
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.2,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Hummbit Rush",
+        "vi": "Lao Tới Hummbit"
+      }
+    },
+    {
+      "id": "whirlibird_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.65
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.3,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Whirlibird Fang",
+        "vi": "Nanh Whirlibird"
+      }
+    },
+    {
+      "id": "whirlibird_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.7
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.4,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Whirlibird Ultimate: Slash",
+        "vi": "Tuyệt Kỹ Chém Whirlibird"
+      }
+    },
+    {
+      "id": "cyclonectar_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.8
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.4,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Cyclonectar Slash",
+        "vi": "Chém Cyclonectar"
+      }
+    },
+    {
+      "id": "cyclonectar_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.85
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.5,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Cyclonectar Ultimate: Strike",
+        "vi": "Tuyệt Kỹ Đòn Cyclonectar"
+      }
+    },
+    {
+      "id": "glidelet_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.7
+        }
+      ],
+      "name": {
+        "en": "Glidelet Mend",
+        "vi": "Hồi Phục Glidelet"
+      }
+    },
+    {
+      "id": "skyglider_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.85
+        }
+      ],
+      "name": {
+        "en": "Skyglider Grace",
+        "vi": "Ân Điển Skyglider"
+      }
+    },
+    {
+      "id": "skyglider_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.05
+        },
+        {
+          "type": "shield",
+          "power": 0.75,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Skyglider Ultimate: Blessing",
+        "vi": "Tuyệt Kỹ Phúc Lành Skyglider"
+      }
+    },
+    {
+      "id": "aerogale_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.0
+        }
+      ],
+      "name": {
+        "en": "Aerogale Blessing",
+        "vi": "Phúc Lành Aerogale"
+      }
+    },
+    {
+      "id": "aerogale_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.2
+        },
+        {
+          "type": "shield",
+          "power": 0.85,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Aerogale Ultimate: Hymn",
+        "vi": "Tuyệt Kỹ Thánh Ca Aerogale"
+      }
+    },
+    {
+      "id": "swiftlet_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.6
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.35,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Swiftlet Strike",
+        "vi": "Đòn Swiftlet"
+      }
+    },
+    {
+      "id": "galeswallow_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.75
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.45,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Galeswallow Rush",
+        "vi": "Lao Tới Galeswallow"
+      }
+    },
+    {
+      "id": "galeswallow_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.55
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.55,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Galeswallow Ultimate: Fang",
+        "vi": "Tuyệt Kỹ Nanh Galeswallow"
+      }
+    },
+    {
+      "id": "tempestwing_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.9
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.55,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Tempestwing Fang",
+        "vi": "Nanh Tempestwing"
+      }
+    },
+    {
+      "id": "tempestwing_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.7
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.65,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Tempestwing Ultimate: Slash",
+        "vi": "Tuyệt Kỹ Chém Tempestwing"
+      }
+    },
+    {
+      "id": "tumblepuff_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.2
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.3,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Tumblepuff Hex",
+        "vi": "Ếm Tumblepuff"
+      }
+    },
+    {
+      "id": "dustwhirl_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.35
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.4,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Dustwhirl Jolt",
+        "vi": "Chấn Dustwhirl"
+      }
+    },
+    {
+      "id": "dustwhirl_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.2
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.65,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Dustwhirl Ultimate: Lock",
+        "vi": "Tuyệt Kỹ Khóa Dustwhirl"
+      }
+    },
+    {
+      "id": "chimelet_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.8
+        },
+        {
+          "type": "shield",
+          "power": 0.55,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Chimelet Blessing",
+        "vi": "Phúc Lành Chimelet"
+      }
+    },
+    {
+      "id": "windchimera_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.95
+        },
+        {
+          "type": "shield",
+          "power": 0.6,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Windchimera Hymn",
+        "vi": "Thánh Ca Windchimera"
+      }
+    },
+    {
+      "id": "windchimera_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.25
+        },
+        {
+          "type": "energy",
+          "power": 2
+        }
+      ],
+      "name": {
+        "en": "Windchimera Ultimate: Mend",
+        "vi": "Tuyệt Kỹ Hồi Phục Windchimera"
+      }
+    },
+    {
+      "id": "floatlet_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.95
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.65,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Floatlet Burst",
+        "vi": "Bùng Nổ Floatlet"
+      }
+    },
+    {
+      "id": "skymedusa_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.1
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.75,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Skymedusa Nova",
+        "vi": "Tân Tinh Skymedusa"
+      }
+    },
+    {
+      "id": "skymedusa_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.2
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.65,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Skymedusa Ultimate: Torrent",
+        "vi": "Tuyệt Kỹ Cuồng Lưu Skymedusa"
+      }
+    },
+    {
+      "id": "aeolion_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.67
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.35,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Aeolion Rush",
+        "vi": "Lao Tới Aeolion"
+      }
+    },
+    {
+      "id": "aeolion_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.73
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.45,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Aeolion Ultimate: Fang",
+        "vi": "Tuyệt Kỹ Nanh Aeolion"
+      }
+    },
+    {
+      "id": "twinkbun_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.85
+        },
+        {
+          "type": "shield",
+          "power": 0.55,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Twinkbun Blessing",
+        "vi": "Phúc Lành Twinkbun"
+      }
+    },
+    {
+      "id": "starhare_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.0
+        },
+        {
+          "type": "shield",
+          "power": 0.6,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Starhare Hymn",
+        "vi": "Thánh Ca Starhare"
+      }
+    },
+    {
+      "id": "starhare_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.3
+        },
+        {
+          "type": "energy",
+          "power": 2
+        }
+      ],
+      "name": {
+        "en": "Starhare Ultimate: Mend",
+        "vi": "Tuyệt Kỹ Hồi Phục Starhare"
+      }
+    },
+    {
+      "id": "constellapin_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.05
+        },
+        {
+          "type": "shield",
+          "power": 0.65,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Constellapin Mend",
+        "vi": "Hồi Phục Constellapin"
+      }
+    },
+    {
+      "id": "constellapin_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.35
+        },
+        {
+          "type": "energy",
+          "power": 2
+        }
+      ],
+      "name": {
+        "en": "Constellapin Ultimate: Grace",
+        "vi": "Tuyệt Kỹ Ân Điển Constellapin"
+      }
+    },
+    {
+      "id": "glintpupa_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.75
+        }
+      ],
+      "name": {
+        "en": "Glintpupa Nova",
+        "vi": "Tân Tinh Glintpupa"
+      }
+    },
+    {
+      "id": "prismwing_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.9
+        }
+      ],
+      "name": {
+        "en": "Prismwing Torrent",
+        "vi": "Cuồng Lưu Prismwing"
+      }
+    },
+    {
+      "id": "prismwing_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.55
+        }
+      ],
+      "name": {
+        "en": "Prismwing Ultimate: Spell",
+        "vi": "Tuyệt Kỹ Phép Prismwing"
+      }
+    },
+    {
+      "id": "aurorafly_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.05
+        }
+      ],
+      "name": {
+        "en": "Aurorafly Spell",
+        "vi": "Phép Aurorafly"
+      }
+    },
+    {
+      "id": "aurorafly_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.7
+        }
+      ],
+      "name": {
+        "en": "Aurorafly Ultimate: Burst",
+        "vi": "Tuyệt Kỹ Bùng Nổ Aurorafly"
+      }
+    },
+    {
+      "id": "dawnpup_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.5
+        }
+      ],
+      "name": {
+        "en": "Dawnpup Fang",
+        "vi": "Nanh Dawnpup"
+      }
+    },
+    {
+      "id": "sunhound_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.65
+        }
+      ],
+      "name": {
+        "en": "Sunhound Slash",
+        "vi": "Chém Sunhound"
+      }
+    },
+    {
+      "id": "sunhound_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.4
+        }
+      ],
+      "name": {
+        "en": "Sunhound Ultimate: Strike",
+        "vi": "Tuyệt Kỹ Đòn Sunhound"
+      }
+    },
+    {
+      "id": "solarius_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.8
+        }
+      ],
+      "name": {
+        "en": "Solarius Strike",
+        "vi": "Đòn Solarius"
+      }
+    },
+    {
+      "id": "solarius_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.6
+        }
+      ],
+      "name": {
+        "en": "Solarius Ultimate: Rush",
+        "vi": "Tuyệt Kỹ Lao Tới Solarius"
+      }
+    },
+    {
+      "id": "gleamfoal_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.45,
+          "scale": "def"
+        },
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Gleamfoal Ward",
+        "vi": "Phòng Ngự Gleamfoal"
+      }
+    },
+    {
+      "id": "lumicorn_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.65,
+          "scale": "def"
+        },
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Lumicorn Bulwark",
+        "vi": "Thành Lũy Lumicorn"
+      }
+    },
+    {
+      "id": "lumicorn_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.3,
+          "scale": "def"
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Lumicorn Ultimate: Guard",
+        "vi": "Tuyệt Kỹ Hộ Thể Lumicorn"
+      }
+    },
+    {
+      "id": "celestallion_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.85,
+          "scale": "def"
+        },
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Celestallion Guard",
+        "vi": "Hộ Thể Celestallion"
+      }
+    },
+    {
+      "id": "celestallion_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 1,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.45,
+          "scale": "def"
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Celestallion Ultimate: Aegis",
+        "vi": "Tuyệt Kỹ Khiên Thần Celestallion"
+      }
+    },
+    {
+      "id": "wisplet_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 2.05
+        }
+      ],
+      "name": {
+        "en": "Wisplet Hymn",
+        "vi": "Thánh Ca Wisplet"
+      }
+    },
+    {
+      "id": "lanternwisp_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 2.1
+        }
+      ],
+      "name": {
+        "en": "Lanternwisp Mend",
+        "vi": "Hồi Phục Lanternwisp"
+      }
+    },
+    {
+      "id": "lanternwisp_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.45
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Lanternwisp Ultimate: Grace",
+        "vi": "Tuyệt Kỹ Ân Điển Lanternwisp"
+      }
+    },
+    {
+      "id": "sanctorch_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 2.15
+        }
+      ],
+      "name": {
+        "en": "Sanctorch Grace",
+        "vi": "Ân Điển Sanctorch"
+      }
+    },
+    {
+      "id": "sanctorch_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.5
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Sanctorch Ultimate: Blessing",
+        "vi": "Tuyệt Kỹ Phúc Lành Sanctorch"
+      }
+    },
+    {
+      "id": "glowala_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.75
+        }
+      ],
+      "name": {
+        "en": "Glowala Mend",
+        "vi": "Hồi Phục Glowala"
+      }
+    },
+    {
+      "id": "lunarkoala_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.9
+        }
+      ],
+      "name": {
+        "en": "Lunarkoala Grace",
+        "vi": "Ân Điển Lunarkoala"
+      }
+    },
+    {
+      "id": "lunarkoala_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.1
+        },
+        {
+          "type": "shield",
+          "power": 0.75,
+          "scale": "atk"
+        }
+      ],
+      "name": {
+        "en": "Lunarkoala Ultimate: Blessing",
+        "vi": "Tuyệt Kỹ Phúc Lành Lunarkoala"
+      }
+    },
+    {
+      "id": "mirrorshell_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 1,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 0.7,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Mirrorshell Aegis",
+        "vi": "Khiên Thần Mirrorshell"
+      }
+    },
+    {
+      "id": "reflectortoise_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 1,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.0,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Reflectortoise Ward",
+        "vi": "Phòng Ngự Reflectortoise"
+      }
+    },
+    {
+      "id": "reflectortoise_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 1,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.15
+        },
+        {
+          "type": "shield",
+          "power": 0.85,
+          "scale": "def",
+          "targetOverride": "ally_all"
+        }
+      ],
+      "name": {
+        "en": "Reflectortoise Ultimate: Bulwark",
+        "vi": "Tuyệt Kỹ Thành Lũy Reflectortoise"
+      }
+    },
+    {
+      "id": "sunbee_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.45
+        }
+      ],
+      "name": {
+        "en": "Sunbee Rush",
+        "vi": "Lao Tới Sunbee"
+      }
+    },
+    {
+      "id": "radiantqueen_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.6
+        }
+      ],
+      "name": {
+        "en": "Radiantqueen Fang",
+        "vi": "Nanh Radiantqueen"
+      }
+    },
+    {
+      "id": "radiantqueen_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.65
+        }
+      ],
+      "name": {
+        "en": "Radiantqueen Ultimate: Slash",
+        "vi": "Tuyệt Kỹ Chém Radiantqueen"
+      }
+    },
+    {
+      "id": "lumidrake_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.07
+        }
+      ],
+      "name": {
+        "en": "Lumidrake Burst",
+        "vi": "Bùng Nổ Lumidrake"
+      }
+    },
+    {
+      "id": "lumidrake_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.17
+        }
+      ],
+      "name": {
+        "en": "Lumidrake Ultimate: Nova",
+        "vi": "Tuyệt Kỹ Tân Tinh Lumidrake"
+      }
+    },
+    {
+      "id": "duskit_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.5
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.25,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Duskit Fang",
+        "vi": "Nanh Duskit"
+      }
+    },
+    {
+      "id": "umbracat_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.65
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.35,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Umbracat Slash",
+        "vi": "Chém Umbracat"
+      }
+    },
+    {
+      "id": "umbracat_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.4
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Umbracat Ultimate: Strike",
+        "vi": "Tuyệt Kỹ Đòn Umbracat"
+      }
+    },
+    {
+      "id": "noctyrant_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.8
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Noctyrant Strike",
+        "vi": "Đòn Noctyrant"
+      }
+    },
+    {
+      "id": "noctyrant_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.6
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Noctyrant Ultimate: Rush",
+        "vi": "Tuyệt Kỹ Lao Tới Noctyrant"
+      }
+    },
+    {
+      "id": "flitbat_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.15
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.3,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Flitbat Hex",
+        "vi": "Ếm Flitbat"
+      }
+    },
+    {
+      "id": "echowing_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.3
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.4,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Echowing Jolt",
+        "vi": "Chấn Echowing"
+      }
+    },
+    {
+      "id": "echowing_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.15
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.65,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Echowing Ultimate: Lock",
+        "vi": "Tuyệt Kỹ Khóa Echowing"
+      }
+    },
+    {
+      "id": "vespergrave_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.45
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Vespergrave Lock",
+        "vi": "Khóa Vespergrave"
+      }
+    },
+    {
+      "id": "vespergrave_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.3
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.75,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Vespergrave Ultimate: Snare",
+        "vi": "Tuyệt Kỹ Trói Buộc Vespergrave"
+      }
+    },
+    {
+      "id": "corvlet_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.7
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Corvlet Spell",
+        "vi": "Phép Corvlet"
+      }
+    },
+    {
+      "id": "ravenoir_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.85
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.65,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Ravenoir Burst",
+        "vi": "Bùng Nổ Ravenoir"
+      }
+    },
+    {
+      "id": "ravenoir_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 3.05
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Ravenoir Ultimate: Nova",
+        "vi": "Tuyệt Kỹ Tân Tinh Ravenoir"
+      }
+    },
+    {
+      "id": "corvonarch_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.0
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.75,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Corvonarch Nova",
+        "vi": "Tân Tinh Corvonarch"
+      }
+    },
+    {
+      "id": "corvonarch_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 3.2
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.7,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Corvonarch Ultimate: Torrent",
+        "vi": "Tuyệt Kỹ Cuồng Lưu Corvonarch"
+      }
+    },
+    {
+      "id": "wispooky_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.9
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.25,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Wispooky Jolt",
+        "vi": "Chấn Wispooky"
+      }
+    },
+    {
+      "id": "phantomist_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.05
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.35,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Phantomist Lock",
+        "vi": "Khóa Phantomist"
+      }
+    },
+    {
+      "id": "phantomist_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.2
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Phantomist Ultimate: Snare",
+        "vi": "Tuyệt Kỹ Trói Buộc Phantomist"
+      }
+    },
+    {
+      "id": "spectreign_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.2
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Spectreign Snare",
+        "vi": "Trói Buộc Spectreign"
+      }
+    },
+    {
+      "id": "spectreign_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.35
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Spectreign Ultimate: Hex",
+        "vi": "Tuyệt Kỹ Ếm Spectreign"
+      }
+    },
+    {
+      "id": "dreamlop_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.45
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Dreamlop Grace",
+        "vi": "Ân Điển Dreamlop"
+      }
+    },
+    {
+      "id": "somnihare_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.6
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Somnihare Blessing",
+        "vi": "Phúc Lành Somnihare"
+      }
+    },
+    {
+      "id": "somnihare_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.5
+        }
+      ],
+      "name": {
+        "en": "Somnihare Ultimate: Hymn",
+        "vi": "Tuyệt Kỹ Thánh Ca Somnihare"
+      }
+    },
+    {
+      "id": "lunadream_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.75
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Lunadream Hymn",
+        "vi": "Thánh Ca Lunadream"
+      }
+    },
+    {
+      "id": "lunadream_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.65
+        }
+      ],
+      "name": {
+        "en": "Lunadream Ultimate: Mend",
+        "vi": "Tuyệt Kỹ Hồi Phục Lunadream"
+      }
+    },
+    {
+      "id": "shadeleon_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.2
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.3,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Shadeleon Hex",
+        "vi": "Ếm Shadeleon"
+      }
+    },
+    {
+      "id": "voidchameleon_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.35
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.4,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Voidchameleon Jolt",
+        "vi": "Chấn Voidchameleon"
+      }
+    },
+    {
+      "id": "voidchameleon_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.2
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.65,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Voidchameleon Ultimate: Lock",
+        "vi": "Tuyệt Kỹ Khóa Voidchameleon"
+      }
+    },
+    {
+      "id": "snuffwick_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.1
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.35,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Snuffwick Torrent",
+        "vi": "Cuồng Lưu Snuffwick"
+      }
+    },
+    {
+      "id": "gloomcandle_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.25
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Gloomcandle Spell",
+        "vi": "Phép Gloomcandle"
+      }
+    },
+    {
+      "id": "gloomcandle_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.65
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Gloomcandle Ultimate: Burst",
+        "vi": "Tuyệt Kỹ Bùng Nổ Gloomcandle"
+      }
+    },
+    {
+      "id": "webbit_skill",
+      "kind": "skill",
+      "cost": 1,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.8
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.3,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Webbit Snare",
+        "vi": "Trói Buộc Webbit"
+      }
+    },
+    {
+      "id": "nightweaver_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 0.95
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.4,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Nightweaver Hex",
+        "vi": "Ếm Nightweaver"
+      }
+    },
+    {
+      "id": "nightweaver_ultimate",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.45
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Nightweaver Ultimate: Jolt",
+        "vi": "Tuyệt Kỹ Chấn Nightweaver"
+      }
+    },
+    {
+      "id": "eclipsar_skill",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.27
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.45,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Eclipsar Slash",
+        "vi": "Chém Eclipsar"
+      }
+    },
+    {
+      "id": "eclipsar_ultimate",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.93
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.55,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Eclipsar Ultimate: Strike",
+        "vi": "Tuyệt Kỹ Đòn Eclipsar"
+      }
+    }
   ],
   "passives": [
-    { "id": "warm_fur",       "type": "stat_bonus", "stat": "atk", "pct": 0.05 },
-    { "id": "kindling",       "type": "stat_bonus", "stat": "crit", "pct": 0.05 },
-    { "id": "blazing_heart",  "type": "low_hp_stat_bonus", "stat": "atk", "pct": 0.15, "threshold": 0.5 },
-    { "id": "slick_skin",     "type": "stat_bonus", "stat": "def", "pct": 0.05 },
-    { "id": "regen_gills",    "type": "regen_round_end", "pct": 0.04 },
-    { "id": "abyssal_guard",  "type": "damage_reduction", "pct": 0.10 },
-    { "id": "quick_paws",     "type": "stat_bonus", "stat": "spd", "pct": 0.08 },
-    { "id": "overcharge",     "type": "battle_start_energy", "amount": 1 },
-    { "id": "radiance",       "type": "heal_bonus", "pct": 0.15 },
-    { "id": "moonlit_drain",  "type": "lifesteal", "pct": 0.10 }
+    {
+      "id": "warm_fur",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.05
+    },
+    {
+      "id": "kindling",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.05
+    },
+    {
+      "id": "blazing_heart",
+      "type": "low_hp_stat_bonus",
+      "stat": "atk",
+      "pct": 0.15,
+      "threshold": 0.5
+    },
+    {
+      "id": "slick_skin",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.05
+    },
+    {
+      "id": "regen_gills",
+      "type": "regen_round_end",
+      "pct": 0.04
+    },
+    {
+      "id": "abyssal_guard",
+      "type": "damage_reduction",
+      "pct": 0.1
+    },
+    {
+      "id": "quick_paws",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.08
+    },
+    {
+      "id": "overcharge",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "radiance",
+      "type": "heal_bonus",
+      "pct": 0.15
+    },
+    {
+      "id": "moonlit_drain",
+      "type": "lifesteal",
+      "pct": 0.1
+    },
+    {
+      "id": "p_teapip",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_kettlewyrm",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.064
+    },
+    {
+      "id": "p_samovaragon",
+      "type": "lifesteal",
+      "pct": 0.11
+    },
+    {
+      "id": "p_wickling",
+      "type": "regen_round_end",
+      "pct": 0.02
+    },
+    {
+      "id": "p_waxsala",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_chandelord",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.088
+    },
+    {
+      "id": "p_chilipop",
+      "type": "lifesteal",
+      "pct": 0.06
+    },
+    {
+      "id": "p_pepperquill",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.08
+    },
+    {
+      "id": "p_habanerox",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.11
+    },
+    {
+      "id": "p_magmite",
+      "type": "damage_reduction",
+      "pct": 0.05
+    },
+    {
+      "id": "p_cratortle",
+      "type": "regen_round_end",
+      "pct": 0.04
+    },
+    {
+      "id": "p_calderon",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.132
+    },
+    {
+      "id": "p_flickfinch",
+      "type": "lifesteal",
+      "pct": 0.06
+    },
+    {
+      "id": "p_pyrewing",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.08
+    },
+    {
+      "id": "p_solarquill",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.11
+    },
+    {
+      "id": "p_coalcub",
+      "type": "regen_round_end",
+      "pct": 0.025
+    },
+    {
+      "id": "p_hearthursa",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.096
+    },
+    {
+      "id": "p_kilnbear",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.11
+    },
+    {
+      "id": "p_blazelamb",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.04
+    },
+    {
+      "id": "p_forgeram",
+      "type": "damage_reduction",
+      "pct": 0.064
+    },
+    {
+      "id": "p_toastbun",
+      "type": "regen_round_end",
+      "pct": 0.02
+    },
+    {
+      "id": "p_bakeburrow",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_furnacrab",
+      "type": "regen_round_end",
+      "pct": 0.04
+    },
+    {
+      "id": "p_jellume",
+      "type": "heal_bonus",
+      "pct": 0.08
+    },
+    {
+      "id": "p_medulamp",
+      "type": "regen_round_end",
+      "pct": 0.032
+    },
+    {
+      "id": "p_abyssalume",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_pupsplash",
+      "type": "damage_reduction",
+      "pct": 0.05
+    },
+    {
+      "id": "p_floeseal",
+      "type": "regen_round_end",
+      "pct": 0.04
+    },
+    {
+      "id": "p_glaciarch",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.132
+    },
+    {
+      "id": "p_seacolt",
+      "type": "lifesteal",
+      "pct": 0.06
+    },
+    {
+      "id": "p_wavestallion",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.08
+    },
+    {
+      "id": "p_tsunamare",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.11
+    },
+    {
+      "id": "p_shellotter",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.07
+    },
+    {
+      "id": "p_riverine",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.08
+    },
+    {
+      "id": "p_torrentter",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.088
+    },
+    {
+      "id": "p_puddleap",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_raincroak",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.064
+    },
+    {
+      "id": "p_stormtoad",
+      "type": "lifesteal",
+      "pct": 0.11
+    },
+    {
+      "id": "p_inklet",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_scribopus",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.064
+    },
+    {
+      "id": "p_calligrapus",
+      "type": "lifesteal",
+      "pct": 0.11
+    },
+    {
+      "id": "p_raylet",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.07
+    },
+    {
+      "id": "p_mantaroyal",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.08
+    },
+    {
+      "id": "p_clamby",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.05
+    },
+    {
+      "id": "p_pearlord",
+      "type": "damage_reduction",
+      "pct": 0.08
+    },
+    {
+      "id": "p_moonwhale",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.064
+    },
+    {
+      "id": "p_sporelet",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.04
+    },
+    {
+      "id": "p_mossbuck",
+      "type": "heal_bonus",
+      "pct": 0.128
+    },
+    {
+      "id": "p_myceliord",
+      "type": "regen_round_end",
+      "pct": 0.044
+    },
+    {
+      "id": "p_budbun",
+      "type": "lifesteal",
+      "pct": 0.06
+    },
+    {
+      "id": "p_bloomhare",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.08
+    },
+    {
+      "id": "p_verdantlop",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.11
+    },
+    {
+      "id": "p_pricklet",
+      "type": "damage_reduction",
+      "pct": 0.05
+    },
+    {
+      "id": "p_cactabby",
+      "type": "regen_round_end",
+      "pct": 0.04
+    },
+    {
+      "id": "p_saguaroar",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.132
+    },
+    {
+      "id": "p_ladyling",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.05
+    },
+    {
+      "id": "p_elytrix",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.064
+    },
+    {
+      "id": "p_scarabelle",
+      "type": "damage_reduction",
+      "pct": 0.088
+    },
+    {
+      "id": "p_matchub",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_bambrew",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.064
+    },
+    {
+      "id": "p_pandaroma",
+      "type": "heal_bonus",
+      "pct": 0.176
+    },
+    {
+      "id": "p_snailbloom",
+      "type": "damage_reduction",
+      "pct": 0.05
+    },
+    {
+      "id": "p_gardenshell",
+      "type": "regen_round_end",
+      "pct": 0.04
+    },
+    {
+      "id": "p_topiaroth",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.132
+    },
+    {
+      "id": "p_pollibee",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.05
+    },
+    {
+      "id": "p_honeyquill",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.08
+    },
+    {
+      "id": "p_hivemonarch",
+      "type": "low_hp_stat_bonus",
+      "stat": "atk",
+      "pct": 0.22,
+      "threshold": 0.5
+    },
+    {
+      "id": "p_lotusling",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.04
+    },
+    {
+      "id": "p_lilykoi",
+      "type": "lifesteal",
+      "pct": 0.08
+    },
+    {
+      "id": "p_tendrilly",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.07
+    },
+    {
+      "id": "p_ivyserpent",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.08
+    },
+    {
+      "id": "p_elderbark",
+      "type": "damage_reduction",
+      "pct": 0.08
+    },
+    {
+      "id": "p_gemhog",
+      "type": "damage_reduction",
+      "pct": 0.05
+    },
+    {
+      "id": "p_quartzpine",
+      "type": "regen_round_end",
+      "pct": 0.04
+    },
+    {
+      "id": "p_geodehog",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.132
+    },
+    {
+      "id": "p_molepip",
+      "type": "damage_reduction",
+      "pct": 0.04
+    },
+    {
+      "id": "p_lanternmole",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.112
+    },
+    {
+      "id": "p_drillmajor",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.11
+    },
+    {
+      "id": "p_pebblet",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.05
+    },
+    {
+      "id": "p_rockhound",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.08
+    },
+    {
+      "id": "p_cragmastiff",
+      "type": "low_hp_stat_bonus",
+      "stat": "atk",
+      "pct": 0.22,
+      "threshold": 0.5
+    },
+    {
+      "id": "p_rollpip",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.05
+    },
+    {
+      "id": "p_armadune",
+      "type": "damage_reduction",
+      "pct": 0.08
+    },
+    {
+      "id": "p_fortadillo",
+      "type": "regen_round_end",
+      "pct": 0.055
+    },
+    {
+      "id": "p_sandmeer",
+      "type": "heal_bonus",
+      "pct": 0.08
+    },
+    {
+      "id": "p_dunewatch",
+      "type": "regen_round_end",
+      "pct": 0.032
+    },
+    {
+      "id": "p_mirasentry",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_pebblehorn",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.05
+    },
+    {
+      "id": "p_rhinostone",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.08
+    },
+    {
+      "id": "p_basaltusk",
+      "type": "low_hp_stat_bonus",
+      "stat": "atk",
+      "pct": 0.22,
+      "threshold": 0.5
+    },
+    {
+      "id": "p_orelet",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.06
+    },
+    {
+      "id": "p_ironboar",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.08
+    },
+    {
+      "id": "p_mythrilboar",
+      "type": "damage_reduction",
+      "pct": 0.11
+    },
+    {
+      "id": "p_fossilet",
+      "type": "lifesteal",
+      "pct": 0.05
+    },
+    {
+      "id": "p_ambersaur",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.08
+    },
+    {
+      "id": "p_terrapot",
+      "type": "regen_round_end",
+      "pct": 0.02
+    },
+    {
+      "id": "p_pithos",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_peakwarden",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.096
+    },
+    {
+      "id": "p_plugsnap",
+      "type": "lifesteal",
+      "pct": 0.06
+    },
+    {
+      "id": "p_socketail",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.08
+    },
+    {
+      "id": "p_gridraptor",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.11
+    },
+    {
+      "id": "p_staticlamb",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.07
+    },
+    {
+      "id": "p_voltewe",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.08
+    },
+    {
+      "id": "p_tempestram",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.088
+    },
+    {
+      "id": "p_coilbug",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.05
+    },
+    {
+      "id": "p_teslaphid",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_arcbeetle",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.088
+    },
+    {
+      "id": "p_kitezap",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.05
+    },
+    {
+      "id": "p_joltkite",
+      "type": "low_hp_stat_bonus",
+      "stat": "atk",
+      "pct": 0.16,
+      "threshold": 0.5
+    },
+    {
+      "id": "p_stormkestrel",
+      "type": "lifesteal",
+      "pct": 0.132
+    },
+    {
+      "id": "p_boltcub",
+      "type": "lifesteal",
+      "pct": 0.06
+    },
+    {
+      "id": "p_voltabby",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.08
+    },
+    {
+      "id": "p_thundertora",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.11
+    },
+    {
+      "id": "p_glowgecko",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.07
+    },
+    {
+      "id": "p_neonmonitor",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.08
+    },
+    {
+      "id": "p_plasmadrake",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.088
+    },
+    {
+      "id": "p_zeelet",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.04
+    },
+    {
+      "id": "p_lampreel",
+      "type": "lifesteal",
+      "pct": 0.08
+    },
+    {
+      "id": "p_antennut",
+      "type": "heal_bonus",
+      "pct": 0.08
+    },
+    {
+      "id": "p_signalcrab",
+      "type": "regen_round_end",
+      "pct": 0.032
+    },
+    {
+      "id": "p_stormherald",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_puffwool",
+      "type": "regen_round_end",
+      "pct": 0.02
+    },
+    {
+      "id": "p_cumulamb",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_nimbaram",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.088
+    },
+    {
+      "id": "p_foldlet",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.05
+    },
+    {
+      "id": "p_papercrane",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_origamonarch",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.088
+    },
+    {
+      "id": "p_dandefluff",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.05
+    },
+    {
+      "id": "p_seedsoar",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.064
+    },
+    {
+      "id": "p_zephyrion",
+      "type": "damage_reduction",
+      "pct": 0.088
+    },
+    {
+      "id": "p_hummbit",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.05
+    },
+    {
+      "id": "p_whirlibird",
+      "type": "low_hp_stat_bonus",
+      "stat": "atk",
+      "pct": 0.16,
+      "threshold": 0.5
+    },
+    {
+      "id": "p_cyclonectar",
+      "type": "lifesteal",
+      "pct": 0.132
+    },
+    {
+      "id": "p_glidelet",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_skyglider",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.064
+    },
+    {
+      "id": "p_aerogale",
+      "type": "heal_bonus",
+      "pct": 0.176
+    },
+    {
+      "id": "p_swiftlet",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.05
+    },
+    {
+      "id": "p_galeswallow",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.08
+    },
+    {
+      "id": "p_tempestwing",
+      "type": "low_hp_stat_bonus",
+      "stat": "atk",
+      "pct": 0.22,
+      "threshold": 0.5
+    },
+    {
+      "id": "p_tumblepuff",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.04
+    },
+    {
+      "id": "p_dustwhirl",
+      "type": "damage_reduction",
+      "pct": 0.064
+    },
+    {
+      "id": "p_chimelet",
+      "type": "heal_bonus",
+      "pct": 0.08
+    },
+    {
+      "id": "p_windchimera",
+      "type": "regen_round_end",
+      "pct": 0.032
+    },
+    {
+      "id": "p_floatlet",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.05
+    },
+    {
+      "id": "p_skymedusa",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_aeolion",
+      "type": "low_hp_stat_bonus",
+      "stat": "atk",
+      "pct": 0.16,
+      "threshold": 0.5
+    },
+    {
+      "id": "p_twinkbun",
+      "type": "heal_bonus",
+      "pct": 0.08
+    },
+    {
+      "id": "p_starhare",
+      "type": "regen_round_end",
+      "pct": 0.032
+    },
+    {
+      "id": "p_constellapin",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_glintpupa",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_prismwing",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.064
+    },
+    {
+      "id": "p_aurorafly",
+      "type": "lifesteal",
+      "pct": 0.11
+    },
+    {
+      "id": "p_dawnpup",
+      "type": "low_hp_stat_bonus",
+      "stat": "atk",
+      "pct": 0.1,
+      "threshold": 0.5
+    },
+    {
+      "id": "p_sunhound",
+      "type": "lifesteal",
+      "pct": 0.096
+    },
+    {
+      "id": "p_solarius",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.11
+    },
+    {
+      "id": "p_gleamfoal",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.06
+    },
+    {
+      "id": "p_lumicorn",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.08
+    },
+    {
+      "id": "p_celestallion",
+      "type": "damage_reduction",
+      "pct": 0.11
+    },
+    {
+      "id": "p_wisplet",
+      "type": "regen_round_end",
+      "pct": 0.02
+    },
+    {
+      "id": "p_lanternwisp",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_sanctorch",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.088
+    },
+    {
+      "id": "p_glowala",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_lunarkoala",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.064
+    },
+    {
+      "id": "p_mirrorshell",
+      "type": "regen_round_end",
+      "pct": 0.025
+    },
+    {
+      "id": "p_reflectortoise",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.096
+    },
+    {
+      "id": "p_sunbee",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.05
+    },
+    {
+      "id": "p_radiantqueen",
+      "type": "low_hp_stat_bonus",
+      "stat": "atk",
+      "pct": 0.16,
+      "threshold": 0.5
+    },
+    {
+      "id": "p_lumidrake",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_duskit",
+      "type": "low_hp_stat_bonus",
+      "stat": "atk",
+      "pct": 0.1,
+      "threshold": 0.5
+    },
+    {
+      "id": "p_umbracat",
+      "type": "lifesteal",
+      "pct": 0.096
+    },
+    {
+      "id": "p_noctyrant",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.11
+    },
+    {
+      "id": "p_flitbat",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.04
+    },
+    {
+      "id": "p_echowing",
+      "type": "damage_reduction",
+      "pct": 0.064
+    },
+    {
+      "id": "p_vespergrave",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.154
+    },
+    {
+      "id": "p_corvlet",
+      "type": "lifesteal",
+      "pct": 0.05
+    },
+    {
+      "id": "p_ravenoir",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.08
+    },
+    {
+      "id": "p_corvonarch",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_wispooky",
+      "type": "damage_reduction",
+      "pct": 0.04
+    },
+    {
+      "id": "p_phantomist",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.112
+    },
+    {
+      "id": "p_spectreign",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.11
+    },
+    {
+      "id": "p_dreamlop",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.04
+    },
+    {
+      "id": "p_somnihare",
+      "type": "heal_bonus",
+      "pct": 0.128
+    },
+    {
+      "id": "p_lunadream",
+      "type": "regen_round_end",
+      "pct": 0.044
+    },
+    {
+      "id": "p_shadeleon",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.04
+    },
+    {
+      "id": "p_voidchameleon",
+      "type": "damage_reduction",
+      "pct": 0.064
+    },
+    {
+      "id": "p_snuffwick",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.04
+    },
+    {
+      "id": "p_gloomcandle",
+      "type": "lifesteal",
+      "pct": 0.08
+    },
+    {
+      "id": "p_webbit",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.05
+    },
+    {
+      "id": "p_nightweaver",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.064
+    },
+    {
+      "id": "p_eclipsar",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.08
+    }
   ]
 }

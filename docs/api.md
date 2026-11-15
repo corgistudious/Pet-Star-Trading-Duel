@@ -40,4 +40,20 @@ Game routes need a token from `POST /api/servers/{id}/enter` and an online serve
 | GET | /api/admin/audit | |
 | GET | /health/live · /health/ready · /api/version | |
 
-PvP (friend duel / matchmaking) will use a WebSocket channel (`/ws/battle`) with the same engine and round protocol.
+| GET | /api/cards/{id}/passport · /api/passport/{serial} | owner / public Card Passport |
+| GET | /api/valuation/history | snapshots + completed trades |
+| GET/POST | /api/cards/{id}/training · /train **(idem)** | skill upgrade |
+| GET | /api/market/config · /sell-quote | fee, limits, quote |
+| GET/POST | /api/market/listings **(idem)** · /{id} · /{id}/cancel | listings & search |
+| POST | /api/market/buy **(idem)** | atomic purchase |
+| GET | /api/market/history | purchases / sales |
+| GET/POST/DELETE | /api/market/wishlist | wishlist + alerts |
+| GET/POST | /api/auctions **(idem)** · /{id} · /bid **(idem)** · /{id}/cancel | auction house |
+| GET/POST/DELETE | /api/feed, /api/feed/posts/... | feed, likes, saves, comments |
+| GET/POST/DELETE/PUT | /api/players/..., /api/friends/..., /api/reports, /api/profile/showcase | social |
+| GET/POST | /api/notifications, /api/mailbox/{id}/claim | notification center, mailbox |
+| GET/POST/PUT/DELETE | /api/achievements, /api/collections | achievements, albums |
+| GET/POST | /api/ranked, /ranked/leaderboard, /ranked/match **(idem)**, /api/duels/friend, /api/battles/history | ranked & friend duels |
+| * | /api/admin/reports, /moderation, /restrictions (moderator+); /cards/serial, /cards/ownership-audit, /market, /auctions, /economy/suspicious, /cards/{id}/fraud-lock (gm+); /ledger, /economy/overview, /market/stats (admin+); /economy/adjust, /mail (owner) | admin & moderation |
+
+Real-time PvP (friend duel / matchmaking) will use a WebSocket channel (`/ws/battle`) with the same engine and round protocol.

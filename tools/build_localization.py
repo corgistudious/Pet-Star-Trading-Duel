@@ -3,7 +3,11 @@
 Dynamic keys (skills, passives, stages, elements...) are generated from the design database so new content
 cannot ship without a translation entry. Run tools/check_localization.py to verify coverage."""
 import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from localization_extra import EXTRA  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "client-unity/Assets/Resources/Localization"
@@ -244,11 +248,43 @@ def main():
         en[f"element.{k}"], vi[f"element.{k}"] = e, v
         en[f"item.essence_{k}"], vi[f"item.essence_{k}"] = f"{e} Essence", f"Tinh chất {v}"
     skills = json.loads((SEED / "skills.json").read_text())
+    for k, (e, v) in EXTRA.items():
+        en[k], vi[k] = e, v
     for s in skills["skills"]:
-        en[f"skill.{s['id']}"] = s["id"].replace("_", " ").title()
-        vi[f"skill.{s['id']}"] = SKILLS_VI[s["id"]]
+        en[f"skill.{s['id']}"] = s["name"]["en"]
+        vi[f"skill.{s['id']}"] = s["name"]["vi"]
+    stat_vi = {"atk": "ATK", "def": "DEF", "spd": "SPD", "crit": "tỉ lệ chí mạng"}
     for p in skills["passives"]:
-        en[f"passive.{p['id']}"], vi[f"passive.{p['id']}"] = PASSIVES[p["id"]]
+        if p["id"] in PASSIVES:
+            en[f"passive.{p['id']}"], vi[f"passive.{p['id']}"] = PASSIVES[p["id"]]
+            continue
+        t, st = p["type"], p.get("stat", "")
+        pct = round(p.get("pct", 0) * 100, 1)
+        pct = int(pct) if pct == int(pct) else pct
+        en[f"passive.{p['id']}"], vi[f"passive.{p['id']}"] = {
+            "stat_bonus": (f"+{pct}% {'critical rate' if st == 'crit' else st.upper()}", f"+{pct}% {stat_vi.get(st, st)}"),
+            "low_hp_stat_bonus": (f"+{pct}% {st.upper()} below 50% HP", f"+{pct}% {stat_vi.get(st, st)} khi dưới 50% HP"),
+            "regen_round_end": (f"Recover {pct}% max HP each round", f"Hồi {pct}% HP tối đa mỗi lượt"),
+            "damage_reduction": (f"Take {pct}% less damage", f"Giảm {pct}% sát thương nhận vào"),
+            "battle_start_energy": ("Team starts with +1 energy", "Đội bắt đầu với +1 năng lượng"),
+            "heal_bonus": (f"Healing +{pct}%", f"Hồi máu +{pct}%"),
+            "lifesteal": (f"Heal {pct}% of damage dealt", f"Hồi {pct}% sát thương gây ra"),
+        }[t]
+    trig = {"pack_opened": ("Open {n} pack(s)", "Mở {n} gói thẻ"), "rare_obtained": ("Get your first rare card (SR+)", "Nhận thẻ hiếm đầu tiên (SR+)"),
+            "evolution": ("Evolve a Pet {n} time(s)", "Tiến hóa Pet {n} lần"), "duel_win": ("Win {n} duel(s)", "Thắng {n} trận đấu"),
+            "market_sale": ("Sell {n} card(s) on the Market", "Bán {n} thẻ trên Chợ"), "market_purchase": ("Buy {n} card(s) on the Market", "Mua {n} thẻ trên Chợ"),
+            "auction_win": ("Win {n} auction(s)", "Thắng {n} phiên đấu giá"), "feed_post": ("Share your first post", "Đăng bài viết đầu tiên"),
+            "codex_count": ("Discover {n} Pets in the Codex", "Khám phá {n} Pet trong Sách Pet"),
+            "family_complete": ("Complete {n} evolution line(s)", "Hoàn thành {n} dòng tiến hóa"),
+            "rare_owned_distinct": ("Own {n} different SSR+ Pets", "Sở hữu {n} Pet SSR+ khác nhau"), "ranked_win": ("Win {n} ranked duel(s)", "Thắng {n} trận xếp hạng"),
+            "element_complete": ("Discover every {el} Pet", "Khám phá toàn bộ Pet hệ {el}")}
+    for a in json.loads((SEED / "achievements.json").read_text())["achievements"]:
+        te, tv = trig[a["trigger"]]
+        el = a.get("element")
+        en[f"ach.{a['id']}"] = te.format(n=a["threshold"], el=ELEMENTS[el][0] if el else "")
+        vi[f"ach.{a['id']}"] = tv.format(n=a["threshold"], el=ELEMENTS[el][1] if el else "")
+    for el, (e, v) in ELEMENTS.items():
+        en[f"album.element_{el}"], vi[f"album.element_{el}"] = f"{e} Collection", f"Bộ sưu tập hệ {v}"
     for k, (e, v) in STAGES.items():
         en[f"stage.{k}"], vi[f"stage.{k}"] = e, v
     OUT.mkdir(parents=True, exist_ok=True)

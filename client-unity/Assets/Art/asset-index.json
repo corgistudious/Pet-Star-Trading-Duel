@@ -1,8 +1,309 @@
 {
+  "pet_abyssalume": {
+    "path": "Assets/Art/Pets/pet_abyssalume.png",
+    "category": "pet",
+    "sourceSha256": "8e9e4764d3cade1a1caace584cd72487bfe994397ece9fe9c9876f372b620d9f",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_aeolion": {
+    "path": "Assets/Art/Pets/pet_aeolion.png",
+    "category": "pet",
+    "sourceSha256": "1e11d732a0227169de04df3aa47df71806625f724c9b175b80daf37490ade92b",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_aerogale": {
+    "path": "Assets/Art/Pets/pet_aerogale.png",
+    "category": "pet",
+    "sourceSha256": "087948425ea20dd31414207520d6c5bbc96320bb23b37e9806c550684f6304a0",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_ambersaur": {
+    "path": "Assets/Art/Pets/pet_ambersaur.png",
+    "category": "pet",
+    "sourceSha256": "b7736d0202b5757ed7ac71904afc1fefd25f4ea4a4715d34787c4ac8c0767d1f",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_antennut": {
+    "path": "Assets/Art/Pets/pet_antennut.png",
+    "category": "pet",
+    "sourceSha256": "bc5a86a0a9876889912e52d1a196c4e8dea9b53dff1d5d6fe917a85d87ba4231",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_arcbeetle": {
+    "path": "Assets/Art/Pets/pet_arcbeetle.png",
+    "category": "pet",
+    "sourceSha256": "68442c81b0a81984f9d3fdd219609e41e0d9949887481fb2d0a754b6aa6dd004",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_armadune": {
+    "path": "Assets/Art/Pets/pet_armadune.png",
+    "category": "pet",
+    "sourceSha256": "77baf2711449a49675ab580e152256382b101944071d5fdc7d5d7dae0d173fdb",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_aurorafly": {
+    "path": "Assets/Art/Pets/pet_aurorafly.png",
+    "category": "pet",
+    "sourceSha256": "c100ee0a98dc7b0b5791f35077c6bca67933f9f446dec187b18f8c0dd8a50aca",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_bakeburrow": {
+    "path": "Assets/Art/Pets/pet_bakeburrow.png",
+    "category": "pet",
+    "sourceSha256": "c524f714713ad8718c5c659a6b479be41a141402ee4b82d1bc7f291db67e52a7",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_bambrew": {
+    "path": "Assets/Art/Pets/pet_bambrew.png",
+    "category": "pet",
+    "sourceSha256": "1d1c2f4363308172120c3c7c513991087a79a3b685331cfb055bd0196b0eacbf",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_basaltusk": {
+    "path": "Assets/Art/Pets/pet_basaltusk.png",
+    "category": "pet",
+    "sourceSha256": "3c214163d52e8f1b0791b1f6ba2a8fa955b99860d16029e9621d26b7e1515aab",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_blazelamb": {
+    "path": "Assets/Art/Pets/pet_blazelamb.png",
+    "category": "pet",
+    "sourceSha256": "e11d642945144564d563408080620cd7dfd9790e9899c60bfbcf78f9cc72954c",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_bloomhare": {
+    "path": "Assets/Art/Pets/pet_bloomhare.png",
+    "category": "pet",
+    "sourceSha256": "dd0cc78944c9b12d8b784bbead751e963ee99ab607d5cc2b44248f36dbdd67c1",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_boltcub": {
+    "path": "Assets/Art/Pets/pet_boltcub.png",
+    "category": "pet",
+    "sourceSha256": "dc4d1de001642f8bd5e2e1f424fce81f2383cff68dec60b089b7600917184a69",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_budbun": {
+    "path": "Assets/Art/Pets/pet_budbun.png",
+    "category": "pet",
+    "sourceSha256": "24a21450768f9f8d2f1b458a859ba34798c87f87028f4cb33bd6be69f0dc13cf",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_cactabby": {
+    "path": "Assets/Art/Pets/pet_cactabby.png",
+    "category": "pet",
+    "sourceSha256": "cfc76bdfb11569cf709080bb13f73c45ea7cfb7bf2dacdd8bd8202b7a5118c9e",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_calderon": {
+    "path": "Assets/Art/Pets/pet_calderon.png",
+    "category": "pet",
+    "sourceSha256": "7346926b5f3f3c4078a0feff949707977cc912a9afff1f2e123c8b4a82c696a9",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_calligrapus": {
+    "path": "Assets/Art/Pets/pet_calligrapus.png",
+    "category": "pet",
+    "sourceSha256": "a0633cce808bede0969847c4b40e767c2f711e43485fe24f4f07be213f23e859",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_celestallion": {
+    "path": "Assets/Art/Pets/pet_celestallion.png",
+    "category": "pet",
+    "sourceSha256": "a888b87a5830d3434464f3efc28a4aab617fa69155239bab03413c97b1dfe7a5",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_chandelord": {
+    "path": "Assets/Art/Pets/pet_chandelord.png",
+    "category": "pet",
+    "sourceSha256": "179b085df4dd9b87394138b729e8ee4e666c33f1e35c3232726ee8d39207cd2e",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_chilipop": {
+    "path": "Assets/Art/Pets/pet_chilipop.png",
+    "category": "pet",
+    "sourceSha256": "b4e3f28a0d1f576ee04f700b791cf6ba3fdcf368ff44286dfe0b214dd1164615",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_chimelet": {
+    "path": "Assets/Art/Pets/pet_chimelet.png",
+    "category": "pet",
+    "sourceSha256": "c81954dd010ac93b0757f71ae038da63a01eaeedbd380a865c6091a4ffe9a044",
+    "version": 1,
+    "status": "generated"
+  },
   "pet_cinderlynx": {
     "path": "Assets/Art/Pets/pet_cinderlynx.png",
     "category": "pet",
     "sourceSha256": "3abceef554bf1a429bd8c837defbfdf532cc73f00cf59eaa083af30e13669eaa",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_clamby": {
+    "path": "Assets/Art/Pets/pet_clamby.png",
+    "category": "pet",
+    "sourceSha256": "d31d45e2c5428f86fd7d5a946d5c5174b91b6a8737641b72494198959a9f2201",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_coalcub": {
+    "path": "Assets/Art/Pets/pet_coalcub.png",
+    "category": "pet",
+    "sourceSha256": "a37775cb1c93e36a3608956aada54c7f7d2bf3e73291130e0083733694361ca0",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_coilbug": {
+    "path": "Assets/Art/Pets/pet_coilbug.png",
+    "category": "pet",
+    "sourceSha256": "d7b913914bec4b88d5752d5df54aa4feb9628e388d5fd274ddea809496b14260",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_constellapin": {
+    "path": "Assets/Art/Pets/pet_constellapin.png",
+    "category": "pet",
+    "sourceSha256": "4cc738b6b007c60d44b6bfdf275bd791710c41bf6eefa61084fc3f40732ac9ae",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_corvlet": {
+    "path": "Assets/Art/Pets/pet_corvlet.png",
+    "category": "pet",
+    "sourceSha256": "45e050071199753ceb209c9e1e24a43aac4f596f2fe8686fd4862da87b67e4ae",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_corvonarch": {
+    "path": "Assets/Art/Pets/pet_corvonarch.png",
+    "category": "pet",
+    "sourceSha256": "fa9c6d517bd33734f4335efa3e40e246fcbc3cf370eede115cb7319f90ff2510",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_cragmastiff": {
+    "path": "Assets/Art/Pets/pet_cragmastiff.png",
+    "category": "pet",
+    "sourceSha256": "985c86f9abf4c46462440d39d3be108c698b50a0d2006c30cc58f9ac5196529c",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_cratortle": {
+    "path": "Assets/Art/Pets/pet_cratortle.png",
+    "category": "pet",
+    "sourceSha256": "2785f352cc7507299d0238b534688330d8ff634f7c1c1137462d458901c068c0",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_cumulamb": {
+    "path": "Assets/Art/Pets/pet_cumulamb.png",
+    "category": "pet",
+    "sourceSha256": "580dcc6bdb2d8ceca0667e8b81663b1ec9321fb4b177f3c21ea85e4e15cf7216",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_cyclonectar": {
+    "path": "Assets/Art/Pets/pet_cyclonectar.png",
+    "category": "pet",
+    "sourceSha256": "ca835375e118b0ccaf5bc626c8662876976ffb1d32e7c335701439bd3f9d9138",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dandefluff": {
+    "path": "Assets/Art/Pets/pet_dandefluff.png",
+    "category": "pet",
+    "sourceSha256": "12bde323db6d36933ee79f2b2c7bb63f4b0cee886f48c5c9a1ebd7b616cc1c5a",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dawnpup": {
+    "path": "Assets/Art/Pets/pet_dawnpup.png",
+    "category": "pet",
+    "sourceSha256": "cc967998accb92ee7f7125a746923153c0d212254a6f2258724c51a675c739af",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dreamlop": {
+    "path": "Assets/Art/Pets/pet_dreamlop.png",
+    "category": "pet",
+    "sourceSha256": "91d794acf25799bea31c692542195f121756757eda43775da9cc09cd5d42974e",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_drillmajor": {
+    "path": "Assets/Art/Pets/pet_drillmajor.png",
+    "category": "pet",
+    "sourceSha256": "aff9f776d38c040d83b8fd6fb4ac505b89772e73ad1ce603942de7bcb050e67b",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dunewatch": {
+    "path": "Assets/Art/Pets/pet_dunewatch.png",
+    "category": "pet",
+    "sourceSha256": "8fbbec463ed8e07fc422fd8c3895d58446c2c4d3e35e2455aa9f0d7831cc3361",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_duskit": {
+    "path": "Assets/Art/Pets/pet_duskit.png",
+    "category": "pet",
+    "sourceSha256": "75ef2c4890add84b41266e7b8d353eb5d6e03087b7a7c2a986b7b6d575da517a",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dustwhirl": {
+    "path": "Assets/Art/Pets/pet_dustwhirl.png",
+    "category": "pet",
+    "sourceSha256": "33b7e29fb2fdfb21c3da345e842a030f7a89c85dc198745ad6149e3635610de1",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_echowing": {
+    "path": "Assets/Art/Pets/pet_echowing.png",
+    "category": "pet",
+    "sourceSha256": "53e8de30913877dae0ca53e5a1312c383aa13eb006bf85954ea4d84d780e8a78",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_eclipsar": {
+    "path": "Assets/Art/Pets/pet_eclipsar.png",
+    "category": "pet",
+    "sourceSha256": "c8d9a940ec7e5c0b81874a3d7b8dd94c7541f6fd2ec4214027e93b2ac57efa05",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_elderbark": {
+    "path": "Assets/Art/Pets/pet_elderbark.png",
+    "category": "pet",
+    "sourceSha256": "8dc1375df4b4aca0e1a0a85ad1fe024defa197b531f8ad72ddeb7fc7d0fcfac3",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_elytrix": {
+    "path": "Assets/Art/Pets/pet_elytrix.png",
+    "category": "pet",
+    "sourceSha256": "7a34f23eba08fd6238e10e9a9126c2aac7edd9eb0cde73f8761a16c57aebcf01",
     "version": 1,
     "status": "generated"
   },
@@ -13,10 +314,136 @@
     "version": 1,
     "status": "generated"
   },
+  "pet_flickfinch": {
+    "path": "Assets/Art/Pets/pet_flickfinch.png",
+    "category": "pet",
+    "sourceSha256": "017e25c260484d629010e000318e37c87ddaabf7454158e679e7cc1e5cb2bd7f",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_flitbat": {
+    "path": "Assets/Art/Pets/pet_flitbat.png",
+    "category": "pet",
+    "sourceSha256": "454b5127d078f7c4e5746184325e2429ed6ad45866479929640bee607aa40da6",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_floatlet": {
+    "path": "Assets/Art/Pets/pet_floatlet.png",
+    "category": "pet",
+    "sourceSha256": "a4c8ddd4d6b96043305878cf2324b99ef3a7b69cf671ca68362c6205bf1c551d",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_floeseal": {
+    "path": "Assets/Art/Pets/pet_floeseal.png",
+    "category": "pet",
+    "sourceSha256": "795842641fa772a7914123b9b1bc6b9e6f70aadfdb175d7aa68b79c48935f8e8",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_foldlet": {
+    "path": "Assets/Art/Pets/pet_foldlet.png",
+    "category": "pet",
+    "sourceSha256": "2256a5f12195742ce2a0bdf5194ddc7ad7fb5c9b2bcb50e74c344e10e25486ab",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_forgeram": {
+    "path": "Assets/Art/Pets/pet_forgeram.png",
+    "category": "pet",
+    "sourceSha256": "d62091e1a74cf509a89c8f263bb0e497179a4c928d2f82c2b966287af7a5e585",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_fortadillo": {
+    "path": "Assets/Art/Pets/pet_fortadillo.png",
+    "category": "pet",
+    "sourceSha256": "381b8a59a024420810a4ee681844a58b61c46ee377eda32568de724242836f26",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_fossilet": {
+    "path": "Assets/Art/Pets/pet_fossilet.png",
+    "category": "pet",
+    "sourceSha256": "774cc40f0576fe8822de82fbf390e53fddf6961cd260533f829d6c255d1cf566",
+    "version": 1,
+    "status": "generated"
+  },
   "pet_fulgurmunk": {
     "path": "Assets/Art/Pets/pet_fulgurmunk.png",
     "category": "pet",
-    "sourceSha256": "3e63945d98580b9db385d681ac91e763743f333d4b8d7781801f7463170b78a6",
+    "sourceSha256": "cad9fb3f811cd0933804f5163f9e5aa0e0e1df0c26b70e8f6f2bab6a22e3140a",
+    "version": 2,
+    "status": "generated"
+  },
+  "pet_furnacrab": {
+    "path": "Assets/Art/Pets/pet_furnacrab.png",
+    "category": "pet",
+    "sourceSha256": "3ad1a65b35c3b1140ea3feb4c9c6f7b548708fe40e89d6741bf3ad7c97bd19dd",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_galeswallow": {
+    "path": "Assets/Art/Pets/pet_galeswallow.png",
+    "category": "pet",
+    "sourceSha256": "503da7440f1a56438a2aecf5b432583994228d955c6282887206a44b90353ae5",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_gardenshell": {
+    "path": "Assets/Art/Pets/pet_gardenshell.png",
+    "category": "pet",
+    "sourceSha256": "1520fe3803e6866366bf1dfcdf5484198e90da60e527996009b2cea6fd58f3fb",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_gemhog": {
+    "path": "Assets/Art/Pets/pet_gemhog.png",
+    "category": "pet",
+    "sourceSha256": "3c0b7396edb2d6eb9e95bcae1a6e935cdb61f6dca859f73c742902ca6f6490b3",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_geodehog": {
+    "path": "Assets/Art/Pets/pet_geodehog.png",
+    "category": "pet",
+    "sourceSha256": "814a8420f63cd34ab7749dbbb7060c7a1c550b3a9c4dc9ef35c7f1f1c34185c8",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_glaciarch": {
+    "path": "Assets/Art/Pets/pet_glaciarch.png",
+    "category": "pet",
+    "sourceSha256": "699594bd783de81cb2cf84f5fbf7368997de954aa7942a350c3237c24ce74c22",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_gleamfoal": {
+    "path": "Assets/Art/Pets/pet_gleamfoal.png",
+    "category": "pet",
+    "sourceSha256": "a0ce024bc6463d5bafc2e275e98e7f663e59771dede3ca3197b84dbf342e7c34",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_glidelet": {
+    "path": "Assets/Art/Pets/pet_glidelet.png",
+    "category": "pet",
+    "sourceSha256": "2459b474fb6aa138966b3cea67fc70940531a45acccde6487ce8445b7f106529",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_glintpupa": {
+    "path": "Assets/Art/Pets/pet_glintpupa.png",
+    "category": "pet",
+    "sourceSha256": "e1876af0261f63e8961873610736019d085a813e9b332497e0f93d03243e717e",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_gloomcandle": {
+    "path": "Assets/Art/Pets/pet_gloomcandle.png",
+    "category": "pet",
+    "sourceSha256": "751dc03b4a0d083a9988e585685656dfc68ae92c6ee51406b50ebc435701c5ba",
     "version": 1,
     "status": "generated"
   },
@@ -27,10 +454,416 @@
     "version": 1,
     "status": "generated"
   },
+  "pet_glowala": {
+    "path": "Assets/Art/Pets/pet_glowala.png",
+    "category": "pet",
+    "sourceSha256": "b41e848b42449d9a6e5d2ead7e25e2209fe4a8d8702a53a24caeec2b900bd3bc",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_glowgecko": {
+    "path": "Assets/Art/Pets/pet_glowgecko.png",
+    "category": "pet",
+    "sourceSha256": "dde90ee21c6f3b8b9ac50b464e284e58850650c9d2e76d1b2cc661e8dab5842a",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_gridraptor": {
+    "path": "Assets/Art/Pets/pet_gridraptor.png",
+    "category": "pet",
+    "sourceSha256": "829a1b120ba70f9a35321774b9b8fb2d0c9be9d842fd96e071c666010e6c8898",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_habanerox": {
+    "path": "Assets/Art/Pets/pet_habanerox.png",
+    "category": "pet",
+    "sourceSha256": "9fd22a8392da563a0ead8ef37f0a65ee4c2215dccf53981e80eea67632b7df1b",
+    "version": 1,
+    "status": "generated"
+  },
   "pet_halowl": {
     "path": "Assets/Art/Pets/pet_halowl.png",
     "category": "pet",
     "sourceSha256": "5434a70d88adc62c0e3a136e7edf2cf9c80b29b8f78e92cf726c78580ad5adc1",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_hearthursa": {
+    "path": "Assets/Art/Pets/pet_hearthursa.png",
+    "category": "pet",
+    "sourceSha256": "870b9a130eba4fd7fcbe91b475acc8415ed0c66c3a1fbd92c4c106dab1b25655",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_hivemonarch": {
+    "path": "Assets/Art/Pets/pet_hivemonarch.png",
+    "category": "pet",
+    "sourceSha256": "884a9ed92921a245993192a52bd4be3bca6888fc6a08364b980c973b4bd08111",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_honeyquill": {
+    "path": "Assets/Art/Pets/pet_honeyquill.png",
+    "category": "pet",
+    "sourceSha256": "b886474c7f7d96f5ea5b195d895996de94f58c15c9170ee806b0f18e150040dc",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_hummbit": {
+    "path": "Assets/Art/Pets/pet_hummbit.png",
+    "category": "pet",
+    "sourceSha256": "179f946b41e8c5ff31a9b9528929caec7458b9ae5c20c8ce051c98ac246100c8",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_inklet": {
+    "path": "Assets/Art/Pets/pet_inklet.png",
+    "category": "pet",
+    "sourceSha256": "06f82d0f9107b768afc96f9cc6c97495db557917060b254d2c8b0df8c1d08bf7",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_ironboar": {
+    "path": "Assets/Art/Pets/pet_ironboar.png",
+    "category": "pet",
+    "sourceSha256": "4bb8221d967debd5d5c5ac49de0b7602d361c2a8352fa5beb0d915d15f406649",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_ivyserpent": {
+    "path": "Assets/Art/Pets/pet_ivyserpent.png",
+    "category": "pet",
+    "sourceSha256": "17039c537e52181bdcc8f009c08a6dbf3464a623d60dcd33b73b201f4f73da2a",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_jellume": {
+    "path": "Assets/Art/Pets/pet_jellume.png",
+    "category": "pet",
+    "sourceSha256": "100f4807101b3e556404e4f72b9874e4edf828bacfa10cc02916e0c72e8fd842",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_joltkite": {
+    "path": "Assets/Art/Pets/pet_joltkite.png",
+    "category": "pet",
+    "sourceSha256": "76c1b2a5da4e3f5bb3b6facefd56a611702b5cfe42a182e7c96747963b21e4c7",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_kettlewyrm": {
+    "path": "Assets/Art/Pets/pet_kettlewyrm.png",
+    "category": "pet",
+    "sourceSha256": "91c1058af8b3c0b9eaf28e2f620ed16c140aae131379a9cd460fb5472e152393",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_kilnbear": {
+    "path": "Assets/Art/Pets/pet_kilnbear.png",
+    "category": "pet",
+    "sourceSha256": "2974fbd6463b9b520a4daec419f2047e69ecead4812008d9baedbe48fc8bae29",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_kitezap": {
+    "path": "Assets/Art/Pets/pet_kitezap.png",
+    "category": "pet",
+    "sourceSha256": "6b8c344462ae64ad28c6facf9ea7403b33e39082e11dec6d8311f56918173f3f",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_ladyling": {
+    "path": "Assets/Art/Pets/pet_ladyling.png",
+    "category": "pet",
+    "sourceSha256": "a0d93ded753686c48777170c1088f1dbdf53491d723f921b28be18c27edc8825",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_lampreel": {
+    "path": "Assets/Art/Pets/pet_lampreel.png",
+    "category": "pet",
+    "sourceSha256": "878003523b22c67783d14915f1fc3f3841355af00676dabe4ccf1c214c8d48ec",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_lanternmole": {
+    "path": "Assets/Art/Pets/pet_lanternmole.png",
+    "category": "pet",
+    "sourceSha256": "5d892ed204637794b62a7ed6e4bc240d59174fd9756d44f1705b65c8e0f09e05",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_lanternwisp": {
+    "path": "Assets/Art/Pets/pet_lanternwisp.png",
+    "category": "pet",
+    "sourceSha256": "f638a617da265361d53a4d86d8b036e3866c840a5713bf90ffb74e37d91c57c6",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_lilykoi": {
+    "path": "Assets/Art/Pets/pet_lilykoi.png",
+    "category": "pet",
+    "sourceSha256": "0034435bbf3e68f29a59a3da87ceb3ced5922ff6358489937d05cd8c0d787b4f",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_lotusling": {
+    "path": "Assets/Art/Pets/pet_lotusling.png",
+    "category": "pet",
+    "sourceSha256": "f7a203f3e53f3d5dce3cce04bc1864c8365dfa986a0323649b6030aa015b0d14",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_lumicorn": {
+    "path": "Assets/Art/Pets/pet_lumicorn.png",
+    "category": "pet",
+    "sourceSha256": "cb848b092a513329be9a248126a789cb853e1fccf0812fa34d03f1d77d571b0f",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_lumidrake": {
+    "path": "Assets/Art/Pets/pet_lumidrake.png",
+    "category": "pet",
+    "sourceSha256": "6ca0c41242ed0c5a4ff514bd4e0778f5694a73f522a8965fac66c29808f2c4af",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_lunadream": {
+    "path": "Assets/Art/Pets/pet_lunadream.png",
+    "category": "pet",
+    "sourceSha256": "d4d47c3e891795da504a73030ccd738055b04ff4674ebc6fb98ffa2b64518915",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_lunarkoala": {
+    "path": "Assets/Art/Pets/pet_lunarkoala.png",
+    "category": "pet",
+    "sourceSha256": "40911fa030c7ba326e200d6bb18c489f823f5f2773b92ed132c276554211fb44",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_magmite": {
+    "path": "Assets/Art/Pets/pet_magmite.png",
+    "category": "pet",
+    "sourceSha256": "fbaf4321ea03dfe676d51e641349dd61a9f8d2e596dae9844c32bc3ee0f46004",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_mantaroyal": {
+    "path": "Assets/Art/Pets/pet_mantaroyal.png",
+    "category": "pet",
+    "sourceSha256": "5d5eecd3b1c0157eab19da942a0f7164336bad8db510343aca8273481ce2fe9f",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_matchub": {
+    "path": "Assets/Art/Pets/pet_matchub.png",
+    "category": "pet",
+    "sourceSha256": "ec1189b7496367e9864c64fa5da5be6c0751f59f244d86f9c0e2ed286b0c86d4",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_medulamp": {
+    "path": "Assets/Art/Pets/pet_medulamp.png",
+    "category": "pet",
+    "sourceSha256": "a201c63f5fd79938204ac608dd9b8ee7679b4e43b81804bc61367a0f2c8530dc",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_mirasentry": {
+    "path": "Assets/Art/Pets/pet_mirasentry.png",
+    "category": "pet",
+    "sourceSha256": "87a563684dfc5fcd0a7aa70376770571cd167b5e8c2180242ba6b51a73cbc35f",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_mirrorshell": {
+    "path": "Assets/Art/Pets/pet_mirrorshell.png",
+    "category": "pet",
+    "sourceSha256": "35e4a7739150bb210d8c2f588875414d344bed25dba907bef7fe3abb9e495b48",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_molepip": {
+    "path": "Assets/Art/Pets/pet_molepip.png",
+    "category": "pet",
+    "sourceSha256": "d84f922d3f986c432232dbbc3ae99467c65a8ebbb55420dce7e57f1a418c4093",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_moonwhale": {
+    "path": "Assets/Art/Pets/pet_moonwhale.png",
+    "category": "pet",
+    "sourceSha256": "90d1139a68f9140a5332eea151d84c71f8a5608f564d012adb42d4945979ed33",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_mossbuck": {
+    "path": "Assets/Art/Pets/pet_mossbuck.png",
+    "category": "pet",
+    "sourceSha256": "17654aa6cbe9c87d1ef6d83b88312b5e72d0e043fe03dac78a0248410c3670ef",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_myceliord": {
+    "path": "Assets/Art/Pets/pet_myceliord.png",
+    "category": "pet",
+    "sourceSha256": "8c02d21701e2ffae24ecdd88905b5cd81237586e71dc4e7bf154d2ac9f06b852",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_mythrilboar": {
+    "path": "Assets/Art/Pets/pet_mythrilboar.png",
+    "category": "pet",
+    "sourceSha256": "2a635767e4f6899cd36ace0879580242a4310590d8f73b17d859206eabfed658",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_neonmonitor": {
+    "path": "Assets/Art/Pets/pet_neonmonitor.png",
+    "category": "pet",
+    "sourceSha256": "2a1f1595e217412e5eae21823e0fab1f18f5407b8d2feb8113efbda3039eedd2",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_nightweaver": {
+    "path": "Assets/Art/Pets/pet_nightweaver.png",
+    "category": "pet",
+    "sourceSha256": "e1228281cc4e410e645a1c14d0e1c732c3ab77a43827fabbb6ba20ac342fe5e6",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_nimbaram": {
+    "path": "Assets/Art/Pets/pet_nimbaram.png",
+    "category": "pet",
+    "sourceSha256": "8b294e5c86a78fb91e63b8acd9d6b1bdd4ae94203cd37a5922d803bcddcfa7c0",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_noctyrant": {
+    "path": "Assets/Art/Pets/pet_noctyrant.png",
+    "category": "pet",
+    "sourceSha256": "2adffe4506fe0e9bfe7228427d186d3514e06a8a7f76f82d43f88e2e4b83f918",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_orelet": {
+    "path": "Assets/Art/Pets/pet_orelet.png",
+    "category": "pet",
+    "sourceSha256": "7dd0d5d64a3f59a4dbccf1e485ba548ff98730d5d93e076f15089fb8b43d8885",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_origamonarch": {
+    "path": "Assets/Art/Pets/pet_origamonarch.png",
+    "category": "pet",
+    "sourceSha256": "8d09ea50cc2871a435fe36cc9a4594fc524be8c519d8c736dc162254ad716c89",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_pandaroma": {
+    "path": "Assets/Art/Pets/pet_pandaroma.png",
+    "category": "pet",
+    "sourceSha256": "c67196a04c86b2b1c2243293addba9c8b4e25966827adaf0412cfdcd722644d1",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_papercrane": {
+    "path": "Assets/Art/Pets/pet_papercrane.png",
+    "category": "pet",
+    "sourceSha256": "0a8c4591c6d46f9f2714b3ee079f1f86a298f7a50ab05e93611e957008f3eb06",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_peakwarden": {
+    "path": "Assets/Art/Pets/pet_peakwarden.png",
+    "category": "pet",
+    "sourceSha256": "bc24ebf4a24e7b62c5e37e12b6c38bdea45b473754d145ba70e8c8809bba7853",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_pearlord": {
+    "path": "Assets/Art/Pets/pet_pearlord.png",
+    "category": "pet",
+    "sourceSha256": "4bb056bea647a0956957ac6a6f6601b4146887497ac247f9dece2e4d5516fd4a",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_pebblehorn": {
+    "path": "Assets/Art/Pets/pet_pebblehorn.png",
+    "category": "pet",
+    "sourceSha256": "627bea78f673442f84545f5995dbe93f369592927278d8a8300a147b5d3f0ac1",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_pebblet": {
+    "path": "Assets/Art/Pets/pet_pebblet.png",
+    "category": "pet",
+    "sourceSha256": "62634968f24943a5842106f62ec13b873ebf00349d1a5e4d231c3a51224aee2c",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_pepperquill": {
+    "path": "Assets/Art/Pets/pet_pepperquill.png",
+    "category": "pet",
+    "sourceSha256": "aa0f1ee7d9d09f178057228d2af6553c5eb39068941c43cbcd6385f7d2ba47db",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_phantomist": {
+    "path": "Assets/Art/Pets/pet_phantomist.png",
+    "category": "pet",
+    "sourceSha256": "17e94bfde4b0773177b404733dd761fe567fa1b2bcf634b9fb965099f268f179",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_pithos": {
+    "path": "Assets/Art/Pets/pet_pithos.png",
+    "category": "pet",
+    "sourceSha256": "9b95f612c7cef379077b2ad3177c794080a16b56da8d9b93058abc6010e08d61",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_plasmadrake": {
+    "path": "Assets/Art/Pets/pet_plasmadrake.png",
+    "category": "pet",
+    "sourceSha256": "ea91e97db7e54815e59bc433ed67a9c7fed595a65f23df32436bd7af7895a301",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_plugsnap": {
+    "path": "Assets/Art/Pets/pet_plugsnap.png",
+    "category": "pet",
+    "sourceSha256": "321a7daba1a418960e58c7fbbb7ea2f057a0289c18bdc973a24a787423df7b7f",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_pollibee": {
+    "path": "Assets/Art/Pets/pet_pollibee.png",
+    "category": "pet",
+    "sourceSha256": "c3d6f768c0ba069a35ab9177bc2c978a8c6498a7d42da0419ac7600dfd5306d3",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_pricklet": {
+    "path": "Assets/Art/Pets/pet_pricklet.png",
+    "category": "pet",
+    "sourceSha256": "e3ead22ab3ec760117aa249f73095350e23e8ed8708ed0c1de147acd979e7ff5",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_prismwing": {
+    "path": "Assets/Art/Pets/pet_prismwing.png",
+    "category": "pet",
+    "sourceSha256": "84a182362c6d541bda8dd16fcfec1b42b21c9e67a5cffd693fa9b0b96b82e0ea",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_puddleap": {
+    "path": "Assets/Art/Pets/pet_puddleap.png",
+    "category": "pet",
+    "sourceSha256": "03bb91fac390b8abd1a585bd799864801fee6870338fadec345ab2f8b7bb0d33",
     "version": 1,
     "status": "generated"
   },
@@ -41,10 +874,80 @@
     "version": 1,
     "status": "generated"
   },
+  "pet_puffwool": {
+    "path": "Assets/Art/Pets/pet_puffwool.png",
+    "category": "pet",
+    "sourceSha256": "15b19697e2aa366cdcd2efaab2b6b9d703e5d9ab9b6119082038f00c3df97a21",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_pupsplash": {
+    "path": "Assets/Art/Pets/pet_pupsplash.png",
+    "category": "pet",
+    "sourceSha256": "95d8b6a3b965fd3772996119d1635561fc4e39db897676ae3d9279d26aba2da7",
+    "version": 1,
+    "status": "generated"
+  },
   "pet_pyrelynx": {
     "path": "Assets/Art/Pets/pet_pyrelynx.png",
     "category": "pet",
     "sourceSha256": "a35613a1f482afacc52f022cc24413bb77d17ba7634b71b1cd62397f235ff1aa",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_pyrewing": {
+    "path": "Assets/Art/Pets/pet_pyrewing.png",
+    "category": "pet",
+    "sourceSha256": "06c47531cc94bde22cc22a67ac52ca04d6394f35061ef2caa8ad3fe28dbf9611",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_quartzpine": {
+    "path": "Assets/Art/Pets/pet_quartzpine.png",
+    "category": "pet",
+    "sourceSha256": "f74c2b7877c241edcc675c24a7cc10ce6899dace3fa5dc1a237c3635ffa475b7",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_radiantqueen": {
+    "path": "Assets/Art/Pets/pet_radiantqueen.png",
+    "category": "pet",
+    "sourceSha256": "2513d6a593e0d9a2b825562b2c3f5f6ee70814e8073cb9bffdbf30c23bcb2dd2",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_raincroak": {
+    "path": "Assets/Art/Pets/pet_raincroak.png",
+    "category": "pet",
+    "sourceSha256": "42a475e49e2f6bd428957bed5e4f80e24b1e74c6a100210f833fcee57da34c37",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_ravenoir": {
+    "path": "Assets/Art/Pets/pet_ravenoir.png",
+    "category": "pet",
+    "sourceSha256": "0a9cc290f2a36acd8b76b9d349883dab5fb4f373ef39f45fb884716a3f9bc9b1",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_raylet": {
+    "path": "Assets/Art/Pets/pet_raylet.png",
+    "category": "pet",
+    "sourceSha256": "f484a6c3b2c1646a27c53a5521615dbe8daf4ddb1b77215dee3dcc80df4fd915",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_reflectortoise": {
+    "path": "Assets/Art/Pets/pet_reflectortoise.png",
+    "category": "pet",
+    "sourceSha256": "6990b88e5b97f96d7ac092d30dc78685aafd17918b60bb3a182f107dc3726913",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_rhinostone": {
+    "path": "Assets/Art/Pets/pet_rhinostone.png",
+    "category": "pet",
+    "sourceSha256": "5cf7e7eff264ffc536d3cae311bfd012d7b0f488bd5c79d7ac544cbdf7817dbe",
     "version": 1,
     "status": "generated"
   },
@@ -55,6 +958,279 @@
     "version": 1,
     "status": "generated"
   },
+  "pet_riverine": {
+    "path": "Assets/Art/Pets/pet_riverine.png",
+    "category": "pet",
+    "sourceSha256": "50a9cbb67183fccd6a6e21590e8b445712ecdf61f77a1534eb1e3d2ff76521e3",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_rockhound": {
+    "path": "Assets/Art/Pets/pet_rockhound.png",
+    "category": "pet",
+    "sourceSha256": "e0eff2a3c7e8dc9fd6b9dd61286072a20a5c41c607f149e819b041ba38fb107e",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_rollpip": {
+    "path": "Assets/Art/Pets/pet_rollpip.png",
+    "category": "pet",
+    "sourceSha256": "4478e26129f80d26bfe48b59151af530a170b88d8410896aeb163557dafbf1cc",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_saguaroar": {
+    "path": "Assets/Art/Pets/pet_saguaroar.png",
+    "category": "pet",
+    "sourceSha256": "b357262294e636f1fa8fabe76516a2f6dbf021d202dc79fda87a89b1dbb411c5",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_samovaragon": {
+    "path": "Assets/Art/Pets/pet_samovaragon.png",
+    "category": "pet",
+    "sourceSha256": "bf08fd984145195bb2fe7fcfd44d2d2a9addce4cc8d9296c64710215af45cfdf",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_sanctorch": {
+    "path": "Assets/Art/Pets/pet_sanctorch.png",
+    "category": "pet",
+    "sourceSha256": "78348f4938b0a1b97174ee4c1b41dcb1c7570be2b10167f0f4db266f2655aaae",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_sandmeer": {
+    "path": "Assets/Art/Pets/pet_sandmeer.png",
+    "category": "pet",
+    "sourceSha256": "e16feaa6b283c6f41ed8e83b63989a263d0b5db112e6f24b4bb5575999cc3f5f",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_scarabelle": {
+    "path": "Assets/Art/Pets/pet_scarabelle.png",
+    "category": "pet",
+    "sourceSha256": "40500be54065ba642d7db7d75e90c8261725f1d3629fae3dee0eb0b2157125e7",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_scribopus": {
+    "path": "Assets/Art/Pets/pet_scribopus.png",
+    "category": "pet",
+    "sourceSha256": "aa989447ba961e7f2ee993fb82b5a48d109a7e7a8e41fcd4ff3ae7334739c23d",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_seacolt": {
+    "path": "Assets/Art/Pets/pet_seacolt.png",
+    "category": "pet",
+    "sourceSha256": "c4ec420de1d1b186d4ed38e5bafbcf69ec6bf7df895af4728fe043fe2ed9ed1d",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_seedsoar": {
+    "path": "Assets/Art/Pets/pet_seedsoar.png",
+    "category": "pet",
+    "sourceSha256": "ef91b525603e41164f6e63467ad1d166af9674c31b0e181d908d82df9c33a72c",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_shadeleon": {
+    "path": "Assets/Art/Pets/pet_shadeleon.png",
+    "category": "pet",
+    "sourceSha256": "35acab3d258bb9a49bcda31fe59822f5298fd973d09fbd17ac4e68dd5a0837be",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_shellotter": {
+    "path": "Assets/Art/Pets/pet_shellotter.png",
+    "category": "pet",
+    "sourceSha256": "3cae9f1f57ca478f828cd062f09f04777d9a3939edbb9faad37bac4adbce43c4",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_signalcrab": {
+    "path": "Assets/Art/Pets/pet_signalcrab.png",
+    "category": "pet",
+    "sourceSha256": "a96d1613487c634bbcd8ca2721c3cba9897235690ee80b1cf34100163f53a31a",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_skyglider": {
+    "path": "Assets/Art/Pets/pet_skyglider.png",
+    "category": "pet",
+    "sourceSha256": "93f58f7b5257fb391b78a05e2f65bcdb548adf33384abdb1a5d9f5e6374da9a6",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_skymedusa": {
+    "path": "Assets/Art/Pets/pet_skymedusa.png",
+    "category": "pet",
+    "sourceSha256": "e8803f5a477e30a64675f7d289dd21ccec92ddd4a206b1f7bd77fbaea6680052",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_snailbloom": {
+    "path": "Assets/Art/Pets/pet_snailbloom.png",
+    "category": "pet",
+    "sourceSha256": "086c2a4e38373602cbd5fea7127f4080e2c0482647d321599be863b36452b241",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_snuffwick": {
+    "path": "Assets/Art/Pets/pet_snuffwick.png",
+    "category": "pet",
+    "sourceSha256": "422e9be48eb9277d3d1132bfcc37040816d962ac47fc9e41d0cf6831f0df8556",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_socketail": {
+    "path": "Assets/Art/Pets/pet_socketail.png",
+    "category": "pet",
+    "sourceSha256": "09afb9ec15fe4565dab8c92e85feb90b5020902a37433349ed4fa3cbcb20cbc0",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_solarius": {
+    "path": "Assets/Art/Pets/pet_solarius.png",
+    "category": "pet",
+    "sourceSha256": "db3579684a940d241d522e6d5ac4bb33d39c150753bce5601af6062533c6b82d",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_solarquill": {
+    "path": "Assets/Art/Pets/pet_solarquill.png",
+    "category": "pet",
+    "sourceSha256": "831360336c1a297315637cc2d2d5f464e63f4bb4c597fe0b7c3b823b80460f59",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_somnihare": {
+    "path": "Assets/Art/Pets/pet_somnihare.png",
+    "category": "pet",
+    "sourceSha256": "5eef5a5742ece61ba52467e5ed728cd8365c277dcac172bebbc34010c2219e96",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_spectreign": {
+    "path": "Assets/Art/Pets/pet_spectreign.png",
+    "category": "pet",
+    "sourceSha256": "34d792edf3caf6b477efc82b56816ec9eb5f7ef5daeed69980a8b42ea72bffe4",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_sporelet": {
+    "path": "Assets/Art/Pets/pet_sporelet.png",
+    "category": "pet",
+    "sourceSha256": "0fc4ea87653775bf42c16bb65b0c0517bd9534ab8c961a536639625626263509",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_starhare": {
+    "path": "Assets/Art/Pets/pet_starhare.png",
+    "category": "pet",
+    "sourceSha256": "93f3693e1130502e86c2048c4c7b28915be67bc2905bc9059350e6f61e77c05e",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_staticlamb": {
+    "path": "Assets/Art/Pets/pet_staticlamb.png",
+    "category": "pet",
+    "sourceSha256": "0c574ffdf41bec535bda9d3d8a1994fa763e30f71cc1d5d06f4f8a84095e09f0",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_stormherald": {
+    "path": "Assets/Art/Pets/pet_stormherald.png",
+    "category": "pet",
+    "sourceSha256": "fe2ec85d59fb5e294fc2f3afcae078ff299217644e5639c1982fad512378c749",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_stormkestrel": {
+    "path": "Assets/Art/Pets/pet_stormkestrel.png",
+    "category": "pet",
+    "sourceSha256": "b0aa7848c9b49e00c0f260372441ddb5eeb912dc94c3c15ee56701e352a50da8",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_stormtoad": {
+    "path": "Assets/Art/Pets/pet_stormtoad.png",
+    "category": "pet",
+    "sourceSha256": "084db08f9f90632a8e2737ed2e2d149883c4c3b55b693ca3ca701ddc4f3bee73",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_sunbee": {
+    "path": "Assets/Art/Pets/pet_sunbee.png",
+    "category": "pet",
+    "sourceSha256": "a6e77382e11446fdcf1e12576f6414f6efe77612e5ba814991c9385e71cba466",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_sunhound": {
+    "path": "Assets/Art/Pets/pet_sunhound.png",
+    "category": "pet",
+    "sourceSha256": "f790c215ac455c33aa86fdb7ef5da131eeb9cb3bdea9b05fb24ab6fab7a8127e",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_swiftlet": {
+    "path": "Assets/Art/Pets/pet_swiftlet.png",
+    "category": "pet",
+    "sourceSha256": "247c868a2e1fdb1f58eaba7fadc12c95409d2684940816f6459104849bca8f96",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_teapip": {
+    "path": "Assets/Art/Pets/pet_teapip.png",
+    "category": "pet",
+    "sourceSha256": "909430a731e643ede6be6bc6e1b44752d5d700da0265be463d5c52eafaadb11f",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_tempestram": {
+    "path": "Assets/Art/Pets/pet_tempestram.png",
+    "category": "pet",
+    "sourceSha256": "cbef617c3ff2f6dcdae5c366c788d74aa9eed5d8b46a8b766f2d9ecc97edfe79",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_tempestwing": {
+    "path": "Assets/Art/Pets/pet_tempestwing.png",
+    "category": "pet",
+    "sourceSha256": "842a924dc9f91e89fdc0e50cc8e008ba5c68f0e275cf53db82dcbee167092354",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_tendrilly": {
+    "path": "Assets/Art/Pets/pet_tendrilly.png",
+    "category": "pet",
+    "sourceSha256": "253e0c5ca19f5168fde3eb424a84ab7bb85b2ae18fedcf0cc45c58ffb66ef82d",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_terrapot": {
+    "path": "Assets/Art/Pets/pet_terrapot.png",
+    "category": "pet",
+    "sourceSha256": "8ab62bc82503b3bf9368002af835204f6ee21adf8727ea004898efb78cbf5e50",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_teslaphid": {
+    "path": "Assets/Art/Pets/pet_teslaphid.png",
+    "category": "pet",
+    "sourceSha256": "c8477453a8232dc71a02bacd0f2c57d36d17271332217d9d047ca3b99cd6a53b",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_thundertora": {
+    "path": "Assets/Art/Pets/pet_thundertora.png",
+    "category": "pet",
+    "sourceSha256": "b23361f843c2f4ba195987d20ec2a98688f55f41eab8a29cca5cd54f17ab7ce9",
+    "version": 1,
+    "status": "generated"
+  },
   "pet_tidecrown": {
     "path": "Assets/Art/Pets/pet_tidecrown.png",
     "category": "pet",
@@ -62,11 +1238,165 @@
     "version": 1,
     "status": "generated"
   },
+  "pet_toastbun": {
+    "path": "Assets/Art/Pets/pet_toastbun.png",
+    "category": "pet",
+    "sourceSha256": "360cdd7165a1e63c05e4fec20eebfa601c0b256e03b47bc1e5fbedc1e1765656",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_topiaroth": {
+    "path": "Assets/Art/Pets/pet_topiaroth.png",
+    "category": "pet",
+    "sourceSha256": "4112cfd32b1745133a7ddbea507e227bc4ccc1dcf0adae59ff484580e57a331f",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_torrentter": {
+    "path": "Assets/Art/Pets/pet_torrentter.png",
+    "category": "pet",
+    "sourceSha256": "244ab9a0998a7b2b997d8cb92d00524b33743d8c719c04cc25616a5fef12b0e8",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_tsunamare": {
+    "path": "Assets/Art/Pets/pet_tsunamare.png",
+    "category": "pet",
+    "sourceSha256": "0ce8807c28d6d87d9fa7846ca4554c6c966535afcd2dfe7cdab7aa1300763ac3",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_tumblepuff": {
+    "path": "Assets/Art/Pets/pet_tumblepuff.png",
+    "category": "pet",
+    "sourceSha256": "71bd56aed03258b20ef06ab6c19078f4ad1fba572dd59c88ca981b2e53231cfa",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_twinkbun": {
+    "path": "Assets/Art/Pets/pet_twinkbun.png",
+    "category": "pet",
+    "sourceSha256": "7fec32446a5d0021bfd6463fec289b44df7af1689179812e4a583d60c281d96e",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_umbracat": {
+    "path": "Assets/Art/Pets/pet_umbracat.png",
+    "category": "pet",
+    "sourceSha256": "89de056c746dcf6fe7f9c898db15e531856777cbb1ac7cb3f0dc35a49b48b7f2",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_verdantlop": {
+    "path": "Assets/Art/Pets/pet_verdantlop.png",
+    "category": "pet",
+    "sourceSha256": "caa20bee1d794fe8701a37ab98c7542edb1f1d3eccf4701fe94bd09892b68d6c",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_vespergrave": {
+    "path": "Assets/Art/Pets/pet_vespergrave.png",
+    "category": "pet",
+    "sourceSha256": "6cbe1c4e6b292d13a19f3bbe9a558d0b485955875f0504da16402a030eecc1c1",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_voidchameleon": {
+    "path": "Assets/Art/Pets/pet_voidchameleon.png",
+    "category": "pet",
+    "sourceSha256": "eeeb3ff8cff1d3076931425a99ed44e2418007ec589375a55700b5f38324b428",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_voltabby": {
+    "path": "Assets/Art/Pets/pet_voltabby.png",
+    "category": "pet",
+    "sourceSha256": "6ec19c3afa471c37334a5e6e326f1ae9780423e2767b7add03b6b365478416d6",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_voltewe": {
+    "path": "Assets/Art/Pets/pet_voltewe.png",
+    "category": "pet",
+    "sourceSha256": "abfbe6673dda430ca7ac51edf51e5c78a3bd9b1949d742d7fb42ad6bf90b824c",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_wavestallion": {
+    "path": "Assets/Art/Pets/pet_wavestallion.png",
+    "category": "pet",
+    "sourceSha256": "8cdd4ae77a3e9d6bb03be1630b3788f7b8941fe05a53d1374ad047d4fe24684f",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_waxsala": {
+    "path": "Assets/Art/Pets/pet_waxsala.png",
+    "category": "pet",
+    "sourceSha256": "064aa8c05bebba6226bbcccf95fc7431241c197f692237df60874139f9450dd6",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_webbit": {
+    "path": "Assets/Art/Pets/pet_webbit.png",
+    "category": "pet",
+    "sourceSha256": "6a4cf636d28499ad2c3497a679446f93e6daea815191c738b1c0280b8f797ef5",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_whirlibird": {
+    "path": "Assets/Art/Pets/pet_whirlibird.png",
+    "category": "pet",
+    "sourceSha256": "16027db840dcb69cb12580d7d34120da57537d72d2dff2c1e7bcd8a845b634af",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_wickling": {
+    "path": "Assets/Art/Pets/pet_wickling.png",
+    "category": "pet",
+    "sourceSha256": "3f8fd51df952945145876c0cb9407e163e6c637559defce6f92d33e0cc6a35cf",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_windchimera": {
+    "path": "Assets/Art/Pets/pet_windchimera.png",
+    "category": "pet",
+    "sourceSha256": "730464a4a872187d5fadea8d1f68624256984f53acf4ea82d291e75fa370b2a3",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_wisplet": {
+    "path": "Assets/Art/Pets/pet_wisplet.png",
+    "category": "pet",
+    "sourceSha256": "63a24ab65e75c5a165cb7c2b6ffaf19064a5798136167c70ed32b5a4001df63d",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_wispooky": {
+    "path": "Assets/Art/Pets/pet_wispooky.png",
+    "category": "pet",
+    "sourceSha256": "34bea7dd7dc381ad7e8dbe162c8606ac718212baf2d7a9972642ca7a3a11cf22",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_zeelet": {
+    "path": "Assets/Art/Pets/pet_zeelet.png",
+    "category": "pet",
+    "sourceSha256": "5ab21ba20d2af9c60c233719a488368c463f38046932b543d007c8902213b5b6",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_zephyrion": {
+    "path": "Assets/Art/Pets/pet_zephyrion.png",
+    "category": "pet",
+    "sourceSha256": "b674c7b59bbfccdecae86b3e3cf699a33bcfa7d2b274470c5f0f5aa9d0bad676",
+    "version": 1,
+    "status": "generated"
+  },
   "pet_zipmunk": {
     "path": "Assets/Art/Pets/pet_zipmunk.png",
     "category": "pet",
-    "sourceSha256": "27b57b8fc42024fe788caf5a51816deac68ceea16b4e78b4032fc3208440d301",
-    "version": 1,
+    "sourceSha256": "798cda07effa8db7097a3208dc19d205cbd0a26425985522e05ffd09acb620a0",
+    "version": 2,
     "status": "generated"
   },
   "ui_currency_mini_green_bean": {

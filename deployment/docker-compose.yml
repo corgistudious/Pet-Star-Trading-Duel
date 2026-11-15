@@ -45,7 +45,7 @@ services:
       redis: { condition: service_healthy }
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Production}
-      ConnectionStrings__Postgres: "Host=postgres;Database=petstar;Username=petstar;Password=${POSTGRES_PASSWORD};Gss Encryption Mode=Disable"
+      ConnectionStrings__Postgres: "Host=postgres;Database=petstar;Username=petstar;Password=${POSTGRES_PASSWORD};Gss Encryption Mode=Disable;Maximum Pool Size=${DB_POOL_SIZE:-60}"
       ConnectionStrings__Redis: "redis:6379,password=${REDIS_PASSWORD}"
       Jwt__SigningKey: ${JWT_SIGNING_KEY:?set JWT_SIGNING_KEY (>=32 chars)}
       Seed__SyncPackTypes: ${SEED_SYNC_PACK_TYPES:-false}

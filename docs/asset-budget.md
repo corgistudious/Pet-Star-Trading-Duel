@@ -5,26 +5,216 @@ OpenAI API at the configured per-token rates (conservative: all output tokens bi
 
 | Budget | Spent | Cap | Remaining |
 |---|---|---|---|
-| pet | $0.4670 | $15.00 | $14.5330 |
+| pet | $9.4355 | $15.00 | $5.5645 |
 | ui | $1.2288 | $5.00 | $3.7712 |
-| **total** | **$1.6958** | **$20.00** | **$18.3042** |
+| **total** | **$10.6643** | **$20.00** | **$9.3357** |
 
-Billed API calls: 26. Calls refused before billing (released reservations): 1.
+Billed API calls: 218. Calls refused before billing (released reservations): 1.
 
 ## Assets
 
 | Asset | Category | Model | Size | Quality | Cost | Status |
 |---|---|---|---|---|---|---|
+| art_pet_abyssalume | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0462 | generated |
+| art_pet_aeolion | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0470 | generated |
+| art_pet_aerogale | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
+| art_pet_ambersaur | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0467 | generated |
+| art_pet_antennut | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0474 | generated |
+| art_pet_arcbeetle | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
+| art_pet_armadune | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0452 | generated |
+| art_pet_aurorafly | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0458 | generated |
+| art_pet_bakeburrow | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0468 | generated |
+| art_pet_bambrew | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0472 | generated |
+| art_pet_basaltusk | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0474 | generated |
+| art_pet_blazelamb | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0450 | generated |
+| art_pet_bloomhare | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0453 | generated |
+| art_pet_boltcub | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0451 | generated |
+| art_pet_budbun | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0456 | generated |
+| art_pet_cactabby | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0473 | generated |
+| art_pet_calderon | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0471 | generated |
+| art_pet_calligrapus | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
+| art_pet_celestallion | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0480 | generated |
+| art_pet_chandelord | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0473 | generated |
+| art_pet_chilipop | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0465 | generated |
+| art_pet_chimelet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0471 | generated |
 | art_pet_cinderlynx | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0468 | generated |
+| art_pet_clamby | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0448 | generated |
+| art_pet_coalcub | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0463 | generated |
+| art_pet_coilbug | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0464 | generated |
+| art_pet_constellapin | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0457 | generated |
+| art_pet_corvlet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0465 | generated |
+| art_pet_corvonarch | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0471 | generated |
+| art_pet_cragmastiff | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0467 | generated |
+| art_pet_cratortle | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0465 | generated |
+| art_pet_cumulamb | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0453 | generated |
+| art_pet_cyclonectar | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0477 | generated |
+| art_pet_dandefluff | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0449 | generated |
+| art_pet_dawnpup | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0466 | generated |
+| art_pet_dreamlop | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
+| art_pet_drillmajor | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0474 | generated |
+| art_pet_dunewatch | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0474 | generated |
+| art_pet_duskit | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0471 | generated |
+| art_pet_dustwhirl | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0462 | generated |
+| art_pet_echowing | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0461 | generated |
+| art_pet_eclipsar | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0463 | generated |
+| art_pet_elderbark | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0466 | generated |
+| art_pet_elytrix | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0474 | generated |
 | art_pet_emberkit | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0455 | generated |
-| art_pet_fulgurmunk | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0467 | generated |
+| art_pet_flickfinch | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0462 | generated |
+| art_pet_flitbat | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0471 | generated |
+| art_pet_floatlet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0442 | generated |
+| art_pet_floeseal | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0451 | generated |
+| art_pet_foldlet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0461 | generated |
+| art_pet_forgeram | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0466 | generated |
+| art_pet_fortadillo | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0469 | generated |
+| art_pet_fossilet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0449 | generated |
+| art_pet_fulgurmunk | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0476 | generated |
+| art_pet_furnacrab | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0463 | generated |
+| art_pet_galeswallow | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0479 | generated |
+| art_pet_gardenshell | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0466 | generated |
+| art_pet_gemhog | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0465 | generated |
+| art_pet_geodehog | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0485 | generated |
+| art_pet_glaciarch | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0477 | generated |
+| art_pet_gleamfoal | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0478 | generated |
+| art_pet_glidelet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0461 | generated |
+| art_pet_glintpupa | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0467 | generated |
+| art_pet_gloomcandle | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0457 | generated |
 | art_pet_gloomoth | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0464 | generated |
+| art_pet_glowala | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0465 | generated |
+| art_pet_glowgecko | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0468 | generated |
+| art_pet_gridraptor | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0471 | generated |
+| art_pet_habanerox | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0477 | generated |
 | art_pet_halowl | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0472 | generated |
+| art_pet_hearthursa | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0461 | generated |
+| art_pet_hivemonarch | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0472 | generated |
+| art_pet_honeyquill | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0472 | generated |
+| art_pet_hummbit | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
+| art_pet_inklet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0469 | generated |
+| art_pet_ironboar | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0473 | generated |
+| art_pet_ivyserpent | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0466 | generated |
+| art_pet_jellume | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0454 | generated |
+| art_pet_joltkite | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0468 | generated |
+| art_pet_kettlewyrm | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0468 | generated |
+| art_pet_kilnbear | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0474 | generated |
+| art_pet_kitezap | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0460 | generated |
+| art_pet_ladyling | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0444 | generated |
+| art_pet_lampreel | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0457 | generated |
+| art_pet_lanternmole | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0471 | generated |
+| art_pet_lanternwisp | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0448 | generated |
+| art_pet_lilykoi | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0482 | generated |
+| art_pet_lotusling | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0476 | generated |
+| art_pet_lumicorn | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0478 | generated |
+| art_pet_lumidrake | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0459 | generated |
+| art_pet_lunadream | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0478 | generated |
+| art_pet_lunarkoala | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0483 | generated |
+| art_pet_magmite | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0474 | generated |
+| art_pet_mantaroyal | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0463 | generated |
+| art_pet_matchub | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0461 | generated |
+| art_pet_medulamp | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0464 | generated |
+| art_pet_mirasentry | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0486 | generated |
+| art_pet_mirrorshell | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0451 | generated |
+| art_pet_molepip | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0450 | generated |
+| art_pet_moonwhale | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0468 | generated |
+| art_pet_mossbuck | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0477 | generated |
+| art_pet_myceliord | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0474 | generated |
+| art_pet_mythrilboar | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0474 | generated |
+| art_pet_neonmonitor | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0469 | generated |
+| art_pet_nightweaver | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0462 | generated |
+| art_pet_nimbaram | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0467 | generated |
+| art_pet_noctyrant | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0484 | generated |
+| art_pet_orelet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0473 | generated |
+| art_pet_origamonarch | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0467 | generated |
+| art_pet_pandaroma | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
+| art_pet_papercrane | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0467 | generated |
+| art_pet_peakwarden | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0459 | generated |
+| art_pet_pearlord | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0462 | generated |
+| art_pet_pebblehorn | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0457 | generated |
+| art_pet_pebblet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0455 | generated |
+| art_pet_pepperquill | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0468 | generated |
+| art_pet_phantomist | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0461 | generated |
+| art_pet_pithos | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0449 | generated |
+| art_pet_plasmadrake | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0482 | generated |
+| art_pet_plugsnap | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0467 | generated |
+| art_pet_pollibee | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0463 | generated |
+| art_pet_pricklet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0472 | generated |
+| art_pet_prismwing | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0468 | generated |
+| art_pet_puddleap | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0461 | generated |
 | art_pet_puddlotl | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0473 | generated |
+| art_pet_puffwool | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0463 | generated |
+| art_pet_pupsplash | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0476 | generated |
 | art_pet_pyrelynx | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0458 | generated |
+| art_pet_pyrewing | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0467 | generated |
+| art_pet_quartzpine | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0464 | generated |
+| art_pet_radiantqueen | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0465 | generated |
+| art_pet_raincroak | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0482 | generated |
+| art_pet_ravenoir | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0467 | generated |
+| art_pet_raylet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0454 | generated |
+| art_pet_reflectortoise | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0459 | generated |
+| art_pet_rhinostone | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
 | art_pet_ripplotl | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0473 | generated |
+| art_pet_riverine | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0477 | generated |
+| art_pet_rockhound | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0457 | generated |
+| art_pet_rollpip | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0455 | generated |
+| art_pet_saguaroar | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0469 | generated |
+| art_pet_samovaragon | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0483 | generated |
+| art_pet_sanctorch | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
+| art_pet_sandmeer | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
+| art_pet_scarabelle | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0476 | generated |
+| art_pet_scribopus | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0483 | generated |
+| art_pet_seacolt | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0458 | generated |
+| art_pet_seedsoar | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0458 | generated |
+| art_pet_shadeleon | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0465 | generated |
+| art_pet_shellotter | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0462 | generated |
+| art_pet_signalcrab | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0465 | generated |
+| art_pet_skyglider | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
+| art_pet_skymedusa | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0464 | generated |
+| art_pet_snailbloom | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0454 | generated |
+| art_pet_snuffwick | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0464 | generated |
+| art_pet_socketail | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0476 | generated |
+| art_pet_solarius | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0455 | generated |
+| art_pet_solarquill | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
+| art_pet_somnihare | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0476 | generated |
+| art_pet_spectreign | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0481 | generated |
+| art_pet_sporelet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0481 | generated |
+| art_pet_starhare | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0463 | generated |
+| art_pet_staticlamb | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0462 | generated |
+| art_pet_stormherald | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0476 | generated |
+| art_pet_stormkestrel | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0474 | generated |
+| art_pet_stormtoad | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0467 | generated |
+| art_pet_sunbee | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0464 | generated |
+| art_pet_sunhound | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0470 | generated |
+| art_pet_swiftlet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
+| art_pet_teapip | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0464 | generated |
+| art_pet_tempestram | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0488 | generated |
+| art_pet_tempestwing | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0467 | generated |
+| art_pet_tendrilly | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0460 | generated |
+| art_pet_terrapot | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0455 | generated |
+| art_pet_teslaphid | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0471 | generated |
+| art_pet_thundertora | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0470 | generated |
 | art_pet_tidecrown | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0463 | generated |
-| art_pet_zipmunk | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0476 | generated |
+| art_pet_toastbun | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0468 | generated |
+| art_pet_topiaroth | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0493 | generated |
+| art_pet_torrentter | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
+| art_pet_tsunamare | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0474 | generated |
+| art_pet_tumblepuff | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0453 | generated |
+| art_pet_twinkbun | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0449 | generated |
+| art_pet_umbracat | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0475 | generated |
+| art_pet_verdantlop | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0469 | generated |
+| art_pet_vespergrave | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0479 | generated |
+| art_pet_voidchameleon | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0463 | generated |
+| art_pet_voltabby | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0476 | generated |
+| art_pet_voltewe | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0463 | generated |
+| art_pet_wavestallion | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0468 | generated |
+| art_pet_waxsala | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0477 | generated |
+| art_pet_webbit | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0457 | generated |
+| art_pet_whirlibird | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0469 | generated |
+| art_pet_wickling | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0451 | generated |
+| art_pet_windchimera | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0481 | generated |
+| art_pet_wisplet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0464 | generated |
+| art_pet_wispooky | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0451 | generated |
+| art_pet_zeelet | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0465 | generated |
+| art_pet_zephyrion | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0471 | generated |
+| art_pet_zipmunk | pet | gpt-image-1.5 | 1024x1024 | medium | $0.0469 | generated |
 | bg_duel_landscape | ui | gpt-image-1.5 | 1536x1024 | medium | $0.0628 | generated |
 | bg_duel_portrait | ui | gpt-image-1.5 | 1024x1536 | medium | $0.0634 | generated |
 | bg_lobby_landscape | ui | gpt-image-1.5 | 1536x1024 | medium | $0.0642 | generated |
@@ -42,6 +232,9 @@ Billed API calls: 26. Calls refused before billing (released reservations): 1.
 | ui_pack_basic | ui | gpt-image-1.5 | 1024x1536 | medium | $0.0634 | generated |
 | ui_pack_premium | ui | gpt-image-1.5 | 1024x1536 | medium | $0.0624 | generated |
 
-## Projection for the full Pet catalog
+## Pet catalog coverage
 
-Average actual cost per pet artwork: $0.0467. Remaining 190 pets ≈ $8.87 (+10% regeneration allowance ≈ $9.76) against $14.53 left in the pet budget.
+200 / 200 forms have artwork. Average actual cost per pet artwork: $0.0467.
+Remaining forms without art: 0.
+
+Open (unsettled) reservations: 1 totalling $0.0540 — a call interrupted by a sandbox restart; the budget guard keeps counting it as spent (conservative).

@@ -28,12 +28,12 @@
 Not live yet: it needs Play Console products and a service account, plus the Unity IAP client integration (Microsoft
 Store for Windows is a separate decision). The shop UI says purchases are unavailable until then.
 
-### ⚠ Owner decision needed
+### Status (expansion brief)
 
-The brief says *"no real-money purchase of combat advantage in the first phase"*. If Rainbow Star could buy booster
-packs, that would be pay-for-power (cards have stats). **Current default:** packs and evolution are priced only in
-Mini Green Bean, and Rainbow Star has no gameplay sink. Please confirm what Rainbow Star may buy (e.g. cosmetics, card
-finishes, avatar frames, a battle pass with cosmetic rewards only).
+Real-money payments are **not implemented in this phase**: the IAP endpoints are unmapped (`Iap:Enabled=false`).
+Rainbow Star currently comes from events, achievements, mailbox gifts and owner-approved adjustments, and can be used
+as a marketplace/auction currency between players. Packs and evolution stay priced in Mini Green Bean. There is no
+conversion between the two currencies and no cash-out of any kind.
 
 ## Pack pricing and odds (baseline, configurable)
 

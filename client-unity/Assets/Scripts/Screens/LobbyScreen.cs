@@ -26,8 +26,8 @@ namespace PetStar.Client.Screens
 
             // featured pack (center stage)
             var stage = UiKit.Rect(Root, "Featured");
-            if (Wide) stage.Place(new Vector2(0.36f, 0.45f), new Vector2(900, 780), Vector2.zero);
-            else stage.Place(new Vector2(0.5f, 0.6f), new Vector2(900, 820), Vector2.zero);
+            if (Wide) stage.Place(new Vector2(0.45f, 0.47f), new Vector2(860, 760), Vector2.zero);
+            else stage.Place(new Vector2(0.5f, 0.58f), new Vector2(900, 820), Vector2.zero);
             var featured = UiKit.Panel(stage, UiKit.White, 56, "FeaturedCard", shadow: true);
             ((RectTransform)featured.transform).Stretch();
             var pack = PackVisual.Create(featured.transform, "basic_pack", Wide ? 360 : 380);
@@ -38,27 +38,24 @@ namespace PetStar.Client.Screens
                 () => { if (owned > 0) Nav.Push(new PackOpeningScreen("basic_pack")); else Nav.Push(new ShopScreen(ShopScreen.Tab.Packs)); }, UiKit.ButtonStyle.Gold, 44);
             ((RectTransform)cta.transform).Place(new Vector2(0.5f, 0), new Vector2(560, 130), new Vector2(0, 50));
 
-            // navigation tiles
-            var nav = UiKit.Rect(Root, "Nav");
-            if (Wide) { nav.Place(new Vector2(1, 0.45f), new Vector2(760, 780), new Vector2(-40, 0), new Vector2(1, 0.5f)); }
-            else nav.Place(new Vector2(0.5f, 0), new Vector2(1000, 560), new Vector2(0, 60), new Vector2(0.5f, 0));
-            var grid = nav.gameObject.AddComponent<GridLayoutGroup>();
-            grid.cellSize = Wide ? new Vector2(360, 180) : new Vector2(320, 170);
-            grid.spacing = new Vector2(Wide ? 30 : 20, Wide ? 30 : 25);
-            grid.childAlignment = TextAnchor.MiddleCenter;
-            grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount; grid.constraintCount = Wide ? 2 : 3;
-            Tile(nav, "lobby.shop", UiKit.Peach, () => Nav.Push(new ShopScreen(ShopScreen.Tab.Packs)));
-            Tile(nav, "lobby.pet_home", UiKit.Mint, () => Nav.Push(new PetHomeScreen()));
-            Tile(nav, "lobby.duel", UiKit.Lilac, () => Nav.Push(new DuelLobbyScreen()));
-            Tile(nav, "lobby.codex", UiKit.SkyDeep, () => Nav.Push(new CodexScreen()));
-            Tile(nav, "lobby.profile", UiKit.Hex("#FFF1C9"), () => Nav.Push(new ProfileScreen()));
-            Tile(nav, "lobby.settings", UiKit.Hex("#E8ECF5"), () => Nav.Push(new SettingsScreen()));
+            // quick actions (notifications, mailbox, settings) + bottom Game Hub navigation
+            var quick = UiKit.Rect(Root, "Quick");
+            if (Wide) quick.Place(new Vector2(1, 0.5f), new Vector2(560, 520), new Vector2(-40, 0), new Vector2(1, 0.5f));
+            else quick.Place(new Vector2(0.5f, 0), new Vector2(1000, 130), new Vector2(0, 200), new Vector2(0.5f, 0));
+            var ql = Wide ? (HorizontalOrVerticalLayoutGroup)UiKit.VStack(quick, 24) : UiKit.HStack(quick, 20);
+            ql.childForceExpandWidth = true;
+            Tile(quick, "lobby.notifications", UiKit.SkyDeep, () => Nav.Push(new NotificationCenterScreen()));
+            Tile(quick, "lobby.mailbox", UiKit.Mint, () => Nav.Push(new MailboxScreen()));
+            Tile(quick, "lobby.profile", UiKit.Hex("#FFF1C9"), () => Nav.Push(new ProfileScreen()));
+            Tile(quick, "lobby.settings", UiKit.Hex("#E8ECF5"), () => Nav.Push(new SettingsScreen()));
+            HubNav.Build(Root, Mode, "home");
         }
 
-        private static void Tile(RectTransform parent, string key, Color color, System.Action onClick)
+        public static void Tile(RectTransform parent, string key, Color color, System.Action onClick)
         {
-            var b = UiKit.Button(parent, L.T(key), onClick, UiKit.ButtonStyle.Secondary, 40, 40);
+            var b = UiKit.Button(parent, L.T(key), onClick, UiKit.ButtonStyle.Secondary, 36, 40);
             b.GetComponent<Image>().color = color;
+            b.Size(-1, 120, 1);
         }
 
         public override async void OnShow()
@@ -92,6 +89,7 @@ namespace PetStar.Client.Screens
                 Audio.Volume = Audio.Volume > 0 ? 0 : 0.8f; PlayerPrefs.SetFloat("settings.sfx", Audio.Volume); Nav.Replace(new SettingsScreen());
             }, UiKit.ButtonStyle.Secondary).Size(-1, 110);
             UiKit.Button(col, L.T("settings.switch_server"), () => Nav.Replace(new ServerSelectScreen()), UiKit.ButtonStyle.Secondary).Size(-1, 110);
+            UiKit.Button(col, L.T("moderation.title"), () => Nav.Push(new ModerationReportsScreen()), UiKit.ButtonStyle.Ghost, 30).Size(-1, 90); // server enforces RBAC
             UiKit.Button(col, L.T("settings.logout"), Logout, UiKit.ButtonStyle.Danger).Size(-1, 110);
         }
 

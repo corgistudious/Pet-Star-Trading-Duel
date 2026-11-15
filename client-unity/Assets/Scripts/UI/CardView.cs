@@ -137,8 +137,10 @@ namespace PetStar.Client.UI
             }
             var role = UiKit.Text(footer, L.T("role." + c.Role), 30 * _s, UiKit.InkSoft, UiKit.Weight.Bold);
             role.rectTransform.Stretch();
-            var fin2 = UiKit.Text(footer, L.T("finish." + c.Finish), 26 * _s, UiKit.InkSoft, UiKit.Weight.Bold, TextAlignmentOptions.MidlineRight);
-            fin2.rectTransform.Stretch(0, 0, 10 * _s, 0);
+            // collectible serial: bottom-right of the footer (small, crisp, monospace-like spacing)
+            var serial = UiKit.Text(footer, string.IsNullOrEmpty(c.Serial) ? "" : c.Serial, 28 * _s, UiKit.Ink, UiKit.Weight.Bold, TextAlignmentOptions.MidlineRight, "Serial");
+            serial.characterSpacing = 6;
+            serial.rectTransform.Stretch(0, 0, 10 * _s, 0);
             if (c.IsLocked || c.IsFavorite)
             {
                 var badge = UiKit.Text(_root, (c.IsFavorite ? "♥" : "") + (c.IsLocked ? " " + L.T("card.locked_short") : ""), 44 * _s, UiKit.Danger, UiKit.Weight.Bold, TextAlignmentOptions.TopRight, "Flags");
