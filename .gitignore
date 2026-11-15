@@ -33,3 +33,5 @@ asset-manifests/.pipeline.lock
 asset-manifests/*.tmp
 deployment/nginx/certs/
 deployment/env/*.env
+# Local Redis snapshot (dev)
+dump.rdb
