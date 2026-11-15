@@ -186,7 +186,7 @@ public static class SocialEndpoints
         g.MapPost("/reports", async (ReportRequest req, HttpContext ctx, PetStarDb db) =>
         {
             var (sid, mid) = ctx.User.Player();
-            if (!new[] { "post", "comment", "user", "listing", "auction" }.Contains(req.TargetType)) throw ApiException.BadRequest("invalid_report_target");
+            if (!new[] { "post", "comment", "user", "listing", "auction", "chat" }.Contains(req.TargetType)) throw ApiException.BadRequest("invalid_report_target");
             if (!ReportReasons.Contains(req.Reason)) throw ApiException.BadRequest("invalid_report_reason");
             var details = req.Details == null ? null : req.Details.Trim()[..Math.Min(500, req.Details.Trim().Length)];
             bool exists = req.TargetType switch
@@ -195,6 +195,7 @@ public static class SocialEndpoints
                 "comment" => await db.Comments.Join(db.Posts, c => c.PostId, p => p.Id, (c, p) => new { c.Id, p.ServerId }).AnyAsync(x => x.Id == req.TargetId && x.ServerId == sid),
                 "user" => await db.Memberships.AnyAsync(m => m.AccountId == req.TargetId && m.ServerId == sid),
                 "listing" => await db.Listings.AnyAsync(l => l.Id == req.TargetId && l.ServerId == sid),
+                "chat" => await db.ChatMessages.AnyAsync(m => m.Id == req.TargetId && m.ServerId == sid),
                 _ => await db.Auctions.AnyAsync(a => a.Id == req.TargetId && a.ServerId == sid),
             };
             if (!exists) throw ApiException.NotFound("report_target_not_found");

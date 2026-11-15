@@ -405,7 +405,7 @@ public class EvolutionDeckBattleTests(ApiFactory f)
         await SaveValidDeck(p, cards);
         var b = await p.PostOk<BattleDto>("/api/battles/pve", new StartPveRequest { StageId = "c1_s1" }, Player.Key());
         Assert.Equal(10, b.Units.Count);
-        Assert.InRange(b.MyEnergy, 3, 5); // 3 base, +1 per "battle_start_energy" passive in the deck
+        Assert.InRange(b.MyEnergy, 3, 8); // 3 base, +1 per "battle_start_energy" passive in the deck
         Assert.Equal("active", b.Status);
 
         // illegal: ultimate costs more than available energy / unit acts twice

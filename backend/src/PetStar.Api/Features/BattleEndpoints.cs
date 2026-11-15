@@ -94,6 +94,7 @@ public static class BattleEndpoints
             await using var tx = await db.Database.BeginTransactionAsync();
             var b = await db.Battles.FromSqlRaw("SELECT * FROM battles WHERE id = {0} AND player_a_membership_id = {1} FOR UPDATE", id, mid)
                 .FirstOrDefaultAsync() ?? throw ApiException.NotFound("battle_not_found");
+            if (LivePvpEndpoints.IsLive(b)) throw ApiException.BadRequest("use_pvp_endpoint");
             var st = JsonSerializer.Deserialize<BattleState>(b.StateJson, J)!;
             if (b.Status != "active" || req.Round < st.Round)
             {

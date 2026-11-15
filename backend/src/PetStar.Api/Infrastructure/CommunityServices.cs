@@ -9,12 +9,15 @@ using PetStar.Rules;
 namespace PetStar.Api.Infrastructure;
 
 /// <summary>Notification Center. Each notification has a dedupe key (unique per member), so retries never duplicate.</summary>
-public sealed class NotificationService(PetStarDb db)
+public sealed class NotificationService(PetStarDb db, RealtimeHub hub)
 {
-    public Task Notify(long membershipId, string type, object data, string dedupeKey) =>
-        db.Database.ExecuteSqlRawAsync(
+    public async Task Notify(long membershipId, string type, object data, string dedupeKey)
+    {
+        int n = await db.Database.ExecuteSqlRawAsync(
             "INSERT INTO notifications (membership_id, type, data_json, dedupe_key, created_at) VALUES ({0}, {1}, {2}::jsonb, {3}, now()) ON CONFLICT DO NOTHING",
             membershipId, type, JsonSerializer.Serialize(data, IdempotencyService.Json), dedupeKey);
+        if (n == 1) await hub.ToMembers(new[] { membershipId }, "notification", new { type, data });   // live push (best effort)
+    }
 
     public Task Mail(long membershipId, string titleKey, string body, object attachments, string dedupeKey, DateTimeOffset? expires = null) =>
         db.Database.ExecuteSqlRawAsync(

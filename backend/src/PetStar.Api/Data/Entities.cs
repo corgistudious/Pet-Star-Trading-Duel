@@ -353,6 +353,9 @@ public class Battle
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
     public DateTimeOffset? RoundDeadline { get; set; }
+    /// <summary>Live PvP: consecutive rounds each side failed to submit (3 → forfeit for disconnection).</summary>
+    public int MissedA { get; set; }
+    public int MissedB { get; set; }
     public DateTimeOffset? FinishedAt { get; set; }
 }
 

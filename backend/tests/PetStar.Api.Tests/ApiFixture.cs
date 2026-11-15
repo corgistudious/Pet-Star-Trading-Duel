@@ -29,11 +29,13 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         b.UseSetting("Seed:SyncPackTypes", "true");
         b.UseSetting("RateLimits:AuthPerMinute", "100000");
         b.UseSetting("RateLimits:UserPerMinute", "100000");
+        b.UseSetting("Cors:AllowedOrigins:0", "https://petstar.pages.dev");
     }
 
     public Task InitializeAsync()
     {
         PetStar.Api.Features.MarketMaintenanceService.Interval = TimeSpan.FromHours(1); // tests drive maintenance explicitly
+        PetStar.Api.Features.PvpTimeoutService.Interval = TimeSpan.FromHours(1);
         _ = Server;
         return Task.CompletedTask;
     }

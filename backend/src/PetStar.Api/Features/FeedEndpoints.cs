@@ -99,7 +99,8 @@ public static class FeedEndpoints
             var (sid, mid) = ctx.User.Player();
             var hidden = await MarketEndpoints.BlockedIds(db, mid);
             hidden.AddRange(await db.Mutes.AsNoTracking().Where(m => m.MuterMembershipId == mid).Select(m => m.MutedMembershipId).ToListAsync());
-            var q = db.Posts.AsNoTracking().Where(p => p.ServerId == sid && p.Status == "visible" && !hidden.Contains(p.AuthorMembershipId));
+            // guild posts never appear in public tabs (they live in /api/guilds/feed)
+            var q = db.Posts.AsNoTracking().Where(p => p.ServerId == sid && p.Status == "visible" && p.GuildId == null && !hidden.Contains(p.AuthorMembershipId));
             switch (tab ?? "global")
             {
                 case "following":
@@ -134,6 +135,7 @@ public static class FeedEndpoints
             var p = await db.Posts.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id && x.ServerId == sid && (x.Status == "visible" || x.AuthorMembershipId == mid))
                     ?? throw ApiException.NotFound("post_not_found");
             if (await MarketEndpoints.IsBlocked(db, mid, p.AuthorMembershipId)) throw ApiException.NotFound("post_not_found");
+            if (p.GuildId != null && !await db.GuildMembers.AnyAsync(m => m.GuildId == p.GuildId && m.MembershipId == mid)) throw ApiException.NotFound("post_not_found");
             var hidden = await MarketEndpoints.BlockedIds(db, mid);
             var comments = await db.Comments.AsNoTracking().Where(c => c.PostId == id && c.Status == "visible" && !hidden.Contains(c.AuthorMembershipId))
                 .OrderBy(c => c.Id).Take(200)
@@ -222,6 +224,7 @@ public static class FeedEndpoints
     {
         var p = await db.Posts.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id && x.ServerId == sid && x.Status == "visible") ?? throw ApiException.NotFound("post_not_found");
         if (await MarketEndpoints.IsBlocked(db, mid, p.AuthorMembershipId)) throw ApiException.NotFound("post_not_found");
+        if (p.GuildId != null && !await db.GuildMembers.AnyAsync(m => m.GuildId == p.GuildId && m.MembershipId == mid)) throw ApiException.NotFound("post_not_found");
         return p;
     }
 

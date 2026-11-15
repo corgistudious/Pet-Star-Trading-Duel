@@ -35,6 +35,19 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
     public DbSet<PveProgress> PveProgress => Set<PveProgress>();
     public DbSet<IdempotencyRecord> Idempotency => Set<IdempotencyRecord>();
     public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+    public DbSet<Guild> Guilds => Set<Guild>();
+    public DbSet<GuildMember> GuildMembers => Set<GuildMember>();
+    public DbSet<GuildJoinRequest> GuildJoinRequests => Set<GuildJoinRequest>();
+    public DbSet<GuildAnnouncement> GuildAnnouncements => Set<GuildAnnouncement>();
+    public DbSet<ChatMessage> ChatMessages => Set<ChatMessage>();
+    public DbSet<PvpChallenge> PvpChallenges => Set<PvpChallenge>();
+    public DbSet<PvpQueueEntry> PvpQueue => Set<PvpQueueEntry>();
+    public DbSet<PvpPendingAction> PvpPending => Set<PvpPendingAction>();
+    public DbSet<Giftcode> Giftcodes => Set<Giftcode>();
+    public DbSet<GiftcodeRedemption> GiftcodeRedemptions => Set<GiftcodeRedemption>();
+    public DbSet<GameEvent> Events => Set<GameEvent>();
+    public DbSet<EventClaim> EventClaims => Set<EventClaim>();
+    public DbSet<LoginRewardClaim> LoginRewards => Set<LoginRewardClaim>();
     public DbSet<CardSerialRegistry> SerialRegistry => Set<CardSerialRegistry>();
     public DbSet<CardPassport> Passports => Set<CardPassport>();
     public DbSet<CardProgressEvent> CardProgress => Set<CardProgressEvent>();
@@ -302,6 +315,7 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
             e.HasIndex(x => new { x.ActorAccountId, x.At });
         });
         ConfigureExpansion(b);
+        ConfigureLive(b);
     }
 
     private static void MembershipFk<T>(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<T> e,
@@ -465,5 +479,75 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
             e.HasIndex(x => new { x.SeasonId, x.Rating });
             e.HasOne<RankedSeason>().WithMany().HasForeignKey(x => x.SeasonId);
         });
+    }
+
+    private static void ConfigureLive(ModelBuilder b)
+    {
+        b.Entity<Guild>(e =>
+        {
+            e.ToTable("guilds", t => t.HasCheckConstraint("ck_guild_policy", "join_policy IN ('open','approval')"));
+            e.HasIndex(x => new { x.ServerId, x.NameNormalized }).IsUnique();
+            e.Property(x => x.Name).HasMaxLength(24);
+            e.Property(x => x.Description).HasMaxLength(300);
+            MembershipFk(e, x => new { x.LeaderMembershipId, x.ServerId });
+        });
+        b.Entity<GuildMember>(e =>
+        {
+            e.ToTable("guild_members", t => t.HasCheckConstraint("ck_guild_role", "role IN ('leader','officer','member')"));
+            e.HasKey(x => new { x.GuildId, x.MembershipId });
+            e.HasIndex(x => x.MembershipId).IsUnique();   // one guild per membership
+            e.HasOne<Guild>().WithMany().HasForeignKey(x => x.GuildId).OnDelete(DeleteBehavior.Cascade);
+            e.HasOne<ServerMembership>().WithMany().HasForeignKey(x => x.MembershipId).OnDelete(DeleteBehavior.Cascade);
+        });
+        b.Entity<GuildJoinRequest>(e =>
+        {
+            e.ToTable("guild_join_requests");
+            e.HasIndex(x => new { x.GuildId, x.MembershipId }).HasFilter("status = 'pending'").IsUnique();
+            e.HasOne<Guild>().WithMany().HasForeignKey(x => x.GuildId).OnDelete(DeleteBehavior.Cascade);
+        });
+        b.Entity<GuildAnnouncement>(e =>
+        {
+            e.ToTable("guild_announcements");
+            e.HasIndex(x => new { x.GuildId, x.CreatedAt });
+            e.HasOne<Guild>().WithMany().HasForeignKey(x => x.GuildId).OnDelete(DeleteBehavior.Cascade);
+        });
+        b.Entity<ChatMessage>(e =>
+        {
+            e.ToTable("chat_messages");
+            e.HasIndex(x => new { x.ServerId, x.Channel, x.Id });
+            e.HasIndex(x => new { x.AuthorMembershipId, x.CreatedAt });
+            e.Property(x => x.Channel).HasMaxLength(64);
+            MembershipFk(e, x => new { x.AuthorMembershipId, x.ServerId });
+        });
+        b.Entity<PvpChallenge>(e =>
+        {
+            e.ToTable("pvp_challenges");
+            e.HasIndex(x => new { x.OpponentMembershipId, x.Status });
+            MembershipFk(e, x => new { x.ChallengerMembershipId, x.ServerId });
+        });
+        b.Entity<PvpQueueEntry>(e => { e.ToTable("pvp_queue"); e.HasKey(x => x.MembershipId); e.HasIndex(x => new { x.ServerId, x.EnqueuedAt }); });
+        b.Entity<PvpPendingAction>(e =>
+        {
+            e.ToTable("pvp_pending_actions");
+            e.HasKey(x => new { x.BattleId, x.Round, x.Side });
+            e.Property(x => x.ActionsJson).HasColumnType("jsonb");
+            e.HasOne<Battle>().WithMany().HasForeignKey(x => x.BattleId).OnDelete(DeleteBehavior.Cascade);
+        });
+        b.Entity<Giftcode>(e =>
+        {
+            e.ToTable("giftcodes", t => t.HasCheckConstraint("ck_giftcode_code", "code ~ '^[A-Z0-9-]{4,32}$'"));
+            e.HasIndex(x => x.Code).IsUnique();
+            e.Property(x => x.RewardsJson).HasColumnType("jsonb");
+        });
+        b.Entity<GiftcodeRedemption>(e =>
+        {
+            e.ToTable("giftcode_redemptions");
+            e.HasKey(x => new { x.GiftcodeId, x.AccountId, x.ServerId });   // once per account per server
+            e.HasOne<Giftcode>().WithMany().HasForeignKey(x => x.GiftcodeId);
+        });
+        b.Entity<GameEvent>(e => { e.ToTable("game_events"); e.Property(x => x.RewardsJson).HasColumnType("jsonb"); e.HasIndex(x => new { x.ServerId, x.EndsAt }); });
+        b.Entity<EventClaim>(e => { e.ToTable("event_claims"); e.HasKey(x => new { x.EventId, x.MembershipId }); e.HasOne<GameEvent>().WithMany().HasForeignKey(x => x.EventId); });
+        b.Entity<LoginRewardClaim>(e => { e.ToTable("login_reward_claims"); e.HasKey(x => new { x.MembershipId, x.Day }); });
+        b.Entity<FeedPost>(e => e.HasIndex(x => x.GuildId));
     }
 }

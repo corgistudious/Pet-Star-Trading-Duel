@@ -81,18 +81,18 @@
       "prompt": "Premium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a soft radiant spotlight stage among clouds with a circular pedestal glow in the center and floating light motes, portrait composition, the center must stay calm and empty."
     },
     {
-      "id": "bg_duel_landscape",
+      "id": "bg_duel_board_landscape",
       "quality": "medium",
       "size": "1536x1024",
       "background": "opaque",
-      "prompt": "Premium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a clean top-down magical card duel table made of light polished stone with a subtle sapphire and gold geometric border, two mirrored halves divided by a soft glowing center line, five faint card slots on each side, wide landscape composition."
+      "prompt": "Premium HD 2D game background illustration, clean and bright, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, no characters, no creatures, no text, no letters, no UI, no watermark, original design. Scene: top-down view of an elegant magical duel table of polished pale marble with a thin sapphire and gold geometric border and a soft glowing divider line down the vertical center. The playing surface is EMPTY: no card slots, no markings, no circles, no squares, only subtle marble veins and faint sparkles, wide landscape composition."
     },
     {
-      "id": "bg_duel_portrait",
+      "id": "bg_duel_board_portrait",
       "quality": "medium",
       "size": "1024x1536",
       "background": "opaque",
-      "prompt": "Premium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a clean top-down magical card duel table made of light polished stone with a subtle sapphire and gold geometric border, two mirrored halves (top and bottom) divided by a soft glowing horizontal center line, faint card slots on each half, portrait composition."
+      "prompt": "Premium HD 2D game background illustration, clean and bright, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, no characters, no creatures, no text, no letters, no UI, no watermark, original design. Scene: top-down view of an elegant magical duel table of polished pale marble with a thin sapphire and gold geometric border and a soft glowing divider line across the horizontal center. The playing surface is EMPTY: no card slots, no markings, no circles, no squares, only subtle marble veins and faint sparkles, portrait composition."
     }
   ]
 }

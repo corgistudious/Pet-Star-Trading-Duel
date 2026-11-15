@@ -61,6 +61,16 @@ builder.Services.AddScoped<AchievementService>();
 builder.Services.AddScoped<FraudService>();
 builder.Services.AddScoped<ContentGuard>();
 builder.Services.AddHostedService<MarketMaintenanceService>();
+builder.Services.AddHostedService<PvpTimeoutService>();
+builder.Services.AddSingleton<RealtimeHub>();
+builder.Services.AddSingleton<TicketStore>();
+
+// CORS for the web client (Cloudflare Pages). Explicit origins only; bearer tokens, no cookies.
+var corsOrigins = cfg.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
+builder.Services.AddCors(o => o.AddPolicy("web", p =>
+{
+    if (corsOrigins.Length > 0) p.WithOrigins(corsOrigins).AllowAnyHeader().AllowAnyMethod().WithExposedHeaders("Idempotent-Replay").SetPreflightMaxAge(TimeSpan.FromHours(1));
+}));
 builder.Services.AddSingleton<IStoreVerifier, GooglePlayVerifier>();
 if ((env.IsDevelopment() || env.IsEnvironment("Testing")) && cfg.GetValue("Iap:AllowFakeStore", false))
     builder.Services.AddSingleton<IStoreVerifier, FakeStoreVerifier>();
@@ -104,6 +114,8 @@ builder.Services.AddRateLimiter(o =>
         _ => new FixedWindowRateLimiterOptions { PermitLimit = 60, Window = TimeSpan.FromMinutes(1) }));
     o.AddPolicy("user", ctx => RateLimitPartition.GetTokenBucketLimiter(ctx.User.FindFirst("sub")?.Value ?? ctx.Connection.RemoteIpAddress?.ToString() ?? "anon",
         _ => new TokenBucketRateLimiterOptions { TokenLimit = userPerMin / 4, TokensPerPeriod = userPerMin / 60 + 1, ReplenishmentPeriod = TimeSpan.FromSeconds(1) }));
+    o.AddPolicy("giftcode", ctx => RateLimitPartition.GetFixedWindowLimiter(ctx.User.FindFirst("sub")?.Value ?? ctx.Connection.RemoteIpAddress?.ToString() ?? "anon",
+        _ => new FixedWindowRateLimiterOptions { PermitLimit = cfg.GetValue("RateLimits:GiftcodePerMinute", 10), Window = TimeSpan.FromMinutes(1) }));
     o.OnRejected = async (c, ct) => await c.HttpContext.Response.WriteAsJsonAsync(new ErrorBody("rate_limited", null, c.HttpContext.TraceIdentifier), ct);
 });
 
@@ -119,6 +131,9 @@ builder.Services.Configure<ForwardedHeadersOptions>(o =>
 var app = builder.Build();
 app.UseForwardedHeaders();
 app.UseExceptionHandler();
+app.UseCors("web");
+// Origin is checked in the /ws handler: browser origins must be allow-listed; native clients (no Origin) are allowed.
+app.UseWebSockets(new WebSocketOptions { KeepAliveInterval = TimeSpan.FromSeconds(25) });
 app.UseAuthentication();
 app.UseRateLimiter();
 app.UseAuthorization();
@@ -144,6 +159,9 @@ FeedEndpoints.Map(app);
 CommunityEndpoints.Map(app);
 RankedEndpoints.Map(app);
 AdminEconomyEndpoints.Map(app);
+GuildChatEndpoints.Map(app);
+LivePvpEndpoints.Map(app);
+RewardsEndpoints.Map(app);
 AdminEndpoints.Map(app);
 
 if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing"))

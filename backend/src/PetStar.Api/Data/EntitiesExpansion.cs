@@ -297,6 +297,8 @@ public class FeedPost
     public long Id { get; set; }
     public int ServerId { get; set; }
     public long AuthorMembershipId { get; set; }
+    /// <summary>Set for guild-only posts (guild feed).</summary>
+    public long? GuildId { get; set; }
     public string Type { get; set; } = "text";     // text | card | pack_opening | evolution | duel | achievement | album
     public string Caption { get; set; } = "";
     public string? RefId { get; set; }
