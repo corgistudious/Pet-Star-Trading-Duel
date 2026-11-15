@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/PetStar.Api/PetStar.Api.csproj" />
+    <Project Path="src/PetStar.Shared/PetStar.Shared.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/PetStar.Api.Tests/PetStar.Api.Tests.csproj" />
+    <Project Path="tests/PetStar.Rules.Tests/PetStar.Rules.Tests.csproj" />
+  </Folder>
+</Solution>

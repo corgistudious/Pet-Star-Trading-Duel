@@ -1,0 +1,70 @@
+{
+  "currency": "USD",
+  "totalCap": 20.0,
+  "categories": {
+    "pet": 15.0,
+    "ui": 5.0
+  },
+  "safetyMarginPerCall": 0.02,
+  "models": {
+    "gpt-image-1.5": {
+      "pricingSource": "OpenAI model page developers.openai.com/api/docs/models/gpt-image-1.5 (medium 1024x1024 = $0.034); token rates inferred, verify on OpenAI pricing page",
+      "supportsTransparentBackground": true,
+      "tokenRatesPerMillion": {
+        "textInput": 5.0,
+        "imageInput": 8.0,
+        "imageOutput": 32.0
+      },
+      "perImageEstimate": {
+        "1024x1024": {
+          "low": 0.009,
+          "medium": 0.034,
+          "high": 0.133
+        },
+        "1024x1536": {
+          "low": 0.013,
+          "medium": 0.05,
+          "high": 0.2
+        },
+        "1536x1024": {
+          "low": 0.013,
+          "medium": 0.05,
+          "high": 0.2
+        }
+      }
+    },
+    "gpt-image-2": {
+      "pricingSource": "OpenAI published per-image estimates, as reported 2026-10-12 (verify on OpenAI pricing page)",
+      "tokenRatesPerMillion": {
+        "textInput": 5.0,
+        "imageInput": 8.0,
+        "imageOutput": 30.0
+      },
+      "perImageEstimate": {
+        "1024x1024": {
+          "low": 0.006,
+          "medium": 0.053,
+          "high": 0.211
+        },
+        "1024x1536": {
+          "low": 0.005,
+          "medium": 0.041,
+          "high": 0.165
+        },
+        "1536x1024": {
+          "low": 0.005,
+          "medium": 0.041,
+          "high": 0.165
+        }
+      },
+      "supportsTransparentBackground": false
+    }
+  },
+  "defaults": {
+    "model": "gpt-image-1.5",
+    "size": "1024x1024",
+    "quality": "medium",
+    "background": "transparent",
+    "outputFormat": "png"
+  }
+}

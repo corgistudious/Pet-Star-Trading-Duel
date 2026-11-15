@@ -1,0 +1,180 @@
+{
+  "version": 1,
+  "weightUnit": "parts-per-million (each table sums to 1,000,000)",
+  "packTypes": [
+    {
+      "id": "basic_pack",
+      "nameKey": "pack.basic.name",
+      "artAssetId": "ui_pack_basic",
+      "price": {
+        "currency": "MINI_GREEN_BEAN",
+        "amount": 100
+      },
+      "cardsPerPack": 5,
+      "enabled": true,
+      "pool": {
+        "stages": [
+          1
+        ],
+        "includeStandalone": true
+      },
+      "slotTable": {
+        "N": 600000,
+        "R": 250000,
+        "SR": 100000,
+        "SSR": 40000,
+        "UR": 8000,
+        "LR": 1500,
+        "MR": 400,
+        "GR": 90,
+        "EX": 9,
+        "Secret": 1
+      },
+      "finalSlotTable": {
+        "N": 150000,
+        "R": 350000,
+        "SR": 260000,
+        "SSR": 140000,
+        "UR": 65000,
+        "LR": 25000,
+        "MR": 6000,
+        "GR": 3000,
+        "EX": 800,
+        "Secret": 200
+      },
+      "qualityTable": {
+        "D": 300000,
+        "C": 300000,
+        "B": 220000,
+        "A": 120000,
+        "S": 45000,
+        "SS": 12000,
+        "SSS": 3000
+      },
+      "finishTable": {
+        "Normal": 850000,
+        "Foil": 90000,
+        "Holographic": 40000,
+        "Shiny": 15000,
+        "Prismatic": 5000
+      }
+    },
+    {
+      "id": "premium_pack",
+      "nameKey": "pack.premium.name",
+      "artAssetId": "ui_pack_premium",
+      "price": {
+        "currency": "MINI_GREEN_BEAN",
+        "amount": 300
+      },
+      "cardsPerPack": 5,
+      "enabled": true,
+      "pool": {
+        "stages": [
+          1,
+          2
+        ],
+        "includeStandalone": true
+      },
+      "slotTable": {
+        "N": 400000,
+        "R": 320000,
+        "SR": 170000,
+        "SSR": 80000,
+        "UR": 22000,
+        "LR": 6000,
+        "MR": 1500,
+        "GR": 400,
+        "EX": 90,
+        "Secret": 10
+      },
+      "finalSlotTable": {
+        "N": 0,
+        "R": 250000,
+        "SR": 330000,
+        "SSR": 250000,
+        "UR": 110000,
+        "LR": 40000,
+        "MR": 12000,
+        "GR": 6000,
+        "EX": 1600,
+        "Secret": 400
+      },
+      "qualityTable": {
+        "D": 200000,
+        "C": 280000,
+        "B": 260000,
+        "A": 160000,
+        "S": 70000,
+        "SS": 24000,
+        "SSS": 6000
+      },
+      "finishTable": {
+        "Normal": 780000,
+        "Foil": 130000,
+        "Holographic": 60000,
+        "Shiny": 22000,
+        "Prismatic": 8000
+      }
+    },
+    {
+      "id": "legendary_pack",
+      "nameKey": "pack.legendary.name",
+      "artAssetId": "ui_pack_legendary",
+      "price": {
+        "currency": "MINI_GREEN_BEAN",
+        "amount": 1000
+      },
+      "cardsPerPack": 5,
+      "enabled": false,
+      "pool": {
+        "stages": [
+          1,
+          2,
+          3
+        ],
+        "includeStandalone": true
+      },
+      "slotTable": {
+        "N": 0,
+        "R": 349000,
+        "SR": 330000,
+        "SSR": 200000,
+        "UR": 80000,
+        "LR": 26000,
+        "MR": 9000,
+        "GR": 4000,
+        "EX": 1500,
+        "Secret": 500
+      },
+      "finalSlotTable": {
+        "N": 0,
+        "R": 0,
+        "SR": 300000,
+        "SSR": 380000,
+        "UR": 200000,
+        "LR": 75000,
+        "MR": 25000,
+        "GR": 13000,
+        "EX": 5000,
+        "Secret": 2000
+      },
+      "qualityTable": {
+        "D": 100000,
+        "C": 200000,
+        "B": 300000,
+        "A": 220000,
+        "S": 120000,
+        "SS": 45000,
+        "SSS": 15000
+      },
+      "finishTable": {
+        "Normal": 700000,
+        "Foil": 160000,
+        "Holographic": 90000,
+        "Shiny": 35000,
+        "Prismatic": 15000
+      }
+    }
+  ]
+}

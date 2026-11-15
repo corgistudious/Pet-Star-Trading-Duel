@@ -1,0 +1,50 @@
+{
+  "dailyRewardedClearsPerStage": 10,
+  "stages": [
+    { "id": "c1_s1", "chapter": 1, "order": 1, "difficulty": 0,
+      "enemies": [
+        { "formId": "pet_emberkit", "level": 1, "rarity": "N", "quality": "C", "position": 0 },
+        { "formId": "pet_puddlotl", "level": 1, "rarity": "N", "quality": "C", "position": 1 },
+        { "formId": "pet_zipmunk",  "level": 1, "rarity": "N", "quality": "C", "position": 2 },
+        { "formId": "pet_puddlotl", "level": 1, "rarity": "N", "quality": "D", "position": 3 },
+        { "formId": "pet_emberkit", "level": 1, "rarity": "N", "quality": "D", "position": 4 } ],
+      "rewards": { "currencies": { "MINI_GREEN_BEAN": 60 }, "items": { "essence_fire": 1, "essence_water": 1 }, "cardExp": 60 },
+      "firstClearRewards": { "currencies": { "MINI_GREEN_BEAN": 200 }, "packs": { "basic_pack": 1 } } },
+    { "id": "c1_s2", "chapter": 1, "order": 2, "difficulty": 1, "requiresStage": "c1_s1",
+      "enemies": [
+        { "formId": "pet_puddlotl", "level": 3, "rarity": "R", "quality": "B", "position": 0 },
+        { "formId": "pet_zipmunk",  "level": 3, "rarity": "N", "quality": "B", "position": 1 },
+        { "formId": "pet_emberkit", "level": 3, "rarity": "N", "quality": "B", "position": 2 },
+        { "formId": "pet_halowl",   "level": 2, "rarity": "N", "quality": "C", "position": 3 },
+        { "formId": "pet_gloomoth", "level": 2, "rarity": "N", "quality": "C", "position": 4 } ],
+      "rewards": { "currencies": { "MINI_GREEN_BEAN": 80 }, "items": { "essence_lightning": 1, "essence_light": 1 }, "cardExp": 90 },
+      "firstClearRewards": { "currencies": { "MINI_GREEN_BEAN": 250 } } },
+    { "id": "c1_s3", "chapter": 1, "order": 3, "difficulty": 1, "requiresStage": "c1_s2",
+      "enemies": [
+        { "formId": "pet_ripplotl",   "level": 6, "rarity": "R", "quality": "B", "position": 0 },
+        { "formId": "pet_cinderlynx", "level": 5, "rarity": "N", "quality": "B", "position": 1 },
+        { "formId": "pet_zipmunk",    "level": 6, "rarity": "R", "quality": "B", "position": 2 },
+        { "formId": "pet_halowl",     "level": 5, "rarity": "N", "quality": "B", "position": 3 },
+        { "formId": "pet_gloomoth",   "level": 5, "rarity": "R", "quality": "B", "position": 4 } ],
+      "rewards": { "currencies": { "MINI_GREEN_BEAN": 100 }, "items": { "essence_fire": 2, "essence_dark": 1 }, "cardExp": 130 },
+      "firstClearRewards": { "currencies": { "MINI_GREEN_BEAN": 300 }, "packs": { "basic_pack": 1 } } },
+    { "id": "c1_s4", "chapter": 1, "order": 4, "difficulty": 2, "requiresStage": "c1_s3",
+      "enemies": [
+        { "formId": "pet_ripplotl",   "level": 10, "rarity": "SR", "quality": "A", "position": 0 },
+        { "formId": "pet_fulgurmunk", "level": 9,  "rarity": "R",  "quality": "B", "position": 1 },
+        { "formId": "pet_cinderlynx", "level": 9,  "rarity": "R",  "quality": "B", "position": 2 },
+        { "formId": "pet_halowl",     "level": 9,  "rarity": "R",  "quality": "B", "position": 3 },
+        { "formId": "pet_gloomoth",   "level": 9,  "rarity": "R",  "quality": "B", "position": 4 } ],
+      "rewards": { "currencies": { "MINI_GREEN_BEAN": 130 }, "items": { "essence_water": 2, "essence_lightning": 2 }, "cardExp": 180 },
+      "firstClearRewards": { "currencies": { "MINI_GREEN_BEAN": 400 } } },
+    { "id": "c1_boss", "chapter": 1, "order": 5, "difficulty": 2, "requiresStage": "c1_s4",
+      "enemies": [
+        { "formId": "pet_tidecrown",  "level": 14, "rarity": "SSR", "quality": "A", "position": 0 },
+        { "formId": "pet_fulgurmunk", "level": 12, "rarity": "SR",  "quality": "B", "position": 1 },
+        { "formId": "pet_pyrelynx",   "level": 12, "rarity": "SR",  "quality": "B", "position": 2 },
+        { "formId": "pet_halowl",     "level": 12, "rarity": "SR",  "quality": "B", "position": 3 },
+        { "formId": "pet_gloomoth",   "level": 12, "rarity": "SR",  "quality": "B", "position": 4 } ],
+      "rewards": { "currencies": { "MINI_GREEN_BEAN": 200 }, "items": { "essence_fire": 2, "essence_water": 2, "essence_lightning": 2 }, "cardExp": 260 },
+      "firstClearRewards": { "currencies": { "MINI_GREEN_BEAN": 800 }, "packs": { "premium_pack": 1 } } }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "PetStar.Shared",
+  "rootNamespace": "PetStar",
+  "references": [],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "noEngineReferences": true
+}

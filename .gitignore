@@ -1,0 +1,33 @@
+# .NET
+bin/
+obj/
+*.user
+TestResults/
+# Unity
+client-unity/[Ll]ibrary/
+client-unity/[Tt]emp/
+client-unity/[Oo]bj/
+client-unity/[Bb]uild/
+client-unity/[Bb]uilds/
+client-unity/[Ll]ogs/
+client-unity/[Uu]ser[Ss]ettings/
+client-unity/MemoryCaptures/
+client-unity/*.csproj
+client-unity/*.sln
+*.apk
+*.aab
+*.keystore
+*.jks
+# Python
+__pycache__/
+*.pyc
+# Secrets / env
+.env
+.env.*
+!.env.example
+*.pem
+service-account*.json
+deployment/secrets/
+# Pipeline runtime
+asset-manifests/.pipeline.lock
+asset-manifests/*.tmp

@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "notes": "Effect DSL interpreted by PetStar.Rules BattleEngine. power is a multiplier of the scale stat (default atk). Costs and powers are balance baselines.",
+  "skills": [
+    { "id": "ember_pounce", "kind": "skill", "cost": 1, "priority": 0, "target": "enemy_single",
+      "effects": [ { "type": "damage", "power": 1.5 }, { "type": "status", "status": "burn", "chance": 0.3, "duration": 2 } ] },
+    { "id": "cinder_claws", "kind": "skill", "cost": 2, "priority": 0, "target": "enemy_single",
+      "effects": [ { "type": "damage", "power": 1.8 }, { "type": "status", "status": "burn", "chance": 0.5, "duration": 2 } ] },
+    { "id": "lynx_flare_rush", "kind": "ultimate", "cost": 4, "priority": 0, "target": "enemy_front_row",
+      "effects": [ { "type": "damage", "power": 1.6 } ] },
+    { "id": "pyre_fang", "kind": "skill", "cost": 2, "priority": 0, "target": "enemy_single",
+      "effects": [ { "type": "damage", "power": 2.0 }, { "type": "status", "status": "burn", "chance": 0.6, "duration": 2 } ] },
+    { "id": "sunfall_blaze", "kind": "ultimate", "cost": 5, "priority": 0, "target": "enemy_all",
+      "effects": [ { "type": "damage", "power": 1.4 }, { "type": "status", "status": "burn", "chance": 0.4, "duration": 2 } ] },
+
+    { "id": "bubble_guard", "kind": "skill", "cost": 1, "priority": 1, "target": "self",
+      "effects": [ { "type": "shield", "power": 1.6, "scale": "def" } ] },
+    { "id": "ripple_wall", "kind": "skill", "cost": 2, "priority": 1, "target": "ally_all",
+      "effects": [ { "type": "shield", "power": 0.7, "scale": "def" } ] },
+    { "id": "tidal_taunt", "kind": "ultimate", "cost": 4, "priority": 1, "target": "self",
+      "effects": [ { "type": "status", "status": "taunt", "chance": 1.0, "duration": 2 }, { "type": "shield", "power": 2.2, "scale": "def" } ] },
+    { "id": "coral_bastion", "kind": "skill", "cost": 2, "priority": 1, "target": "ally_all",
+      "effects": [ { "type": "shield", "power": 0.9, "scale": "def" } ] },
+    { "id": "crown_of_tides", "kind": "ultimate", "cost": 5, "priority": 0, "target": "enemy_all",
+      "effects": [ { "type": "damage", "power": 1.0 }, { "type": "shield", "power": 0.8, "scale": "def", "targetOverride": "ally_all" } ] },
+
+    { "id": "static_nibble", "kind": "skill", "cost": 1, "priority": 0, "target": "enemy_single",
+      "effects": [ { "type": "damage", "power": 1.2 }, { "type": "status", "status": "stun", "chance": 0.25, "duration": 1 } ] },
+    { "id": "chain_spark", "kind": "skill", "cost": 2, "priority": 0, "target": "enemy_front_row",
+      "effects": [ { "type": "damage", "power": 1.0 }, { "type": "status", "status": "stun", "chance": 0.2, "duration": 1 } ] },
+    { "id": "storm_acorn", "kind": "ultimate", "cost": 4, "priority": 0, "target": "enemy_single",
+      "effects": [ { "type": "damage", "power": 2.2 }, { "type": "status", "status": "stun", "chance": 0.6, "duration": 1 } ] },
+
+    { "id": "dawn_hymn", "kind": "skill", "cost": 2, "priority": 0, "target": "ally_lowest_hp",
+      "effects": [ { "type": "heal", "power": 1.6 } ] },
+    { "id": "halo_sanctuary", "kind": "ultimate", "cost": 4, "priority": 0, "target": "ally_all",
+      "effects": [ { "type": "heal", "power": 1.0 }, { "type": "cleanse" } ] },
+
+    { "id": "dusk_powder", "kind": "skill", "cost": 2, "priority": 0, "target": "enemy_all",
+      "effects": [ { "type": "damage", "power": 0.8 }, { "type": "status", "status": "poison", "chance": 0.5, "duration": 2 } ] },
+    { "id": "eclipse_veil", "kind": "ultimate", "cost": 5, "priority": 0, "target": "enemy_all",
+      "effects": [ { "type": "damage", "power": 1.5 }, { "type": "status", "status": "weaken", "chance": 0.5, "duration": 2 } ] }
+  ],
+  "passives": [
+    { "id": "warm_fur",       "type": "stat_bonus", "stat": "atk", "pct": 0.05 },
+    { "id": "kindling",       "type": "stat_bonus", "stat": "crit", "pct": 0.05 },
+    { "id": "blazing_heart",  "type": "low_hp_stat_bonus", "stat": "atk", "pct": 0.15, "threshold": 0.5 },
+    { "id": "slick_skin",     "type": "stat_bonus", "stat": "def", "pct": 0.05 },
+    { "id": "regen_gills",    "type": "regen_round_end", "pct": 0.04 },
+    { "id": "abyssal_guard",  "type": "damage_reduction", "pct": 0.10 },
+    { "id": "quick_paws",     "type": "stat_bonus", "stat": "spd", "pct": 0.08 },
+    { "id": "overcharge",     "type": "battle_start_energy", "amount": 1 },
+    { "id": "radiance",       "type": "heal_bonus", "pct": 0.15 },
+    { "id": "moonlit_drain",  "type": "lifesteal", "pct": 0.10 }
+  ]
+}

@@ -1,0 +1,944 @@
+{
+  "schema": 1,
+  "assets": {
+    "probe_test": {
+      "assetId": "probe_test",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi fantasy illustration of a small round original star-shaped spirit creature, big glossy eyes, soft cel shading, isolated on a transparent background. No text.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "low",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "a04f9ae5819f09e971e97a7a882416d9c0dffd993a557561dee47f006b2c0b84",
+      "bytes": 1606553,
+      "version": 1,
+      "generationCost": 0.015378,
+      "usage": {
+        "input_tokens": 42,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 42
+        },
+        "output_tokens": 474,
+        "output_tokens_details": {
+          "image_tokens": 272,
+          "text_tokens": 202
+        },
+        "total_tokens": 516
+      },
+      "jobKey": "c8b485f25cdca7d9",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "a04f9ae5819f09e971e97a7a882416d9c0dffd993a557561dee47f006b2c0b84",
+        "bytes": 1606553,
+        "alphaCoverage": 0.4522,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/probe/probe_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:11:54Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "history": []
+    },
+    "art_pet_emberkit": {
+      "assetId": "art_pet_emberkit",
+      "petId": "pet_emberkit",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a tiny round fox-cat kitten sitting playfully, oversized head, huge sparkling amber eyes, short legs, fluffy orange-red fur, cream face mask, tall ears with ember-orange tufts, a small candle-like flame on the tip of its tail, soot-grey paws.\nSignature family traits that must be visible: small fox-cat; cream face mask; amber eyes with tiny star-shaped highlights; tall ears with ember-orange tufts; tail tip is a living flame; soot-grey sock markings on paws.\nBaby form: very small, round and cute, the simplest version of the design.\nfire element accents: warm embers and a gentle warm glow.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "00e7cd52b0706baac2cf0d3bab50580b379077e0fb39bc6223d14ee79665d5c6",
+      "bytes": 1635491,
+      "version": 1,
+      "generationCost": 0.045544,
+      "usage": {
+        "input_tokens": 296,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 296
+        },
+        "output_tokens": 1377,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 321
+        },
+        "total_tokens": 1673
+      },
+      "jobKey": "6a587a7318e7870e",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "00e7cd52b0706baac2cf0d3bab50580b379077e0fb39bc6223d14ee79665d5c6",
+        "bytes": 1635491,
+        "alphaCoverage": 0.4964,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_emberkit_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:12:20Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "history": []
+    },
+    "art_pet_cinderlynx": {
+      "assetId": "art_pet_cinderlynx",
+      "petId": "pet_cinderlynx",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a young lynx-like fire cat in an agile pouncing stance, slimmer body but still chibi proportions, amber eyes with star highlights, cream face mask, longer ear tufts glowing like embers, flame tail now split into two flickering tongues, soot-grey socks, faint glowing ember stripes on its back.\nSignature family traits that must be visible: small fox-cat; cream face mask; amber eyes with tiny star-shaped highlights; tall ears with ember-orange tufts; tail tip is a living flame; soot-grey sock markings on paws.\nEvolved form: a natural growth of the baby form, slightly larger and more confident, more defined details.\nfire element accents: warm embers and a gentle warm glow.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "3abceef554bf1a429bd8c837defbfdf532cc73f00cf59eaa083af30e13669eaa",
+      "bytes": 1678043,
+      "version": 1,
+      "generationCost": 0.04683,
+      "usage": {
+        "input_tokens": 310,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 310
+        },
+        "output_tokens": 1415,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 359
+        },
+        "total_tokens": 1725
+      },
+      "jobKey": "29362c4677368f56",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "3abceef554bf1a429bd8c837defbfdf532cc73f00cf59eaa083af30e13669eaa",
+        "bytes": 1678043,
+        "alphaCoverage": 0.4284,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_cinderlynx_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:12:35Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "history": []
+    },
+    "art_pet_pyrelynx": {
+      "assetId": "art_pet_pyrelynx",
+      "petId": "pet_pyrelynx",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a majestic chibi fire lynx standing proudly, regal flowing mane of soft flames around its neck, amber eyes with star highlights, cream face mask, long ember ear tufts like little torches, a large blazing tail shaped like a sunburst, soot-grey socks with glowing orange paw pads, ember stripes forming a sun pattern on its back.\nSignature family traits that must be visible: small fox-cat; cream face mask; amber eyes with tiny star-shaped highlights; tall ears with ember-orange tufts; tail tip is a living flame; soot-grey sock markings on paws.\nFinal evolution: the grown, most majestic and ornate version, still chibi and cute, clearly the same lineage.\nfire element accents: warm embers and a gentle warm glow.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "a35613a1f482afacc52f022cc24413bb77d17ba7634b71b1cd62397f235ff1aa",
+      "bytes": 1581397,
+      "version": 1,
+      "generationCost": 0.045809,
+      "usage": {
+        "input_tokens": 317,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 317
+        },
+        "output_tokens": 1382,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 326
+        },
+        "total_tokens": 1699
+      },
+      "jobKey": "cfa1ed8386b92b0a",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "a35613a1f482afacc52f022cc24413bb77d17ba7634b71b1cd62397f235ff1aa",
+        "bytes": 1581397,
+        "alphaCoverage": 0.5131,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_pyrelynx_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:12:48Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "history": []
+    },
+    "art_pet_puddlotl": {
+      "assetId": "art_pet_puddlotl",
+      "petId": "pet_puddlotl",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a tiny chubby axolotl creature sitting upright, oversized head, calm sleepy half-lidded eyes with big shiny pupils, smooth pastel teal skin, three soft frilly pink-teal gills on each side of its head, round pearl-white belly, small scalloped tail fin with a wave pattern, holding a floating soap-like bubble.\nSignature family traits that must be visible: axolotl-like amphibian; pastel teal skin; frilly external gills that become a coral crown; round pearl-white belly; calm sleepy half-lidded eyes; scalloped tail fin with wave pattern.\nBaby form: very small, round and cute, the simplest version of the design.\nwater element accents: bubbles, small waves and pearls.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "4ea5962de9da0b81a8acc899fc3a40ecb7e6315abee155805221756aab8e0a78",
+      "bytes": 1731485,
+      "version": 1,
+      "generationCost": 0.04733,
+      "usage": {
+        "input_tokens": 314,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 314
+        },
+        "output_tokens": 1430,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 374
+        },
+        "total_tokens": 1744
+      },
+      "jobKey": "611c836379f743b4",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "4ea5962de9da0b81a8acc899fc3a40ecb7e6315abee155805221756aab8e0a78",
+        "bytes": 1731485,
+        "alphaCoverage": 0.4649,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_puddlotl_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:13:00Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "history": []
+    },
+    "art_pet_ripplotl": {
+      "assetId": "art_pet_ripplotl",
+      "petId": "pet_ripplotl",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a sturdy chibi axolotl guardian standing on two legs, calm half-lidded eyes, pastel teal skin with darker teal wave stripes, larger frilly gills beginning to harden into small coral branches, pearl-white belly plate like a shield, broad scalloped tail fin, a ring of swirling water around its arms.\nSignature family traits that must be visible: axolotl-like amphibian; pastel teal skin; frilly external gills that become a coral crown; round pearl-white belly; calm sleepy half-lidded eyes; scalloped tail fin with wave pattern.\nEvolved form: a natural growth of the baby form, slightly larger and more confident, more defined details.\nwater element accents: bubbles, small waves and pearls.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "976ef6bc52585ae7d57818ae707aad8fc6d7113a9557a3e44a4331990aff17e5",
+      "bytes": 1881128,
+      "version": 1,
+      "generationCost": 0.04734,
+      "usage": {
+        "input_tokens": 316,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 316
+        },
+        "output_tokens": 1430,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 374
+        },
+        "total_tokens": 1746
+      },
+      "jobKey": "a8e0ad86d5ccd744",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "976ef6bc52585ae7d57818ae707aad8fc6d7113a9557a3e44a4331990aff17e5",
+        "bytes": 1881128,
+        "alphaCoverage": 0.502,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_ripplotl_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:13:15Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "history": []
+    },
+    "art_pet_tidecrown": {
+      "assetId": "art_pet_tidecrown",
+      "petId": "pet_tidecrown",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a noble chibi axolotl monarch, calm wise half-lidded eyes, pastel teal skin with deep sapphire wave stripes, its gills fully grown into a radiant pink-and-teal coral crown, pearl-white belly armor with shell motifs, majestic flowing scalloped tail fin, a gentle whirlpool of water and pearls orbiting around it.\nSignature family traits that must be visible: axolotl-like amphibian; pastel teal skin; frilly external gills that become a coral crown; round pearl-white belly; calm sleepy half-lidded eyes; scalloped tail fin with wave pattern.\nFinal evolution: the grown, most majestic and ornate version, still chibi and cute, clearly the same lineage.\nwater element accents: bubbles, small waves and pearls.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "565be72af807220d711fe6bbd80542a67f4227cfa6f2f0ec16710f283665d455",
+      "bytes": 1950675,
+      "version": 1,
+      "generationCost": 0.046304,
+      "usage": {
+        "input_tokens": 320,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 320
+        },
+        "output_tokens": 1397,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 341
+        },
+        "total_tokens": 1717
+      },
+      "jobKey": "522fd9cc12eb00eb",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "565be72af807220d711fe6bbd80542a67f4227cfa6f2f0ec16710f283665d455",
+        "bytes": 1950675,
+        "alphaCoverage": 0.4994,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_tidecrown_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:13:30Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "history": []
+    },
+    "art_pet_zipmunk": {
+      "assetId": "art_pet_zipmunk",
+      "petId": "pet_zipmunk",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a tiny hyperactive chipmunk creature mid-hop, oversized head, bright cyan eyes, butter-yellow fur, three dark zigzag lightning-bolt stripes down its back, cheeks puffed with glowing acorns, a huge fluffy tail with little static sparks.\nSignature family traits that must be visible: chipmunk-like rodent; butter-yellow fur; three zigzag lightning-bolt stripes on its back; huge bushy tail that crackles with static; bright cyan eyes; acorn motif.\nBaby form: very small, round and cute, the simplest version of the design.\nlightning element accents: zigzag sparks and crackling static.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "27b57b8fc42024fe788caf5a51816deac68ceea16b4e78b4032fc3208440d301",
+      "bytes": 1698811,
+      "version": 1,
+      "generationCost": 0.047555,
+      "usage": {
+        "input_tokens": 295,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 295
+        },
+        "output_tokens": 1440,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 384
+        },
+        "total_tokens": 1735
+      },
+      "jobKey": "8e9d02538f9f2f74",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "27b57b8fc42024fe788caf5a51816deac68ceea16b4e78b4032fc3208440d301",
+        "bytes": 1698811,
+        "alphaCoverage": 0.5062,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_zipmunk_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:13:44Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "history": []
+    },
+    "art_pet_fulgurmunk": {
+      "assetId": "art_pet_fulgurmunk",
+      "petId": "pet_fulgurmunk",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a confident chibi chipmunk storm warrior balancing on its tail, bright cyan eyes, butter-yellow fur with glowing zigzag lightning stripes, an enormous bushy tail shaped like a crackling thundercloud, holding a large glowing acorn charged with electricity, small storm goggles pushed up on its forehead.\nSignature family traits that must be visible: chipmunk-like rodent; butter-yellow fur; three zigzag lightning-bolt stripes on its back; huge bushy tail that crackles with static; bright cyan eyes; acorn motif.\nEvolved form: a natural growth of the baby form, slightly larger and more confident, more defined details.\nlightning element accents: zigzag sparks and crackling static.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "3e63945d98580b9db385d681ac91e763743f333d4b8d7781801f7463170b78a6",
+      "bytes": 1857498,
+      "version": 1,
+      "generationCost": 0.046697,
+      "usage": {
+        "input_tokens": 309,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 309
+        },
+        "output_tokens": 1411,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 355
+        },
+        "total_tokens": 1720
+      },
+      "jobKey": "8d6f760dfc0be274",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "3e63945d98580b9db385d681ac91e763743f333d4b8d7781801f7463170b78a6",
+        "bytes": 1857498,
+        "alphaCoverage": 0.5659,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_fulgurmunk_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:14:00Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "history": []
+    },
+    "art_pet_halowl": {
+      "assetId": "art_pet_halowl",
+      "petId": "pet_halowl",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a round fluffy chibi owl floating gently, almost spherical body, snow-white feathers with pale gold tips, soft warm rose-gold eyes, small crescent-shaped ear feathers, a glowing golden halo ring hovering above its head, tiny wings spread with soft light motes drifting around.\nSignature family traits that must be visible: round owl; snow-white and pale gold plumage; floating golden halo ring; soft rose-gold eyes; crescent-shaped ear feathers.\nStandalone creature that does not evolve.\nlight element accents: halos, floating light motes and soft rays.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "5434a70d88adc62c0e3a136e7edf2cf9c80b29b8f78e92cf726c78580ad5adc1",
+      "bytes": 1647972,
+      "version": 1,
+      "generationCost": 0.047155,
+      "usage": {
+        "input_tokens": 279,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 279
+        },
+        "output_tokens": 1430,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 374
+        },
+        "total_tokens": 1709
+      },
+      "jobKey": "12e560697b7ac275",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "5434a70d88adc62c0e3a136e7edf2cf9c80b29b8f78e92cf726c78580ad5adc1",
+        "bytes": 1647972,
+        "alphaCoverage": 0.4113,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_halowl_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:14:13Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "history": []
+    },
+    "art_pet_gloomoth": {
+      "assetId": "art_pet_gloomoth",
+      "petId": "pet_gloomoth",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a fuzzy chibi moth creature hovering, round fluffy lavender body, big glowing lilac eyes, long feathery antennae, large deep violet and midnight-blue wings decorated with silver crescent-moon eye spots, sprinkling sparkling silver dust.\nSignature family traits that must be visible: fuzzy moth; deep violet and midnight-blue wings with crescent-moon eye spots; feathery antennae; glowing lilac eyes; silver dust.\nStandalone creature that does not evolve.\ndark element accents: crescent moons, sparkling dust and soft shadow wisps.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "cd043a536a261963fb5a16f3701f58acef8a60484094d75ee61e46f63578218d",
+      "bytes": 1777266,
+      "version": 1,
+      "generationCost": 0.046441,
+      "usage": {
+        "input_tokens": 277,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 277
+        },
+        "output_tokens": 1408,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 352
+        },
+        "total_tokens": 1685
+      },
+      "jobKey": "6add7334fd7ff8ef",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "cd043a536a261963fb5a16f3701f58acef8a60484094d75ee61e46f63578218d",
+        "bytes": 1777266,
+        "alphaCoverage": 0.4785,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_gloomoth_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:14:26Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "history": []
+    },
+    "ui_currency_rainbow_star": {
+      "assetId": "ui_currency_rainbow_star",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA single five-pointed crystal star icon. The star is faceted translucent crystal with rainbow refraction across its facets (red, orange, yellow, green, cyan, blue, violet blending smoothly), framed by a thick polished gold rim with soft bevel, bright specular highlights and a few tiny sparkles around it. Slightly plump rounded points for a cute chibi feel.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "high",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "74679b457a6d59299f62c64a033847a4952b0fe632f040bc0b655309aef8640f",
+      "bytes": 1609500,
+      "version": 1,
+      "generationCost": 0.145064,
+      "usage": {
+        "input_tokens": 168,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 168
+        },
+        "output_tokens": 4507,
+        "output_tokens_details": {
+          "image_tokens": 4160,
+          "text_tokens": 347
+        },
+        "total_tokens": 4675
+      },
+      "jobKey": "39146634da96c785",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "74679b457a6d59299f62c64a033847a4952b0fe632f040bc0b655309aef8640f",
+        "bytes": 1609500,
+        "alphaCoverage": 0.2651,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_currency_rainbow_star_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:19:42Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_currency_mini_green_bean": {
+      "assetId": "ui_currency_mini_green_bean",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA single small plump mung-bean-shaped icon, glossy jade green (emerald to mint gradient), very shiny with a big soft specular highlight, smooth kidney bean shape, with one tiny fresh light-green sprout leaf growing from the top. Cute, round, juicy and sharp.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "high",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "79bc3e6e5b74d27c20e4f11d844d76a684d55c2dbb60b8b51d52a1f125f7b6b9",
+      "bytes": 1489997,
+      "version": 1,
+      "generationCost": 0.143209,
+      "usage": {
+        "input_tokens": 149,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 149
+        },
+        "output_tokens": 4452,
+        "output_tokens_details": {
+          "image_tokens": 4160,
+          "text_tokens": 292
+        },
+        "total_tokens": 4601
+      },
+      "jobKey": "24c5411b8818ad85",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "79bc3e6e5b74d27c20e4f11d844d76a684d55c2dbb60b8b51d52a1f125f7b6b9",
+        "bytes": 1489997,
+        "alphaCoverage": 0.2683,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_currency_mini_green_bean_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:20:08Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_currency_rainbow_star_cluster": {
+      "assetId": "ui_currency_rainbow_star_cluster",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nUsing the exact same rainbow crystal star with gold rim from the reference image, create a small pile of five of those stars of slightly different sizes overlapping, with tiny sparkles. Keep identical materials, colors and rendering style.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "071beae31e8312e0d2a7d04d2188f2fab40faa4c796dca89103ed6cf067c473f",
+      "bytes": 1580443,
+      "version": 1,
+      "generationCost": 0.080104,
+      "usage": {
+        "input_tokens": 4506,
+        "input_tokens_details": {
+          "image_tokens": 4354,
+          "text_tokens": 152
+        },
+        "output_tokens": 1391,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 335
+        },
+        "total_tokens": 5897
+      },
+      "jobKey": "561961fdb982be55",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "071beae31e8312e0d2a7d04d2188f2fab40faa4c796dca89103ed6cf067c473f",
+        "bytes": 1580443,
+        "alphaCoverage": 0.3434,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_currency_rainbow_star_cluster_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:20:35Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "ui_currency_rainbow_star",
+      "history": []
+    },
+    "ui_currency_mini_green_bean_cluster": {
+      "assetId": "ui_currency_mini_green_bean_cluster",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nUsing the exact same glossy jade green bean from the reference image, create a small heap of about seven of those beans, a couple of them with the tiny sprout leaf. Keep identical materials, colors and rendering style.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "d74787fdba9d38e05057ee62fbc722cab7e49ea01840de682b1e86b924489776",
+      "bytes": 1570423,
+      "version": 1,
+      "generationCost": 0.079496,
+      "usage": {
+        "input_tokens": 4506,
+        "input_tokens_details": {
+          "image_tokens": 4354,
+          "text_tokens": 152
+        },
+        "output_tokens": 1372,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 316
+        },
+        "total_tokens": 5878
+      },
+      "jobKey": "266104ede50a7b09",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "d74787fdba9d38e05057ee62fbc722cab7e49ea01840de682b1e86b924489776",
+        "bytes": 1570423,
+        "alphaCoverage": 0.266,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_currency_mini_green_bean_cluster_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:20:51Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "ui_currency_mini_green_bean",
+      "history": []
+    },
+    "ui_currency_rainbow_star_bag": {
+      "assetId": "ui_currency_rainbow_star_bag",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA cute plump royal purple velvet drawstring pouch tied with a gold cord, open at the top and overflowing with the exact same rainbow crystal stars with gold rims from the reference image, two stars spilling in front. Keep identical star materials and rendering style.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "0408c69da65ddb0fb83ec9d16d51a007795bf419ee7e339811b6ced74ab7efda",
+      "bytes": 1783876,
+      "version": 1,
+      "generationCost": 0.080267,
+      "usage": {
+        "input_tokens": 4513,
+        "input_tokens_details": {
+          "image_tokens": 4354,
+          "text_tokens": 159
+        },
+        "output_tokens": 1395,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 339
+        },
+        "total_tokens": 5908
+      },
+      "jobKey": "49a31b18d2cea1af",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "0408c69da65ddb0fb83ec9d16d51a007795bf419ee7e339811b6ced74ab7efda",
+        "bytes": 1783876,
+        "alphaCoverage": 0.3291,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_currency_rainbow_star_bag_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:21:04Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "ui_currency_rainbow_star",
+      "history": []
+    },
+    "ui_currency_mini_green_bean_bag": {
+      "assetId": "ui_currency_mini_green_bean_bag",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA cute plump cream-colored burlap drawstring sack tied with twine, with a small green leaf emblem stitched on it, open at the top and overflowing with the exact same glossy jade green beans from the reference image, a few beans spilling in front. Keep identical bean materials and rendering style.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "791f6c873359b905933ef6cc3baceb138ba26bc771f55fb4c911d39af8fc38cf",
+      "bytes": 1613899,
+      "version": 1,
+      "generationCost": 0.080248,
+      "usage": {
+        "input_tokens": 4522,
+        "input_tokens_details": {
+          "image_tokens": 4354,
+          "text_tokens": 168
+        },
+        "output_tokens": 1393,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 337
+        },
+        "total_tokens": 5915
+      },
+      "jobKey": "4083f69e0e18bad9",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "791f6c873359b905933ef6cc3baceb138ba26bc771f55fb4c911d39af8fc38cf",
+        "bytes": 1613899,
+        "alphaCoverage": 0.3253,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_currency_mini_green_bean_bag_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:21:16Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "ui_currency_mini_green_bean",
+      "history": []
+    },
+    "ui_currency_rainbow_star_chest": {
+      "assetId": "ui_currency_rainbow_star_chest",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA cute chunky treasure chest with magenta-violet lacquered panels and ornate gold trim, lid open, filled to overflowing with the exact same rainbow crystal stars with gold rims from the reference image, soft magical glow from inside. Keep identical star materials and rendering style.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "86b1f2e9568397db50f43ebba9eb190409b861b9bfc542c382e930fc054750f5",
+      "bytes": 1705911,
+      "version": 1,
+      "generationCost": 0.081429,
+      "usage": {
+        "input_tokens": 4515,
+        "input_tokens_details": {
+          "image_tokens": 4354,
+          "text_tokens": 161
+        },
+        "output_tokens": 1431,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 375
+        },
+        "total_tokens": 5946
+      },
+      "jobKey": "86f5c43077b4851d",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "86b1f2e9568397db50f43ebba9eb190409b861b9bfc542c382e930fc054750f5",
+        "bytes": 1705911,
+        "alphaCoverage": 0.363,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_currency_rainbow_star_chest_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:21:32Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "ui_currency_rainbow_star",
+      "history": []
+    },
+    "ui_currency_mini_green_bean_chest": {
+      "assetId": "ui_currency_mini_green_bean_chest",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA cute chunky wooden treasure chest with warm honey-brown planks and bronze corner fittings, lid open, filled to overflowing with the exact same glossy jade green beans from the reference image, a few small green leaves among them. Keep identical bean materials and rendering style.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "f7511fc8ed7a2f955212c6d0a8644abe5b24edc4d99e24c3e94ee5f76e5a541f",
+      "bytes": 1692715,
+      "version": 1,
+      "generationCost": 0.080085,
+      "usage": {
+        "input_tokens": 4515,
+        "input_tokens_details": {
+          "image_tokens": 4354,
+          "text_tokens": 161
+        },
+        "output_tokens": 1389,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 333
+        },
+        "total_tokens": 5904
+      },
+      "jobKey": "19c6160d8aef924b",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "f7511fc8ed7a2f955212c6d0a8644abe5b24edc4d99e24c3e94ee5f76e5a541f",
+        "bytes": 1692715,
+        "alphaCoverage": 0.3955,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_currency_mini_green_bean_chest_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-15T06:21:48Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "ui_currency_mini_green_bean",
+      "history": []
+    }
+  }
+}

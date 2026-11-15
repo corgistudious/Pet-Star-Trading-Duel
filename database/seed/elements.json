@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "strongMultiplier": 1.5,
+  "weakMultiplier": 0.75,
+  "elements": [
+    { "id": "fire",      "color": "#F2643D", "icon": "icon_element_fire",      "strongAgainst": ["nature"],  "nameKey": "element.fire" },
+    { "id": "water",     "color": "#3D9BF2", "icon": "icon_element_water",     "strongAgainst": ["fire"],    "nameKey": "element.water" },
+    { "id": "nature",    "color": "#55C26A", "icon": "icon_element_nature",    "strongAgainst": ["earth"],   "nameKey": "element.nature" },
+    { "id": "earth",     "color": "#B98A52", "icon": "icon_element_earth",     "strongAgainst": ["lightning"], "nameKey": "element.earth" },
+    { "id": "lightning", "color": "#F5C83B", "icon": "icon_element_lightning", "strongAgainst": ["wind"],    "nameKey": "element.lightning" },
+    { "id": "wind",      "color": "#7FD6C9", "icon": "icon_element_wind",      "strongAgainst": ["water"],   "nameKey": "element.wind" },
+    { "id": "light",     "color": "#FFE7A3", "icon": "icon_element_light",     "strongAgainst": ["dark"],    "nameKey": "element.light" },
+    { "id": "dark",      "color": "#6B4FA8", "icon": "icon_element_dark",      "strongAgainst": ["light"],   "nameKey": "element.dark" }
+  ],
+  "notes": "Cycle: water>fire>nature>earth>lightning>wind>water. Light and Dark are strong against each other. If A is strong against B and B is not strong against A, B deals weakMultiplier to A."
+}

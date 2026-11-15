@@ -1,0 +1,7 @@
+{
+  "name": "com.petstar.shared",
+  "version": "0.1.0",
+  "displayName": "Pet Star Shared Rules & Contracts",
+  "description": "Engine-agnostic game rules (battle, stats, elements, pack tables) and API DTOs shared by the ASP.NET Core backend and the Unity client. The server is authoritative; the client uses these only for display/preview.",
+  "unity": "6000.0"
+}

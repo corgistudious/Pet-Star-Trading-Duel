@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "rarities": [
+    { "id": "N",      "order": 0, "color": "#9CA3AF", "statMultiplier": 1.00 },
+    { "id": "R",      "order": 1, "color": "#43BD78", "statMultiplier": 1.04 },
+    { "id": "SR",     "order": 2, "color": "#4099F4", "statMultiplier": 1.08 },
+    { "id": "SSR",    "order": 3, "color": "#AA70E8", "statMultiplier": 1.12 },
+    { "id": "UR",     "order": 4, "color": "#F3C04F", "statMultiplier": 1.16 },
+    { "id": "LR",     "order": 5, "color": "#F36D79", "statMultiplier": 1.20 },
+    { "id": "MR",     "order": 6, "color": "#DE6DC9", "statMultiplier": 1.24 },
+    { "id": "GR",     "order": 7, "color": "#48D0C4", "statMultiplier": 1.28 },
+    { "id": "EX",     "order": 8, "color": "#E6B95E", "statMultiplier": 1.32 },
+    { "id": "Secret", "order": 9, "color": "#9673EC", "statMultiplier": 1.36 }
+  ],
+  "qualities": [
+    { "id": "D",   "order": 0, "statMultiplier": 0.94 },
+    { "id": "C",   "order": 1, "statMultiplier": 0.97 },
+    { "id": "B",   "order": 2, "statMultiplier": 1.00 },
+    { "id": "A",   "order": 3, "statMultiplier": 1.03 },
+    { "id": "S",   "order": 4, "statMultiplier": 1.06 },
+    { "id": "SS",  "order": 5, "statMultiplier": 1.09 },
+    { "id": "SSS", "order": 6, "statMultiplier": 1.12 }
+  ],
+  "finishes": [
+    { "id": "Normal",      "order": 0, "cosmeticOnly": true },
+    { "id": "Foil",        "order": 1, "cosmeticOnly": true },
+    { "id": "Holographic", "order": 2, "cosmeticOnly": true },
+    { "id": "Shiny",       "order": 3, "cosmeticOnly": true },
+    { "id": "Prismatic",   "order": 4, "cosmeticOnly": true }
+  ],
+  "notes": "Stat multipliers are balance baselines (configurable, not final). Finishes never affect combat."
+}
