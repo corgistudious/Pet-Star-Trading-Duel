@@ -1,7 +1,9 @@
 using PetStar.Client.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem.UI;
+#endif
 
 namespace PetStar.Client.Core
 {
@@ -40,7 +42,13 @@ namespace PetStar.Client.Core
 
             if (FindAnyObjectByType<EventSystem>() == null)
             {
+                // UI input works with either backend: the Input System package when enabled in Player Settings,
+                // otherwise the built-in module (mouse + touch). Generated project settings may use either.
+#if ENABLE_INPUT_SYSTEM
                 var es = new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
+#else
+                var es = new GameObject("EventSystem", typeof(EventSystem), typeof(StandaloneInputModule));
+#endif
                 DontDestroyOnLoad(es);
             }
             if (Camera.main == null)

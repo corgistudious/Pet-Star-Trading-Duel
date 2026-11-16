@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Unity client + shared rules, compiled per platform define set (UNITY_WEBGL, UNITY_ANDROID, ...). -->
+  <PropertyGroup>
+    <DefineConstants>UNITY_2021_3_OR_NEWER;UNITY_6000_0_OR_NEWER;$(Platform.Replace('+', ';'))</DefineConstants>
+    <AssemblyName>PetStar.Client.Check</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(Repo)/shared-contracts/Runtime/**/*.cs" />
+    <Compile Include="$(Repo)/client-unity/Assets/Scripts/**/*.cs" />
+    <Compile Include="stubs/Runtime.cs" />
+  </ItemGroup>
+</Project>

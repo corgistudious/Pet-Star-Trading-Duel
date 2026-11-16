@@ -72,8 +72,11 @@ Every call reserves its worst-case cost first and is refused if it could exceed 
 
 ## Builds
 
-Unity builds run in GitHub Actions (`Unity client builds` workflow) once Unity license and Android signing secrets
-are added — see [docs/deployment.md](docs/deployment.md). Nothing in this repo claims a build that has not run.
+Unity WebGL builds run in **Unity Build Automation**; the pre-export method is
+`PetStar.EditorTools.CloudBuild.PreExport`, and no license file or keystore is needed. See
+[docs/unity-cloud-build.md](docs/unity-cloud-build.md).
+Every push also runs a Unity-free asset check, a syntax check and a semantic compile check against real UnityEngine
+reference DLLs. Nothing in this repo claims a build that has not run.
 
 ## Secrets & environments
 

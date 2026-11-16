@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>{{{ PRODUCT_NAME }}}</title>
+    <style>
+      /* Pet Star WebGL page: pure black (#000000) everywhere outside the game canvas, game kept inside the safe area. */
+      html, body { margin: 0; height: 100%; background: #000000; overflow: hidden; overscroll-behavior: none; touch-action: none; }
+      #frame { position: fixed; left: 0; right: 0; top: 0; height: 100dvh; background: #000000;
+        padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+        box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
+      #unity-canvas { width: 100%; height: 100%; background: #000000; display: block; outline: none; }
+      #loading { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: #fff; font: 600 15px system-ui, sans-serif; background: #000000; }
+      #bar { width: min(70vw, 320px); height: 8px; border-radius: 99px; background: #222; overflow: hidden; }
+      #bar > div { height: 100%; width: 0; background: #7cc4ff; transition: width .2s; }
+      #error { color: #ff8a8a; max-width: 320px; text-align: center; display: none; }
+      /* rotate overlay: absolute black, no gradient / logo / art, swallows every input */
+      #rotate { position: fixed; inset: 0; z-index: 10; background: #000000; color: #ffffff; display: none; flex-direction: column;
+        align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 0 24px; font: 600 17px system-ui, sans-serif; touch-action: none; }
+      #rotate small { font-weight: 400; color: #bdbdbd; font-size: 14px; }
+      #rotate svg { animation: tilt 2.6s ease-in-out infinite; margin-bottom: 8px; }
+      #rotate.to-portrait svg { animation-name: tiltback; }
+      @keyframes tilt { 0%,25% { transform: rotate(0deg); } 55%,80% { transform: rotate(-90deg); } 100% { transform: rotate(0deg); } }
+      @keyframes tiltback { 0%,25% { transform: rotate(-90deg); } 55%,80% { transform: rotate(0deg); } 100% { transform: rotate(-90deg); } }
+      @media (prefers-reduced-motion: reduce) { #rotate svg { animation: none; } }
+    </style>
+  </head>
+  <body>
+    <div id="frame"><canvas id="unity-canvas" tabindex="-1"></canvas></div>
+    <div id="loading"><div>{{{ PRODUCT_NAME }}}</div><div id="bar"><div></div></div><div id="error"></div></div>
+    <div id="rotate" role="alertdialog" aria-modal="true">
+      <svg viewBox="0 0 64 64" width="88" height="88" aria-hidden="true"><rect x="20" y="6" width="24" height="44" rx="5" fill="none" stroke="#fff" stroke-width="3"/><circle cx="32" cy="44" r="2" fill="#fff"/></svg>
+      <div id="rotate-vi"></div><small id="rotate-en"></small>
+    </div>
+    <script>
+      // Official viewport rule (same as the React web client): Portrait outside duels, Landscape in PvE/PvP duels.
+      // Phones held the wrong way get a pure-black overlay. Tablets/PCs are never blocked (the game letterboxes).
+      (function () {
+        var mode = 'portrait';
+        var overlay = document.getElementById('rotate');
+        function isPhone() { return (navigator.maxTouchPoints > 0 || matchMedia('(pointer: coarse)').matches) && Math.min(screen.width, screen.height) < 600; }
+        function landscape() {
+          var t = screen.orientation && screen.orientation.type;
+          var dev = t ? t.indexOf('landscape') === 0 : (typeof window.orientation === 'number' ? Math.abs(window.orientation) === 90 : innerWidth > innerHeight);
+          return { device: dev, fit: dev && innerWidth > innerHeight };
+        }
+        function update() {
+          var l = landscape(), need = null;
+          if (isPhone()) need = mode === 'battle' ? (l.fit ? null : 'landscape') : (l.device ? 'portrait' : null);
+          overlay.style.display = need ? 'flex' : 'none';
+          overlay.className = need ? 'to-' + need : '';
+          document.getElementById('rotate-vi').textContent = need === 'landscape' ? 'Xoay ngang điện thoại để vào trận đấu' : 'Xoay dọc điện thoại để tiếp tục';
+          document.getElementById('rotate-en').textContent = need === 'landscape' ? 'Rotate your phone to landscape to play the duel' : 'Rotate your phone to portrait to continue';
+          var f = document.getElementById('frame'), vv = window.visualViewport;
+          if (vv) { f.style.height = vv.height + 'px'; f.style.top = vv.offsetTop + 'px'; }
+        }
+        window.PetStarViewport = { setMode: function (m) { mode = m === 'battle' ? 'battle' : 'portrait'; update(); } };
+        ['resize', 'orientationchange'].forEach(function (e) { addEventListener(e, function () { update(); setTimeout(update, 300); }); });
+        if (window.visualViewport) { visualViewport.addEventListener('resize', update); visualViewport.addEventListener('scroll', update); }
+        if (screen.orientation && screen.orientation.addEventListener) screen.orientation.addEventListener('change', update);
+        overlay.addEventListener('touchmove', function (e) { e.preventDefault(); }, { passive: false });
+        update();
+      })();
+
+      var buildUrl = "Build";
+      var config = {
+        arguments: [],
+        dataUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
+        frameworkUrl: buildUrl + "/{{{ FRAMEWORK_FILENAME }}}",
+#if USE_THREADS
+        workerUrl: buildUrl + "/{{{ WORKER_FILENAME }}}",
+#endif
+#if USE_WASM
+        codeUrl: buildUrl + "/{{{ CODE_FILENAME }}}",
+#endif
+#if MEMORY_FILENAME
+        memoryUrl: buildUrl + "/{{{ MEMORY_FILENAME }}}",
+#endif
+#if SYMBOLS_FILENAME
+        symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
+#endif
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
+        productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+        productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
+        // sharp but affordable on iPhone (cap the backing store at 2x)
+        devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+        showBanner: function (msg, type) { if (type === 'error') { var e = document.getElementById('error'); e.style.display = 'block'; e.textContent = msg; } else console.warn(msg); }
+      };
+      var script = document.createElement("script");
+      script.src = buildUrl + "/{{{ LOADER_FILENAME }}}";
+      script.onload = function () {
+        createUnityInstance(document.querySelector("#unity-canvas"), config, function (p) {
+          document.querySelector("#bar > div").style.width = (100 * p) + "%";
+        }).then(function () {
+          document.getElementById('loading').style.display = 'none';
+        }).catch(function (message) {
+          var e = document.getElementById('error'); e.style.display = 'block'; e.textContent = message;
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+  </body>
+</html>

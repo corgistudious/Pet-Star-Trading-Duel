@@ -1,0 +1,68 @@
+name: Unity WebGL publish (from Unity Build Automation, manual)
+
+# Takes the latest SUCCESSFUL WebGL build from Unity Build Automation and publishes it to Cloudflare Pages, so no
+# computer is needed to download/unzip/host the build. Manual only. Defaults to a PREVIEW deployment; production
+# requires choosing it explicitly AND approving the "production" environment.
+#
+# GitHub settings needed (never in the repository or chat):
+#   secrets   : UNITY_BUILD_API_AUTH  – Build Automation API credentials for HTTP Basic auth: "keyId:secretKey" of a
+#                                       Unity Cloud service account with Build Automation access (or a legacy API
+#                                       key followed by a colon, "apikey:")
+#               CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID (already used by the web workflow)
+#   variables : UNITY_ORG_ID, UNITY_PROJECT_ID, UNITY_BUILDTARGET_ID (shown in the Build Automation URLs),
+#               CF_PAGES_UNITY_PROJECT (e.g. "petstar-unity"; create it once in Cloudflare as Direct Upload)
+# The API must allow the published origin for CORS/WebSocket (WEB_ORIGIN_2 in /opt/petstar/petstar.env).
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Where to publish"
+        type: choice
+        options: [preview, production]
+        default: preview
+      build_number:
+        description: "Build Automation build number (empty = latest successful)"
+        required: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.target == 'production' && 'production' || 'preview' }}
+    permissions:
+      contents: read
+      deployments: write
+    env:
+      API: https://build-api.cloud.unity3d.com/api/v1/orgs/${{ vars.UNITY_ORG_ID }}/projects/${{ vars.UNITY_PROJECT_ID }}/buildtargets/${{ vars.UNITY_BUILDTARGET_ID }}
+    steps:
+      - name: Find the WebGL build
+        id: build
+        env:
+          AUTH: ${{ secrets.UNITY_BUILD_API_AUTH }}
+          NUMBER: ${{ inputs.build_number }}
+        run: |
+          set -euo pipefail
+          if [ -n "$NUMBER" ]; then url="$API/builds/$NUMBER"; else url="$API/builds?buildStatus=success&per_page=1"; fi
+          curl -fsS -u "$AUTH" "$url" -o build.json
+          jq 'if type=="array" then .[0] else . end | {build, buildStatus, platform, created, finished}' build.json
+          href=$(jq -r 'if type=="array" then .[0] else . end | .links.download_primary.href // empty' build.json)
+          status=$(jq -r 'if type=="array" then .[0] else . end | .buildStatus' build.json)
+          [ "$status" = "success" ] || { echo "build is not successful ($status)"; exit 1; }
+          [ -n "$href" ] || { echo "no downloadable artifact in the build"; exit 1; }
+          echo "href=$href" >> "$GITHUB_OUTPUT"
+      - name: Download and check the artifact
+        run: |
+          set -euo pipefail
+          curl -fsSL "${{ steps.build.outputs.href }}" -o webgl.zip
+          mkdir -p artifact && unzip -q webgl.zip -d artifact
+          root=$(dirname "$(find artifact -name index.html -path '*' | head -1)")
+          [ -f "$root/index.html" ] && ls "$root"/Build/*.loader.js >/dev/null || { echo "not a WebGL build"; exit 1; }
+          big=$(find "$root" -type f -size +25M | head -5); [ -z "$big" ] || { echo "files over the 25 MiB Pages limit: $big"; exit 1; }
+          echo "files: $(find "$root" -type f | wc -l), size: $(du -sh "$root" | cut -f1)"
+          mv "$root" site
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy site --project-name=${{ vars.CF_PAGES_UNITY_PROJECT }} --branch=${{ inputs.target == 'production' && 'main' || 'preview' }}

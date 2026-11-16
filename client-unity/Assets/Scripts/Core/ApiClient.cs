@@ -53,7 +53,7 @@ namespace PetStar.Client.Core
                 try { return await SendOnce<T>(method, path, body, idemKey, allowRefresh); }
                 catch (ApiError e) when (e.IsNetwork && attempt < attempts)
                 {
-                    await Task.Delay(600 * attempt);
+                    await Wait.Seconds(0.6f * attempt);
                 }
             }
         }

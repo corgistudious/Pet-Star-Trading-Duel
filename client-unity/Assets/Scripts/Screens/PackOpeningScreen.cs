@@ -53,7 +53,7 @@ namespace PetStar.Client.Screens
 
         private static async Task Load(Image img, string packTypeId)
         {
-            var s = await GameDataClient.LoadSprite("ui/ui_" + packTypeId);
+            var s = await GameDataClient.LoadSprite(GameDataClient.PackArt(packTypeId));
             if (img == null || s == null) return;
             img.sprite = s; img.type = Image.Type.Simple; img.color = Color.white;
         }
@@ -171,7 +171,7 @@ namespace PetStar.Client.Screens
             {
                 float t = 0;
                 var strip = _pack.Strip; var body = (RectTransform)_pack.transform;
-                Destroy(_pack.GetComponent<FloatIdle>());
+                UnityEngine.Object.Destroy(_pack.GetComponent<FloatIdle>());
                 while (t < 1)
                 {
                     t += Time.deltaTime * 2.2f;
@@ -217,7 +217,7 @@ namespace PetStar.Client.Screens
             if (_revealed >= _stack.Count) { _run.StartCoroutine(GoResults()); return; }
             var top = _stack[_revealed];
             var g = top.gameObject.AddComponent<SwipeOrTap>();
-            g.OnFire = () => { Destroy(g); _run.StartCoroutine(Flip(top, _revealed == _stack.Count - 1)); };
+            g.OnFire = () => { UnityEngine.Object.Destroy(g); _run.StartCoroutine(Flip(top, _revealed == _stack.Count - 1)); };
         }
 
         private IEnumerator Flip(CardView card, bool last)

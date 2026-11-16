@@ -243,7 +243,11 @@ namespace PetStar.Client.UI
 
         private void Update()
         {
+#if ENABLE_INPUT_SYSTEM
             if (_hover && UnityEngine.InputSystem.Mouse.current != null) Aim(UnityEngine.InputSystem.Mouse.current.position.ReadValue());
+#else
+            if (_hover) Aim(Input.mousePosition);
+#endif
             _cur = Vector2.Lerp(_cur, _target, Time.unscaledDeltaTime * 8f);
             transform.localRotation = Quaternion.Euler(-_cur.y * 8f, _cur.x * 10f, 0);
             _view?.SetTilt(_cur);

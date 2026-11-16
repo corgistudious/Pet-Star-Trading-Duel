@@ -67,6 +67,10 @@ namespace PetStar.Client.Core
             return handle.Result;
         }
 
+        /// <summary>Pack art address: pack type "basic_pack" uses asset "ui_pack_basic" (packs.json artAssetId convention).</summary>
+        public static string PackArt(string packTypeId) =>
+            "ui/ui_pack_" + (packTypeId.EndsWith("_pack") ? packTypeId.Substring(0, packTypeId.Length - 5) : packTypeId);
+
         public static string CurrencyIcon(string currency) =>
             currency == Currency.RainbowStar ? "ui/ui_currency_rainbow_star" : "ui/ui_currency_mini_green_bean";
 

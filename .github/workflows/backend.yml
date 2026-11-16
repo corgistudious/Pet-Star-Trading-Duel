@@ -2,7 +2,7 @@ name: Backend & data checks
 
 on:
   push:
-    paths: ["backend/**", "shared-contracts/**", "database/**", "tools/**", "client-unity/Assets/Scripts/**", "client-unity/Assets/Resources/**", ".github/workflows/backend.yml"]
+    paths: ["backend/**", "shared-contracts/**", "database/**", "tools/**", "client-unity/**", ".github/workflows/backend.yml"]
   pull_request:
   workflow_dispatch:
 
@@ -40,10 +40,15 @@ jobs:
           python-version: "3.12"
       - name: Localization coverage (en/vi)
         run: python tools/check_localization.py
-      - name: Unity scripts syntax check (C# 9; not a Unity compile)
+      - name: Unity asset pre-check (files the Unity build needs)
+        run: python tools/check_unity_assets.py
+      - name: Unity scripts syntax check (C# 9)
         run: |
           dotnet run --project tools/unity-syntax-check -- client-unity/Assets/Scripts
+          dotnet run --project tools/unity-syntax-check -- client-unity/Assets/Editor
           dotnet run --project tools/unity-syntax-check -- shared-contracts/Runtime
+      - name: Unity semantic compile check (real UnityEngine/UnityEditor reference DLLs; not a Unity build)
+        run: tools/unity-compile-check/run.sh
       - name: Migrations are in sync with the model
         working-directory: backend
         run: |

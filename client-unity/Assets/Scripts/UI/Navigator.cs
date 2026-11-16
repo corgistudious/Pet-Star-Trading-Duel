@@ -133,6 +133,9 @@ namespace PetStar.Client.UI
             Screen.autorotateToLandscapeRight = duel;
             Screen.orientation = duel ? ScreenOrientation.LandscapeLeft : ScreenOrientation.Portrait;
             Screen.orientation = ScreenOrientation.AutoRotation; // keep auto-rotation within the allowed set
+#elif UNITY_WEBGL && !UNITY_EDITOR
+            // Browser: the page template shows the black rotate overlay on phones (same rule as the web client)
+            WebViewport.SetMode(duel ? "battle" : "portrait");
 #elif UNITY_STANDALONE_WIN
             // Windows: never rotate the physical display. In windowed mode, reshape the window to suit the screen.
             if (Screen.fullScreenMode == FullScreenMode.Windowed)
@@ -295,4 +298,13 @@ namespace PetStar.Client.UI
     {
         private void Update() => transform.Rotate(0, 0, -240 * Time.unscaledDeltaTime);
     }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+    /// <summary>Bridge to the WebGL page template (Plugins/WebGL/PetStarViewport.jslib).</summary>
+    internal static class WebViewport
+    {
+        [System.Runtime.InteropServices.DllImport("__Internal")] private static extern void PetStarSetMode(string mode);
+        public static void SetMode(string mode) { try { PetStarSetMode(mode); } catch (System.Exception) { /* template without bridge */ } }
+    }
+#endif
 }

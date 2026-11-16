@@ -6,6 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
+#if UNITY_WEBGL && !UNITY_EDITOR
+using System.Runtime.InteropServices;
+#endif
 
 namespace PetStar.Client.Core
 {
@@ -18,6 +21,73 @@ namespace PetStar.Client.Core
         public static Realtime? I { get; private set; }
         public event Action<string, JToken?>? Message;
         public event Action? Connected;
+#if UNITY_WEBGL && !UNITY_EDITOR
+        // ---------------- WebGL: browser WebSocket via Plugins/WebGL/PetStarWebSocket.jslib ----------------
+        [DllImport("__Internal")] private static extern void PetStarWsOpen(string url, string gameObjectName);
+        [DllImport("__Internal")] private static extern void PetStarWsClose();
+
+        private bool _running, _open;
+        private int? _server;
+        private int _attempt;
+        public bool IsConnected => _open;
+
+        public static Realtime Ensure(GameObject host) => I ??= host.AddComponent<Realtime>();
+
+        public void ConnectFor(int serverId)
+        {
+            if (_server == serverId && _running) return;
+            Disconnect();
+            _server = serverId;
+            Connect();
+        }
+
+        public void Connect()
+        {
+            if (_running) return;
+            _running = true;
+            _ = Open();
+        }
+
+        public void Disconnect()
+        {
+            _running = false; _open = false; _server = null;
+            PetStarWsClose();
+        }
+
+        private async System.Threading.Tasks.Task Open()
+        {
+            try
+            {
+                var t = await App.Api.Post<JObject>("/api/realtime/ticket", null);
+                if (!_running) return;
+                var baseUrl = ClientConfig.ApiBaseUrl;
+                var url = (baseUrl.StartsWith("https") ? "wss" + baseUrl.Substring(5) : "ws" + baseUrl.Substring(4)) + "/ws?ticket=" + Uri.EscapeDataString((string)t["ticket"]!);
+                PetStarWsOpen(url, gameObject.name);
+            }
+            catch (Exception) { _ = Retry(); }
+        }
+
+        private async System.Threading.Tasks.Task Retry()
+        {
+            if (!_running) return;
+            await Wait.Seconds(Backoff(_attempt++) / 1000f);
+            if (_running && !_open) _ = Open();
+        }
+
+        // called from JavaScript (SendMessage)
+        public void OnWsOpen(string unused) { _open = true; _attempt = 0; Connected?.Invoke(); }
+        public void OnWsClosed(string unused) { _open = false; _ = Retry(); }
+        public void OnWsMessage(string json)
+        {
+            try { var j = JObject.Parse(json); Message?.Invoke((string?)j["type"] ?? "", j["data"]); } catch { /* malformed: ignore */ }
+        }
+
+        private void OnDestroy() => Disconnect();
+
+        private static int Backoff(int attempt) =>
+            (int)(Math.Min(30_000, 1000 * Math.Pow(2, Math.Min(attempt, 5))) * (0.75 + UnityEngine.Random.value * 0.5));
+#else
+        // ---------------- Android / Windows / Editor: System.Net.WebSockets ----------------
         public bool IsConnected => _ws?.State == WebSocketState.Open;
 
         private ClientWebSocket? _ws;
@@ -119,5 +189,6 @@ namespace PetStar.Client.Core
             }
             catch { /* the receive loop handles reconnection */ }
         }
+    #endif
     }
 }

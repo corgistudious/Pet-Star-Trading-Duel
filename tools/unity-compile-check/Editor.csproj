@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Editor build scripts (copied to obj/editor-src by run.sh with Unity 6-only overloads mapped to shims). -->
+  <PropertyGroup>
+    <DefineConstants>UNITY_EDITOR;UNITY_WEBGL</DefineConstants>
+    <AssemblyName>PetStar.Editor.Check</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="obj/editor-src/**/*.cs" />
+    <Compile Include="stubs/Editor.cs;stubs/Runtime.cs;stubs/Shims.Unity6.cs" />
+    <Reference Include="$(PkgUnity3D_SDK)/lib/UnityEditor.dll" Private="false" />
+  </ItemGroup>
+</Project>

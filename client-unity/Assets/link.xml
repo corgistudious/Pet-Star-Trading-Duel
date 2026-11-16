@@ -1,0 +1,7 @@
+<!-- Keeps types that are only reached through reflection (Newtonsoft JSON deserialization of API DTOs and design
+     data) when IL2CPP strips managed code (WebGL / Android). -->
+<linker>
+  <assembly fullname="PetStar.Client" preserve="all" />
+  <assembly fullname="PetStar.Shared" preserve="all" />
+  <assembly fullname="Newtonsoft.Json" preserve="all" />
+</linker>

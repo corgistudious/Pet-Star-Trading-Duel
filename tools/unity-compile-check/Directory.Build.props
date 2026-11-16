@@ -1,0 +1,25 @@
+<Project>
+  <!-- Reference assemblies (NuGet): real UnityEngine modules 2021.3, UnityEditor 2021.1, UnityEngine.UI 2020.3,
+       Newtonsoft.Json 13. Package APIs that are not on NuGet (TextMeshPro, Addressables, Input System) are stubbed. -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <NoWarn>CS8632;CS0436;CS1701;CS1702;CS8618;CS8600;CS8601;CS8602;CS8603;CS8604;CS8625;CS0168;CS0219;CS0414;CS0649;CS4014;CS1998;CS0618;CS0067</NoWarn>
+    <Repo>$(MSBuildThisFileDirectory)../..</Repo>
+    <Platform Condition="'$(Platform)' == '' or '$(Platform)' == 'AnyCPU'">UNITY_WEBGL</Platform>
+    <BaseIntermediateOutputPath>obj/$(MSBuildProjectName)/$(Platform)/</BaseIntermediateOutputPath>
+    <OutputPath>bin/$(MSBuildProjectName)/$(Platform)/</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="UnityEngine.Modules" Version="2021.3.33" GeneratePathProperty="true" ExcludeAssets="all" />
+    <PackageReference Include="Unity3D.SDK" Version="2021.1.14.1" GeneratePathProperty="true" ExcludeAssets="all" />
+    <PackageReference Include="Unity3D.UnityEngine.UI" Version="2020.3.21" GeneratePathProperty="true" ExcludeAssets="all" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="$(PkgUnityEngine_Modules)/lib/net35/*.dll" Private="false" />
+    <Reference Include="$(PkgUnity3D_UnityEngine_UI)/lib/UnityEngine.UI.dll" Private="false" />
+  </ItemGroup>
+</Project>

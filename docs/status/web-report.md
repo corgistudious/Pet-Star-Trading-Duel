@@ -1,5 +1,47 @@
 # Web-first report: live features, web client, deployment (2026-11-15)
 
+## Update: Unity WebGL via Unity Build Automation
+
+**Automation for Build Automation**
+- Pre-export entry point `PetStar.EditorTools.CloudBuild.PreExport`. It configures the project, validates it and
+  builds Addressables.
+- `PetStarBuild` was made unattended-safe:
+  - WebGL player settings;
+  - synchronous TMP Essentials extraction (the `.unitypackage` reader was tested on a synthetic package, including
+    long names and a path-traversal entry);
+  - duel board sprites in their own Addressables group with fixed addresses;
+  - one bundle per sprite;
+  - a guarded atlas;
+  - a safe shader include;
+  - the `PETSTAR_ENV` / `PETSTAR_API_BASE` environment.
+- `ProjectValidator`: version/path, scenes, board sprites, all 208 runtime addresses, fonts, WebGL template and
+  plugins, HTTPS API, JSON.
+- WebGL page template `PetStar` (black, safe area, rotate overlay following the official viewport rule) and
+  `link.xml`. GameCI workflow removed.
+
+**WebGL runtime fixes**
+- Realtime uses a browser WebSocket bridge (`.jslib`); `System.Net.WebSockets` is unavailable in WebGL.
+- `Task.Delay` was replaced with a main-thread wait.
+- UI input works with either input backend.
+- Navigator tells the page whether a duel is open.
+
+**Real bugs found by the new semantic compile check (each would have failed the Unity build)**
+- `CurrencyEffects.cs` was missing `using PetStar.Client.UI`.
+- `PackOpeningScreen` called `Destroy` from a non-MonoBehaviour.
+- `SocialScreens.cs` was missing `using System`.
+- A discard/parameter clash in the new WebGL realtime code.
+- Asset bug: pack art loaded `ui/ui_basic_pack` instead of `ui/ui_pack_basic`.
+
+**Checks on every push (no Unity license)**
+- Asset pre-check.
+- C# 9 syntax check.
+- Semantic compile in 5 configurations (WebGL, WebGL without Input System, Android, Windows, Editor) against real
+  UnityEngine/UnityEditor/UI reference DLLs, with stubs for TMP/Addressables/Input System. All pass.
+
+**Not testable here:** a real Unity Editor import/compile/build (Unity's servers are blocked from this
+environment; Build Automation is the first real build), shaders/IL2CPP/WebAssembly, the WebGL build on an iPhone,
+and the Build Automation API in the publish workflow. Details: [../unity-cloud-build.md](../unity-cloud-build.md).
+
 ## Update: remaining items
 
 - **E-mail links:** verification and reset mails now link to the web client (`App:WebBaseUrl`, default
@@ -149,7 +191,8 @@ There are no mocks.
 - **VAPID keys for Web Push**: generated on the VPS with `generate-vapid`.
 
 **Deferred by decision**
-- **Unity compile and device builds**: license step deferred.
+- **Unity**: the license is activated and Unity Build Automation (WebGL first) is prepared. The first real cloud
+  build has not run yet.
   - The Unity code now also has the live features: realtime socket, Missions, Rewards (login / gift code /
     events), Guild, Chat, live PvP lobby and live duel mode.
   - It is checked only for **syntax** (Roslyn, C# 9, in CI); it has never been compiled against UnityEngine.

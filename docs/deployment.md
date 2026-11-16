@@ -28,19 +28,15 @@ Monitoring baseline: container health checks, `/health/ready` (DB check), struct
 
 ## Unity builds without a local PC
 
-The owner coordinates from an iPhone, so builds run in GitHub Actions (`.github/workflows/unity-build.yml`, GameCI):
+Unity builds run in **Unity Build Automation** (Unity Cloud), which supplies the Editor license itself, so no
+`UNITY_LICENSE`, serial or keystore is needed for WebGL. **WebGL comes first**; Android and Windows are deferred.
+The GitHub Actions GameCI workflow was removed. For setup, the pre-export method, environment variables, publishing
+to a Cloudflare Pages preview from an iPhone, and the checks that run on every push, see
+[unity-cloud-build.md](unity-cloud-build.md).
 
-1. Add repository secrets: `UNITY_EMAIL`, `UNITY_PASSWORD` and `UNITY_LICENSE` (Personal: the `.ulf` file content) or
-   `UNITY_SERIAL` (Pro). Unity Build Automation is an alternative if preferred (paid, not assumed).
-2. For Google Play: create an upload keystore once (Play App Signing keeps the app signing key), then add
-   `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASS`, `ANDROID_KEYALIAS_NAME`, `ANDROID_KEYALIAS_PASS`.
-3. Run the workflow from the GitHub app (Actions → Unity client builds → Run workflow) and download the APK, AAB and
-   Windows build artifacts.
-
-The build method (`PetStar.EditorTools.PetStarBuild`) sets up the project (bootstrap scene, sprite importers,
-currency Sprite Atlas, Addressables, TextMeshPro fonts), builds Addressables and the player.
-Android: IL2CPP, ARM64, min API 26, target API = latest installed SDK (Google Play requires a recent target API;
-confirm the current requirement at release time). AAB builds refuse to run without the release keystore.
+The Android/Windows build methods remain in `PetStarBuild` for later:
+- Android: IL2CPP, ARM64, min API 26.
+- AAB builds refuse to run without a release keystore provided by CI secrets.
 
 ## Environments
 

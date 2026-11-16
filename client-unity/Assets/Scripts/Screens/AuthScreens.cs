@@ -28,7 +28,7 @@ namespace PetStar.Client.Screens
 
         public override async void OnShow()
         {
-            await System.Threading.Tasks.Task.Delay(900);
+            await Wait.Seconds(0.9f);
             if (Session.HasStoredLogin && await Session.TryRefresh(Api))
             {
                 // resume the last server directly when possible
