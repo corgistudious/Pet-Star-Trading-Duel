@@ -9,9 +9,9 @@ name: Web client (Cloudflare Pages)
 
 on:
   push:
-    paths: ["web-client/**", ".github/workflows/web.yml"]
+    paths: ["web-client/**", "backend/**", "shared-contracts/**", "database/seed/**", ".github/workflows/web.yml"]
   pull_request:
-    paths: ["web-client/**"]
+    paths: ["web-client/**", "backend/**", "shared-contracts/**", "database/seed/**"]
   workflow_dispatch:
 
 concurrency:
@@ -77,8 +77,12 @@ jobs:
           RateLimits__AuthPerMinute: "1000"
           RateLimits__UserPerMinute: "5000"
           Cors__AllowedOrigins__0: http://localhost:4173
+          WebPush__Subject: mailto:ci@petstar.invalid
         run: |
           dotnet build -c Release -v q
+          # throwaway VAPID keys for this CI run only (never stored)
+          eval "$(dotnet bin/Release/net10.0/PetStar.Api.dll generate-vapid | sed 's/^/export /')"
+          export WebPush__PublicKey="$WEBPUSH_PUBLIC_KEY" WebPush__PrivateKey="$WEBPUSH_PRIVATE_KEY"
           nohup dotnet bin/Release/net10.0/PetStar.Api.dll > /tmp/api.log 2>&1 &
           for i in $(seq 1 60); do curl -fsS http://127.0.0.1:5080/health/ready && break; sleep 2; done
       - name: Playwright
