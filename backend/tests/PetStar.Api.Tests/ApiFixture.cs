@@ -30,12 +30,18 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         b.UseSetting("RateLimits:AuthPerMinute", "100000");
         b.UseSetting("RateLimits:UserPerMinute", "100000");
         b.UseSetting("Cors:AllowedOrigins:0", "https://petstar.pages.dev");
+        b.UseSetting("WebPush:PublicKey", FakePush.VapidPublic);
+        b.UseSetting("WebPush:PrivateKey", FakePush.VapidPrivate);
+        b.UseSetting("WebPush:Subject", "mailto:ops@petstar.test");
+        // push services are replaced by an in-process fake that records what would have been sent
+        b.ConfigureServices(s => s.AddHttpClient("webpush").ConfigurePrimaryHttpMessageHandler(() => new FakePush.Handler()));
     }
 
     public Task InitializeAsync()
     {
         PetStar.Api.Features.MarketMaintenanceService.Interval = TimeSpan.FromHours(1); // tests drive maintenance explicitly
         PetStar.Api.Features.PvpTimeoutService.Interval = TimeSpan.FromHours(1);
+        PetStar.Api.Infrastructure.PushDispatcher.CommitWait = TimeSpan.FromMilliseconds(150);
         _ = Server;
         return Task.CompletedTask;
     }

@@ -1,5 +1,20 @@
 # Web-first report: live features, web client, deployment (2026-11-15)
 
+## Update: Web Push
+
+- Backend sends standards-based Web Push: RFC 8291 encryption, verified byte-for-byte against the RFC example,
+  and VAPID signing.
+- Rules: endpoint allowlist (anti-SSRF), push only when the player is offline, only for committed notifications,
+  per-category opt-in, en/vi texts, per-account rate limit, cleanup of revoked subscriptions.
+- Settings switch + categories + test button. The iPhone hint appears in Safari tabs (Home Screen app required).
+  The service worker shows notifications and opens the right screen on tap.
+- Migration `WebPush`.
+- Tests: API 73/73, rules 46/46 (12 consecutive runs), web unit 42/42, e2e 11/11 (two consecutive runs).
+- Fixed a real race in shared rules code: `GameCatalog.Forms` published a half-built dictionary under concurrent
+  first access. This caused an intermittent pack-odds test failure; the Unity client was also exposed.
+- Not verifiable here: a real push-service subscription and a real iPhone. Needs one manual check after deploy.
+  Details: [../web-push.md](../web-push.md).
+
 ## Update: missions, PWA, viewport rules
 
 - **Daily/weekly missions:** server-side, with progress derived from pack openings, battle results, evolutions, the
@@ -26,7 +41,7 @@
   - Rules 46/46.
   - Web unit 39/39.
   - Web e2e 8/8 (gameplay, viewport, PWA, desktop resize).
-- Missing (unchanged): Web Push, real-iPhone manual pass, Unity compile.
+- Missing (unchanged): real-iPhone manual pass, Unity compile.
 
 
 Branch `claude/pet-star-trading-duel-luftdb`. Backend live features were committed in `a12daab`, the web client

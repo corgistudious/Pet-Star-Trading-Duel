@@ -159,3 +159,19 @@ public class MissionClaim
     public string PeriodKey { get; set; } = "";
     public DateTimeOffset At { get; set; }
 }
+
+/// <summary>A browser/device Web Push subscription (per account; pushes cover every server the account plays on).</summary>
+public class WebPushSubscription
+{
+    public long Id { get; set; }
+    public long AccountId { get; set; }
+    public string Endpoint { get; set; } = "";
+    public string P256dh { get; set; } = "";
+    public string Auth { get; set; } = "";
+    /// <summary>Comma-separated enabled categories: market, auction, pvp, guild, social, system.</summary>
+    public string Categories { get; set; } = "market,auction,pvp,guild,social,system";
+    public string? UserAgent { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset? LastSuccessAt { get; set; }
+    public int FailureCount { get; set; }
+}

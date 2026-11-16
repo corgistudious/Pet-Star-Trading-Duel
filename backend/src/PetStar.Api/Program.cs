@@ -11,6 +11,15 @@ using PetStar.Api.Features;
 using PetStar.Api.Infrastructure;
 using StackExchange.Redis;
 
+// `dotnet PetStar.Api.dll generate-vapid` prints a fresh VAPID key pair for Web Push (run on the server, store in
+// the secrets file; the private key never goes into git or chat).
+if (args.Length > 0 && args[0] == "generate-vapid")
+{
+    var (vapidPub, vapidPriv) = WebPushCrypto.GenerateVapidKeys();
+    Console.WriteLine($"WEBPUSH_PUBLIC_KEY={vapidPub}\nWEBPUSH_PRIVATE_KEY={vapidPriv}");
+    return;
+}
+
 var builder = WebApplication.CreateBuilder(args);
 var cfg = builder.Configuration;
 var env = builder.Environment;
@@ -48,6 +57,15 @@ else builder.Services.AddSingleton<IPresence, MemoryPresence>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient("store");
+// Web Push: configured only when WebPush:PublicKey/PrivateKey/Subject are provided (otherwise disabled, never faked)
+var webPush = cfg.GetSection("WebPush").Get<WebPushOptions>() ?? new WebPushOptions();
+builder.Services.AddSingleton(webPush);
+builder.Services.AddSingleton(PushTexts.Load(seedDir));
+builder.Services.AddSingleton<PushQueue>();
+builder.Services.AddHttpClient("webpush", c => c.Timeout = TimeSpan.FromSeconds(10));
+builder.Services.AddScoped<WebPushSender>();
+builder.Services.AddSingleton<PushDispatcher>();
+builder.Services.AddHostedService(sp => sp.GetRequiredService<PushDispatcher>());
 builder.Services.AddSingleton<TokenService>();
 builder.Services.AddSingleton<PasswordService>();
 builder.Services.AddScoped<AuditService>();
@@ -165,6 +183,7 @@ GuildChatEndpoints.Map(app);
 LivePvpEndpoints.Map(app);
 RewardsEndpoints.Map(app);
 MissionEndpoints.Map(app);
+WebPushEndpoints.Map(app);
 AdminEndpoints.Map(app);
 
 if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing"))

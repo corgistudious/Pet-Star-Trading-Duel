@@ -76,6 +76,9 @@ services:
       Bootstrap__OwnerEmail: ${OWNER_EMAIL:-}
       Iap__Enabled: "false"                  # no real-money purchases in this phase
       Iap__AllowFakeStore: "false"
+      WebPush__PublicKey: ${WEBPUSH_PUBLIC_KEY:-}     # empty = Web Push disabled (reported as such in the app)
+      WebPush__PrivateKey: ${WEBPUSH_PRIVATE_KEY:-}
+      WebPush__Subject: ${WEBPUSH_SUBJECT:-}
       Smtp__Host: ${SMTP_HOST:-}
       Smtp__User: ${SMTP_USER:-}
       Smtp__Password: ${SMTP_PASSWORD:-}

@@ -5,6 +5,7 @@ import type { LedgerEntryDto, SessionDto } from '../api/types';
 import { useI18n, type Lang } from '../i18n';
 import { useSession } from '../state/session';
 import { usePwa } from '../state/pwa';
+import { PushSettings } from '../components/PushSettings';
 import { PageHead } from '../components/Layout';
 import { Loading, Price, Tabs, timeAgo, useAction, useLoad } from '../components/ui';
 
@@ -33,6 +34,7 @@ export default function Settings() {
           </label>
           <p className="muted small">{profile?.email} · {profile?.emailVerified ? t('profile.email_verified') : t('profile.email_unverified')}</p>
           {!profile?.emailVerified && <button className="btn ghost" disabled={busy} onClick={() => run(() => api.post('/api/auth/resend-verification'), t('auth.check_email'))}>{t('profile.resend')}</button>}
+          <PushSettings />
           <div role="group" aria-labelledby="install-label">
             <span id="install-label" className="muted small">{t('web.install_app')}</span>
             {pwa.standalone ? <p className="small">{t('web.installed')}</p>

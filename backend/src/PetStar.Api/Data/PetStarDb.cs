@@ -49,6 +49,7 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
     public DbSet<EventClaim> EventClaims => Set<EventClaim>();
     public DbSet<LoginRewardClaim> LoginRewards => Set<LoginRewardClaim>();
     public DbSet<MissionClaim> MissionClaims => Set<MissionClaim>();
+    public DbSet<WebPushSubscription> PushSubscriptions => Set<WebPushSubscription>();
     public DbSet<CardSerialRegistry> SerialRegistry => Set<CardSerialRegistry>();
     public DbSet<CardPassport> Passports => Set<CardPassport>();
     public DbSet<CardProgressEvent> CardProgress => Set<CardProgressEvent>();
@@ -549,6 +550,18 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
         b.Entity<GameEvent>(e => { e.ToTable("game_events"); e.Property(x => x.RewardsJson).HasColumnType("jsonb"); e.HasIndex(x => new { x.ServerId, x.EndsAt }); });
         b.Entity<EventClaim>(e => { e.ToTable("event_claims"); e.HasKey(x => new { x.EventId, x.MembershipId }); e.HasOne<GameEvent>().WithMany().HasForeignKey(x => x.EventId); });
         b.Entity<LoginRewardClaim>(e => { e.ToTable("login_reward_claims"); e.HasKey(x => new { x.MembershipId, x.Day }); });
+        b.Entity<WebPushSubscription>(e =>
+        {
+            e.ToTable("push_subscriptions");
+            e.Property(x => x.Endpoint).HasMaxLength(1024);
+            e.HasIndex(x => x.Endpoint).IsUnique();
+            e.HasIndex(x => x.AccountId);
+            e.Property(x => x.P256dh).HasMaxLength(128);
+            e.Property(x => x.Auth).HasMaxLength(64);
+            e.Property(x => x.Categories).HasMaxLength(100);
+            e.Property(x => x.UserAgent).HasMaxLength(200);
+            e.HasOne<Account>().WithMany().HasForeignKey(x => x.AccountId).OnDelete(DeleteBehavior.Cascade);
+        });
         b.Entity<MissionClaim>(e =>
         {
             e.ToTable("mission_claims");

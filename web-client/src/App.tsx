@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { lazy, Suspense, useEffect } from 'react';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { useSession } from './state/session';
 import { useT } from './i18n';
 import { Layout } from './components/Layout';
@@ -46,11 +46,14 @@ export default function App() {
   if (status === 'account') return <PortraitFrame><Routes><Route path="*" element={<ServersScreen />} /></Routes></PortraitFrame>;
   // Duels are the only Landscape 16:9 screens; everything else lives in the Portrait 9:16 frame.
   return (
+    <>
+    <SwNavigate />
     <Routes>
       <Route path="/battle/:id" element={<BattleFrame><Suspense fallback={<Loading />}><Battle live={false} /></Suspense></BattleFrame>} />
       <Route path="/pvp/:id" element={<BattleFrame><Suspense fallback={<Loading />}><Battle live /></Suspense></BattleFrame>} />
       <Route path="*" element={<PortraitFrame><PortraitRoutes /></PortraitFrame>} />
     </Routes>
+    </>
   );
 }
 
@@ -102,4 +105,19 @@ function Unreachable() {
       <div><p>{t('web.server_unreachable')}</p><button className="btn primary" onClick={retry}>{t('web.retry')}</button></div>
     </div>
   );
+}
+
+/** A tapped push notification asks the open app (via the service worker) to go to its screen. Same-origin paths only. */
+function SwNavigate() {
+  const nav = useNavigate();
+  useEffect(() => {
+    if (!('serviceWorker' in navigator)) return;
+    const onMsg = (e: MessageEvent) => {
+      const url = e.data?.type === 'navigate' ? String(e.data.url) : '';
+      if (url.startsWith('/') && !url.startsWith('//')) nav(url);
+    };
+    navigator.serviceWorker.addEventListener('message', onMsg);
+    return () => navigator.serviceWorker.removeEventListener('message', onMsg);
+  }, [nav]);
+  return null;
 }

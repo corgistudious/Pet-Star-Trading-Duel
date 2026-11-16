@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { api, refreshSession, tokens } from '../api/client';
 import type { AuthResponse, PlayerDto, ProfileDto } from '../api/types';
+import { disablePush, syncPush } from './push';
 
 type Status = 'loading' | 'anonymous' | 'account' | 'in_server' | 'unreachable';
 
@@ -53,6 +54,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => { void bootstrap(); }, [bootstrap]);
+  useEffect(() => { if (status === 'account' || status === 'in_server') void syncPush(); }, [status]);
   useEffect(() => {
     if (status !== 'unreachable') return;
     const again = () => { setStatus('loading'); void bootstrap(); };
@@ -70,6 +72,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const logout = useCallback(async () => {
+    await disablePush().catch(() => {}); // this device must not keep receiving the previous player's alerts
     try { await api.post('/api/auth/logout'); } catch { /* already gone */ }
     tokens.clear();
     setPlayer(null); setProfile(null); setStatus('anonymous');

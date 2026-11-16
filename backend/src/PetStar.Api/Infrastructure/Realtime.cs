@@ -44,6 +44,8 @@ public sealed class RealtimeHub
     private const string Channel = "petstar:realtime";
     private readonly ConcurrentDictionary<long, ConcurrentDictionary<Guid, (WebSocket ws, int server)>> _byMember = new();
     private readonly ISubscriber? _sub;
+    private readonly IDatabase? _redisDb;
+    private static readonly TimeSpan ConnectedTtl = TimeSpan.FromSeconds(70); // client pings every 20 s
     private readonly ILogger<RealtimeHub> _log;
 
     private sealed record Envelope(string Kind, long[]? Members, int? Server, string Payload);
@@ -55,6 +57,7 @@ public sealed class RealtimeHub
         if (redis != null)
         {
             _sub = redis.GetSubscriber();
+            _redisDb = redis.GetDatabase();
             _sub.Subscribe(RedisChannel.Literal(Channel), (ch, msg) =>
             {
                 var env = JsonSerializer.Deserialize<Envelope>(msg.ToString());
@@ -65,6 +68,26 @@ public sealed class RealtimeHub
 
     public int ConnectionCount => _byMember.Values.Sum(v => v.Count);
     public bool IsOnline(long membershipId) => _byMember.TryGetValue(membershipId, out var c) && !c.IsEmpty;
+
+    /// <summary>True when the member has an open realtime socket on ANY API instance (then no Web Push is needed:
+    /// the in-app notification is shown instead).</summary>
+    public async Task<bool> IsConnectedAnywhere(long membershipId)
+    {
+        if (IsOnline(membershipId)) return true;
+        if (_redisDb == null) return false;
+        try { return await _redisDb.KeyExistsAsync("ws_online:" + membershipId); } catch { return false; }
+    }
+
+    private async Task MarkConnected(long membershipId, bool connected)
+    {
+        if (_redisDb == null) return;
+        try
+        {
+            if (connected) await _redisDb.StringSetAsync("ws_online:" + membershipId, "1", ConnectedTtl);
+            else if (!IsOnline(membershipId)) await _redisDb.KeyDeleteAsync("ws_online:" + membershipId);
+        }
+        catch (Exception ex) { _log.LogDebug(ex, "presence update failed"); }
+    }
 
     public Task ToMembers(IEnumerable<long> members, string type, object data) =>
         Publish(new Envelope("members", members.Distinct().ToArray(), null, Serialize(type, data)));
@@ -101,6 +124,7 @@ public sealed class RealtimeHub
         var id = Guid.NewGuid();
         var conns = _byMember.GetOrAdd(t.MembershipId, _ => new());
         conns[id] = (ws, t.ServerId);
+        await MarkConnected(t.MembershipId, true);
         var buffer = new byte[1024];
         try
         {
@@ -110,13 +134,17 @@ public sealed class RealtimeHub
                 var r = await ws.ReceiveAsync(buffer, ct);
                 if (r.MessageType == WebSocketMessageType.Close) break;
                 if (r.Count == 4 && Encoding.UTF8.GetString(buffer, 0, 4) == "ping")
+                {
                     await ws.SendAsync(Encoding.UTF8.GetBytes("pong"), WebSocketMessageType.Text, true, ct);
+                    await MarkConnected(t.MembershipId, true);
+                }
             }
         }
         catch (Exception ex) when (ex is WebSocketException or OperationCanceledException) { }
         finally
         {
             conns.TryRemove(id, out _);
+            await MarkConnected(t.MembershipId, false);
             // complete the close handshake whether we or the client initiated it
             if (ws.State is WebSocketState.Open or WebSocketState.CloseReceived)
                 try { await ws.CloseOutputAsync(WebSocketCloseStatus.NormalClosure, "bye", CancellationToken.None); } catch { /* ignore */ }

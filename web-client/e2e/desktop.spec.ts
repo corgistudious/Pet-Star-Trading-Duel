@@ -111,3 +111,20 @@ test('PC window resize: portrait 9:16 column outside duels, letterboxed 16:9 due
   await page.getByRole('button', { name: 'back' }).click();
   await expect(page.getByTestId('portrait-frame')).toBeVisible();
 });
+
+test('desktop: notification switch is offered; a failed subscription is reported, never shown as enabled', async ({ page, context, request }) => {
+  const { apiPlayer, signIn } = await import('./helpers');
+  const p = await apiPlayer(request);
+  await signIn(context, p.refresh);
+  await context.grantPermissions(['notifications']);
+  await page.goto('/');
+  await expect(page.getByTestId('bal-MINI_GREEN_BEAN')).toBeVisible();
+  await page.goto('/settings');
+  const toggle = page.getByTestId('push-toggle');
+  await expect(toggle).toBeVisible();
+  await expect(toggle).not.toBeChecked();
+  await toggle.click();
+  // headless Chromium has no push service connection: the browser refuses and the UI says so honestly
+  await expect(page.locator('.toast-err')).toBeVisible();
+  await expect(toggle).not.toBeChecked();
+});

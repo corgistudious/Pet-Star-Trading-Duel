@@ -95,6 +95,9 @@ Steps 1–7 are local to Pet Star.
    4. Sign out and sign in again: the Web Admin Panel tile appears.
    Grant moderators/admins from the panel; only the owner can change roles.
 
+**Web Push (optional).** Generate VAPID keys on the VPS (`... run --rm --no-deps api generate-vapid`), add
+`WEBPUSH_*` to `petstar.env`, then re-run `deploy.sh`. See [web-push.md](web-push.md).
+
 ### Upgrades, backups, restore
 
 - **Upgrade:** `git fetch && git checkout <sha> && bash deployment/vps/deploy.sh`. It takes a backup first.

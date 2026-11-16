@@ -58,3 +58,34 @@ self.addEventListener('fetch', (event) => {
   }
   event.respondWith(caches.match(req, MATCH).then((hit) => hit || fetch(req)));
 });
+
+// ---- Web Push ----
+// Payloads arrive end-to-end encrypted and are decrypted by the browser. The server only pushes when the player
+// has no live connection, so we always show the notification (Chrome requires a visible notification per push).
+const safeUrl = (u) => (typeof u === 'string' && u.startsWith('/') && !u.startsWith('//') ? u : '/');
+
+self.addEventListener('push', (event) => {
+  let d = {};
+  try { d = event.data ? event.data.json() : {}; } catch { d = { body: event.data ? event.data.text() : '' }; }
+  event.waitUntil(self.registration.showNotification(d.title || 'Pet Star', {
+    body: d.body || '',
+    icon: '/icons/icon-192.png',
+    badge: '/icons/icon-192.png',
+    tag: d.tag || 'petstar',
+    data: { url: safeUrl(d.url) },
+  }));
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const url = safeUrl(event.notification.data && event.notification.data.url);
+  event.waitUntil((async () => {
+    const all = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    const client = all.find((c) => new URL(c.url).origin === self.location.origin);
+    if (client) {
+      client.postMessage({ type: 'navigate', url });
+      return client.focus();
+    }
+    return self.clients.openWindow(url);
+  })());
+});

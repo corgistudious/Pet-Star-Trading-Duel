@@ -27,7 +27,8 @@ namespace PetStar.Rules
             {
                 if (_forms == null)
                 {
-                    _forms = new Dictionary<string, PetFormDef>();
+                    // build fully, then publish: concurrent readers never see a half-filled dictionary
+                    var forms = new Dictionary<string, PetFormDef>();
                     foreach (var fam in Families)
                         foreach (var f in fam.Forms)
                         {
@@ -35,8 +36,9 @@ namespace PetStar.Rules
                             f.Element = fam.Element;
                             f.Role = fam.Role;
                             f.FamilyStages = fam.Stages;
-                            _forms[f.Id] = f;
+                            forms[f.Id] = f;
                         }
+                    System.Threading.Interlocked.CompareExchange(ref _forms, forms, null);
                 }
                 return _forms;
             }
