@@ -32,8 +32,12 @@ icons += [p["assetId"] for p in json.loads((A / "Resources/Data/economy.json").r
 for i in sorted(set(icons)):
     found = list((A / "Art/UI").rglob(f"{i}.png"))
     (ok if found else errors).append(f"icon {i}")
-if not list((A / "Art/UI").rglob("ui_pack_legendary.png")):
-    warnings.append("no ui_pack_legendary art (pack opening uses the default look)")
+# card system expansion: art for all 9 packs, upgrade materials and Divine crests
+for i in ["ui_pack_basic", "ui_pack_premium", "ui_pack_transcendent", "ui_pack_epic", "ui_pack_legendary", "ui_pack_mythic",
+          "ui_pack_divine_premium", "ui_pack_divine_limited", "ui_pack_divine_star",
+          "ui_mat_pet_shard", "ui_mat_enhance_stone", "ui_mat_breakthrough_core", "ui_mat_awakening_crystal", "ui_mat_engraving_dust",
+          "ui_mat_training_scroll", "ui_crest_premium", "ui_crest_limited", "ui_crest_star"]:
+    (ok if list((A / "Art/UI").rglob(f"{i}.png")) else errors).append(f"card-system art {i}")
 
 for f in ("Editor/PetStarBuild.cs", "Editor/CloudBuild.cs", "Editor/ProjectValidator.cs", "Editor/PetStar.Editor.asmdef",
           "WebGLTemplates/PetStar/index.html", "Plugins/WebGL/PetStarWebSocket.jslib", "Plugins/WebGL/PetStarViewport.jslib", "link.xml"):

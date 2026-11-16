@@ -4733,6 +4733,621 @@
           }
         }
       ]
+    },
+    {
+      "id": "fam_dv_aurelion",
+      "element": "light",
+      "role": "guardian",
+      "stages": 1,
+      "divine": "premium",
+      "identity": "lion cub with a mane of faceted diamond plates; gold-trimmed paws; sapphire eyes",
+      "release": {
+        "pack": "divine_premium_pack",
+        "season": "S1",
+        "frame": "frame_divine_premium",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_aurelion",
+          "name": "Aurelion",
+          "names": {
+            "en": "Aurelion",
+            "vi": "Kim Sư Aurelion"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 1089,
+            "atk": 101,
+            "def": 115,
+            "spd": 70,
+            "crit": 0.06
+          },
+          "skill": "dv_aurelion_s",
+          "ultimate": "dv_aurelion_u",
+          "passive": "p_dv_aurelion",
+          "art": "a chubby chibi lion cub standing proudly, mane made of shining faceted diamond plates, white-gold fur, gold filigree on its paws, big sapphire eyes, luxurious divine collectible style, polished gold filigree accents and faceted diamond crystals, warm premium rim light, tiny floating diamond sparkles",
+          "lore": {
+            "en": "Aurelion's diamond mane refracts sunlight into shields for its friends.",
+            "vi": "Bờm kim cương của Aurelion khúc xạ ánh nắng thành tấm khiên che chở đồng đội."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fam_dv_diamaris",
+      "element": "water",
+      "role": "mage",
+      "stages": 1,
+      "divine": "premium",
+      "identity": "crystal fox with three translucent diamond tails; aquamarine eyes",
+      "release": {
+        "pack": "divine_premium_pack",
+        "season": "S1",
+        "frame": "frame_divine_premium",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_diamaris",
+          "name": "Diamaris",
+          "names": {
+            "en": "Diamaris",
+            "vi": "Ngọc Hồ Diamaris"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 919,
+            "atk": 138,
+            "def": 81,
+            "spd": 86,
+            "crit": 0.08
+          },
+          "skill": "dv_diamaris_s",
+          "ultimate": "dv_diamaris_u",
+          "passive": "p_dv_diamaris",
+          "art": "an elegant chibi fox sitting with three translucent crystal tails that sparkle like diamonds, pale aqua fur, aquamarine eyes, tiny gold earrings, luxurious divine collectible style, polished gold filigree accents and faceted diamond crystals, warm premium rim light, tiny floating diamond sparkles",
+          "lore": {
+            "en": "Every tail of Diamaris holds a drop of the deepest ocean, cut like a jewel.",
+            "vi": "Mỗi chiếc đuôi của Diamaris chứa một giọt đại dương sâu thẳm, được mài như ngọc quý."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fam_dv_regalwing",
+      "element": "fire",
+      "role": "striker",
+      "stages": 1,
+      "divine": "premium",
+      "identity": "phoenix chick with gold-leaf plumage and ruby tail feathers",
+      "release": {
+        "pack": "divine_premium_pack",
+        "season": "S1",
+        "frame": "frame_divine_premium",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_regalwing",
+          "name": "Regalwing",
+          "names": {
+            "en": "Regalwing",
+            "vi": "Phượng Kim Regalwing"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 885,
+            "atk": 146,
+            "def": 74,
+            "spd": 98,
+            "crit": 0.12
+          },
+          "skill": "dv_regalwing_s",
+          "ultimate": "dv_regalwing_u",
+          "passive": "p_dv_regalwing",
+          "art": "a fluffy chibi phoenix chick mid-flap, plumage like hammered gold leaf, ruby-red tail feathers with ember tips, bright golden eyes, luxurious divine collectible style, polished gold filigree accents and faceted diamond crystals, warm premium rim light, tiny floating diamond sparkles",
+          "lore": {
+            "en": "Regalwing's feathers are said to be minted from the first sunrise.",
+            "vi": "Người ta nói lông vũ của Regalwing được đúc từ bình minh đầu tiên."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fam_dv_opulynx",
+      "element": "lightning",
+      "role": "controller",
+      "stages": 1,
+      "divine": "premium",
+      "identity": "lynx with gold filigree markings and topaz lightning ear tufts",
+      "release": {
+        "pack": "divine_premium_pack",
+        "season": "S1",
+        "frame": "frame_divine_premium",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_opulynx",
+          "name": "Opulynx",
+          "names": {
+            "en": "Opulynx",
+            "vi": "Linh Miêu Hoàng Ngọc"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 917,
+            "atk": 126,
+            "def": 86,
+            "spd": 102,
+            "crit": 0.09
+          },
+          "skill": "dv_opulynx_s",
+          "ultimate": "dv_opulynx_u",
+          "passive": "p_dv_opulynx",
+          "art": "a sleek chibi lynx crouching, cream fur with ornate gold filigree markings, topaz crystal ear tufts crackling with small lightning, amber eyes, luxurious divine collectible style, polished gold filigree accents and faceted diamond crystals, warm premium rim light, tiny floating diamond sparkles",
+          "lore": {
+            "en": "Opulynx moves so fast that only a gold afterimage remains.",
+            "vi": "Opulynx di chuyển nhanh đến mức chỉ còn lại một vệt sáng vàng."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fam_dv_jadeheart",
+      "element": "nature",
+      "role": "support",
+      "stages": 1,
+      "divine": "premium",
+      "identity": "tortoise with a polished jade shell inlaid with gold leaf patterns",
+      "release": {
+        "pack": "divine_premium_pack",
+        "season": "S1",
+        "frame": "frame_divine_premium",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_jadeheart",
+          "name": "Jadeheart",
+          "names": {
+            "en": "Jadeheart",
+            "vi": "Rùa Ngọc Bích"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 1040,
+            "atk": 110,
+            "def": 100,
+            "spd": 74,
+            "crit": 0.05
+          },
+          "skill": "dv_jadeheart_s",
+          "ultimate": "dv_jadeheart_u",
+          "passive": "p_dv_jadeheart",
+          "art": "a round chibi tortoise smiling, shell of polished green jade inlaid with gold leaf patterns, small blossoms growing along the shell rim, gentle emerald eyes, luxurious divine collectible style, polished gold filigree accents and faceted diamond crystals, warm premium rim light, tiny floating diamond sparkles",
+          "lore": {
+            "en": "Jadeheart's shell glows warmly whenever a friend is hurt.",
+            "vi": "Mai rùa của Jadeheart tỏa sáng ấm áp mỗi khi đồng đội bị thương."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fam_dv_lanternix",
+      "element": "fire",
+      "role": "support",
+      "stages": 1,
+      "divine": "limited",
+      "identity": "fox carrying a paper lantern tail tip, red festival tassels",
+      "release": {
+        "pack": "divine_limited_pack",
+        "season": "S1-festival",
+        "frame": "frame_divine_limited",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_lanternix",
+          "name": "Lanternix",
+          "names": {
+            "en": "Lanternix",
+            "vi": "Hồ Ly Đèn Lồng"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 1036,
+            "atk": 125,
+            "def": 97,
+            "spd": 84,
+            "crit": 0.06
+          },
+          "skill": "dv_lanternix_s",
+          "ultimate": "dv_lanternix_u",
+          "passive": "p_dv_lanternix",
+          "art": "a cute chibi fox with a glowing red paper lantern at the tip of its tail, festival tassels on its ears, warm orange fur, happy closed-eye smile, limited festival edition style, seasonal event motifs, soft celebratory glow, a small ribbon seal badge as its edition mark",
+          "lore": {
+            "en": "Lanternix appears on festival nights, guiding lost travellers home.",
+            "vi": "Lanternix xuất hiện trong những đêm hội, dẫn lối người lạc trở về nhà."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fam_dv_frostbloom",
+      "element": "water",
+      "role": "guardian",
+      "stages": 1,
+      "divine": "limited",
+      "identity": "reindeer fawn with antlers of frost flowers, winter scarf",
+      "release": {
+        "pack": "divine_limited_pack",
+        "season": "S1-winter",
+        "frame": "frame_divine_limited",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_frostbloom",
+          "name": "Frostbloom",
+          "names": {
+            "en": "Frostbloom",
+            "vi": "Tuần Lộc Hoa Tuyết"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 1129,
+            "atk": 103,
+            "def": 123,
+            "spd": 68,
+            "crit": 0.05
+          },
+          "skill": "dv_frostbloom_s",
+          "ultimate": "dv_frostbloom_u",
+          "passive": "p_dv_frostbloom",
+          "art": "a fluffy chibi reindeer fawn wearing a knitted winter scarf, antlers made of delicate frost flowers and snowflakes, icy blue eyes, limited festival edition style, seasonal event motifs, soft celebratory glow, a small ribbon seal badge as its edition mark",
+          "lore": {
+            "en": "Wherever Frostbloom steps, snow-white blossoms bloom for a single night.",
+            "vi": "Nơi Frostbloom bước qua, những đóa hoa tuyết trắng nở rộ trong một đêm."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fam_dv_sakuranne",
+      "element": "nature",
+      "role": "mage",
+      "stages": 1,
+      "divine": "limited",
+      "identity": "rabbit with cherry blossom ears and petal swirls",
+      "release": {
+        "pack": "divine_limited_pack",
+        "season": "S1-spring",
+        "frame": "frame_divine_limited",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_sakuranne",
+          "name": "Sakuranne",
+          "names": {
+            "en": "Sakuranne",
+            "vi": "Thỏ Anh Đào"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 947,
+            "atk": 146,
+            "def": 83,
+            "spd": 88,
+            "crit": 0.08
+          },
+          "skill": "dv_sakuranne_s",
+          "ultimate": "dv_sakuranne_u",
+          "passive": "p_dv_sakuranne",
+          "art": "a sweet chibi rabbit with long ears that end in cherry blossom clusters, pink petals swirling around it, spring green eyes, limited festival edition style, seasonal event motifs, soft celebratory glow, a small ribbon seal badge as its edition mark",
+          "lore": {
+            "en": "Sakuranne's sneeze scatters a storm of spring petals.",
+            "vi": "Một cái hắt hơi của Sakuranne làm bung ra cơn bão cánh hoa mùa xuân."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fam_dv_galekite",
+      "element": "wind",
+      "role": "striker",
+      "stages": 1,
+      "divine": "limited",
+      "identity": "sugar glider with kite-like wing membranes, summer ribbons",
+      "release": {
+        "pack": "divine_limited_pack",
+        "season": "S1-summer",
+        "frame": "frame_divine_limited",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_galekite",
+          "name": "Galekite",
+          "names": {
+            "en": "Galekite",
+            "vi": "Diều Gió Hạ"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 924,
+            "atk": 152,
+            "def": 76,
+            "spd": 104,
+            "crit": 0.11
+          },
+          "skill": "dv_galekite_s",
+          "ultimate": "dv_galekite_u",
+          "passive": "p_dv_galekite",
+          "art": "an energetic chibi sugar glider gliding with kite-like wing membranes painted with summer patterns, colourful ribbon streamers, bright cyan eyes, limited festival edition style, seasonal event motifs, soft celebratory glow, a small ribbon seal badge as its edition mark",
+          "lore": {
+            "en": "Galekite rides the summer breeze higher than any kite.",
+            "vi": "Galekite cưỡi gió hè bay cao hơn mọi cánh diều."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fam_dv_harvestmoon",
+      "element": "dark",
+      "role": "controller",
+      "stages": 1,
+      "divine": "limited",
+      "identity": "owl with a crescent moon crest and autumn leaf feathers",
+      "release": {
+        "pack": "divine_limited_pack",
+        "season": "S1-autumn",
+        "frame": "frame_divine_limited",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_harvestmoon",
+          "name": "Harvestmoon",
+          "names": {
+            "en": "Harvestmoon",
+            "vi": "Cú Trăng Thu"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 961,
+            "atk": 129,
+            "def": 91,
+            "spd": 92,
+            "crit": 0.08
+          },
+          "skill": "dv_harvestmoon_s",
+          "ultimate": "dv_harvestmoon_u",
+          "passive": "p_dv_harvestmoon",
+          "art": "a round chibi owl with a glowing crescent moon crest, feathers like red and amber autumn leaves, wise violet eyes, limited festival edition style, seasonal event motifs, soft celebratory glow, a small ribbon seal badge as its edition mark",
+          "lore": {
+            "en": "Harvestmoon keeps watch over the fields on the longest autumn night.",
+            "vi": "Harvestmoon canh giữ cánh đồng trong đêm thu dài nhất."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fam_dv_nebulon",
+      "element": "dark",
+      "role": "striker",
+      "stages": 1,
+      "divine": "star",
+      "identity": "dragon whelp whose wings are swirling nebulae",
+      "release": {
+        "pack": "divine_star_pack",
+        "season": "S1",
+        "frame": "frame_divine_star",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_nebulon",
+          "name": "Nebulon",
+          "names": {
+            "en": "Nebulon",
+            "vi": "Long Tinh Vân"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 853,
+            "atk": 140,
+            "def": 72,
+            "spd": 96,
+            "crit": 0.12
+          },
+          "skill": "dv_nebulon_s",
+          "ultimate": "dv_nebulon_u",
+          "passive": "p_dv_nebulon",
+          "art": "a small chibi dragon whelp spreading wings made of swirling purple and blue nebula clouds, star specks in its dark scales, glowing starlight eyes, cosmic divine style, galaxy and nebula patterns inside its fur or scales, twinkling constellations, starlight aura",
+          "lore": {
+            "en": "Nebulon was hatched from a falling star and still hums with its light.",
+            "vi": "Nebulon nở ra từ một ngôi sao băng và vẫn ngân vang ánh sáng của nó."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fam_dv_astravel",
+      "element": "light",
+      "role": "support",
+      "stages": 1,
+      "divine": "star",
+      "identity": "unicorn foal with a comet-tail mane and a starlit horn",
+      "release": {
+        "pack": "divine_star_pack",
+        "season": "S1",
+        "frame": "frame_divine_star",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_astravel",
+          "name": "Astravel",
+          "names": {
+            "en": "Astravel",
+            "vi": "Kỳ Lân Sao Băng"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 973,
+            "atk": 111,
+            "def": 93,
+            "spd": 86,
+            "crit": 0.06
+          },
+          "skill": "dv_astravel_s",
+          "ultimate": "dv_astravel_u",
+          "passive": "p_dv_astravel",
+          "art": "a gentle chibi unicorn foal with a flowing comet-tail mane of starlight, a crystal horn glowing with a tiny star, pale lavender coat with constellation freckles, cosmic divine style, galaxy and nebula patterns inside its fur or scales, twinkling constellations, starlight aura",
+          "lore": {
+            "en": "Make a wish when Astravel gallops across the night sky.",
+            "vi": "Hãy ước khi Astravel phi nước đại qua bầu trời đêm."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fam_dv_quasark",
+      "element": "water",
+      "role": "guardian",
+      "stages": 1,
+      "divine": "star",
+      "identity": "whale calf with a galaxy swirl on its back",
+      "release": {
+        "pack": "divine_star_pack",
+        "season": "S1",
+        "frame": "frame_divine_star",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_quasark",
+          "name": "Quasark",
+          "names": {
+            "en": "Quasark",
+            "vi": "Cá Voi Ngân Hà"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 1079,
+            "atk": 94,
+            "def": 109,
+            "spd": 66,
+            "crit": 0.05
+          },
+          "skill": "dv_quasark_s",
+          "ultimate": "dv_quasark_u",
+          "passive": "p_dv_quasark",
+          "art": "a chubby chibi whale calf floating in the air, a spiral galaxy pattern across its deep blue back, tiny planets orbiting it, kind glowing eyes, cosmic divine style, galaxy and nebula patterns inside its fur or scales, twinkling constellations, starlight aura",
+          "lore": {
+            "en": "Quasark swims between the stars, carrying lost comets home.",
+            "vi": "Quasark bơi giữa các vì sao, mang những sao chổi lạc lối trở về."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fam_dv_solflare",
+      "element": "fire",
+      "role": "mage",
+      "stages": 1,
+      "divine": "star",
+      "identity": "small cat-like sun spirit with a corona mane",
+      "release": {
+        "pack": "divine_star_pack",
+        "season": "S1",
+        "frame": "frame_divine_star",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_solflare",
+          "name": "Solflare",
+          "names": {
+            "en": "Solflare",
+            "vi": "Hỏa Tinh Solflare"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 862,
+            "atk": 136,
+            "def": 76,
+            "spd": 90,
+            "crit": 0.09
+          },
+          "skill": "dv_solflare_s",
+          "ultimate": "dv_solflare_u",
+          "passive": "p_dv_solflare",
+          "art": "a playful chibi cat-like sun spirit with a blazing golden corona as its mane, solar flare wisps for whiskers, bright white-gold eyes, cosmic divine style, galaxy and nebula patterns inside its fur or scales, twinkling constellations, starlight aura",
+          "lore": {
+            "en": "Solflare is a fragment of a distant sun that decided to be a pet.",
+            "vi": "Solflare là mảnh vỡ của một mặt trời xa xôi quyết định trở thành thú cưng."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fam_dv_orbiwisp",
+      "element": "lightning",
+      "role": "controller",
+      "stages": 1,
+      "divine": "star",
+      "identity": "fox-like wisp with planetary rings orbiting its body",
+      "release": {
+        "pack": "divine_star_pack",
+        "season": "S1",
+        "frame": "frame_divine_star",
+        "stars": 10
+      },
+      "tradable": true,
+      "forms": [
+        {
+          "id": "pet_dv_orbiwisp",
+          "name": "Orbiwisp",
+          "names": {
+            "en": "Orbiwisp",
+            "vi": "Linh Thể Quỹ Đạo"
+          },
+          "stage": 1,
+          "stats": {
+            "hp": 880,
+            "atk": 121,
+            "def": 82,
+            "spd": 100,
+            "crit": 0.09
+          },
+          "skill": "dv_orbiwisp_s",
+          "ultimate": "dv_orbiwisp_u",
+          "passive": "p_dv_orbiwisp",
+          "art": "a floating chibi fox-like wisp made of soft electric light, two planetary rings orbiting its body, crackling star sparks, bright cyan eyes, cosmic divine style, galaxy and nebula patterns inside its fur or scales, twinkling constellations, starlight aura",
+          "lore": {
+            "en": "Orbiwisp's rings hum faster the closer a storm comes.",
+            "vi": "Vòng quỹ đạo của Orbiwisp ngân càng nhanh khi giông bão đến gần."
+          }
+        }
+      ]
     }
   ]
 }

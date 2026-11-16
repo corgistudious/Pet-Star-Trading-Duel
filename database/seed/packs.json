@@ -376,7 +376,7 @@
         "en": "Regular pets plus the 5 Premium Divine Pets (10★). Level 30+, VIP 3+.",
         "vi": "Pet thường và 5 Thần Pet Premium (10★). Cần Level 30+, VIP 3+."
       },
-      "artAssetId": "ui_pack_premium",
+      "artAssetId": "ui_pack_divine_premium",
       "price": {
         "currency": "RAINBOW_STAR",
         "amount": 200
@@ -443,7 +443,7 @@
         "en": "Only during a limited event. Regular pets plus the 5 Limited Divine Pets (10★). Level 40+, VIP 4+.",
         "vi": "Chỉ bán trong sự kiện giới hạn. Pet thường và 5 Thần Pet Limited (10★). Cần Level 40+, VIP 4+."
       },
-      "artAssetId": "ui_pack_limited",
+      "artAssetId": "ui_pack_divine_limited",
       "price": {
         "currency": "RAINBOW_STAR",
         "amount": 250
@@ -510,7 +510,7 @@
         "en": "By invitation only. Regular pets plus the 5 Star Divine Pets (10★). Level 60+, VIP 7+.",
         "vi": "Chỉ dành cho người được mời. Pet thường và 5 Thần Pet Star (10★). Cần Level 60+, VIP 7+."
       },
-      "artAssetId": "ui_pack_star",
+      "artAssetId": "ui_pack_divine_star",
       "price": {
         "currency": "RAINBOW_STAR",
         "amount": 500

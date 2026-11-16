@@ -1,5 +1,55 @@
 # Web-first report: live features, web client, deployment (2026-11-15)
 
+## Update: card system expansion (9 packs, 15 Divine Pets, progression)
+
+Full design, odds tables, costs and RBAC: [docs/card-system.md](../card-system.md).
+
+**Done and tested against the real backend (PostgreSQL)**
+- **Packs:** 9 official packs with the owner's prices and odds. Purchase conditions are checked by the server at
+  purchase time:
+  - level and VIP;
+  - for Limited: an active event, plus per-player and total limits;
+  - for Star: a valid invitation, consumed at purchase.
+
+  Each pack has its own purchase history (`pack_purchases`). The odds are versioned (`pack_type_versions`, with
+  the version recorded on each opening) and published per card and per 5-card pack. There is no hidden last-slot
+  guarantee.
+- **Divine Pets:** 15 Divine Pets (rarity DV), created at 10★, with their own skills and passives built from
+  existing battle effects, VI/EN names, artwork, frame colour and crest, a passport, and a serial for each card.
+- **Progression:**
+  - stars 1–10;
+  - enhancement +0–+20 (always succeeds);
+  - breakthrough (level cap 50 → 70);
+  - awakening;
+  - skill 1–10 (existing route extended);
+  - engravings (3 slots, type and stat caps);
+  - reset with a 50 % refund.
+
+  It is all idempotent, uses the `from` check to stop double taps, locks the card row, goes through the ledger, and
+  writes history. Battles in PvE, ranked and live PvP use the stored progression. Market trades keep every upgrade,
+  and equipped engravings travel with the card.
+- **VIP:** VIP comes only from Rainbow Stars spent on packs. It is per server; no real money is involved.
+- **Admin:** a card-system admin covering packs, events, invitations, observed vs configured rates, Divine Pets
+  issued, serial progression, Rainbow Star flows, anomalies, materials, config log, and owner-only odds and grants.
+  All of it is audited.
+- **Migration:** additive migration `CardSystemExpansion`. Apply, roll back and re-apply were tested.
+
+**Tests**
+- Rules: 60/60, including the statistical odds test for all 9 packs, the Divine group and per-pet rates, the
+  progression caps, real skill damage, and balance simulations.
+- API: 94/94, including 14 card-system integration tests and 1 migration test.
+- Web: 42/42.
+- Pages Functions: 5/5.
+- Unity: semantic compile 6/6, asset pre-check 0/0, localization 1,337 keys.
+
+**Not verified**
+- Real Unity Editor and WebGL build.
+- The economy against live player data.
+- PvP feel with real players.
+- The iPhone UI.
+
+The new screens are compiled only.
+
 ## Update: one domain (petstar.pages.dev), first WebGL build without an API, official logo pipeline
 
 **First WebGL build without a backend**

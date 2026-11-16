@@ -240,7 +240,14 @@ namespace PetStar.Client.Screens
             rt.localScale = Vector3.one;
             int rank = GameDataClient.RarityRank(card.Card.Rarity);
             if (rank >= 2) RareBurst(rt, card.Card.Rarity, rank);
-            yield return new WaitForSeconds(rank >= 2 ? 0.9f : 0.35f);
+            bool divine = card.Card.DivineSet != null;
+            if (divine)
+            {
+                // Divine Pet: longer reveal with a star burst in the set's colours and an announcement
+                UpgradeBurst.Play((RectTransform)rt.parent, "awaken", 0);
+                Nav.Toast(L.T("divine.obtained") + " " + L.T("divine." + card.Card.DivineSet));
+            }
+            yield return new WaitForSeconds(divine ? 1.8f : rank >= 2 ? 0.9f : 0.35f);
             // move to the side to uncover the next one
             var target = rt.anchoredPosition + new Vector2(Wide ? -700 : 0, Wide ? 0 : 700);
             _run.StartCoroutine(Move(rt, target, 0.3f, shrink: 0.45f));

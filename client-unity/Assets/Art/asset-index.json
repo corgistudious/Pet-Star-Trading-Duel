@@ -279,6 +279,111 @@
     "version": 1,
     "status": "generated"
   },
+  "pet_dv_astravel": {
+    "path": "Assets/Art/Pets/pet_dv_astravel.png",
+    "category": "pet",
+    "sourceSha256": "85aebc976dabbe26492547b5e6fd97a640b067f782a275f960ce65d4ac801507",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dv_aurelion": {
+    "path": "Assets/Art/Pets/pet_dv_aurelion.png",
+    "category": "pet",
+    "sourceSha256": "84561b5da95f8418f3c223c1a55948b4ee6618c3d7f4697cf63ba5f0f8aff52c",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dv_diamaris": {
+    "path": "Assets/Art/Pets/pet_dv_diamaris.png",
+    "category": "pet",
+    "sourceSha256": "9902027ae7b98cce8739b4cf6c57f2ab2f700afec5d54b64b4f7f5e45860e4be",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dv_frostbloom": {
+    "path": "Assets/Art/Pets/pet_dv_frostbloom.png",
+    "category": "pet",
+    "sourceSha256": "d1abe3959397148a0dd73e7d9aedbd347466c2f21bb84e7617f6d8140ff39a99",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dv_galekite": {
+    "path": "Assets/Art/Pets/pet_dv_galekite.png",
+    "category": "pet",
+    "sourceSha256": "5763e22e083c5a1df0b1d3465ca769c9428f442f0dcd1b352673bc790aaff774",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dv_harvestmoon": {
+    "path": "Assets/Art/Pets/pet_dv_harvestmoon.png",
+    "category": "pet",
+    "sourceSha256": "a84b4ae6c239902c2f3af196c5a42f57be70d6a4d5e07657ccbff7a0eb046ae8",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dv_jadeheart": {
+    "path": "Assets/Art/Pets/pet_dv_jadeheart.png",
+    "category": "pet",
+    "sourceSha256": "be8c3acf6e7a8bc9536a6c50820aa069d2d3083e10425965d5f9df9d68baffce",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dv_lanternix": {
+    "path": "Assets/Art/Pets/pet_dv_lanternix.png",
+    "category": "pet",
+    "sourceSha256": "b1d125965de25ba9d3a65feea38c4a6838666c157e2d3b994811121f8eaf4869",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dv_nebulon": {
+    "path": "Assets/Art/Pets/pet_dv_nebulon.png",
+    "category": "pet",
+    "sourceSha256": "7a08d593868bab3add7d653de2ff7d37f202c439efa953b7a6c018dee0e65263",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dv_opulynx": {
+    "path": "Assets/Art/Pets/pet_dv_opulynx.png",
+    "category": "pet",
+    "sourceSha256": "3c01ff38b05a599614530e41c1657af0c57f8257ce66b4bf64980c649ab21799",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dv_orbiwisp": {
+    "path": "Assets/Art/Pets/pet_dv_orbiwisp.png",
+    "category": "pet",
+    "sourceSha256": "2c21bdecc48daa3e1422ce2196f3972cdc7f5dccb8ced9c57c0ca2498499adc9",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dv_quasark": {
+    "path": "Assets/Art/Pets/pet_dv_quasark.png",
+    "category": "pet",
+    "sourceSha256": "e0ddad6e86a531234e78e577414293ecebd6f9f973f0212b2863caabce87a0da",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dv_regalwing": {
+    "path": "Assets/Art/Pets/pet_dv_regalwing.png",
+    "category": "pet",
+    "sourceSha256": "c82026659c0cc56f40757d9df154884ffb50445e942253572f1a84eac15b74ac",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dv_sakuranne": {
+    "path": "Assets/Art/Pets/pet_dv_sakuranne.png",
+    "category": "pet",
+    "sourceSha256": "d40948b5a6e5bd3add435f8ead437a677d836a518f5f117158dfdc36db04b6b9",
+    "version": 1,
+    "status": "generated"
+  },
+  "pet_dv_solflare": {
+    "path": "Assets/Art/Pets/pet_dv_solflare.png",
+    "category": "pet",
+    "sourceSha256": "847cbc24f5681ed7e4b609cf64ec13bb2782761b0b6614849a2068c4e6f68ed2",
+    "version": 1,
+    "status": "generated"
+  },
   "pet_echowing": {
     "path": "Assets/Art/Pets/pet_echowing.png",
     "category": "pet",
@@ -1448,6 +1553,27 @@
     "version": 1,
     "status": "generated"
   },
+  "ui_crest_limited": {
+    "path": "Assets/Art/UI/Currency/ui_crest_limited.png",
+    "category": "ui",
+    "sourceSha256": "7bf136935399e04c3ca4c31e4dfc3e81cbdd62d82caecfd7d0598e7b8cd9aa44",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_crest_premium": {
+    "path": "Assets/Art/UI/Currency/ui_crest_premium.png",
+    "category": "ui",
+    "sourceSha256": "d4409755d6f4ffe63de6fbf553a7909fbaba590a4af6ac37593961a3b987d46a",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_crest_star": {
+    "path": "Assets/Art/UI/Currency/ui_crest_star.png",
+    "category": "ui",
+    "sourceSha256": "09d605bd937485ca89f2d6a3889333a9c7215f8f52a6f3de8ac52ec3b9f4445f",
+    "version": 1,
+    "status": "generated"
+  },
   "ui_currency_mini_green_bean": {
     "path": "Assets/Art/UI/Currency/ui_currency_mini_green_bean.png",
     "category": "ui",
@@ -1504,6 +1630,48 @@
     "version": 1,
     "status": "generated"
   },
+  "ui_mat_awakening_crystal": {
+    "path": "Assets/Art/UI/Currency/ui_mat_awakening_crystal.png",
+    "category": "ui",
+    "sourceSha256": "d71aa7f27f301fd98cb2c18dee492ac382d47a83da2000127124a3e93d7aa489",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_mat_breakthrough_core": {
+    "path": "Assets/Art/UI/Currency/ui_mat_breakthrough_core.png",
+    "category": "ui",
+    "sourceSha256": "fc95dbeef5740529706a7b099eeba5f075edbe8f8d7afd5b94f49306fe7f5f62",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_mat_engraving_dust": {
+    "path": "Assets/Art/UI/Currency/ui_mat_engraving_dust.png",
+    "category": "ui",
+    "sourceSha256": "b4f69915fd371c4c850c3a6bdd4f4855305c644cda387b974109532bebde50a2",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_mat_enhance_stone": {
+    "path": "Assets/Art/UI/Currency/ui_mat_enhance_stone.png",
+    "category": "ui",
+    "sourceSha256": "67e2e5a13b9f708378ead1d888b06b1a37606149be41b287f3b28401fe2409b9",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_mat_pet_shard": {
+    "path": "Assets/Art/UI/Currency/ui_mat_pet_shard.png",
+    "category": "ui",
+    "sourceSha256": "1eb6c307c8d1cc0535247e1a89167cd93c19593aada6a7443a95032081e98347",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_mat_training_scroll": {
+    "path": "Assets/Art/UI/Currency/ui_mat_training_scroll.png",
+    "category": "ui",
+    "sourceSha256": "e37a64193e3b04663687fe735c3dfd75f3caac2ed15576ffac2b075690de5857",
+    "version": 1,
+    "status": "generated"
+  },
   "ui_pack_basic": {
     "path": "Assets/Art/UI/Packs/ui_pack_basic.png",
     "category": "ui",
@@ -1511,10 +1679,59 @@
     "version": 1,
     "status": "generated"
   },
+  "ui_pack_divine_limited": {
+    "path": "Assets/Art/UI/Packs/ui_pack_divine_limited.png",
+    "category": "ui",
+    "sourceSha256": "80110d5d1ff1c9a1c36da616ed4fcfb4a83cf84e67eecd5fa91cbef5b842bce5",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_pack_divine_premium": {
+    "path": "Assets/Art/UI/Packs/ui_pack_divine_premium.png",
+    "category": "ui",
+    "sourceSha256": "db00895ab902cdaa6d118c4458f78668af322ed4016ee1596f80d42f8149175a",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_pack_divine_star": {
+    "path": "Assets/Art/UI/Packs/ui_pack_divine_star.png",
+    "category": "ui",
+    "sourceSha256": "3f4e185fb7176e94c14ad6fce88f80bd37eceba10d25881a13452d692e3e1e53",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_pack_epic": {
+    "path": "Assets/Art/UI/Packs/ui_pack_epic.png",
+    "category": "ui",
+    "sourceSha256": "ca9add3c12931f69d717b8786589c2dd3ab2139ea768fa99f40fa3d5e4331c41",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_pack_legendary": {
+    "path": "Assets/Art/UI/Packs/ui_pack_legendary.png",
+    "category": "ui",
+    "sourceSha256": "6205cba319fc6ddd3ce0720d08c3a7cf21a0feedd1c09d49a54ddc9f1026e700",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_pack_mythic": {
+    "path": "Assets/Art/UI/Packs/ui_pack_mythic.png",
+    "category": "ui",
+    "sourceSha256": "b93e17cb092e501caa78e5d6aff1ab38f5291c3e9c1ab15e02e8743637fa3f43",
+    "version": 1,
+    "status": "generated"
+  },
   "ui_pack_premium": {
     "path": "Assets/Art/UI/Packs/ui_pack_premium.png",
     "category": "ui",
     "sourceSha256": "f44723b1469bbeea4647d1071c70600e640bd2a3e0221cf13c0aabe832320f72",
+    "version": 1,
+    "status": "generated"
+  },
+  "ui_pack_transcendent": {
+    "path": "Assets/Art/UI/Packs/ui_pack_transcendent.png",
+    "category": "ui",
+    "sourceSha256": "d27b092fee3ea5ee0c0f54d913882affc0da9016e928243f0bc5b5583b3cce51",
     "version": 1,
     "status": "generated"
   }

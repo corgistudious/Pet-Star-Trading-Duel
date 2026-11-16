@@ -10,7 +10,8 @@
     { "id": "MR",     "order": 6, "color": "#DE6DC9", "statMultiplier": 1.24 },
     { "id": "GR",     "order": 7, "color": "#48D0C4", "statMultiplier": 1.28 },
     { "id": "EX",     "order": 8, "color": "#E6B95E", "statMultiplier": 1.32 },
-    { "id": "Secret", "order": 9, "color": "#9673EC", "statMultiplier": 1.36 }
+    { "id": "Secret", "order": 9, "color": "#9673EC", "statMultiplier": 1.36 },
+    { "id": "DV",     "order": 10, "color": "#FFD86B", "statMultiplier": 1.40 }
   ],
   "qualities": [
     { "id": "D",   "order": 0, "statMultiplier": 0.94 },
@@ -28,5 +29,5 @@
     { "id": "Shiny",       "order": 3, "cosmeticOnly": true },
     { "id": "Prismatic",   "order": 4, "cosmeticOnly": true }
   ],
-  "notes": "Stat multipliers are balance baselines (configurable, not final). Finishes never affect combat."
+  "notes": "Stat multipliers are balance baselines (configurable, not final). Finishes never affect combat. DV = Divine Pet Card (Thần Pet), only from the Premium/Limited/Star divine pools; its multiplier is calibrated by BalanceTests (special but beatable)."
 }

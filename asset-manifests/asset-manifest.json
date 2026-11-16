@@ -10938,6 +10938,1558 @@
       },
       "reference": null,
       "history": []
+    },
+    "art_pet_dv_aurelion": {
+      "assetId": "art_pet_dv_aurelion",
+      "petId": "pet_dv_aurelion",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a chubby chibi lion cub standing proudly, mane made of shining faceted diamond plates, white-gold fur, gold filigree on its paws, big sapphire eyes, luxurious divine collectible style, polished gold filigree accents and faceted diamond crystals, warm premium rim light, tiny floating diamond sparkles.\nSignature family traits that must be visible: lion cub with a mane of faceted diamond plates; gold-trimmed paws; sapphire eyes.\nStandalone creature that does not evolve.\nlight element accents: halos, floating light motes and soft rays.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "84561b5da95f8418f3c223c1a55948b4ee6618c3d7f4697cf63ba5f0f8aff52c",
+      "bytes": 1853996,
+      "version": 1,
+      "generationCost": 0.047859,
+      "usage": {
+        "input_tokens": 279,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 279
+        },
+        "output_tokens": 1452,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 396
+        },
+        "total_tokens": 1731
+      },
+      "jobKey": "128d6867ee96743f",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "84561b5da95f8418f3c223c1a55948b4ee6618c3d7f4697cf63ba5f0f8aff52c",
+        "bytes": 1853996,
+        "alphaCoverage": 0.4516,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_aurelion_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:46:57Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "art_pet_dv_diamaris": {
+      "assetId": "art_pet_dv_diamaris",
+      "petId": "pet_dv_diamaris",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: an elegant chibi fox sitting with three translucent crystal tails that sparkle like diamonds, pale aqua fur, aquamarine eyes, tiny gold earrings, luxurious divine collectible style, polished gold filigree accents and faceted diamond crystals, warm premium rim light, tiny floating diamond sparkles.\nSignature family traits that must be visible: crystal fox with three translucent diamond tails; aquamarine eyes.\nStandalone creature that does not evolve.\nwater element accents: bubbles, small waves and pearls.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "9902027ae7b98cce8739b4cf6c57f2ab2f700afec5d54b64b4f7f5e45860e4be",
+      "bytes": 1891610,
+      "version": 1,
+      "generationCost": 0.047454,
+      "usage": {
+        "input_tokens": 262,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 262
+        },
+        "output_tokens": 1442,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 386
+        },
+        "total_tokens": 1704
+      },
+      "jobKey": "12f87c03e4616318",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "9902027ae7b98cce8739b4cf6c57f2ab2f700afec5d54b64b4f7f5e45860e4be",
+        "bytes": 1891610,
+        "alphaCoverage": 0.5402,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_diamaris_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:47:10Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "art_pet_dv_regalwing": {
+      "assetId": "art_pet_dv_regalwing",
+      "petId": "pet_dv_regalwing",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a fluffy chibi phoenix chick mid-flap, plumage like hammered gold leaf, ruby-red tail feathers with ember tips, bright golden eyes, luxurious divine collectible style, polished gold filigree accents and faceted diamond crystals, warm premium rim light, tiny floating diamond sparkles.\nSignature family traits that must be visible: phoenix chick with gold-leaf plumage and ruby tail feathers.\nStandalone creature that does not evolve.\nfire element accents: warm embers and a gentle warm glow.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "c82026659c0cc56f40757d9df154884ffb50445e942253572f1a84eac15b74ac",
+      "bytes": 1800976,
+      "version": 1,
+      "generationCost": 0.046408,
+      "usage": {
+        "input_tokens": 264,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 264
+        },
+        "output_tokens": 1409,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 353
+        },
+        "total_tokens": 1673
+      },
+      "jobKey": "e4aa817be488bcef",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "c82026659c0cc56f40757d9df154884ffb50445e942253572f1a84eac15b74ac",
+        "bytes": 1800976,
+        "alphaCoverage": 0.4749,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_regalwing_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:47:24Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "art_pet_dv_opulynx": {
+      "assetId": "art_pet_dv_opulynx",
+      "petId": "pet_dv_opulynx",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a sleek chibi lynx crouching, cream fur with ornate gold filigree markings, topaz crystal ear tufts crackling with small lightning, amber eyes, luxurious divine collectible style, polished gold filigree accents and faceted diamond crystals, warm premium rim light, tiny floating diamond sparkles.\nSignature family traits that must be visible: lynx with gold filigree markings and topaz lightning ear tufts.\nStandalone creature that does not evolve.\nlightning element accents: zigzag sparks and crackling static.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "3c01ff38b05a599614530e41c1657af0c57f8257ce66b4bf64980c649ab21799",
+      "bytes": 1999141,
+      "version": 1,
+      "generationCost": 0.04744,
+      "usage": {
+        "input_tokens": 272,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 272
+        },
+        "output_tokens": 1440,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 384
+        },
+        "total_tokens": 1712
+      },
+      "jobKey": "cc036b4e83e5c74c",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "3c01ff38b05a599614530e41c1657af0c57f8257ce66b4bf64980c649ab21799",
+        "bytes": 1999141,
+        "alphaCoverage": 0.4818,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_opulynx_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:47:37Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "art_pet_dv_jadeheart": {
+      "assetId": "art_pet_dv_jadeheart",
+      "petId": "pet_dv_jadeheart",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a round chibi tortoise smiling, shell of polished green jade inlaid with gold leaf patterns, small blossoms growing along the shell rim, gentle emerald eyes, luxurious divine collectible style, polished gold filigree accents and faceted diamond crystals, warm premium rim light, tiny floating diamond sparkles.\nSignature family traits that must be visible: tortoise with a polished jade shell inlaid with gold leaf patterns.\nStandalone creature that does not evolve.\nnature element accents: leaves, sprouts and small flowers.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "be8c3acf6e7a8bc9536a6c50820aa069d2d3083e10425965d5f9df9d68baffce",
+      "bytes": 1773532,
+      "version": 1,
+      "generationCost": 0.046354,
+      "usage": {
+        "input_tokens": 266,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 266
+        },
+        "output_tokens": 1407,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 351
+        },
+        "total_tokens": 1673
+      },
+      "jobKey": "bce38d24a15a20d2",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "be8c3acf6e7a8bc9536a6c50820aa069d2d3083e10425965d5f9df9d68baffce",
+        "bytes": 1773532,
+        "alphaCoverage": 0.4795,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_jadeheart_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:47:51Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "art_pet_dv_lanternix": {
+      "assetId": "art_pet_dv_lanternix",
+      "petId": "pet_dv_lanternix",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a cute chibi fox with a glowing red paper lantern at the tip of its tail, festival tassels on its ears, warm orange fur, happy closed-eye smile, limited festival edition style, seasonal event motifs, soft celebratory glow, a small ribbon seal badge as its edition mark.\nSignature family traits that must be visible: fox carrying a paper lantern tail tip, red festival tassels.\nStandalone creature that does not evolve.\nfire element accents: warm embers and a gentle warm glow.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "b1d125965de25ba9d3a65feea38c4a6838666c157e2d3b994811121f8eaf4869",
+      "bytes": 1648509,
+      "version": 1,
+      "generationCost": 0.047213,
+      "usage": {
+        "input_tokens": 265,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 265
+        },
+        "output_tokens": 1434,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 378
+        },
+        "total_tokens": 1699
+      },
+      "jobKey": "1c60abd8172b598b",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "b1d125965de25ba9d3a65feea38c4a6838666c157e2d3b994811121f8eaf4869",
+        "bytes": 1648509,
+        "alphaCoverage": 0.4646,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_lanternix_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:48:04Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "art_pet_dv_frostbloom": {
+      "assetId": "art_pet_dv_frostbloom",
+      "petId": "pet_dv_frostbloom",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a fluffy chibi reindeer fawn wearing a knitted winter scarf, antlers made of delicate frost flowers and snowflakes, icy blue eyes, limited festival edition style, seasonal event motifs, soft celebratory glow, a small ribbon seal badge as its edition mark.\nSignature family traits that must be visible: reindeer fawn with antlers of frost flowers, winter scarf.\nStandalone creature that does not evolve.\nwater element accents: bubbles, small waves and pearls.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "d1abe3959397148a0dd73e7d9aedbd347466c2f21bb84e7617f6d8140ff39a99",
+      "bytes": 1999767,
+      "version": 1,
+      "generationCost": 0.047503,
+      "usage": {
+        "input_tokens": 259,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 259
+        },
+        "output_tokens": 1444,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 388
+        },
+        "total_tokens": 1703
+      },
+      "jobKey": "1eccc01deec2780d",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "d1abe3959397148a0dd73e7d9aedbd347466c2f21bb84e7617f6d8140ff39a99",
+        "bytes": 1999767,
+        "alphaCoverage": 0.4723,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_frostbloom_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:48:18Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "art_pet_dv_sakuranne": {
+      "assetId": "art_pet_dv_sakuranne",
+      "petId": "pet_dv_sakuranne",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a sweet chibi rabbit with long ears that end in cherry blossom clusters, pink petals swirling around it, spring green eyes, limited festival edition style, seasonal event motifs, soft celebratory glow, a small ribbon seal badge as its edition mark.\nSignature family traits that must be visible: rabbit with cherry blossom ears and petal swirls.\nStandalone creature that does not evolve.\nnature element accents: leaves, sprouts and small flowers.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "d40948b5a6e5bd3add435f8ead437a677d836a518f5f117158dfdc36db04b6b9",
+      "bytes": 1822707,
+      "version": 1,
+      "generationCost": 0.046188,
+      "usage": {
+        "input_tokens": 252,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 252
+        },
+        "output_tokens": 1404,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 348
+        },
+        "total_tokens": 1656
+      },
+      "jobKey": "116c5a00d1bf9871",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "d40948b5a6e5bd3add435f8ead437a677d836a518f5f117158dfdc36db04b6b9",
+        "bytes": 1822707,
+        "alphaCoverage": 0.4618,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_sakuranne_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:48:31Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "art_pet_dv_galekite": {
+      "assetId": "art_pet_dv_galekite",
+      "petId": "pet_dv_galekite",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: an energetic chibi sugar glider gliding with kite-like wing membranes painted with summer patterns, colourful ribbon streamers, bright cyan eyes, limited festival edition style, seasonal event motifs, soft celebratory glow, a small ribbon seal badge as its edition mark.\nSignature family traits that must be visible: sugar glider with kite-like wing membranes, summer ribbons.\nStandalone creature that does not evolve.\nwind element accents: soft swirls, feathers and wisps of cloud.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "5763e22e083c5a1df0b1d3465ca769c9428f442f0dcd1b352673bc790aaff774",
+      "bytes": 1948712,
+      "version": 1,
+      "generationCost": 0.047892,
+      "usage": {
+        "input_tokens": 260,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 260
+        },
+        "output_tokens": 1456,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 400
+        },
+        "total_tokens": 1716
+      },
+      "jobKey": "091e39ea2f98b7d6",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "5763e22e083c5a1df0b1d3465ca769c9428f442f0dcd1b352673bc790aaff774",
+        "bytes": 1948712,
+        "alphaCoverage": 0.4818,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_galekite_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:48:45Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "art_pet_dv_harvestmoon": {
+      "assetId": "art_pet_dv_harvestmoon",
+      "petId": "pet_dv_harvestmoon",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a round chibi owl with a glowing crescent moon crest, feathers like red and amber autumn leaves, wise violet eyes, limited festival edition style, seasonal event motifs, soft celebratory glow, a small ribbon seal badge as its edition mark.\nSignature family traits that must be visible: owl with a crescent moon crest and autumn leaf feathers.\nStandalone creature that does not evolve.\ndark element accents: crescent moons, sparkling dust and soft shadow wisps.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "a84b4ae6c239902c2f3af196c5a42f57be70d6a4d5e07657ccbff7a0eb046ae8",
+      "bytes": 1809764,
+      "version": 1,
+      "generationCost": 0.04593,
+      "usage": {
+        "input_tokens": 258,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 258
+        },
+        "output_tokens": 1395,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 339
+        },
+        "total_tokens": 1653
+      },
+      "jobKey": "2fb8f4e695164851",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "a84b4ae6c239902c2f3af196c5a42f57be70d6a4d5e07657ccbff7a0eb046ae8",
+        "bytes": 1809764,
+        "alphaCoverage": 0.5605,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_harvestmoon_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:48:59Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "art_pet_dv_nebulon": {
+      "assetId": "art_pet_dv_nebulon",
+      "petId": "pet_dv_nebulon",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a small chibi dragon whelp spreading wings made of swirling purple and blue nebula clouds, star specks in its dark scales, glowing starlight eyes, cosmic divine style, galaxy and nebula patterns inside its fur or scales, twinkling constellations, starlight aura.\nSignature family traits that must be visible: dragon whelp whose wings are swirling nebulae.\nStandalone creature that does not evolve.\ndark element accents: crescent moons, sparkling dust and soft shadow wisps.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "7a08d593868bab3add7d653de2ff7d37f202c439efa953b7a6c018dee0e65263",
+      "bytes": 1694712,
+      "version": 1,
+      "generationCost": 0.047612,
+      "usage": {
+        "input_tokens": 268,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 268
+        },
+        "output_tokens": 1446,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 390
+        },
+        "total_tokens": 1714
+      },
+      "jobKey": "e722e69e4f008e35",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "7a08d593868bab3add7d653de2ff7d37f202c439efa953b7a6c018dee0e65263",
+        "bytes": 1694712,
+        "alphaCoverage": 0.4935,
+        "issues": [
+          "subject touches canvas edge (bbox (0, 78, 1024, 851)) - possible crop"
+        ],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_nebulon_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:49:12Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "art_pet_dv_astravel": {
+      "assetId": "art_pet_dv_astravel",
+      "petId": "pet_dv_astravel",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a gentle chibi unicorn foal with a flowing comet-tail mane of starlight, a crystal horn glowing with a tiny star, pale lavender coat with constellation freckles, cosmic divine style, galaxy and nebula patterns inside its fur or scales, twinkling constellations, starlight aura.\nSignature family traits that must be visible: unicorn foal with a comet-tail mane and a starlit horn.\nStandalone creature that does not evolve.\nlight element accents: halos, floating light motes and soft rays.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "85aebc976dabbe26492547b5e6fd97a640b067f782a275f960ce65d4ac801507",
+      "bytes": 1882082,
+      "version": 1,
+      "generationCost": 0.048779,
+      "usage": {
+        "input_tokens": 271,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 271
+        },
+        "output_tokens": 1482,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 426
+        },
+        "total_tokens": 1753
+      },
+      "jobKey": "29dd14b08b37be30",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "85aebc976dabbe26492547b5e6fd97a640b067f782a275f960ce65d4ac801507",
+        "bytes": 1882082,
+        "alphaCoverage": 0.4767,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_astravel_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:49:27Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "art_pet_dv_quasark": {
+      "assetId": "art_pet_dv_quasark",
+      "petId": "pet_dv_quasark",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a chubby chibi whale calf floating in the air, a spiral galaxy pattern across its deep blue back, tiny planets orbiting it, kind glowing eyes, cosmic divine style, galaxy and nebula patterns inside its fur or scales, twinkling constellations, starlight aura.\nSignature family traits that must be visible: whale calf with a galaxy swirl on its back.\nStandalone creature that does not evolve.\nwater element accents: bubbles, small waves and pearls.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "e0ddad6e86a531234e78e577414293ecebd6f9f973f0212b2863caabce87a0da",
+      "bytes": 1819129,
+      "version": 1,
+      "generationCost": 0.047193,
+      "usage": {
+        "input_tokens": 261,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 261
+        },
+        "output_tokens": 1434,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 378
+        },
+        "total_tokens": 1695
+      },
+      "jobKey": "13523aeda3561638",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "e0ddad6e86a531234e78e577414293ecebd6f9f973f0212b2863caabce87a0da",
+        "bytes": 1819129,
+        "alphaCoverage": 0.4787,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_quasark_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:49:39Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "art_pet_dv_solflare": {
+      "assetId": "art_pet_dv_solflare",
+      "petId": "pet_dv_solflare",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a playful chibi cat-like sun spirit with a blazing golden corona as its mane, solar flare wisps for whiskers, bright white-gold eyes, cosmic divine style, galaxy and nebula patterns inside its fur or scales, twinkling constellations, starlight aura.\nSignature family traits that must be visible: small cat-like sun spirit with a corona mane.\nStandalone creature that does not evolve.\nfire element accents: warm embers and a gentle warm glow.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "847cbc24f5681ed7e4b609cf64ec13bb2782761b0b6614849a2068c4e6f68ed2",
+      "bytes": 1746966,
+      "version": 1,
+      "generationCost": 0.047198,
+      "usage": {
+        "input_tokens": 262,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 262
+        },
+        "output_tokens": 1434,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 378
+        },
+        "total_tokens": 1696
+      },
+      "jobKey": "db882853f40f6d5c",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "847cbc24f5681ed7e4b609cf64ec13bb2782761b0b6614849a2068c4e6f68ed2",
+        "bytes": 1746966,
+        "alphaCoverage": 0.4721,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_solflare_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:49:53Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "art_pet_dv_orbiwisp": {
+      "assetId": "art_pet_dv_orbiwisp",
+      "petId": "pet_dv_orbiwisp",
+      "category": "pet",
+      "prompt": "Premium HD 2D chibi fantasy monster illustration for a collectible card game. Original creature design. Big head, small body, large expressive glossy eyes with white highlights, clean crisp thin colored outlines, soft cel shading with gentle gradients and a soft rim light, harmonious bright pastel-leaning palette, clear readable silhouette, polished and consistent quality.\nCreature: a floating chibi fox-like wisp made of soft electric light, two planetary rings orbiting its body, crackling star sparks, bright cyan eyes, cosmic divine style, galaxy and nebula patterns inside its fur or scales, twinkling constellations, starlight aura.\nSignature family traits that must be visible: fox-like wisp with planetary rings orbiting its body.\nStandalone creature that does not evolve.\nlightning element accents: zigzag sparks and crackling static.\nFull body, three-quarter view, centered, the whole creature fits inside the frame with comfortable margin, isolated on a transparent background, no ground shadow.\nAvoid: any text, letters, numbers, watermark, signature, logo, card frame, border, UI elements, humans, photorealism, 3D render look, horror, gore, extra limbs, cropped body, and any resemblance to creatures from existing games, anime or brands.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "2c21bdecc48daa3e1422ce2196f3972cdc7f5dccb8ced9c57c0ca2498499adc9",
+      "bytes": 1775717,
+      "version": 1,
+      "generationCost": 0.047464,
+      "usage": {
+        "input_tokens": 264,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 264
+        },
+        "output_tokens": 1442,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 386
+        },
+        "total_tokens": 1706
+      },
+      "jobKey": "c90486e3c7014296",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "2c21bdecc48daa3e1422ce2196f3972cdc7f5dccb8ced9c57c0ca2498499adc9",
+        "bytes": 1775717,
+        "alphaCoverage": 0.3928,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/pets/pet_dv_orbiwisp_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:50:06Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_pack_transcendent": {
+      "assetId": "ui_pack_transcendent",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in teal and brushed silver with a large stylized winged five-pointed star emblem in the center, soft aurora sparkles drifting across the foil, cute and premium, no text, no letters, no numbers, no logo.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "d27b092fee3ea5ee0c0f54d913882affc0da9016e928243f0bc5b5583b3cce51",
+      "bytes": 2356267,
+      "version": 1,
+      "generationCost": 0.061172,
+      "usage": {
+        "input_tokens": 164,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 164
+        },
+        "output_tokens": 1886,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 302
+        },
+        "total_tokens": 2050
+      },
+      "jobKey": "fccbba4a6d95ff13",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "d27b092fee3ea5ee0c0f54d913882affc0da9016e928243f0bc5b5583b3cce51",
+        "bytes": 2356267,
+        "alphaCoverage": 0.374,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_pack_transcendent_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:50:20Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_pack_epic": {
+      "assetId": "ui_pack_epic",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in deep violet and polished silver with a large faceted amethyst crystal star emblem in the center, small violet light glints on the foil, cute and premium, no text, no letters, no numbers, no logo.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "ca9add3c12931f69d717b8786589c2dd3ab2139ea768fa99f40fa3d5e4331c41",
+      "bytes": 2022153,
+      "version": 1,
+      "generationCost": 0.06161,
+      "usage": {
+        "input_tokens": 162,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 162
+        },
+        "output_tokens": 1900,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 316
+        },
+        "total_tokens": 2062
+      },
+      "jobKey": "7a44ec7072e4a021",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "ca9add3c12931f69d717b8786589c2dd3ab2139ea768fa99f40fa3d5e4331c41",
+        "bytes": 2022153,
+        "alphaCoverage": 0.3818,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_pack_epic_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:50:34Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_pack_legendary": {
+      "assetId": "ui_pack_legendary",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in crimson red and rich gold with a large golden star emblem framed by a laurel wreath in the center, warm golden sparkles on the foil, cute and premium, no text, no letters, no numbers, no logo.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "6205cba319fc6ddd3ce0720d08c3a7cf21a0feedd1c09d49a54ddc9f1026e700",
+      "bytes": 2356517,
+      "version": 1,
+      "generationCost": 0.060463,
+      "usage": {
+        "input_tokens": 163,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 163
+        },
+        "output_tokens": 1864,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 280
+        },
+        "total_tokens": 2027
+      },
+      "jobKey": "bad63da52a9f2a9b",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "6205cba319fc6ddd3ce0720d08c3a7cf21a0feedd1c09d49a54ddc9f1026e700",
+        "bytes": 2356517,
+        "alphaCoverage": 0.376,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_pack_legendary_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:50:49Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_pack_mythic": {
+      "assetId": "ui_pack_mythic",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in midnight blue and iridescent pearl with a large crowned star emblem glowing with pearlescent light in the center, iridescent shimmer bands across the foil, cute and premium, no text, no letters, no numbers, no logo.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "b93e17cb092e501caa78e5d6aff1ab38f5291c3e9c1ab15e02e8743637fa3f43",
+      "bytes": 2280464,
+      "version": 1,
+      "generationCost": 0.062334,
+      "usage": {
+        "input_tokens": 166,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 166
+        },
+        "output_tokens": 1922,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 338
+        },
+        "total_tokens": 2088
+      },
+      "jobKey": "c4007622f6256575",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "b93e17cb092e501caa78e5d6aff1ab38f5291c3e9c1ab15e02e8743637fa3f43",
+        "bytes": 2280464,
+        "alphaCoverage": 0.2539,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_pack_mythic_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:51:04Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_pack_divine_premium": {
+      "assetId": "ui_pack_divine_premium",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in pure white and polished gold with diamond inlays with a large faceted diamond star crest in the center, brilliant diamond sparkles and a luxurious golden glow, cute and premium, no text, no letters, no numbers, no logo.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "db00895ab902cdaa6d118c4458f78668af322ed4016ee1596f80d42f8149175a",
+      "bytes": 2178924,
+      "version": 1,
+      "generationCost": 0.061369,
+      "usage": {
+        "input_tokens": 165,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 165
+        },
+        "output_tokens": 1892,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 308
+        },
+        "total_tokens": 2057
+      },
+      "jobKey": "3c8853c15932cbb6",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "db00895ab902cdaa6d118c4458f78668af322ed4016ee1596f80d42f8149175a",
+        "bytes": 2178924,
+        "alphaCoverage": 0.3804,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_pack_divine_premium_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:51:19Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_pack_divine_limited": {
+      "assetId": "ui_pack_divine_limited",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in festival red and gold with a satin ribbon band with a large star emblem sealed with a ribbon rosette and tiny paper lantern motifs in the center, celebratory confetti sparkles, a limited edition feel, cute and premium, no text, no letters, no numbers, no logo.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "80110d5d1ff1c9a1c36da616ed4fcfb4a83cf84e67eecd5fa91cbef5b842bce5",
+      "bytes": 2323774,
+      "version": 1,
+      "generationCost": 0.063179,
+      "usage": {
+        "input_tokens": 175,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 175
+        },
+        "output_tokens": 1947,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 363
+        },
+        "total_tokens": 2122
+      },
+      "jobKey": "3117a633bf2c3d4b",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "80110d5d1ff1c9a1c36da616ed4fcfb4a83cf84e67eecd5fa91cbef5b842bce5",
+        "bytes": 2323774,
+        "alphaCoverage": 0.2866,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_pack_divine_limited_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:51:33Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_pack_divine_star": {
+      "assetId": "ui_pack_divine_star",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in a deep cosmic galaxy print of purple, blue and black with a large radiant star crest surrounded by a constellation pattern in the center, twinkling starlight and a soft nebula glow, cute and premium, no text, no letters, no numbers, no logo.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "3f4e185fb7176e94c14ad6fce88f80bd37eceba10d25881a13452d692e3e1e53",
+      "bytes": 2494998,
+      "version": 1,
+      "generationCost": 0.061825,
+      "usage": {
+        "input_tokens": 173,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 173
+        },
+        "output_tokens": 1905,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 321
+        },
+        "total_tokens": 2078
+      },
+      "jobKey": "aadf108ac9bc315b",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "3f4e185fb7176e94c14ad6fce88f80bd37eceba10d25881a13452d692e3e1e53",
+        "bytes": 2494998,
+        "alphaCoverage": 0.3908,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_pack_divine_star_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:51:47Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_mat_pet_shard": {
+      "assetId": "ui_mat_pet_shard",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA single glowing crystal shard shaped like a cute paw print, translucent sky blue with a golden inner glow and tiny sparkles.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "1eb6c307c8d1cc0535247e1a89167cd93c19593aada6a7443a95032081e98347",
+      "bytes": 1544233,
+      "version": 1,
+      "generationCost": 0.045028,
+      "usage": {
+        "input_tokens": 116,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 116
+        },
+        "output_tokens": 1389,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 333
+        },
+        "total_tokens": 1505
+      },
+      "jobKey": "3a30bbaf04746fbb",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "1eb6c307c8d1cc0535247e1a89167cd93c19593aada6a7443a95032081e98347",
+        "bytes": 1544233,
+        "alphaCoverage": 0.2878,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_mat_pet_shard_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:52:01Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_mat_enhance_stone": {
+      "assetId": "ui_mat_enhance_stone",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA single faceted enhancement gemstone, sapphire blue with a thin gold band and a softly glowing rune engraved on its face (an abstract symbol, not a letter).",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "67e2e5a13b9f708378ead1d888b06b1a37606149be41b287f3b28401fe2409b9",
+      "bytes": 1522808,
+      "version": 1,
+      "generationCost": 0.043207,
+      "usage": {
+        "input_tokens": 123,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 123
+        },
+        "output_tokens": 1331,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 275
+        },
+        "total_tokens": 1454
+      },
+      "jobKey": "a7dce3061d95d81e",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "67e2e5a13b9f708378ead1d888b06b1a37606149be41b287f3b28401fe2409b9",
+        "bytes": 1522808,
+        "alphaCoverage": 0.3065,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_mat_enhance_stone_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:52:12Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_mat_breakthrough_core": {
+      "assetId": "ui_mat_breakthrough_core",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA single round energy core orb with a cracked golden shell and bright white-gold light bursting through the cracks.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "fc95dbeef5740529706a7b099eeba5f075edbe8f8d7afd5b94f49306fe7f5f62",
+      "bytes": 1501853,
+      "version": 1,
+      "generationCost": 0.044725,
+      "usage": {
+        "input_tokens": 113,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 113
+        },
+        "output_tokens": 1380,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 324
+        },
+        "total_tokens": 1493
+      },
+      "jobKey": "3e6bab695e95cb2f",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "fc95dbeef5740529706a7b099eeba5f075edbe8f8d7afd5b94f49306fe7f5f62",
+        "bytes": 1501853,
+        "alphaCoverage": 0.3249,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_mat_breakthrough_core_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:52:23Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_mat_awakening_crystal": {
+      "assetId": "ui_mat_awakening_crystal",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA single prismatic crystal blooming like a flower, rainbow refraction, radiant white light at its heart, a few floating light motes.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "d71aa7f27f301fd98cb2c18dee492ac382d47a83da2000127124a3e93d7aa489",
+      "bytes": 1573784,
+      "version": 1,
+      "generationCost": 0.045971,
+      "usage": {
+        "input_tokens": 119,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 119
+        },
+        "output_tokens": 1418,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 362
+        },
+        "total_tokens": 1537
+      },
+      "jobKey": "d666ff6d5fd8fc0a",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "d71aa7f27f301fd98cb2c18dee492ac382d47a83da2000127124a3e93d7aa489",
+        "bytes": 1573784,
+        "alphaCoverage": 0.2481,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_mat_awakening_crystal_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:52:34Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_mat_engraving_dust": {
+      "assetId": "ui_mat_engraving_dust",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA small cute drawstring pouch spilling glittering violet and gold sigil dust that sparkles in the air.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "b4f69915fd371c4c850c3a6bdd4f4855305c644cda387b974109532bebde50a2",
+      "bytes": 1914359,
+      "version": 1,
+      "generationCost": 0.046037,
+      "usage": {
+        "input_tokens": 113,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 113
+        },
+        "output_tokens": 1421,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 365
+        },
+        "total_tokens": 1534
+      },
+      "jobKey": "59ef8b984870fb60",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "b4f69915fd371c4c850c3a6bdd4f4855305c644cda387b974109532bebde50a2",
+        "bytes": 1914359,
+        "alphaCoverage": 0.347,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_mat_engraving_dust_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:52:46Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_mat_training_scroll": {
+      "assetId": "ui_mat_training_scroll",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA single rolled training scroll tied with a red ribbon, parchment with faint abstract skill diagrams (no letters), small golden end caps.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "e37a64193e3b04663687fe735c3dfd75f3caac2ed15576ffac2b075690de5857",
+      "bytes": 1494805,
+      "version": 1,
+      "generationCost": 0.043657,
+      "usage": {
+        "input_tokens": 117,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 117
+        },
+        "output_tokens": 1346,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 290
+        },
+        "total_tokens": 1463
+      },
+      "jobKey": "c9b5b3587ddfb878",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "e37a64193e3b04663687fe735c3dfd75f3caac2ed15576ffac2b075690de5857",
+        "bytes": 1494805,
+        "alphaCoverage": 0.1776,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_mat_training_scroll_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:52:57Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_crest_premium": {
+      "assetId": "ui_crest_premium",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA small heraldic crest badge: a faceted white diamond set in an ornate polished gold frame with tiny gem accents, luxurious.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "d4409755d6f4ffe63de6fbf553a7909fbaba590a4af6ac37593961a3b987d46a",
+      "bytes": 1669779,
+      "version": 1,
+      "generationCost": 0.045513,
+      "usage": {
+        "input_tokens": 117,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 117
+        },
+        "output_tokens": 1404,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 348
+        },
+        "total_tokens": 1521
+      },
+      "jobKey": "5cb2c7c9b6f79199",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "d4409755d6f4ffe63de6fbf553a7909fbaba590a4af6ac37593961a3b987d46a",
+        "bytes": 1669779,
+        "alphaCoverage": 0.3085,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_crest_premium_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:53:08Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_crest_limited": {
+      "assetId": "ui_crest_limited",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA small seal badge: a gold medallion with a satin red ribbon rosette and a tiny star in the middle, festive limited edition feel.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "7bf136935399e04c3ca4c31e4dfc3e81cbdd62d82caecfd7d0598e7b8cd9aa44",
+      "bytes": 1526870,
+      "version": 1,
+      "generationCost": 0.044093,
+      "usage": {
+        "input_tokens": 121,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 121
+        },
+        "output_tokens": 1359,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 303
+        },
+        "total_tokens": 1480
+      },
+      "jobKey": "bde69c32adeb3175",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "7bf136935399e04c3ca4c31e4dfc3e81cbdd62d82caecfd7d0598e7b8cd9aa44",
+        "bytes": 1526870,
+        "alphaCoverage": 0.2564,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_crest_limited_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:53:20Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_crest_star": {
+      "assetId": "ui_crest_star",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA small crest badge: a radiant star inside a ring of tiny constellations on a deep purple-blue cosmic disc with a silver rim.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "09d605bd937485ca89f2d6a3889333a9c7215f8f52a6f3de8ac52ec3b9f4445f",
+      "bytes": 1651872,
+      "version": 1,
+      "generationCost": 0.044627,
+      "usage": {
+        "input_tokens": 119,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 119
+        },
+        "output_tokens": 1376,
+        "output_tokens_details": {
+          "image_tokens": 1056,
+          "text_tokens": 320
+        },
+        "total_tokens": 1495
+      },
+      "jobKey": "bd25f5148a1307af",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "09d605bd937485ca89f2d6a3889333a9c7215f8f52a6f3de8ac52ec3b9f4445f",
+        "bytes": 1651872,
+        "alphaCoverage": 0.3153,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_crest_star_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-16T22:53:32Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
     }
   }
 }

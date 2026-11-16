@@ -8,6 +8,7 @@ import { useCatalog } from '../state/catalog';
 import { PageHead } from '../components/Layout';
 import { CardView } from '../components/CardView';
 import { AuctionModal, SellModal } from '../components/TradeModals';
+import { PetHubModal } from '../components/PetHub';
 import { Loading, Modal, useAction, useLoad } from '../components/ui';
 
 export default function CardDetail() {
@@ -18,7 +19,7 @@ export default function CardDetail() {
   const { applyCurrencies, reloadPlayer } = useSession();
   const { data: card, setData, error, reload } = useLoad(() => api.get<CardDto>(`/api/cards/${id}`), [id]);
   const { busy, run } = useAction();
-  const [modal, setModal] = useState<'evolve' | 'train' | 'sell' | 'auction' | null>(null);
+  const [modal, setModal] = useState<'evolve' | 'train' | 'hub' | 'sell' | 'auction' | null>(null);
 
   if (!card) return <div className="page"><PageHead title="" back /><Loading error={error} onRetry={reload} /></div>;
   const form = cat.forms[card.formId];
@@ -54,7 +55,7 @@ export default function CardDetail() {
             <button className="btn" disabled={busy} onClick={() => flag('favorite', !card.isFavorite)}>{card.isFavorite ? t('card.unfavorite') : t('card.favorite')}</button>
             <button className="btn" disabled={busy} onClick={() => flag('lock', !card.isLocked)}>{card.isLocked ? t('card.unlock') : t('card.lock')}</button>
             <button className="btn" onClick={() => setModal('evolve')}>{t('card.evolve')}</button>
-            <button className="btn" onClick={() => setModal('train')}>{t('card.train')}</button>
+            <button className="btn primary" onClick={() => setModal('hub')} data-testid="open-pet-hub">{t('upgrade.open')}</button>
             <button className="btn" disabled={card.isLocked || card.isBusy} onClick={() => setModal('sell')}>{t('market.sell')}</button>
             <button className="btn" disabled={card.isLocked || card.isBusy} onClick={() => setModal('auction')}>{t('market.auction')}</button>
             <button className="btn" onClick={() => nav(`/passport/${card.serial}`)}>{t('passport.open')}</button>
@@ -63,6 +64,7 @@ export default function CardDetail() {
         </div>
       </div>
       {modal === 'evolve' && <EvolveModal card={card} onClose={() => setModal(null)} onDone={(c, cur) => { setData(c); applyCurrencies(cur); void reloadPlayer(); setModal(null); }} />}
+      {modal === 'hub' && <PetHubModal cardId={card.id} onClose={() => setModal(null)} onDone={(c, cur) => { setData(c); if (cur) applyCurrencies(cur); void reloadPlayer(); }} />}
       {modal === 'train' && <TrainModal card={card} onClose={() => setModal(null)} onDone={(c, cur) => { setData(c); applyCurrencies(cur); void reloadPlayer(); setModal(null); }} />}
       {modal === 'sell' && <SellModal card={card} onClose={() => setModal(null)} onDone={() => { setModal(null); void reload(); }} />}
       {modal === 'auction' && <AuctionModal card={card} onClose={() => setModal(null)} onDone={() => { setModal(null); void reload(); }} />}

@@ -56,6 +56,8 @@ namespace PetStar.Client.UI
         {
             var c = Card;
             var rarity = GameDataClient.RarityColors.TryGetValue(c.Rarity, out var rc) ? rc : Color.gray;
+            // Divine Pet Cards get their set's frame: Premium white-gold, Limited festival red, Star cosmic violet
+            if (c.DivineSet != null) rarity = c.DivineSet switch { "premium" => UiKit.Hex("#E9C46A"), "limited" => UiKit.Hex("#D9483B"), _ => UiKit.Hex("#5B3FD1") };
             var elem = GameDataClient.ElementColors.TryGetValue(c.Element, out var ec) ? ec : Color.white;
             var radius = Rad((float)GameDataClient.CardLayout["cornerRadius"]!);
             float thick = (float)GameDataClient.CardLayout["frameThickness"]! * _s;
@@ -74,7 +76,7 @@ namespace PetStar.Client.UI
             // name bar + element
             var nameBar = At(_root, "nameBar", "NameBar");
             var nb = nameBar.gameObject.AddComponent<Image>(); nb.sprite = UiKit.RoundedSprite(Rad(40)); nb.type = Image.Type.Sliced; nb.color = Color.white;
-            var name = UiKit.Text(_root, c.Name, 66 * _s, UiKit.Ink, UiKit.Weight.ExtraBold, TextAlignmentOptions.MidlineLeft, "Name");
+            var name = UiKit.Text(_root, GameDataClient.PetName(c.FormId), 66 * _s, UiKit.Ink, UiKit.Weight.ExtraBold, TextAlignmentOptions.MidlineLeft, "Name");
             Fit(name.rectTransform, "name");
             name.enableAutoSizing = true; name.fontSizeMax = 66 * _s; name.fontSizeMin = 36 * _s;
             var el = At(_root, "element", "Element");
@@ -84,7 +86,7 @@ namespace PetStar.Client.UI
 
             Pill("rarity", c.Rarity, rarity, Color.white, 42);
             Pill("quality", c.Quality, UiKit.Sapphire, Color.white, 40);
-            Pill("level", L.T("card.level", c.Level), Color.white, UiKit.Ink, 40, UiKit.Gold);
+            Pill("level", L.T("card.level", c.Level) + (c.EnhanceLevel > 0 ? $" +{c.EnhanceLevel}" : ""), Color.white, UiKit.Ink, 40, UiKit.Gold);
 
             // art window
             var win = At(_root, "artWindow", "ArtWindow");
@@ -95,6 +97,19 @@ namespace PetStar.Client.UI
             var art = At(_root, "artwork", "Artwork");
             var ai = art.gameObject.AddComponent<Image>(); ai.preserveAspect = true; ai.raycastTarget = false; ai.color = new Color(1, 1, 1, 0);
             LoadArt(ai, c.FormId);
+            // stars (1–10) along the bottom of the art window; Divine crest in its top corner
+            if (c.Stars > 1 || c.DivineSet != null)
+            {
+                var stars = UiKit.Text(win, new string('★', Mathf.Clamp(c.Stars, 1, 10)), 40 * _s, c.DivineSet != null ? UiKit.Hex("#FFD86B") : UiKit.Gold, UiKit.Weight.ExtraBold, TextAlignmentOptions.Bottom, "Stars");
+                stars.rectTransform.Stretch(0, 0, 0, 6 * _s); stars.raycastTarget = false;
+                stars.outlineWidth = 0.2f; stars.outlineColor = new Color32(40, 30, 10, 200);
+            }
+            if (c.DivineSet != null)
+            {
+                var crest = UiKit.Icon(win, null, new Vector2(150 * _s, 150 * _s), "Crest");
+                ((RectTransform)crest.transform).Place(new Vector2(1, 1), new Vector2(150 * _s, 150 * _s), new Vector2(-8 * _s, -8 * _s), new Vector2(1, 1));
+                W.LoadIcon(crest, "ui/ui_crest_" + c.DivineSet);
+            }
 
             // finish effect overlay (shader-driven, cosmetic only)
             if (c.Finish != "Normal")

@@ -9,14 +9,31 @@ export interface ServerDto { id: number; code: string; name: string; status: str
 export interface PlayerDto { uid: number; serverId: number; serverCode: string; nickname: string; level: number; exp: number; currencies: Record<string, number>; packs: Record<string, number>; items: Record<string, number>; cardCount: number; codexDiscovered: number; codexTotal: number }
 export interface LedgerEntryDto { id: number; currency: string; delta: number; balanceAfter: number; reason: string; at: string }
 
-export interface PackShopItemDto { id: string; nameKey: string; artAssetId: string; priceCurrency: Currency; priceAmount: number; owned: number; availableUntil?: string | null }
-export interface PackOddsDto { packTypeId: string; version: number; slots1To4: Record<string, number>; slot5: Record<string, number>; quality: Record<string, number>; finish: Record<string, number>; possiblePets: string[] }
+export interface LimitedEventDto { id: number; nameVi: string; nameEn: string; startsAt: string; endsAt: string; totalLimit?: number | null; perPlayerLimit?: number | null; sold: number; boughtByMe: number }
+export interface PackShopItemDto {
+  id: string; nameKey: string; artAssetId: string; priceCurrency: Currency; priceAmount: number; owned: number; availableUntil?: string | null;
+  order?: number; theme?: string; names?: Record<string, string>; descriptions?: Record<string, string>; minLevel?: number; minVip?: number;
+  requiresEvent?: boolean; requiresInvitation?: boolean; canBuy?: boolean; blockedReason?: string | null; version?: number;
+  event?: LimitedEventDto | null; invitationPacksLeft?: number | null; invitationExpiresAt?: string | null;
+}
+export interface PackOddsRow { rarity: string; perSlot: number; atLeastOneInPack: number; atLeastOneThisOrBetter: number }
+export interface PackOddsDto {
+  packTypeId: string; version: number; slots1To4: Record<string, number>; slot5: Record<string, number>; quality: Record<string, number>; finish: Record<string, number>; possiblePets: string[];
+  sameTableAllSlots?: boolean; pack?: PackOddsRow[]; divinePets?: string[]; divinePerPetPerSlot?: number; divineGroupPerSlot?: number; divineAtLeastOneInPack?: number;
+}
+export interface VipDto { level: number; points: number; nextLevelPoints?: number | null; thresholds: number[] }
+export interface EngravingDto { id: number; type: string; level: number; cardId?: number | null; slot?: number | null; value: number }
+export interface UpgradeCostDto { beans: number; items: Record<string, number>; minLevel: number; minStars: number; minBreakthrough: number }
+export interface UpgradeOptionDto { kind: string; current: number; max: number; cost?: UpgradeCostDto | null; blocked?: string | null; preview?: CardDto | null }
+export interface CardUpgradesDto { card: CardDto; options: UpgradeOptionDto[]; materials: Record<string, number>; beans: number; freeEngravings: EngravingDto[]; unlockedSlots: number[] }
+export interface ResetPreviewDto { kind: string; from: number; to: number; refundBeans: number; refundItems: Record<string, number>; blocked?: string | null }
 export interface PurchasePackResponse { packTypeId: string; owned: number; currencies: Record<string, number> }
 
 export interface CardDto {
   id: number; serial: string; skillLevel: number; formId: string; name: string; familyId: string; stage: number; element: string; role: string;
   rarity: string; quality: string; finish: string; level: number; exp: number; expToNext: number; hp: number; atk: number; def: number; spd: number;
   crit: number; power: number; skillId?: string | null; ultimateId?: string | null; passiveId?: string | null; isFavorite: boolean; isLocked: boolean; isBusy: boolean; slot: number;
+  stars?: number; enhanceLevel?: number; breakthrough?: number; levelCap?: number; awakened?: boolean; divineSet?: string | null; engravings?: EngravingDto[];
 }
 export interface PackOpeningDto { openingId: string; packTypeId: string; createdAt: string; acknowledged: boolean; cards: CardDto[] }
 export interface CardPageDto { items: CardDto[]; total: number; page: number; pageSize: number; copiesByForm: Record<string, number> }

@@ -93,6 +93,93 @@
       "size": "1024x1536",
       "background": "opaque",
       "prompt": "Premium HD 2D game background illustration, clean and bright, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, no characters, no creatures, no text, no letters, no UI, no watermark, original design. Scene: top-down view of an elegant magical duel table of polished pale marble with a thin sapphire and gold geometric border and a soft glowing divider line across the horizontal center. The playing surface is EMPTY: no card slots, no markings, no circles, no squares, only subtle marble veins and faint sparkles, portrait composition."
+    },
+    {
+      "id": "ui_pack_transcendent",
+      "quality": "medium",
+      "size": "1024x1536",
+      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in teal and brushed silver with a large stylized winged five-pointed star emblem in the center, soft aurora sparkles drifting across the foil, cute and premium, no text, no letters, no numbers, no logo."
+    },
+    {
+      "id": "ui_pack_epic",
+      "quality": "medium",
+      "size": "1024x1536",
+      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in deep violet and polished silver with a large faceted amethyst crystal star emblem in the center, small violet light glints on the foil, cute and premium, no text, no letters, no numbers, no logo."
+    },
+    {
+      "id": "ui_pack_legendary",
+      "quality": "medium",
+      "size": "1024x1536",
+      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in crimson red and rich gold with a large golden star emblem framed by a laurel wreath in the center, warm golden sparkles on the foil, cute and premium, no text, no letters, no numbers, no logo."
+    },
+    {
+      "id": "ui_pack_mythic",
+      "quality": "medium",
+      "size": "1024x1536",
+      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in midnight blue and iridescent pearl with a large crowned star emblem glowing with pearlescent light in the center, iridescent shimmer bands across the foil, cute and premium, no text, no letters, no numbers, no logo."
+    },
+    {
+      "id": "ui_pack_divine_premium",
+      "quality": "medium",
+      "size": "1024x1536",
+      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in pure white and polished gold with diamond inlays with a large faceted diamond star crest in the center, brilliant diamond sparkles and a luxurious golden glow, cute and premium, no text, no letters, no numbers, no logo."
+    },
+    {
+      "id": "ui_pack_divine_limited",
+      "quality": "medium",
+      "size": "1024x1536",
+      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in festival red and gold with a satin ribbon band with a large star emblem sealed with a ribbon rosette and tiny paper lantern motifs in the center, celebratory confetti sparkles, a limited edition feel, cute and premium, no text, no letters, no numbers, no logo."
+    },
+    {
+      "id": "ui_pack_divine_star",
+      "quality": "medium",
+      "size": "1024x1536",
+      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in a deep cosmic galaxy print of purple, blue and black with a large radiant star crest surrounded by a constellation pattern in the center, twinkling starlight and a soft nebula glow, cute and premium, no text, no letters, no numbers, no logo."
+    },
+    {
+      "id": "ui_mat_pet_shard",
+      "quality": "medium",
+      "prompt": "A single glowing crystal shard shaped like a cute paw print, translucent sky blue with a golden inner glow and tiny sparkles."
+    },
+    {
+      "id": "ui_mat_enhance_stone",
+      "quality": "medium",
+      "prompt": "A single faceted enhancement gemstone, sapphire blue with a thin gold band and a softly glowing rune engraved on its face (an abstract symbol, not a letter)."
+    },
+    {
+      "id": "ui_mat_breakthrough_core",
+      "quality": "medium",
+      "prompt": "A single round energy core orb with a cracked golden shell and bright white-gold light bursting through the cracks."
+    },
+    {
+      "id": "ui_mat_awakening_crystal",
+      "quality": "medium",
+      "prompt": "A single prismatic crystal blooming like a flower, rainbow refraction, radiant white light at its heart, a few floating light motes."
+    },
+    {
+      "id": "ui_mat_engraving_dust",
+      "quality": "medium",
+      "prompt": "A small cute drawstring pouch spilling glittering violet and gold sigil dust that sparkles in the air."
+    },
+    {
+      "id": "ui_mat_training_scroll",
+      "quality": "medium",
+      "prompt": "A single rolled training scroll tied with a red ribbon, parchment with faint abstract skill diagrams (no letters), small golden end caps."
+    },
+    {
+      "id": "ui_crest_premium",
+      "quality": "medium",
+      "prompt": "A small heraldic crest badge: a faceted white diamond set in an ornate polished gold frame with tiny gem accents, luxurious."
+    },
+    {
+      "id": "ui_crest_limited",
+      "quality": "medium",
+      "prompt": "A small seal badge: a gold medallion with a satin red ribbon rosette and a tiny star in the middle, festive limited edition feel."
+    },
+    {
+      "id": "ui_crest_star",
+      "quality": "medium",
+      "prompt": "A small crest badge: a radiant star inside a ring of tiny constellations on a deep purple-blue cosmic disc with a silver rim."
     }
   ]
 }

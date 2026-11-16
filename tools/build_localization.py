@@ -8,6 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from localization_extra import EXTRA  # noqa: E402
+from localization_cardsys import CARDSYS  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "client-unity/Assets/Resources/Localization"
@@ -248,8 +249,13 @@ def main():
         en[f"element.{k}"], vi[f"element.{k}"] = e, v
         en[f"item.essence_{k}"], vi[f"item.essence_{k}"] = f"{e} Essence", f"Tinh chất {v}"
     skills = json.loads((SEED / "skills.json").read_text())
-    for k, (e, v) in EXTRA.items():
+    for k, (e, v) in {**EXTRA, **CARDSYS}.items():
         en[k], vi[k] = e, v
+    # Divine Pets have their own vi/en names
+    for fam in json.loads((SEED / "pets.json").read_text())["families"]:
+        for f in fam["forms"]:
+            if f.get("names"):
+                en[f"pet.{f['id']}"], vi[f"pet.{f['id']}"] = f["names"]["en"], f["names"]["vi"]
     for s in skills["skills"]:
         en[f"skill.{s['id']}"] = s["name"]["en"]
         vi[f"skill.{s['id']}"] = s["name"]["vi"]

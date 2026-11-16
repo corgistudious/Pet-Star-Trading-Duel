@@ -7120,6 +7120,655 @@
         "en": "Eclipsar Ultimate: Strike",
         "vi": "Tuyệt Kỹ Đòn Eclipsar"
       }
+    },
+    {
+      "id": "dv_aurelion_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.0,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Diamond Aegis",
+        "vi": "Khiên Kim Cương"
+      }
+    },
+    {
+      "id": "dv_aurelion_u",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "self",
+      "effects": [
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 2
+        },
+        {
+          "type": "shield",
+          "power": 2.6,
+          "scale": "def"
+        },
+        {
+          "type": "damage",
+          "power": 0.9,
+          "targetOverride": "enemy_front_row"
+        }
+      ],
+      "name": {
+        "en": "Regal Roar",
+        "vi": "Gầm Vương Giả"
+      }
+    },
+    {
+      "id": "dv_diamaris_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.1
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.3,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Prism Tide",
+        "vi": "Sóng Lăng Kính"
+      }
+    },
+    {
+      "id": "dv_diamaris_u",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.8
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Brilliant Cascade",
+        "vi": "Thác Ngọc Rực Rỡ"
+      }
+    },
+    {
+      "id": "dv_regalwing_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.05
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Gilded Talon",
+        "vi": "Vuốt Mạ Vàng"
+      }
+    },
+    {
+      "id": "dv_regalwing_u",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 3.05
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Sovereign Blaze",
+        "vi": "Hỏa Diễm Đế Vương"
+      }
+    },
+    {
+      "id": "dv_opulynx_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.45
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.25,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Topaz Spark",
+        "vi": "Tia Hoàng Ngọc"
+      }
+    },
+    {
+      "id": "dv_opulynx_u",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.6
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Gilded Storm",
+        "vi": "Bão Mạ Vàng"
+      }
+    },
+    {
+      "id": "dv_jadeheart_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.9
+        }
+      ],
+      "name": {
+        "en": "Jade Remedy",
+        "vi": "Ngọc Dược"
+      }
+    },
+    {
+      "id": "dv_jadeheart_u",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.2
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Emerald Blessing",
+        "vi": "Phúc Lành Ngọc Lục"
+      }
+    },
+    {
+      "id": "dv_lanternix_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 0.95
+        },
+        {
+          "type": "shield",
+          "power": 0.6
+        }
+      ],
+      "name": {
+        "en": "Festival Glow",
+        "vi": "Ánh Đèn Hội"
+      }
+    },
+    {
+      "id": "dv_lanternix_u",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.15
+        },
+        {
+          "type": "energy",
+          "power": 2
+        }
+      ],
+      "name": {
+        "en": "Thousand Lanterns",
+        "vi": "Ngàn Đèn Lồng"
+      }
+    },
+    {
+      "id": "dv_frostbloom_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "self",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.95
+        }
+      ],
+      "name": {
+        "en": "Snow Veil",
+        "vi": "Màn Tuyết"
+      }
+    },
+    {
+      "id": "dv_frostbloom_u",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "self",
+      "effects": [
+        {
+          "type": "status",
+          "status": "taunt",
+          "chance": 1.0,
+          "duration": 2
+        },
+        {
+          "type": "shield",
+          "power": 2.4,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Winter Bastion",
+        "vi": "Thành Đông"
+      }
+    },
+    {
+      "id": "dv_sakuranne_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.05
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.35,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Petal Flurry",
+        "vi": "Mưa Cánh Hoa"
+      }
+    },
+    {
+      "id": "dv_sakuranne_u",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.75
+        },
+        {
+          "type": "status",
+          "status": "poison",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Hanami Tempest",
+        "vi": "Bão Ngắm Hoa"
+      }
+    },
+    {
+      "id": "dv_galekite_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.4
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.4,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Breeze Cutter",
+        "vi": "Lưỡi Gió"
+      }
+    },
+    {
+      "id": "dv_galekite_u",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 3.0
+        }
+      ],
+      "name": {
+        "en": "Summer Squall",
+        "vi": "Giông Hạ"
+      }
+    },
+    {
+      "id": "dv_harvestmoon_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.4
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Moonlit Gaze",
+        "vi": "Ánh Nhìn Trăng"
+      }
+    },
+    {
+      "id": "dv_harvestmoon_u",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.65
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.3,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Harvest Eclipse",
+        "vi": "Nguyệt Thực Mùa Gặt"
+      }
+    },
+    {
+      "id": "dv_nebulon_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 2.05
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.4,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Nebula Fang",
+        "vi": "Nanh Tinh Vân"
+      }
+    },
+    {
+      "id": "dv_nebulon_u",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 3.1
+        }
+      ],
+      "name": {
+        "en": "Supernova Dive",
+        "vi": "Lao Siêu Tân Tinh"
+      }
+    },
+    {
+      "id": "dv_astravel_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_lowest_hp",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.85
+        },
+        {
+          "type": "shield",
+          "power": 0.5
+        }
+      ],
+      "name": {
+        "en": "Comet Mend",
+        "vi": "Sao Chổi Chữa Lành"
+      }
+    },
+    {
+      "id": "dv_astravel_u",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "heal",
+          "power": 1.25
+        },
+        {
+          "type": "cleanse"
+        }
+      ],
+      "name": {
+        "en": "Wishing Star",
+        "vi": "Ngôi Sao Ước Nguyện"
+      }
+    },
+    {
+      "id": "dv_quasark_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "ally_all",
+      "effects": [
+        {
+          "type": "shield",
+          "power": 1.05
+        }
+      ],
+      "name": {
+        "en": "Orbit Shield",
+        "vi": "Khiên Quỹ Đạo"
+      }
+    },
+    {
+      "id": "dv_quasark_u",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.2
+        },
+        {
+          "type": "shield",
+          "power": 0.95,
+          "scale": "def"
+        }
+      ],
+      "name": {
+        "en": "Galactic Tide",
+        "vi": "Thủy Triều Ngân Hà"
+      }
+    },
+    {
+      "id": "dv_solflare_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.1
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.35,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Corona Burst",
+        "vi": "Bùng Nổ Vành Nhật"
+      }
+    },
+    {
+      "id": "dv_solflare_u",
+      "kind": "ultimate",
+      "cost": 5,
+      "priority": 0,
+      "target": "enemy_all",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.8
+        },
+        {
+          "type": "status",
+          "status": "burn",
+          "chance": 0.5,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Solar Flare",
+        "vi": "Bão Mặt Trời"
+      }
+    },
+    {
+      "id": "dv_orbiwisp_s",
+      "kind": "skill",
+      "cost": 2,
+      "priority": 0,
+      "target": "enemy_single",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.4
+        },
+        {
+          "type": "status",
+          "status": "stun",
+          "chance": 0.25,
+          "duration": 1
+        }
+      ],
+      "name": {
+        "en": "Ring Spark",
+        "vi": "Tia Vòng Sao"
+      }
+    },
+    {
+      "id": "dv_orbiwisp_u",
+      "kind": "ultimate",
+      "cost": 4,
+      "priority": 0,
+      "target": "enemy_front_row",
+      "effects": [
+        {
+          "type": "damage",
+          "power": 1.7
+        },
+        {
+          "type": "status",
+          "status": "weaken",
+          "chance": 0.6,
+          "duration": 2
+        }
+      ],
+      "name": {
+        "en": "Gravity Pulse",
+        "vi": "Xung Hấp Dẫn"
+      }
     }
   ],
   "passives": [
@@ -8240,6 +8889,89 @@
       "type": "stat_bonus",
       "stat": "atk",
       "pct": 0.08
+    },
+    {
+      "id": "p_dv_aurelion",
+      "type": "damage_reduction",
+      "pct": 0.12
+    },
+    {
+      "id": "p_dv_diamaris",
+      "type": "lifesteal",
+      "pct": 0.12
+    },
+    {
+      "id": "p_dv_regalwing",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.12
+    },
+    {
+      "id": "p_dv_opulynx",
+      "type": "stat_bonus",
+      "stat": "spd",
+      "pct": 0.1
+    },
+    {
+      "id": "p_dv_jadeheart",
+      "type": "heal_bonus",
+      "pct": 0.15
+    },
+    {
+      "id": "p_dv_lanternix",
+      "type": "battle_start_energy",
+      "amount": 1
+    },
+    {
+      "id": "p_dv_frostbloom",
+      "type": "stat_bonus",
+      "stat": "def",
+      "pct": 0.13
+    },
+    {
+      "id": "p_dv_sakuranne",
+      "type": "lifesteal",
+      "pct": 0.11
+    },
+    {
+      "id": "p_dv_galekite",
+      "type": "stat_bonus",
+      "stat": "crit",
+      "pct": 0.11
+    },
+    {
+      "id": "p_dv_harvestmoon",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.09
+    },
+    {
+      "id": "p_dv_nebulon",
+      "type": "low_hp_stat_bonus",
+      "stat": "atk",
+      "pct": 0.18,
+      "threshold": 0.5
+    },
+    {
+      "id": "p_dv_astravel",
+      "type": "regen_round_end",
+      "pct": 0.05
+    },
+    {
+      "id": "p_dv_quasark",
+      "type": "damage_reduction",
+      "pct": 0.11
+    },
+    {
+      "id": "p_dv_solflare",
+      "type": "lifesteal",
+      "pct": 0.12
+    },
+    {
+      "id": "p_dv_orbiwisp",
+      "type": "stat_bonus",
+      "stat": "atk",
+      "pct": 0.09
     }
   ]
 }

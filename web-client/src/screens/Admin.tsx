@@ -8,9 +8,9 @@ import { useSession } from '../state/session';
 import { PageHead } from '../components/Layout';
 import { Empty, Loading, Tabs, useAction, useLoad } from '../components/ui';
 
-type Tab = 'overview' | 'servers' | 'reports' | 'accounts' | 'giftcodes' | 'events' | 'fraud' | 'mail' | 'audit';
+type Tab = 'overview' | 'servers' | 'reports' | 'accounts' | 'giftcodes' | 'events' | 'cardsys' | 'fraud' | 'mail' | 'audit';
 const MOD = ['owner', 'admin', 'gm', 'moderator'], GM = ['owner', 'admin', 'gm'], ADMIN = ['owner', 'admin'], OWNER = ['owner'];
-const TABS: [Tab, string[]][] = [['overview', ADMIN], ['servers', ADMIN], ['reports', MOD], ['accounts', ADMIN], ['giftcodes', ADMIN], ['events', ADMIN], ['fraud', GM], ['mail', OWNER], ['audit', ADMIN]];
+const TABS: [Tab, string[]][] = [['overview', ADMIN], ['servers', ADMIN], ['reports', MOD], ['accounts', ADMIN], ['giftcodes', ADMIN], ['events', ADMIN], ['cardsys', GM], ['fraud', GM], ['mail', OWNER], ['audit', ADMIN]];
 
 export default function Admin() {
   const t = useT();
@@ -29,6 +29,7 @@ export default function Admin() {
       {tab === 'accounts' && <Accounts owner={hasRole('owner')} />}
       {tab === 'giftcodes' && <Giftcodes owner={hasRole('owner')} />}
       {tab === 'events' && <Events />}
+      {tab === 'cardsys' && <CardSystem serverId={serverId} admin={hasRole(...ADMIN)} />}
       {tab === 'fraud' && <Fraud serverId={serverId} />}
       {tab === 'mail' && <Mail serverId={serverId} />}
       {tab === 'audit' && <Audit />}
@@ -232,4 +233,63 @@ function Audit() {
   const { data, error, reload } = useLoad(() => api.get<Record<string, unknown>[]>('/api/admin/audit'), []);
   if (!data) return <Loading error={error} onRetry={reload} />;
   return <Table rows={data} />;
+}
+
+/** Card system: 9 packs (price / sale status, versioned), limited events, Star invitations, issued cards, anomalies.
+ *  The backend enforces the roles (GM read-only, admin manage, owner odds/grants) and audits every change. */
+function CardSystem({ serverId, admin }: { serverId: number; admin: boolean }) {
+  const t = useT();
+  const packs = useLoad(() => api.get<Record<string, unknown>[]>('/api/admin/cardsys/packs'), []);
+  const events = useLoad(() => api.get<Record<string, unknown>[]>('/api/admin/cardsys/events'), []);
+  const invites = useLoad(() => api.get<Record<string, unknown>[]>(`/api/admin/cardsys/invitations?serverId=${serverId}`), [serverId]);
+  const issued = useLoad(() => api.get<Record<string, unknown>>(`/api/admin/cardsys/issued?serverId=${serverId}`), [serverId]);
+  const anomalies = useLoad(() => api.get<Record<string, unknown>>(`/api/admin/cardsys/anomalies?serverId=${serverId}`), [serverId]);
+  const { busy, run } = useAction();
+  const [reason, setReason] = useState('');
+  const [ev, setEv] = useState({ nameVi: '', nameEn: '', days: '7', total: '', perPlayer: '' });
+  const [inv, setInv] = useState({ uid: '', days: '7', maxPacks: '1', note: '' });
+  const patchPack = (id: string, body: Record<string, unknown>) => run(() => api.patch(`/api/admin/cardsys/packs/${id}`, { ...body, reason }), t('web.saved')).then(() => packs.reload());
+  return (
+    <div>
+      <div className="panel form"><input placeholder="reason (required, 10+ chars, audited)" value={reason} onChange={(e) => setReason(e.target.value)} /></div>
+      <h4>Packs</h4>
+      {!packs.data ? <Loading error={packs.error} onRetry={packs.reload} /> : (
+        <Table rows={packs.data.map((p) => ({ id: p.id, price: `${(p.price as { amount: number; currency: string }).amount} ${(p.price as { currency: string }).currency}`, enabled: p.enabled, version: p.version, sold: p.soldPacks, opened: p.opened }))}
+          actions={(r) => admin ? (
+            <>
+              <button className="btn ghost small" disabled={busy || reason.length < 10} onClick={() => patchPack(String(r.id), { enabled: !r.enabled })}>{r.enabled ? 'stop sale' : 'start sale'}</button>
+              <button className="btn ghost small" disabled={busy || reason.length < 10} onClick={() => { const v = prompt('new price'); if (v) void patchPack(String(r.id), { priceAmount: Number(v) }); }}>price</button>
+            </>
+          ) : null} />
+      )}
+      <h4>Limited events</h4>
+      {admin && (
+        <div className="panel form row gap wrap">
+          <input placeholder="Tên VI" value={ev.nameVi} onChange={(e) => setEv({ ...ev, nameVi: e.target.value })} />
+          <input placeholder="Name EN" value={ev.nameEn} onChange={(e) => setEv({ ...ev, nameEn: e.target.value })} />
+          <label className="inline small">days<input inputMode="numeric" value={ev.days} onChange={(e) => setEv({ ...ev, days: e.target.value })} /></label>
+          <label className="inline small">total<input inputMode="numeric" value={ev.total} onChange={(e) => setEv({ ...ev, total: e.target.value })} /></label>
+          <label className="inline small">per player<input inputMode="numeric" value={ev.perPlayer} onChange={(e) => setEv({ ...ev, perPlayer: e.target.value })} /></label>
+          <button className="btn primary" disabled={busy || !ev.nameVi || !ev.nameEn} onClick={() => run(() => api.post('/api/admin/cardsys/events', {
+            packTypeId: 'divine_limited_pack', serverId, nameVi: ev.nameVi, nameEn: ev.nameEn, startsAt: new Date().toISOString(),
+            endsAt: new Date(Date.now() + Number(ev.days) * 86400_000).toISOString(), totalLimit: ev.total ? Number(ev.total) : null, perPlayerLimit: ev.perPlayer ? Number(ev.perPlayer) : null,
+          }), t('web.saved')).then(() => events.reload())}>{t('web.create')}</button>
+        </div>
+      )}
+      {!events.data ? <Loading error={events.error} onRetry={events.reload} /> : <Table rows={events.data} actions={(r) => admin && !r.cancelled ? <button className="btn ghost small" disabled={busy || reason.length < 10} onClick={() => run(() => api.patch(`/api/admin/cardsys/events/${r.id}`, { cancelled: true, reason })).then(() => events.reload())}>end</button> : null} />}
+      <h4>Star invitations</h4>
+      {admin && (
+        <div className="panel form row gap wrap">
+          <input placeholder="player UID" inputMode="numeric" value={inv.uid} onChange={(e) => setInv({ ...inv, uid: e.target.value })} />
+          <label className="inline small">days<input inputMode="numeric" value={inv.days} onChange={(e) => setInv({ ...inv, days: e.target.value })} /></label>
+          <label className="inline small">packs<input inputMode="numeric" value={inv.maxPacks} onChange={(e) => setInv({ ...inv, maxPacks: e.target.value })} /></label>
+          <input placeholder="note" value={inv.note} onChange={(e) => setInv({ ...inv, note: e.target.value })} />
+          <button className="btn primary" disabled={busy || !inv.uid} onClick={() => run(() => api.post('/api/admin/cardsys/invitations', { uid: Number(inv.uid), serverId, days: Number(inv.days), maxPacks: Number(inv.maxPacks), note: inv.note }), t('web.saved')).then(() => invites.reload())}>{t('web.create')}</button>
+        </div>
+      )}
+      {!invites.data ? <Loading error={invites.error} onRetry={invites.reload} /> : <Table rows={invites.data} actions={(r) => admin && r.status === 'active' ? <button className="btn ghost small" disabled={busy || reason.length < 10} onClick={() => run(() => api.post(`/api/admin/cardsys/invitations/${r.id}/revoke`, { reason })).then(() => invites.reload())}>revoke</button> : null} />}
+      <h4>Issued cards / anomalies</h4>
+      <pre className="small">{JSON.stringify({ issued: issued.data, anomalies: anomalies.data }, null, 1)}</pre>
+    </div>
+  );
 }

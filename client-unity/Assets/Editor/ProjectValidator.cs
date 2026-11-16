@@ -150,7 +150,12 @@ namespace PetStar.EditorTools
             else r.Error($"{missing.Count} address(es) missing: {string.Join(", ", missing.Take(15))}{(missing.Count > 15 ? " ..." : "")}");
             if (!all.Contains("ui/brand_logo")) r.Warn("official logo missing (upload assets-source/brand/petstar-logo-original.png); splash/login/lobby show the text title");
             else r.Ok("official logo ui/brand_logo");
-            if (!all.Contains("ui/ui_pack_legendary")) r.Warn("no art for legendary_pack yet (pack opening shows the default pack look)");
+            // card system expansion: 9 pack arts, upgrade materials and Divine crests (Divine Pet art is covered by pets.json above)
+            foreach (var id in new[] { "ui_pack_basic", "ui_pack_premium", "ui_pack_transcendent", "ui_pack_epic", "ui_pack_legendary", "ui_pack_mythic",
+                         "ui_pack_divine_premium", "ui_pack_divine_limited", "ui_pack_divine_star", "ui_mat_pet_shard", "ui_mat_enhance_stone",
+                         "ui_mat_breakthrough_core", "ui_mat_awakening_crystal", "ui_mat_engraving_dust", "ui_mat_training_scroll",
+                         "ui_crest_premium", "ui_crest_limited", "ui_crest_star" })
+                if (!all.Contains("ui/" + id)) r.Error("card system art not addressable: ui/" + id);
         }
 
         private static void CheckFonts(Report r)

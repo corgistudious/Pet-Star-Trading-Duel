@@ -41,7 +41,7 @@ export function useCatalog(): Catalog {
 
 export const RARITY_ORDER = ['N', 'R', 'SR', 'SSR', 'UR', 'LR', 'MR', 'GR', 'EX', 'Secret'];
 export const RARITY_COLORS: Record<string, string> = {
-  N: '#9CA3AF', R: '#43BD78', SR: '#4099F4', SSR: '#AA70E8', UR: '#F3C04F', LR: '#F36D79', MR: '#DE6DC9', GR: '#48D0C4', EX: '#E6B95E', Secret: '#9673EC',
+  N: '#9CA3AF', R: '#43BD78', SR: '#4099F4', SSR: '#AA70E8', UR: '#F3C04F', LR: '#F36D79', MR: '#DE6DC9', GR: '#48D0C4', EX: '#E6B95E', Secret: '#9673EC', DV: '#FFD86B',
 };
 export const ELEMENT_COLORS: Record<string, string> = {
   fire: '#F2643D', water: '#3D9BF2', nature: '#55C26A', earth: '#B98A52', lightning: '#F5C83B', wind: '#7FD6C9', light: '#FFE7A3', dark: '#6B4FA8',

@@ -47,7 +47,14 @@ namespace PetStar.Client.Core
 
         public static Color Hex(string hex) => ColorUtility.TryParseHtmlString(hex, out var c) ? c : Color.magenta;
 
-        public static string PetName(string formId) => Forms.TryGetValue(formId, out var f) ? f.Name : formId;
+        /// <summary>Localised name ("pet.{id}" for Divine Pets with vi/en names), else the species name.</summary>
+        public static string PetName(string formId)
+        {
+            var k = "pet." + formId;
+            var t = L.T(k);
+            if (t != k) return t;
+            return Forms.TryGetValue(formId, out var f) ? f.Name : formId;
+        }
 
         public static string Lore(string formId) =>
             Forms.TryGetValue(formId, out var f) && f.Lore.TryGetValue(L.Language, out var t) ? t : (Forms.TryGetValue(formId, out f) && f.Lore.TryGetValue("en", out t) ? t : "");
@@ -74,7 +81,7 @@ namespace PetStar.Client.Core
         public static string CurrencyIcon(string currency) =>
             currency == Currency.RainbowStar ? "ui/ui_currency_rainbow_star" : "ui/ui_currency_mini_green_bean";
 
-        public static IEnumerable<string> RarityOrder => new[] { "N", "R", "SR", "SSR", "UR", "LR", "MR", "GR", "EX", "Secret" };
+        public static IEnumerable<string> RarityOrder => new[] { "N", "R", "SR", "SSR", "UR", "LR", "MR", "GR", "EX", "Secret", "DV" };
         public static int RarityRank(string r) => RarityOrder.ToList().IndexOf(r);
     }
 }
