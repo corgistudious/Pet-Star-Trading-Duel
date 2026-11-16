@@ -38,7 +38,8 @@ namespace PetStar.Client.UI
             try { return await fn(); }
             catch (ApiError e)
             {
-                if (e.Status == 401) { Session.Logout(); Nav.Replace(new Screens.LoginScreen()); }
+                if (e.Status == 401 && ClientConfig.IsServerConfigured) { Session.Logout(); Nav.Replace(new Screens.LoginScreen()); }
+                else if (Screens.ServerStatusScreen.From(e) == Screens.ServerStatusScreen.Kind.Maintenance) Nav.Replace(new Screens.ServerStatusScreen(Screens.ServerStatusScreen.Kind.Maintenance));
                 else Nav.Toast(e.IsNetwork ? L.T("error.network") : L.Error(e.Code), true);
                 return null;
             }

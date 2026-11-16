@@ -2,14 +2,15 @@ name: Web client (Cloudflare Pages)
 
 # Builds and tests the React web client on every change. Deploying to Cloudflare Pages is OFF until the owner
 # opts in, after Cloudflare has confirmed the project name:
-#   repo variables : CF_PAGES_PROJECT (e.g. "petstar"), PETSTAR_API_BASE (e.g. "https://api.your-domain")
+#   repo variables : CF_PAGES_PROJECT (a project OTHER than "petstar", which serves the Unity WebGL game at
+#                    https://petstar.pages.dev), PETSTAR_API_BASE (e.g. "https://petstar.pages.dev")
 #   repo secrets   : CLOUDFLARE_API_TOKEN (scope: Account > Cloudflare Pages > Edit), CLOUDFLARE_ACCOUNT_ID
 #   environment    : "production" with required reviewers, so every production deploy needs a manual approval.
 # Branch pushes (not main) deploy a preview only (https://<branch>.<project>.pages.dev) when deploys are enabled.
 
 on:
   push:
-    paths: ["web-client/**", "backend/**", "shared-contracts/**", "database/seed/**", ".github/workflows/web.yml"]
+    paths: ["web-client/**", "backend/**", "shared-contracts/**", "database/seed/**", "assets-source/brand/**", "tools/brand/**", ".github/workflows/web.yml"]
   pull_request:
     paths: ["web-client/**", "backend/**", "shared-contracts/**", "database/seed/**"]
   workflow_dispatch:
@@ -36,6 +37,11 @@ jobs:
         run: |
           npx tsc -b
           npx vitest run
+      - name: PWA icons from the official logo (kept as committed until it is uploaded)
+        working-directory: .
+        run: |
+          pip install --quiet "pillow>=11,<13"
+          python3 tools/brand/make_brand_assets.py --out web-client/public --icons-only
       - name: Build (fails on any file > 25 MiB, the Pages limit)
         env:
           VITE_API_BASE: ${{ vars.PETSTAR_API_BASE }}
@@ -99,7 +105,8 @@ jobs:
 
   deploy:
     needs: [build, e2e]
-    if: vars.CF_PAGES_PROJECT != '' && github.event_name != 'pull_request'
+    # never into the Unity game's Pages project ("petstar" = https://petstar.pages.dev): that domain serves Unity WebGL
+    if: vars.CF_PAGES_PROJECT != '' && vars.CF_PAGES_PROJECT != (vars.CF_PAGES_UNITY_PROJECT || 'petstar') && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
     permissions:

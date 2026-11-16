@@ -16,19 +16,24 @@ namespace PetStar.Client.Screens
 
         public override void Build()
         {
-            var logo = UiKit.Text(Root, "Pet Star", Wide ? 150 : 170, UiKit.Sapphire, UiKit.Weight.ExtraBold);
-            logo.rectTransform.Place(new Vector2(0.5f, 0.56f), new Vector2(1200, 220), Vector2.zero);
+            var title = UiKit.Text(Root, "Pet Star", Wide ? 150 : 170, UiKit.Sapphire, UiKit.Weight.ExtraBold);
+            title.rectTransform.Place(new Vector2(0.5f, 0.56f), new Vector2(1200, 220), Vector2.zero);
             var sub = UiKit.Text(Root, "TRADING DUEL", Wide ? 54 : 60, UiKit.GoldDeep, UiKit.Weight.ExtraBold);
             sub.characterSpacing = 18;
             sub.rectTransform.Place(new Vector2(0.5f, 0.56f), new Vector2(1200, 100), new Vector2(0, -150));
             var star = UiKit.Text(Root, "★", 200, UiKit.Gold, UiKit.Weight.ExtraBold);
             star.rectTransform.Place(new Vector2(0.5f, 0.56f), new Vector2(300, 300), new Vector2(0, 230));
             star.gameObject.AddComponent<Spin>();
+            var logo = BrandLogo.Create(Root, Wide ? 640 : 760, true, title.gameObject, sub.gameObject, star.gameObject);
+            logo.Place(new Vector2(0.5f, 0.55f), logo.sizeDelta, Vector2.zero);
         }
 
         public override async void OnShow()
         {
             await Wait.Seconds(0.9f);
+            // reachability: not configured / unreachable / maintenance get their own screen instead of a failing login
+            var status = await ServerStatusScreen.Probe(Api);
+            if (status != null) { Nav.Replace(new ServerStatusScreen(status.Value)); return; }
             if (Session.HasStoredLogin && await Session.TryRefresh(Api))
             {
                 // resume the last server directly when possible
@@ -70,6 +75,8 @@ namespace PetStar.Client.Screens
             UiKit.Button(col, L.T("auth.login"), Submit).Size(-1, 130);
             UiKit.Button(col, L.T("auth.create_account"), () => Nav.Push(new RegisterScreen()), UiKit.ButtonStyle.Secondary).Size(-1, 120);
             UiKit.Button(col, L.T("auth.forgot"), ForgotPassword, UiKit.ButtonStyle.Ghost, 32).Size(-1, 80);
+            if (!ClientConfig.IsServerConfigured)
+                UiKit.Text(col, L.T("error.server_not_configured"), 30, UiKit.InkSoft).Size(-1, 110);
             LanguageToggle(Root);
         }
 
@@ -78,24 +85,31 @@ namespace PetStar.Client.Screens
             var title = UiKit.Text(root, "Pet Star", wide ? 110 : 120, UiKit.Sapphire, UiKit.Weight.ExtraBold);
             var card = UiKit.Panel(root, UiKit.White, 56, "AuthCard", shadow: true);
             var rt = (RectTransform)card.transform;
+            RectTransform logo;
             if (wide)
             {
                 title.rectTransform.Place(new Vector2(0.27f, 0.5f), new Vector2(800, 200), Vector2.zero);
                 rt.Place(new Vector2(0.7f, 0.5f), new Vector2(900, 980), Vector2.zero);
+                logo = BrandLogo.Create(root, 620, true, title.gameObject);
+                logo.Place(new Vector2(0.27f, 0.5f), logo.sizeDelta, Vector2.zero);
             }
             else
             {
                 title.rectTransform.Place(new Vector2(0.5f, 1), new Vector2(1000, 200), new Vector2(0, -180));
                 rt.Place(new Vector2(0.5f, 0.45f), new Vector2(960, 1180), Vector2.zero);
+                // fits the space above the card (card top ~1454 of 1920) with margins; never overlaps the form
+                logo = BrandLogo.Create(root, 380, true, title.gameObject);
+                logo.Place(new Vector2(0.5f, 1), logo.sizeDelta, new Vector2(0, -40), new Vector2(0.5f, 1));
             }
             return rt;
         }
 
-        public static void LanguageToggle(RectTransform root)
+        public static void LanguageToggle(RectTransform root, System.Func<ScreenBase>? rebuild = null)
         {
             var b = UiKit.Button(root, L.Language == "vi" ? "Tiếng Việt" : "English", () =>
             {
                 L.SetLanguage(L.Language == "vi" ? "en" : "vi");
+                if (rebuild != null) { Navigator.I.Replace(rebuild()); return; }
                 Navigator.I.Replace(Navigator.I.ScreenLayer.childCount > 0 && Navigator.I.ScreenLayer.GetChild(0).name == nameof(RegisterScreen) ? new RegisterScreen() : new LoginScreen());
             }, UiKit.ButtonStyle.Secondary, 32);
             ((RectTransform)b.transform).Place(new Vector2(1, 1), new Vector2(260, 90), new Vector2(-40, -60));

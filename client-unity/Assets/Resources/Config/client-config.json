@@ -2,8 +2,8 @@
   "environment": "development",
   "environments": {
     "development": { "apiBaseUrl": "http://127.0.0.1:5080", "androidEmulatorApiBaseUrl": "http://10.0.2.2:5080" },
-    "staging":     { "apiBaseUrl": "https://staging-api.petstar.example" },
-    "production":  { "apiBaseUrl": "https://api.petstar.example" }
+    "staging":     { "apiBaseUrl": "/api" },
+    "production":  { "apiBaseUrl": "" }
   },
-  "notes": "Hostnames for staging/production are placeholders until the owner provides the real domain. Build scripts override 'environment' per build."
+  "notes": "staging uses the same origin as the WebGL page (https://petstar.pages.dev): '/api' is forwarded by Cloudflare Pages Functions to the backend (API_ORIGIN). The build sets 'environment' from PETSTAR_ENV and 'apiBaseUrl' from PETSTAR_API_BASE. production stays empty until it is explicitly configured: a production build fails without PETSTAR_API_BASE."
 }

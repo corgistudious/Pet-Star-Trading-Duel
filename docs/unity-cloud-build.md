@@ -24,8 +24,13 @@ Editor before the player is built. No Editor clicks or hand-made scenes or prefa
      - group **Board**: `ui/bg_duel_board_portrait` and `ui/bg_duel_board_landscape`, label `board`;
      - group **Art**: 200 × `pet/{formId}`, plus the currency, pack and background sprites;
      - one bundle per sprite (LZ4, local paths).
-   - **Bootstrap scene:** `Assets/Scenes/Bootstrap.unity` is created and set as the only, and first, scene in
-     Build Settings. The app builds all UI from code after it loads.
+   - **Bootstrap scene:** `Assets/Scenes/Bootstrap.unity` and `ProjectSettings/EditorBuildSettings.asset` are
+     committed, so Build Automation sees the scene list even before the pre-export runs. The pre-export also
+     re-asserts it. The app builds all UI from code after it loads.
+   - **Official logo:** `assets-source/brand/petstar-logo-original.png` is copied byte for byte to the sprite
+     `ui/brand_logo`. It is used on the splash, login/register, lobby header, the connection, maintenance and
+     not-configured screens, and the HTML loading and rotate screens. If the file is missing, the text title is
+     shown and the build still succeeds.
 3. **Selects the client environment.** It uses `PETSTAR_ENV`, and optionally `PETSTAR_API_BASE`.
 4. **Validates the project** (`ProjectValidator`). It stops the build with a readable list if anything is wrong:
    - Editor version and `client-unity` path;
@@ -63,11 +68,15 @@ Editor before the player is built. No Editor clicks or hand-made scenes or prefa
 
    | Variable | Value |
    |---|---|
-   | `PETSTAR_ENV` | `development` / `staging` / `production` |
-   | `PETSTAR_API_BASE` | `https://api.<your-domain>` |
+   | `PETSTAR_ENV` | `staging` (current) / `development` / `production` |
+   | `PETSTAR_API_BASE` | **`/api`**: same origin as the game (https://petstar.pages.dev). Pages Functions forward it to the VPS. |
    | `PETSTAR_VERSION` | e.g. `0.1.0` |
 
-   Without `PETSTAR_API_BASE`, the build starts and shows the login screen but cannot reach a server.
+   Staging already defaults to `/api`, so the build also works with `PETSTAR_API_BASE` unset. No fake hostname is
+   used anywhere. While the backend isn't deployed, the game opens and shows **"Chưa kết nối máy chủ"**
+   (server not configured or unavailable) with a retry button. There is no crash and no offline fake data.
+   A `production` build fails on purpose unless `PETSTAR_API_BASE` is set explicitly (`/api` or `https://host`).
+   See [cloudflare-pages.md](cloudflare-pages.md).
 3. Start the build. The log shows lines prefixed `[PetStar]` and `[PetStar][CHECK]`.
 
 Build Automation minutes may be billed by Unity depending on your plan. Check the DevOps billing page.

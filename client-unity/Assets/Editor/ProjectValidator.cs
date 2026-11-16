@@ -148,6 +148,8 @@ namespace PetStar.EditorTools
             var missing = required.Distinct().Where(a => !all.Contains(a)).ToList();
             if (missing.Count == 0) r.Ok($"all {required.Distinct().Count()} runtime addresses resolve ({all.Count} addressable entries)");
             else r.Error($"{missing.Count} address(es) missing: {string.Join(", ", missing.Take(15))}{(missing.Count > 15 ? " ..." : "")}");
+            if (!all.Contains("ui/brand_logo")) r.Warn("official logo missing (upload assets-source/brand/petstar-logo-original.png); splash/login/lobby show the text title");
+            else r.Ok("official logo ui/brand_logo");
             if (!all.Contains("ui/ui_pack_legendary")) r.Warn("no art for legendary_pack yet (pack opening shows the default pack look)");
         }
 
@@ -176,12 +178,31 @@ namespace PetStar.EditorTools
         {
             var json = JObject.Parse(File.ReadAllText("Assets/Resources/Config/client-config.json"));
             var env = (string?)json["environment"] ?? "development";
+            if (json["environments"]?[env] == null) { r.Error($"unknown environment '{env}' (PETSTAR_ENV must be development, staging or production)"); return; }
             var url = (string?)json["environments"]?[env]?["apiBaseUrl"] ?? "";
-            if (url.Length == 0) { r.Error($"no apiBaseUrl for environment '{env}'"); return; }
-            bool local = url.Contains("127.0.0.1") || url.Contains("localhost") || url.Contains("10.0.2.2");
-            if (target == BuildTarget.WebGL && url.StartsWith("http://") && !local)
+            if (url.Length == 0)
+            {
+                // A production build must point at a real deployed API; development/staging may be built first.
+                if (env == "production") r.Error("production build without an API: set PETSTAR_API_BASE to the deployed https API");
+                else r.Warn($"no API for environment '{env}' (PETSTAR_API_BASE not set): the build opens and shows 'server not configured'; login works after the backend is deployed and PETSTAR_API_BASE is set");
+                return;
+            }
+            if (url.StartsWith("/"))
+            {
+                // same-origin API (e.g. "/api" on https://petstar.pages.dev, forwarded by Pages Functions)
+                if (url.TrimEnd('/') != "/api") r.Error($"relative API '{url}' must be '/api'");
+                else if (target != BuildTarget.WebGL) r.Error($"relative API '{url}' only works in WebGL; {target} needs an absolute https API");
+                else r.Ok($"API same origin {url} (environment {env}); the page's Pages Functions forward it to the backend");
+                return;
+            }
+            if (!Uri.TryCreate(url, UriKind.Absolute, out var uri) || (uri.Scheme != "https" && uri.Scheme != "http") || (uri.AbsolutePath.Trim('/').Length > 0 && uri.AbsolutePath.Trim('/') != "api"))
+            { r.Error($"API '{url}' must be an origin like https://host or https://host/api"); return; }
+            bool local = uri.Host == "127.0.0.1" || uri.Host == "localhost" || uri.Host == "10.0.2.2";
+            if (env == "production" && (local || uri.Scheme != "https" || uri.Host.EndsWith(".example")))
+                r.Error($"production API {url} must be a real https host");
+            else if (target == BuildTarget.WebGL && uri.Scheme == "http" && !local)
                 r.Error($"WebGL pages are served over HTTPS; API {url} must be https (set PETSTAR_API_BASE)");
-            else if (url.Contains(".example")) r.Warn($"API {url} is a placeholder: the build starts but cannot log in until PETSTAR_API_BASE points at a deployed API");
+            else if (uri.Host.EndsWith(".example")) r.Error($"API {url} is a placeholder host; set PETSTAR_API_BASE or leave it empty");
             else if (local && target == BuildTarget.WebGL) r.Warn($"API {url} only works when the game is opened on the same machine as the API");
             else r.Ok($"API {url} (environment {env})");
         }

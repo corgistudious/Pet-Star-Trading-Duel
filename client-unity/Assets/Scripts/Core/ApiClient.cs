@@ -17,6 +17,8 @@ namespace PetStar.Client.Core
         public string Code { get; }
         public ApiError(long status, string code) : base(code) { Status = status; Code = code; }
         public bool IsNetwork => Status == 0;
+        /// <summary>Thrown without any request when the build has no API origin (status -1, never retried).</summary>
+        public static ApiError NotConfigured() => new(-1, "server_not_configured");
     }
 
     /// <summary>
@@ -60,6 +62,7 @@ namespace PetStar.Client.Core
 
         private async Task<T> SendOnce<T>(string method, string path, object? body, string? idemKey, bool allowRefresh)
         {
+            if (!ClientConfig.IsServerConfigured) throw ApiError.NotConfigured();
             using var req = new UnityWebRequest(ClientConfig.ApiBaseUrl + path, method);
             req.downloadHandler = new DownloadHandlerBuffer();
             if (body != null)
@@ -93,6 +96,7 @@ namespace PetStar.Client.Core
 
         internal async Task<AuthResponse?> RawRefresh(string refreshToken, int? serverId)
         {
+            if (!ClientConfig.IsServerConfigured) return null;
             using var req = new UnityWebRequest(ClientConfig.ApiBaseUrl + "/api/auth/refresh", "POST");
             req.downloadHandler = new DownloadHandlerBuffer();
             req.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(new RefreshRequest { RefreshToken = refreshToken }, Json)));

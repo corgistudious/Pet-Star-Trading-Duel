@@ -1,5 +1,59 @@
 # Web-first report: live features, web client, deployment (2026-11-15)
 
+## Update: one domain (petstar.pages.dev), first WebGL build without an API, official logo pipeline
+
+**First WebGL build without a backend**
+- The placeholder hosts (`*.petstar.example`) were removed from `client-config.json`.
+  - `staging` is now the same origin, `/api`.
+  - `production` is empty and must be set explicitly. The validator fails a production build without it, and
+    rejects placeholder or raw-IP hosts.
+- `ClientConfig.Resolve` handles all three forms:
+  - `/api` becomes the WebGL page origin;
+  - `https://host/api` becomes `https://host`;
+  - empty means not configured.
+
+  The resolve cases were checked by a scratch run.
+- Behaviour with no server:
+  - requests fail fast with `server_not_configured`, without crashing or retry loops;
+  - realtime doesn't connect;
+  - the splash checks `GET /api/version` and shows a new status screen (not configured, offline, unavailable or
+    maintenance) with a retry button. Maintenance responses during play also open it.
+- The Bootstrap scene and `EditorBuildSettings.asset` are committed. The logo import is batched.
+
+**Same-origin API through Cloudflare Pages Functions** (`cloudflare/pages`, 5 Node tests)
+- `/api/*` and `/ws` (WebSocket) are forwarded to `API_ORIGIN`, a Cloudflare variable.
+- Trust headers sent by the browser are stripped, and the shared secret plus the player IP are added.
+- An HTML 502 or an unreachable VPS becomes `server_unavailable`.
+- Backend `EdgeProxyMiddleware` (3 unit tests): it trusts the player IP only with `PROXY_SHARED_SECRET`;
+  `PROXY_REQUIRE_SECRET=true` locks `/api` and `/ws` to Cloudflare. All 125 backend tests pass.
+- The publish workflow deploys the Functions with the build into the existing project `petstar`. The web-client
+  workflow can no longer deploy into `petstar`.
+
+**Official logo** (the file itself is not in the repository yet; see below)
+- The pipeline makes every derivative from the uploaded original, without regenerating or cropping it:
+  - `tools/brand/make_brand_assets.py` makes the favicon (ico, 16, 32), PWA 192/512 icons, maskable 192/512 (72 %
+    safe zone), Apple Touch 180, loading logos 256/512/768 WebP, Open Graph 1200×630 and `manifest.webmanifest`
+    ("Pet Star" / "Pet Star: Trading Duel", Android splash colour from the logo's blue);
+  - the Unity pre-export copies the original byte for byte to `ui/brand_logo`.
+- Unity uses the logo on:
+  - the splash;
+  - login and register (above the card in portrait, beside it in landscape);
+  - the lobby header (106 px, outside the play area);
+  - the new status screens.
+- The WebGL page uses it on the loading screen (gold-blue-purple bar, soft glow) and the rotate overlay (small logo,
+  still pure black).
+- SEO, Open Graph and Apple meta tags were added.
+- Tested with a stand-in image in the scratchpad (never committed):
+  - outputs for square and non-square originals (letterboxed, never stretched);
+  - Chromium iPhone 13 portrait, landscape and desktop: no overflow, correct `no-logo` fallback, rotate overlay with
+    the logo.
+
+**Still open**
+- The official logo file must be uploaded to `assets-source/brand/petstar-logo-original.png`. The chat image can't
+  be read as a file here.
+- VPS: an HTTPS hostname for `API_ORIGIN`, plus `PROXY_SHARED_SECRET`. This needs owner approval and was not done.
+- A real Unity Cloud build, a real iPhone Home Screen test and a Retina check with the real logo are still untested.
+
 ## Update: Unity WebGL via Unity Build Automation
 
 **Automation for Build Automation**

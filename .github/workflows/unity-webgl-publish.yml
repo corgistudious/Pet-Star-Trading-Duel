@@ -1,7 +1,11 @@
 name: Unity WebGL publish (from Unity Build Automation, manual)
 
-# Takes the latest SUCCESSFUL WebGL build from Unity Build Automation and publishes it to Cloudflare Pages, so no
-# computer is needed to download/unzip/host the build. Manual only. Defaults to a PREVIEW deployment; production
+# Takes the latest SUCCESSFUL WebGL build from Unity Build Automation and publishes it to the existing Cloudflare
+# Pages project "petstar" (https://petstar.pages.dev, the only player domain), together with
+#   - Pages Functions (cloudflare/pages/functions): same-origin /api/* and /ws forwarded to the VPS backend
+#     (Cloudflare variables API_ORIGIN and secret PROXY_SHARED_SECRET, set in the Pages dashboard, never in git);
+#   - favicon / PWA icons / Apple Touch Icon / Open Graph image / manifest made from the official logo.
+# No computer needed. Manual only. Defaults to a PREVIEW deployment (https://preview.petstar.pages.dev); production
 # requires choosing it explicitly AND approving the "production" environment.
 #
 # GitHub settings needed (never in the repository or chat):
@@ -33,8 +37,10 @@ jobs:
       contents: read
       deployments: write
     env:
+      PROJECT: ${{ vars.CF_PAGES_UNITY_PROJECT || 'petstar' }}
       API: https://build-api.cloud.unity3d.com/api/v1/orgs/${{ vars.UNITY_ORG_ID }}/projects/${{ vars.UNITY_PROJECT_ID }}/buildtargets/${{ vars.UNITY_BUILDTARGET_ID }}
     steps:
+      - uses: actions/checkout@v4
       - name: Find the WebGL build
         id: build
         env:
@@ -59,10 +65,18 @@ jobs:
           [ -f "$root/index.html" ] && ls "$root"/Build/*.loader.js >/dev/null || { echo "not a WebGL build"; exit 1; }
           big=$(find "$root" -type f -size +25M | head -5); [ -z "$big" ] || { echo "files over the 25 MiB Pages limit: $big"; exit 1; }
           echo "files: $(find "$root" -type f | wc -l), size: $(du -sh "$root" | cut -f1)"
-          mv "$root" site
-      - name: Deploy to Cloudflare Pages
+          mv "$root" cloudflare/pages/site
+      - name: Brand files from the official logo + Functions test
+        run: |
+          pip install --quiet "pillow>=11,<13"
+          python3 tools/brand/make_brand_assets.py --out cloudflare/pages/site
+          node --test cloudflare/pages/test/proxy.test.mjs
+          ls cloudflare/pages/functions cloudflare/pages/functions/api
+      - name: Deploy to Cloudflare Pages (static build + Functions)
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy site --project-name=${{ vars.CF_PAGES_UNITY_PROJECT }} --branch=${{ inputs.target == 'production' && 'main' || 'preview' }}
+          # run inside cloudflare/pages so wrangler bundles ./functions next to ./site
+          workingDirectory: cloudflare/pages
+          command: pages deploy site --project-name=${{ env.PROJECT }} --branch=${{ inputs.target == 'production' && 'main' || 'preview' }} --commit-hash=${{ github.sha }}

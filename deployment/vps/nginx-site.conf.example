@@ -1,5 +1,8 @@
 # OPTION B ingress: ONE new site file for the host's existing Nginx. It only adds a server block for the
 # Pet Star API hostname; no existing site, upstream or global setting is edited.
+# Players never use this hostname: they use https://petstar.pages.dev, whose Pages Functions call it (API_ORIGIN).
+# Without a domain of your own, a wildcard-DNS name for the VPS IP works, e.g. <ip-with-dashes>.sslip.io
+# (see docs/cloudflare-pages.md).
 #   sudo cp nginx-site.conf.example /etc/nginx/sites-available/petstar-api.conf
 #   sudo sed -i 's/api.example.com/<your-api-hostname>/g' /etc/nginx/sites-available/petstar-api.conf
 #   sudo ln -s /etc/nginx/sites-available/petstar-api.conf /etc/nginx/sites-enabled/petstar-api.conf

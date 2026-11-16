@@ -35,3 +35,5 @@ deployment/nginx/certs/
 deployment/env/*.env
 # Local Redis snapshot (dev)
 dump.rdb
+cloudflare/pages/site/
+cloudflare/pages/.wrangler/

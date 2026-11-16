@@ -43,6 +43,32 @@ tpl = (A / "WebGLTemplates/PetStar/index.html").read_text()
 for token in ("{{{ LOADER_FILENAME }}}", "{{{ DATA_FILENAME }}}", "{{{ FRAMEWORK_FILENAME }}}", "createUnityInstance", "PetStarViewport"):
     (ok if token in tpl else errors).append(f"template has {token}")
 
+# first scene committed (Build Automation reads the scene list; the pre-export also re-asserts it)
+ebs = U / "ProjectSettings" / "EditorBuildSettings.asset"
+scene_meta = A / "Scenes" / "Bootstrap.unity.meta"
+if ebs.exists() and scene_meta.exists() and (A / "Scenes/Bootstrap.unity").exists():
+    guid = re.search(r"guid:\s*([0-9a-f]{32})", scene_meta.read_text())
+    good = guid and "path: Assets/Scenes/Bootstrap.unity" in ebs.read_text() and guid.group(1) in ebs.read_text()
+    (ok if good else errors).append("first scene Assets/Scenes/Bootstrap.unity in EditorBuildSettings (guid matches)")
+else:
+    errors.append("Assets/Scenes/Bootstrap.unity(.meta) or ProjectSettings/EditorBuildSettings.asset missing")
+
+# client environments: staging = same origin /api (petstar.pages.dev), production must be set explicitly
+cfg = json.loads((A / "Resources/Config/client-config.json").read_text())["environments"]
+for env, url in ((e, v.get("apiBaseUrl", "")) for e, v in cfg.items()):
+    if ".example" in url or re.search(r"\d+\.\d+\.\d+\.\d+", url) and "127.0.0.1" not in url and "10.0.2.2" not in url:
+        errors.append(f"client-config {env}: placeholder or raw IP API '{url}'")
+    else:
+        ok.append(f"client-config {env}: '{url or '(empty: set PETSTAR_API_BASE)'}'")
+
+# official logo (uploaded by the owner, never generated)
+brand = [ROOT / "assets-source/brand" / f"petstar-logo-original.{e}" for e in ("png", "jpg", "jpeg")]
+found_logo = next((b for b in brand if b.exists()), None)
+(ok if found_logo else warnings).append(f"official logo {found_logo.relative_to(ROOT)}" if found_logo else
+    "official logo not uploaded yet (assets-source/brand/petstar-logo-original.png): text title and default icons are used")
+for token in ("manifest.webmanifest", "apple-touch-icon", "og:image", "brand/logo-512.webp", "no-logo"):
+    (ok if token in tpl else errors).append(f"template has {token}")
+
 for f in list((A / "Resources").rglob("*.json")):
     try: json.loads(f.read_text())
     except Exception as e: errors.append(f"invalid JSON {f.relative_to(U)}: {e}")

@@ -75,6 +75,8 @@ services:
       Database__AutoMigrate: "true"          # additive migrations only; deploy.sh takes a backup first
       Seed__SyncPackTypes: ${SEED_SYNC_PACK_TYPES:-false}
       Bootstrap__OwnerEmail: ${OWNER_EMAIL:-}
+      Proxy__SharedSecret: ${PROXY_SHARED_SECRET:-}     # same value as the Cloudflare Pages secret PROXY_SHARED_SECRET
+      Proxy__RequireSecret: ${PROXY_REQUIRE_SECRET:-false} # true = only Cloudflare (petstar.pages.dev) may call /api and /ws
       Iap__Enabled: "false"                  # no real-money purchases in this phase
       Iap__AllowFakeStore: "false"
       WebPush__PublicKey: ${WEBPUSH_PUBLIC_KEY:-}     # empty = Web Push disabled (reported as such in the app)

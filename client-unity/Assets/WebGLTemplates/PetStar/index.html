@@ -4,9 +4,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
     <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>{{{ PRODUCT_NAME }}}</title>
+    <meta name="apple-mobile-web-app-title" content="Pet Star">
+    <meta name="application-name" content="Pet Star">
+    <title>Pet Star: Trading Duel</title>
+    <meta name="description" content="Pet Star: Trading Duel – sưu tầm, tiến hoá và đấu thẻ thú cưng ngay trên trình duyệt. Collect, evolve and duel with Pet cards.">
+    <link rel="canonical" href="https://petstar.pages.dev/">
+    <!-- icons and manifest are generated from the official logo (tools/brand/make_brand_assets.py) at publish time -->
+    <link rel="icon" href="favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="preload" as="image" href="brand/logo-512.webp" imagesrcset="brand/logo-256.webp 256w, brand/logo-512.webp 512w, brand/logo-768.webp 768w" imagesizes="min(46vmin, 260px)">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Pet Star">
+    <meta property="og:title" content="Pet Star: Trading Duel">
+    <meta property="og:description" content="Sưu tầm, tiến hoá và đấu thẻ thú cưng. Collect, evolve and duel with Pet cards.">
+    <meta property="og:url" content="https://petstar.pages.dev/">
+    <meta property="og:image" content="https://petstar.pages.dev/brand/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Pet Star: Trading Duel logo">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pet Star: Trading Duel">
+    <meta name="twitter:image" content="https://petstar.pages.dev/brand/og-image.jpg">
     <style>
       /* Pet Star WebGL page: pure black (#000000) everywhere outside the game canvas, game kept inside the safe area. */
       html, body { margin: 0; height: 100%; background: #000000; overflow: hidden; overscroll-behavior: none; touch-action: none; }
@@ -14,11 +38,25 @@
         padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
         box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
       #unity-canvas { width: 100%; height: 100%; background: #000000; display: block; outline: none; }
-      #loading { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: #fff; font: 600 15px system-ui, sans-serif; background: #000000; }
-      #bar { width: min(70vw, 320px); height: 8px; border-radius: 99px; background: #222; overflow: hidden; }
-      #bar > div { height: 100%; width: 0; background: #7cc4ff; transition: width .2s; }
+      #loading { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; color: #fff; font: 600 15px system-ui, sans-serif; background: #000000;
+        padding: env(safe-area-inset-top, 0px) 16px env(safe-area-inset-bottom, 0px); box-sizing: border-box; transition: opacity .35s ease; }
+      #loading.done { opacity: 0; pointer-events: none; }
+      /* official logo: aspect kept, never cropped (corner radius only touches the soft margin), soft blue/gold light */
+      .logo-wrap { position: relative; width: min(46vmin, 260px); aspect-ratio: 1 / 1; }
+      .logo-wrap::before { content: ""; position: absolute; inset: -12%; border-radius: 50%;
+        background: radial-gradient(circle, rgba(232,196,106,.30) 0%, rgba(70,110,230,.18) 45%, rgba(0,0,0,0) 70%); animation: glow 3.2s ease-in-out infinite; }
+      .logo { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 12%;
+        box-shadow: 0 10px 40px rgba(60,90,220,.35); animation: rise .6s ease-out both; }
+      #title { display: none; font: 800 28px system-ui, sans-serif; letter-spacing: .5px; }
+      .no-logo .logo-wrap { display: none; } .no-logo #title { display: block; }
+      @keyframes glow { 0%,100% { opacity: .7; transform: scale(.97); } 50% { opacity: 1; transform: scale(1.03); } }
+      @keyframes rise { from { opacity: 0; transform: translateY(8px) scale(.97); } to { opacity: 1; transform: none; } }
+      #bar { width: min(70vw, 320px); height: 8px; border-radius: 99px; background: #1b1b2b; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+      /* logo colours: gold -> blue -> purple */
+      #bar > div { height: 100%; width: 0; background: linear-gradient(90deg, #f5c84b, #4f7cff 60%, #8a5cf6); transition: width .2s; }
+      #pct { font: 600 13px system-ui, sans-serif; color: #b9c3e6; min-height: 1em; }
       #error { color: #ff8a8a; max-width: 320px; text-align: center; display: none; }
-      /* rotate overlay: absolute black, no gradient / logo / art, swallows every input */
+      /* rotate overlay: absolute black background (no gradient / art), only a small official logo; swallows every input */
       #rotate { position: fixed; inset: 0; z-index: 10; background: #000000; color: #ffffff; display: none; flex-direction: column;
         align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 0 24px; font: 600 17px system-ui, sans-serif; touch-action: none; }
       #rotate small { font-weight: 400; color: #bdbdbd; font-size: 14px; }
@@ -26,13 +64,21 @@
       #rotate.to-portrait svg { animation-name: tiltback; }
       @keyframes tilt { 0%,25% { transform: rotate(0deg); } 55%,80% { transform: rotate(-90deg); } 100% { transform: rotate(0deg); } }
       @keyframes tiltback { 0%,25% { transform: rotate(-90deg); } 55%,80% { transform: rotate(0deg); } 100% { transform: rotate(-90deg); } }
-      @media (prefers-reduced-motion: reduce) { #rotate svg { animation: none; } }
+      #rotate .mini { width: 72px; height: 72px; border-radius: 12%; object-fit: contain; margin-bottom: 14px; }
+      @media (prefers-reduced-motion: reduce) { #rotate svg, .logo-wrap::before, .logo { animation: none; } }
     </style>
   </head>
   <body>
     <div id="frame"><canvas id="unity-canvas" tabindex="-1"></canvas></div>
-    <div id="loading"><div>{{{ PRODUCT_NAME }}}</div><div id="bar"><div></div></div><div id="error"></div></div>
+    <div id="loading">
+      <div class="logo-wrap"><img class="logo" alt="Pet Star: Trading Duel" width="260" height="260" decoding="async" fetchpriority="high"
+        src="brand/logo-512.webp" srcset="brand/logo-256.webp 256w, brand/logo-512.webp 512w, brand/logo-768.webp 768w" sizes="min(46vmin, 260px)"
+        onerror="document.getElementById('loading').classList.add('no-logo')"></div>
+      <div id="title">Pet Star: Trading Duel</div>
+      <div id="bar" role="progressbar" aria-label="Loading"><div></div></div><div id="pct"></div><div id="error"></div>
+    </div>
     <div id="rotate" role="alertdialog" aria-modal="true">
+      <img class="mini" alt="Pet Star" src="brand/logo-256.webp" onerror="this.remove()">
       <svg viewBox="0 0 64 64" width="88" height="88" aria-hidden="true"><rect x="20" y="6" width="24" height="44" rx="5" fill="none" stroke="#fff" stroke-width="3"/><circle cx="32" cy="44" r="2" fill="#fff"/></svg>
       <div id="rotate-vi"></div><small id="rotate-en"></small>
     </div>
@@ -96,8 +142,10 @@
       script.onload = function () {
         createUnityInstance(document.querySelector("#unity-canvas"), config, function (p) {
           document.querySelector("#bar > div").style.width = (100 * p) + "%";
+          document.getElementById('pct').textContent = Math.round(100 * p) + "%";
         }).then(function () {
-          document.getElementById('loading').style.display = 'none';
+          var l = document.getElementById('loading'); l.classList.add('done');
+          setTimeout(function () { l.style.display = 'none'; }, 400);
         }).catch(function (message) {
           var e = document.getElementById('error'); e.style.display = 'block'; e.textContent = message;
         });

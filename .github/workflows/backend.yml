@@ -2,7 +2,7 @@ name: Backend & data checks
 
 on:
   push:
-    paths: ["backend/**", "shared-contracts/**", "database/**", "tools/**", "client-unity/**", ".github/workflows/backend.yml"]
+    paths: ["backend/**", "shared-contracts/**", "database/**", "tools/**", "client-unity/**", "cloudflare/**", "assets-source/brand/**", ".github/workflows/backend.yml"]
   pull_request:
   workflow_dispatch:
 
@@ -42,6 +42,12 @@ jobs:
         run: python tools/check_localization.py
       - name: Unity asset pre-check (files the Unity build needs)
         run: python tools/check_unity_assets.py
+      - name: Cloudflare Pages Functions (same-origin /api and /ws proxy) tests
+        run: node --test cloudflare/pages/test/proxy.test.mjs
+      - name: Brand files from the official logo (skipped with a notice until it is uploaded)
+        run: |
+          pip install --quiet "pillow>=11,<13"
+          python tools/brand/make_brand_assets.py --out "$RUNNER_TEMP/brand-check"
       - name: Unity scripts syntax check (C# 9)
         run: |
           dotnet run --project tools/unity-syntax-check -- client-unity/Assets/Scripts

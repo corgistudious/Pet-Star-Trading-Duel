@@ -51,6 +51,7 @@ namespace PetStar.EditorTools
             ConfigurePlayer();
             if (target == BuildTarget.WebGL) ConfigureWebGL();
             ImportTmpEssentials();
+            CopyBrandLogo();
             ImportArt();
             CreateFonts();
             TryCreateCurrencyAtlas();
@@ -139,9 +140,37 @@ namespace PetStar.EditorTools
             Warn("TMP Essential Resources package not found; text will use fallbacks");
         }
 
+        /// <summary>Official logo source (uploaded by the owner, never regenerated) -> Unity sprite "ui/brand_logo".</summary>
+        public static readonly string[] BrandLogoSources =
+        {
+            "../assets-source/brand/petstar-logo-original.png", "../assets-source/brand/petstar-logo-original.jpg",
+            "../assets-source/brand/petstar-logo-original.jpeg", "../assets-source/brand/petstar-logo-original.webp",
+        };
+        public const string BrandFolder = "Assets/Art/UI/Brand";
+
+        /// <summary>Copies the original logo file byte for byte (no re-encode, no crop) so Unity imports the exact art.</summary>
+        public static void CopyBrandLogo()
+        {
+            var src = BrandLogoSources.FirstOrDefault(File.Exists);
+            if (src == null) { Warn("official logo not found in assets-source/brand (petstar-logo-original.png/.jpg); screens use the text title"); return; }
+            Directory.CreateDirectory(BrandFolder);
+            var ext = Path.GetExtension(src).ToLowerInvariant();
+            if (ext == ".webp") { Warn("Unity cannot import .webp; upload the logo as PNG or JPG"); return; }
+            foreach (var old in Directory.GetFiles(BrandFolder, "brand_logo.*")) if (!old.EndsWith(".meta") && Path.GetExtension(old) != ext) AssetDatabase.DeleteAsset(old);
+            var dst = BrandFolder + "/brand_logo" + ext;
+            File.Copy(src, dst, true);
+            AssetDatabase.ImportAsset(dst, ImportAssetOptions.ForceSynchronousImport);
+            Log("official logo copied: " + src + " -> " + dst);
+        }
+
         private static void ImportArt()
         {
             var board = BoardSprites.Select(b => b.path).ToHashSet();
+            int changed = 0;
+            // batch the ~220 reimports into one import pass (much faster on build machines)
+            AssetDatabase.StartAssetEditing();
+            try
+            {
             foreach (var guid in AssetDatabase.FindAssets("t:Texture2D", new[] { "Assets/Art" }))
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
@@ -159,7 +188,11 @@ namespace PetStar.EditorTools
                 foreach (var platform in new[] { "Android", "WebGL" })
                     ti.SetPlatformTextureSettings(new TextureImporterPlatformSettings { name = platform, overridden = true, maxTextureSize = max, format = TextureImporterFormat.ASTC_6x6 });
                 ti.SaveAndReimport();
+                changed++;
             }
+            }
+            finally { AssetDatabase.StopAssetEditing(); }
+            Log($"sprite importers configured: {changed} textures");
         }
 
         private static void CreateFonts()
@@ -231,6 +264,7 @@ namespace PetStar.EditorTools
             Mark("Assets/Art/UI/Currency", "ui/");
             Mark("Assets/Art/UI/Packs", "ui/");
             Mark("Assets/Art/UI/Backgrounds", "ui/");
+            if (Directory.Exists(BrandFolder)) Mark(BrandFolder, "ui/"); // ui/brand_logo
 
             foreach (var (path, address) in BoardSprites)
             {
@@ -278,14 +312,16 @@ namespace PetStar.EditorTools
         /// origin (PETSTAR_API_BASE, e.g. https://api.your-domain). Both come from Build Automation environment variables.</summary>
         public static void SetEnvironment()
         {
-            var env = Environment.GetEnvironmentVariable("PETSTAR_ENV");
+            var env = Environment.GetEnvironmentVariable("PETSTAR_ENV")?.Trim().ToLowerInvariant();
             if (string.IsNullOrWhiteSpace(env)) env = "development";
             var apiBase = Environment.GetEnvironmentVariable("PETSTAR_API_BASE");
             const string cfg = "Assets/Resources/Config/client-config.json";
             var json = JObject.Parse(File.ReadAllText(cfg));
             json["environment"] = env;
+            // only a non-empty PETSTAR_API_BASE changes the API; nothing is invented when it is missing
             if (!string.IsNullOrWhiteSpace(apiBase))
             {
+                apiBase = apiBase.Trim();
                 var envs = (JObject?)json["environments"] ?? new JObject();
                 var section = (JObject?)envs[env] ?? new JObject();
                 section["apiBaseUrl"] = apiBase.TrimEnd('/');

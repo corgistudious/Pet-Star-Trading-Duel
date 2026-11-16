@@ -20,7 +20,11 @@ namespace PetStar.Client.Screens
             if (Wide) hrt.Place(new Vector2(0, 1), new Vector2(720, 120), new Vector2(30, -30));
             else hrt.Place(new Vector2(0.5f, 1), new Vector2(1000, 130), new Vector2(0, -50));
             var name = UiKit.Text(head.transform, p == null ? "" : $"{p.Nickname}  <size=70%><color=#5B6B8F>UID {p.Uid} · {p.ServerCode}</color></size>", 42, UiKit.Ink, UiKit.Weight.ExtraBold, TextAlignmentOptions.MidlineLeft);
-            name.rectTransform.Stretch(40, 0, 200, 0);
+            // small official logo at the start of the header (main menu), never over the play area
+            float ls = Wide ? 96 : 106;
+            var hlogo = BrandLogo.Create(head.transform, ls, false);
+            hlogo.Place(new Vector2(0, 0.5f), hlogo.sizeDelta, new Vector2(14, 0), new Vector2(0, 0.5f));
+            name.rectTransform.Stretch(30 + ls, 0, 200, 0);
             var lv = UiKit.Text(head.transform, L.T("lobby.level", p?.Level ?? 1), 36, UiKit.Sapphire, UiKit.Weight.Bold, TextAlignmentOptions.MidlineRight);
             lv.rectTransform.Stretch(0, 0, 40, 0);
 

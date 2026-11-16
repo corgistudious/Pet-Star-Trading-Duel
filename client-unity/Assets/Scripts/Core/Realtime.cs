@@ -43,7 +43,7 @@ namespace PetStar.Client.Core
 
         public void Connect()
         {
-            if (_running) return;
+            if (_running || !ClientConfig.IsServerConfigured) return;
             _running = true;
             _ = Open();
         }
@@ -110,7 +110,7 @@ namespace PetStar.Client.Core
 
         public void Connect()
         {
-            if (_cts != null) return;
+            if (_cts != null || !ClientConfig.IsServerConfigured) return;
             _cts = new CancellationTokenSource();
             _ = Loop(_cts.Token);
         }

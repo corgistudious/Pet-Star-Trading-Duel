@@ -150,6 +150,8 @@ builder.Services.Configure<ForwardedHeadersOptions>(o =>
 
 var app = builder.Build();
 app.UseForwardedHeaders();
+// after the Nginx forwarded headers: the Cloudflare Pages proxy (same-origin /api on petstar.pages.dev) sets the player IP
+app.UseMiddleware<PetStar.Api.Infrastructure.EdgeProxyMiddleware>();
 app.UseExceptionHandler();
 app.UseCors("web");
 // Origin is checked in the /ws handler: browser origins must be allow-listed; native clients (no Origin) are allowed.
