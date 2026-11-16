@@ -59,6 +59,11 @@ public static class Seeder
             }
         }
         await db.SaveChangesAsync();
+        // immutable odds/price history: every current version is recorded once (openings reference the version)
+        foreach (var row in await db.PackTypes.AsNoTracking().ToListAsync())
+            await db.Database.ExecuteSqlRawAsync(
+                "INSERT INTO pack_type_versions (pack_type_id, version, enabled, data_json, reason, created_at) VALUES ({0}, {1}, {2}, {3}::jsonb, 'seed', now()) " +
+                "ON CONFLICT (pack_type_id, version) DO NOTHING", row.Id, row.Version, row.Enabled, row.DataJson);
 
         // Bootstrap owner role from configuration (e.g. Bootstrap__OwnerEmail env var)
         var ownerEmail = cfg["Bootstrap:OwnerEmail"];

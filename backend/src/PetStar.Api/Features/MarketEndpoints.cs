@@ -279,7 +279,7 @@ public static class MarketEndpoints
     {
         card ??= await db.Cards.AsNoTracking().FirstAsync(c => c.Id == l.CardId);
         var seller = await db.Memberships.AsNoTracking().FirstAsync(m => m.Id == l.SellerMembershipId);
-        var dto = data.ToDto(card);
+        var dto = await data.ToDtoFull(db, card);   // buyers see stars/enhancement/breakthrough/awakening/skill/engravings
         if (l.SellerMembershipId != viewerMid) dto.Id = 0;
         long fee = Fee(l.Price, l.FeeBps);
         long? est = withEstimate ? (await val.Estimate(l.ServerId, card, l.Currency)).Estimated : null;

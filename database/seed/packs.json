@@ -1,10 +1,21 @@
 {
-  "version": 1,
+  "version": 2,
   "weightUnit": "parts-per-million (each table sums to 1,000,000)",
+  "notes": "9 official packs. Ids basic_pack/premium_pack/legendary_pack are kept for existing inventories and history (now Standard/Advanced/Legendary). Every slot uses the same table (no hidden last-slot guarantee). Rarities LR/MR/GR/Secret stay valid on existing cards but are 0% in these packs. Prices and odds are launch baselines: configurable by admins (versioned) and to be economy-checked before release.",
   "packTypes": [
     {
       "id": "basic_pack",
-      "nameKey": "pack.basic.name",
+      "order": 1,
+      "theme": "standard",
+      "nameKey": "pack.standard.name",
+      "names": {
+        "en": "Standard Pack",
+        "vi": "Gói Tiêu Chuẩn"
+      },
+      "descriptions": {
+        "en": "5 Pet cards from first-form pets.",
+        "vi": "5 thẻ Pet từ các Pet hình thái đầu."
+      },
       "artAssetId": "ui_pack_basic",
       "price": {
         "currency": "MINI_GREEN_BEAN",
@@ -20,28 +31,12 @@
       },
       "slotTable": {
         "N": 600000,
-        "R": 250000,
-        "SR": 100000,
-        "SSR": 40000,
-        "UR": 8000,
-        "LR": 1500,
-        "MR": 400,
-        "GR": 90,
-        "EX": 9,
-        "Secret": 1
+        "R": 280000,
+        "SR": 90000,
+        "SSR": 25000,
+        "UR": 5000
       },
-      "finalSlotTable": {
-        "N": 150000,
-        "R": 350000,
-        "SR": 260000,
-        "SSR": 140000,
-        "UR": 65000,
-        "LR": 25000,
-        "MR": 6000,
-        "GR": 3000,
-        "EX": 800,
-        "Secret": 200
-      },
+      "finalSlotTable": {},
       "qualityTable": {
         "D": 300000,
         "C": 300000,
@@ -57,11 +52,28 @@
         "Holographic": 40000,
         "Shiny": 15000,
         "Prismatic": 5000
+      },
+      "divinePool": [],
+      "requirements": {
+        "minLevel": 0,
+        "minVip": 0,
+        "requiresEvent": false,
+        "requiresInvitation": false
       }
     },
     {
       "id": "premium_pack",
-      "nameKey": "pack.premium.name",
+      "order": 2,
+      "theme": "advanced",
+      "nameKey": "pack.advanced.name",
+      "names": {
+        "en": "Advanced Pack",
+        "vi": "Gói Cao Cấp"
+      },
+      "descriptions": {
+        "en": "5 Pet cards from first and second forms.",
+        "vi": "5 thẻ Pet từ hình thái 1 và 2."
+      },
       "artAssetId": "ui_pack_premium",
       "price": {
         "currency": "MINI_GREEN_BEAN",
@@ -77,29 +89,75 @@
         "includeStandalone": true
       },
       "slotTable": {
-        "N": 400000,
-        "R": 320000,
-        "SR": 170000,
-        "SSR": 80000,
-        "UR": 22000,
-        "LR": 6000,
-        "MR": 1500,
-        "GR": 400,
-        "EX": 90,
-        "Secret": 10
+        "N": 350000,
+        "R": 380000,
+        "SR": 190000,
+        "SSR": 60000,
+        "UR": 18000,
+        "EX": 2000
       },
-      "finalSlotTable": {
-        "N": 0,
-        "R": 250000,
-        "SR": 330000,
-        "SSR": 250000,
-        "UR": 110000,
-        "LR": 40000,
-        "MR": 12000,
-        "GR": 6000,
-        "EX": 1600,
-        "Secret": 400
+      "finalSlotTable": {},
+      "qualityTable": {
+        "D": 300000,
+        "C": 300000,
+        "B": 220000,
+        "A": 120000,
+        "S": 45000,
+        "SS": 12000,
+        "SSS": 3000
       },
+      "finishTable": {
+        "Normal": 850000,
+        "Foil": 90000,
+        "Holographic": 40000,
+        "Shiny": 15000,
+        "Prismatic": 5000
+      },
+      "divinePool": [],
+      "requirements": {
+        "minLevel": 0,
+        "minVip": 0,
+        "requiresEvent": false,
+        "requiresInvitation": false
+      }
+    },
+    {
+      "id": "transcendent_pack",
+      "order": 3,
+      "theme": "transcendent",
+      "nameKey": "pack.transcendent.name",
+      "names": {
+        "en": "Transcendent Pack",
+        "vi": "Gói Siêu Việt"
+      },
+      "descriptions": {
+        "en": "5 Pet cards from every evolution stage.",
+        "vi": "5 thẻ Pet từ mọi hình thái tiến hóa."
+      },
+      "artAssetId": "ui_pack_transcendent",
+      "price": {
+        "currency": "MINI_GREEN_BEAN",
+        "amount": 800
+      },
+      "cardsPerPack": 5,
+      "enabled": true,
+      "pool": {
+        "stages": [
+          1,
+          2,
+          3
+        ],
+        "includeStandalone": true
+      },
+      "slotTable": {
+        "N": 150000,
+        "R": 350000,
+        "SR": 320000,
+        "SSR": 130000,
+        "UR": 45000,
+        "EX": 5000
+      },
+      "finalSlotTable": {},
       "qualityTable": {
         "D": 200000,
         "C": 280000,
@@ -115,18 +173,35 @@
         "Holographic": 60000,
         "Shiny": 22000,
         "Prismatic": 8000
+      },
+      "divinePool": [],
+      "requirements": {
+        "minLevel": 0,
+        "minVip": 0,
+        "requiresEvent": false,
+        "requiresInvitation": false
       }
     },
     {
-      "id": "legendary_pack",
-      "nameKey": "pack.legendary.name",
-      "artAssetId": "ui_pack_legendary",
+      "id": "epic_pack",
+      "order": 4,
+      "theme": "epic",
+      "nameKey": "pack.epic.name",
+      "names": {
+        "en": "Epic Pack",
+        "vi": "Gói Sử Thi"
+      },
+      "descriptions": {
+        "en": "Rare-leaning pack paid with Rainbow Stars.",
+        "vi": "Gói thiên về thẻ hiếm, mua bằng Sao Ngũ Sắc."
+      },
+      "artAssetId": "ui_pack_epic",
       "price": {
-        "currency": "MINI_GREEN_BEAN",
-        "amount": 1000
+        "currency": "RAINBOW_STAR",
+        "amount": 20
       },
       "cardsPerPack": 5,
-      "enabled": false,
+      "enabled": true,
       "pool": {
         "stages": [
           1,
@@ -136,29 +211,74 @@
         "includeStandalone": true
       },
       "slotTable": {
-        "N": 0,
-        "R": 349000,
-        "SR": 330000,
-        "SSR": 200000,
-        "UR": 80000,
-        "LR": 26000,
-        "MR": 9000,
-        "GR": 4000,
-        "EX": 1500,
-        "Secret": 500
+        "N": 50000,
+        "R": 250000,
+        "SR": 400000,
+        "SSR": 220000,
+        "UR": 70000,
+        "EX": 10000
       },
-      "finalSlotTable": {
-        "N": 0,
-        "R": 0,
-        "SR": 300000,
-        "SSR": 380000,
-        "UR": 200000,
-        "LR": 75000,
-        "MR": 25000,
-        "GR": 13000,
-        "EX": 5000,
-        "Secret": 2000
+      "finalSlotTable": {},
+      "qualityTable": {
+        "D": 200000,
+        "C": 280000,
+        "B": 260000,
+        "A": 160000,
+        "S": 70000,
+        "SS": 24000,
+        "SSS": 6000
       },
+      "finishTable": {
+        "Normal": 780000,
+        "Foil": 130000,
+        "Holographic": 60000,
+        "Shiny": 22000,
+        "Prismatic": 8000
+      },
+      "divinePool": [],
+      "requirements": {
+        "minLevel": 0,
+        "minVip": 0,
+        "requiresEvent": false,
+        "requiresInvitation": false
+      }
+    },
+    {
+      "id": "legendary_pack",
+      "order": 5,
+      "theme": "legendary",
+      "nameKey": "pack.legendary.name",
+      "names": {
+        "en": "Legendary Pack",
+        "vi": "Gói Huyền Thoại"
+      },
+      "descriptions": {
+        "en": "No N cards; strong SSR/UR odds.",
+        "vi": "Không có thẻ N; tỷ lệ SSR/UR cao."
+      },
+      "artAssetId": "ui_pack_legendary",
+      "price": {
+        "currency": "RAINBOW_STAR",
+        "amount": 50
+      },
+      "cardsPerPack": 5,
+      "enabled": true,
+      "pool": {
+        "stages": [
+          1,
+          2,
+          3
+        ],
+        "includeStandalone": true
+      },
+      "slotTable": {
+        "R": 150000,
+        "SR": 350000,
+        "SSR": 340000,
+        "UR": 140000,
+        "EX": 20000
+      },
+      "finalSlotTable": {},
       "qualityTable": {
         "D": 100000,
         "C": 200000,
@@ -174,6 +294,274 @@
         "Holographic": 90000,
         "Shiny": 35000,
         "Prismatic": 15000
+      },
+      "divinePool": [],
+      "requirements": {
+        "minLevel": 0,
+        "minVip": 0,
+        "requiresEvent": false,
+        "requiresInvitation": false
+      }
+    },
+    {
+      "id": "mythic_pack",
+      "order": 6,
+      "theme": "mythic",
+      "nameKey": "pack.mythic.name",
+      "names": {
+        "en": "Mythic Pack",
+        "vi": "Gói Thần Thoại"
+      },
+      "descriptions": {
+        "en": "The highest regular odds.",
+        "vi": "Tỷ lệ cao nhất trong các gói thường."
+      },
+      "artAssetId": "ui_pack_mythic",
+      "price": {
+        "currency": "RAINBOW_STAR",
+        "amount": 120
+      },
+      "cardsPerPack": 5,
+      "enabled": true,
+      "pool": {
+        "stages": [
+          1,
+          2,
+          3
+        ],
+        "includeStandalone": true
+      },
+      "slotTable": {
+        "R": 50000,
+        "SR": 250000,
+        "SSR": 420000,
+        "UR": 240000,
+        "EX": 40000
+      },
+      "finalSlotTable": {},
+      "qualityTable": {
+        "D": 100000,
+        "C": 200000,
+        "B": 300000,
+        "A": 220000,
+        "S": 120000,
+        "SS": 45000,
+        "SSS": 15000
+      },
+      "finishTable": {
+        "Normal": 700000,
+        "Foil": 160000,
+        "Holographic": 90000,
+        "Shiny": 35000,
+        "Prismatic": 15000
+      },
+      "divinePool": [],
+      "requirements": {
+        "minLevel": 0,
+        "minVip": 0,
+        "requiresEvent": false,
+        "requiresInvitation": false
+      }
+    },
+    {
+      "id": "divine_premium_pack",
+      "order": 7,
+      "theme": "premium",
+      "nameKey": "pack.premium.name",
+      "names": {
+        "en": "Premium Pack",
+        "vi": "Gói Premium"
+      },
+      "descriptions": {
+        "en": "Regular pets plus the 5 Premium Divine Pets (10★). Level 30+, VIP 3+.",
+        "vi": "Pet thường và 5 Thần Pet Premium (10★). Cần Level 30+, VIP 3+."
+      },
+      "artAssetId": "ui_pack_premium",
+      "price": {
+        "currency": "RAINBOW_STAR",
+        "amount": 200
+      },
+      "cardsPerPack": 5,
+      "enabled": true,
+      "pool": {
+        "stages": [
+          1,
+          2,
+          3
+        ],
+        "includeStandalone": true
+      },
+      "slotTable": {
+        "R": 50000,
+        "SR": 250000,
+        "SSR": 420000,
+        "UR": 240000,
+        "EX": 38000,
+        "DV": 2000
+      },
+      "finalSlotTable": {},
+      "qualityTable": {
+        "D": 100000,
+        "C": 200000,
+        "B": 300000,
+        "A": 220000,
+        "S": 120000,
+        "SS": 45000,
+        "SSS": 15000
+      },
+      "finishTable": {
+        "Normal": 700000,
+        "Foil": 160000,
+        "Holographic": 90000,
+        "Shiny": 35000,
+        "Prismatic": 15000
+      },
+      "divinePool": [
+        "pet_dv_aurelion",
+        "pet_dv_diamaris",
+        "pet_dv_regalwing",
+        "pet_dv_opulynx",
+        "pet_dv_jadeheart"
+      ],
+      "requirements": {
+        "minLevel": 30,
+        "minVip": 3,
+        "requiresEvent": false,
+        "requiresInvitation": false
+      }
+    },
+    {
+      "id": "divine_limited_pack",
+      "order": 8,
+      "theme": "limited",
+      "nameKey": "pack.limited.name",
+      "names": {
+        "en": "Limited Pack",
+        "vi": "Gói Limited"
+      },
+      "descriptions": {
+        "en": "Only during a limited event. Regular pets plus the 5 Limited Divine Pets (10★). Level 40+, VIP 4+.",
+        "vi": "Chỉ bán trong sự kiện giới hạn. Pet thường và 5 Thần Pet Limited (10★). Cần Level 40+, VIP 4+."
+      },
+      "artAssetId": "ui_pack_limited",
+      "price": {
+        "currency": "RAINBOW_STAR",
+        "amount": 250
+      },
+      "cardsPerPack": 5,
+      "enabled": true,
+      "pool": {
+        "stages": [
+          1,
+          2,
+          3
+        ],
+        "includeStandalone": true
+      },
+      "slotTable": {
+        "R": 50000,
+        "SR": 240000,
+        "SSR": 420000,
+        "UR": 248500,
+        "EX": 40000,
+        "DV": 1500
+      },
+      "finalSlotTable": {},
+      "qualityTable": {
+        "D": 100000,
+        "C": 200000,
+        "B": 300000,
+        "A": 220000,
+        "S": 120000,
+        "SS": 45000,
+        "SSS": 15000
+      },
+      "finishTable": {
+        "Normal": 700000,
+        "Foil": 160000,
+        "Holographic": 90000,
+        "Shiny": 35000,
+        "Prismatic": 15000
+      },
+      "divinePool": [
+        "pet_dv_lanternix",
+        "pet_dv_frostbloom",
+        "pet_dv_sakuranne",
+        "pet_dv_galekite",
+        "pet_dv_harvestmoon"
+      ],
+      "requirements": {
+        "minLevel": 40,
+        "minVip": 4,
+        "requiresEvent": true,
+        "requiresInvitation": false
+      }
+    },
+    {
+      "id": "divine_star_pack",
+      "order": 9,
+      "theme": "star",
+      "nameKey": "pack.star.name",
+      "names": {
+        "en": "Star Pack",
+        "vi": "Gói Star"
+      },
+      "descriptions": {
+        "en": "By invitation only. Regular pets plus the 5 Star Divine Pets (10★). Level 60+, VIP 7+.",
+        "vi": "Chỉ dành cho người được mời. Pet thường và 5 Thần Pet Star (10★). Cần Level 60+, VIP 7+."
+      },
+      "artAssetId": "ui_pack_star",
+      "price": {
+        "currency": "RAINBOW_STAR",
+        "amount": 500
+      },
+      "cardsPerPack": 5,
+      "enabled": true,
+      "pool": {
+        "stages": [
+          1,
+          2,
+          3
+        ],
+        "includeStandalone": true
+      },
+      "slotTable": {
+        "R": 40000,
+        "SR": 220000,
+        "SSR": 420000,
+        "UR": 269000,
+        "EX": 50000,
+        "DV": 1000
+      },
+      "finalSlotTable": {},
+      "qualityTable": {
+        "D": 100000,
+        "C": 200000,
+        "B": 300000,
+        "A": 220000,
+        "S": 120000,
+        "SS": 45000,
+        "SSS": 15000
+      },
+      "finishTable": {
+        "Normal": 700000,
+        "Foil": 160000,
+        "Holographic": 90000,
+        "Shiny": 35000,
+        "Prismatic": 15000
+      },
+      "divinePool": [
+        "pet_dv_nebulon",
+        "pet_dv_astravel",
+        "pet_dv_quasark",
+        "pet_dv_solflare",
+        "pet_dv_orbiwisp"
+      ],
+      "requirements": {
+        "minLevel": 60,
+        "minVip": 7,
+        "requiresEvent": false,
+        "requiresInvitation": true
       }
     }
   ]

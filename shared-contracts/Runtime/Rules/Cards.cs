@@ -36,13 +36,18 @@ namespace PetStar.Rules
         public static int ExpToNext(int level) => level >= MaxLevel ? int.MaxValue : 50 + 25 * level;
 
         /// <summary>Applies EXP, returns (newLevel, newExp).</summary>
-        public static (int level, int exp) AddExp(int level, int exp, int gained)
+        public static (int level, int exp) AddExp(int level, int exp, int gained) => AddExp(level, exp, gained, MaxLevel);
+
+        /// <summary>Applies EXP up to a level cap (50, raised by breakthroughs up to 70).</summary>
+        public static (int level, int exp) AddExp(int level, int exp, int gained, int cap)
         {
             exp += Math.Max(0, gained);
-            while (level < MaxLevel && exp >= ExpToNext(level)) { exp -= ExpToNext(level); level++; }
-            if (level >= MaxLevel) exp = 0;
+            while (level < cap && exp >= ExpToNextUncapped(level)) { exp -= ExpToNextUncapped(level); level++; }
+            if (level >= cap) exp = 0;
             return (level, exp);
         }
+
+        public static int ExpToNextUncapped(int level) => 50 + 25 * level;
     }
 
     public sealed class RolledCard
@@ -56,28 +61,40 @@ namespace PetStar.Rules
 
     public static class PackRoller
     {
+        /// <summary>Regular pool: by evolution stage (+ standalone pets). Divine pets are never in a regular pool.</summary>
         public static List<PetFormDef> Pool(GameCatalog cat, PackTypeDef pack) =>
             cat.Forms.Values
+                .Where(f => f.DivineSet == null)
                 .Where(f => f.FamilyStages == 1 ? pack.Pool.IncludeStandalone : pack.Pool.Stages.Contains(f.Stage))
                 .OrderBy(f => f.Id, StringComparer.Ordinal)
                 .ToList();
+
+        /// <summary>Divine pets this pack can give (rolled when the slot rarity is the divine tier).</summary>
+        public static List<PetFormDef> DivinePool(GameCatalog cat, PackTypeDef pack) =>
+            pack.DivinePool.Select(cat.Form).OrderBy(f => f.Id, StringComparer.Ordinal).ToList();
 
         /// <summary>Rolls exactly CardsPerPack cards. The final slot uses its own rarity table.</summary>
         public static List<RolledCard> Roll(GameCatalog cat, PackTypeDef pack, IRandomSource rng)
         {
             var pool = Pool(cat, pack);
+            var divine = DivinePool(cat, pack);
             if (pool.Count == 0) throw new InvalidOperationException("Pack pool is empty: " + pack.Id);
             var rarityOrder = cat.Rarities.OrderBy(r => r.Order).Select(r => r.Id).ToList();
             var qualityOrder = cat.Qualities.OrderBy(q => q.Order).Select(q => q.Id).ToList();
             var result = new List<RolledCard>(pack.CardsPerPack);
             for (int slot = 1; slot <= pack.CardsPerPack; slot++)
             {
-                var table = slot == pack.CardsPerPack ? pack.FinalSlotTable : pack.SlotTable;
+                // a pack without its own final-slot table uses the same table for all 5 slots (no hidden guarantee)
+                var table = slot == pack.CardsPerPack && pack.FinalSlotTable.Count > 0 ? pack.FinalSlotTable : pack.SlotTable;
+                var rarity = WeightedTable.Roll(table, rng, rarityOrder);
+                bool isDivine = rarity == RarityDef.Divine;
+                if (isDivine && divine.Count == 0) throw new InvalidOperationException("Divine slot without divine pool: " + pack.Id);
                 result.Add(new RolledCard
                 {
                     Slot = slot,
-                    Rarity = WeightedTable.Roll(table, rng, rarityOrder),
-                    FormId = pool[rng.Next(pool.Count)].Id,
+                    Rarity = rarity,
+                    // uniform within the group: each divine form gets (divine weight / pool size)
+                    FormId = isDivine ? divine[rng.Next(divine.Count)].Id : pool[rng.Next(pool.Count)].Id,
                     Quality = WeightedTable.Roll(pack.QualityTable, rng, qualityOrder),
                     Finish = WeightedTable.Roll(pack.FinishTable, rng, cat.Finishes),
                 });

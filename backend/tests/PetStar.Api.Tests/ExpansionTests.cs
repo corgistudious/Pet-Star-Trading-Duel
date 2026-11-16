@@ -436,7 +436,8 @@ public class ProgressionAndRewardsTests(ApiFactory f)
         await f.Sql("UPDATE card_instances SET level = 50 WHERE id = @p0", card.Id);
         await f.Sql("INSERT INTO inventory_items (membership_id, item_id, quantity) VALUES (@p0, 'training_scroll', 100)", mid);
         for (int i = 0; i < 4; i++) await Player.Ok(await p.Post($"/api/cards/{card.Id}/train", null, Player.Key()));
-        Assert.Equal("skill_max_level", await Player.Code(await p.Post($"/api/cards/{card.Id}/train", null, Player.Key())));
+        // card system expansion: 5 → 6 now also needs a breakthrough (skill levels go up to 10)
+        Assert.Equal("training_breakthrough_too_low", await Player.Code(await p.Post($"/api/cards/{card.Id}/train", null, Player.Key())));
         Assert.Equal(5, (await p.Get<CardDto>($"/api/cards/{card.Id}")).SkillLevel);
         Assert.Equal(100 - 15, (await p.Me()).Items["training_scroll"]);
     }

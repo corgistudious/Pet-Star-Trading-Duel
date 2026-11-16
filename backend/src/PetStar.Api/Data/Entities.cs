@@ -156,6 +156,13 @@ public class CardInstance
     public int Level { get; set; } = 1;
     public int Exp { get; set; }
     public int SkillLevel { get; set; } = 1;
+    /// <summary>1..10. Divine Pet Cards are created at 10.</summary>
+    public int Stars { get; set; } = 1;
+    /// <summary>+0..+20 enhancement.</summary>
+    public int EnhanceLevel { get; set; }
+    /// <summary>0..4 breakthroughs (level cap 50 → 70).</summary>
+    public int Breakthrough { get; set; }
+    public bool Awakened { get; set; }
     public bool IsFavorite { get; set; }
     public bool IsLocked { get; set; }
     /// <summary>Business lock (e.g. "trade:{id}"). Cards with a busy state cannot be traded/evolved/consumed.</summary>

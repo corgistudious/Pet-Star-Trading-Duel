@@ -31,6 +31,8 @@ namespace PetStar.Rules.Battle
         public string Element { get; set; } = "";
         public int Level { get; set; }
         public int SkillLevel { get; set; } = 1;
+        public bool Awakened { get; set; }
+        public int Stars { get; set; } = 1;
         public string Rarity { get; set; } = "N";
         public int MaxHp { get; set; }
         public int Hp { get; set; }
@@ -78,8 +80,10 @@ namespace PetStar.Rules.Battle
         public double PoisonPct { get; set; } = 0.08;
         public double WeakenAtk { get; set; } = 0.75;
         public int DefendPriority { get; set; } = 3;
-        /// <summary>Skill/ultimate power bonus per skill level above 1 (max level 5 → +24%).</summary>
+        /// <summary>Skill/ultimate power bonus per skill level 2..5 (→ +24% at 5).</summary>
         public double SkillLevelBonus { get; set; } = 0.06;
+        /// <summary>Bonus per skill level 6..10 (→ +39% at 10; +5% more when awakened). See Progression.</summary>
+        public double SkillLevelBonusHigh { get; set; } = 0.03;
         /// <summary>3+ cards of one element: +ATK for those cards.</summary>
         public double ElementSynergyAtk { get; set; } = 0.06;
         /// <summary>4+ different elements: +HP for the whole team.</summary>
@@ -119,16 +123,25 @@ namespace PetStar.Rules.Battle
         public BattleEngine(GameCatalog cat) { _cat = cat; }
 
         public static BattleUnit CreateUnit(GameCatalog cat, int side, int index, int position, long cardId,
-            string formId, int level, string rarity, string quality, int skillLevel = 1)
+            string formId, int level, string rarity, string quality, int skillLevel = 1) =>
+            CreateUnit(cat, side, index, position, cardId, formId, rarity, quality,
+                new CardProgress { Level = level, SkillLevel = Math.Max(1, Math.Min(5, skillLevel)) });
+
+        /// <summary>Battle unit from the server-stored card progression (stars, enhancement, breakthrough, awakening,
+        /// skill level, engravings). Client-sent stats are never used.</summary>
+        public static BattleUnit CreateUnit(GameCatalog cat, int side, int index, int position, long cardId,
+            string formId, string rarity, string quality, CardProgress progress)
         {
             var f = cat.Form(formId);
-            var s = StatCalculator.Compute(cat, formId, level, rarity, quality);
+            var s = Progression.Compute(cat, formId, rarity, quality, progress);
             var u = new BattleUnit
             {
                 Side = side, Index = index, Position = position, CardId = cardId, FormId = formId,
-                Element = f.Element, Level = level, Rarity = rarity, MaxHp = s.Hp, Hp = s.Hp, Atk = s.Atk, Def = s.Def,
+                Element = f.Element, Level = Math.Max(1, Math.Min(Progression.LevelCap(progress.Breakthrough), progress.Level)),
+                Rarity = rarity, MaxHp = s.Hp, Hp = s.Hp, Atk = s.Atk, Def = s.Def,
                 Spd = s.Spd, Crit = s.Crit, SkillId = f.Skill, UltimateId = f.Ultimate, PassiveId = f.Passive,
-                SkillLevel = Math.Max(1, Math.Min(5, skillLevel)),
+                SkillLevel = Math.Max(1, Math.Min(Progression.MaxSkillLevel, progress.SkillLevel)),
+                Awakened = progress.Awakened, Stars = progress.Stars,
             };
             // permanent stat passives are folded in at creation
             var p = u.PassiveId != null ? cat.Passives[u.PassiveId] : null;
@@ -139,7 +152,7 @@ namespace PetStar.Rules.Battle
                     case "atk": u.Atk = (int)Math.Round(u.Atk * (1 + p.Pct)); break;
                     case "def": u.Def = (int)Math.Round(u.Def * (1 + p.Pct)); break;
                     case "spd": u.Spd = (int)Math.Round(u.Spd * (1 + p.Pct)); break;
-                    case "crit": u.Crit += p.Pct; break;
+                    case "crit": u.Crit = Math.Min(0.5, u.Crit + p.Pct); break;
                 }
             }
             return u;
@@ -366,7 +379,7 @@ namespace PetStar.Rules.Battle
             SeededRandom rng, List<BattleEvent> events)
         {
             var cfg = st.Config;
-            double lvl = skill.Kind == "basic" ? 1.0 : 1.0 + cfg.SkillLevelBonus * (actor.SkillLevel - 1);
+            double lvl = skill.Kind == "basic" ? 1.0 : Progression.SkillPowerMultiplier(actor.SkillLevel, actor.Awakened, cfg.SkillLevelBonus, cfg.SkillLevelBonusHigh);
             switch (eff.Type)
             {
                 case "damage":

@@ -36,6 +36,7 @@ namespace PetStar.Rules
                             f.Element = fam.Element;
                             f.Role = fam.Role;
                             f.FamilyStages = fam.Stages;
+                            f.DivineSet = fam.Divine;
                             forms[f.Id] = f;
                         }
                     System.Threading.Interlocked.CompareExchange(ref _forms, forms, null);
@@ -77,12 +78,26 @@ namespace PetStar.Rules
                     if (f.Passive != null && !Passives.ContainsKey(f.Passive)) problems.Add($"{f.Id}: unknown passive {f.Passive}");
                 }
             }
+            var rarityIds = new HashSet<string>(Rarities.Select(r => r.Id));
             foreach (var p in PackTypes)
             {
-                foreach (var t in new[] { p.SlotTable, p.FinalSlotTable, p.QualityTable, p.FinishTable })
+                var tables = new List<Dictionary<string, int>> { p.SlotTable, p.QualityTable, p.FinishTable };
+                if (p.FinalSlotTable.Count > 0) tables.Add(p.FinalSlotTable);
+                foreach (var t in tables)
+                {
                     if (t.Values.Sum(v => (long)v) != WeightedTable.Total) problems.Add($"{p.Id}: table does not sum to {WeightedTable.Total}");
+                    if (t.Values.Any(v => v < 0)) problems.Add($"{p.Id}: negative weight");
+                }
+                foreach (var k in p.SlotTable.Keys.Concat(p.FinalSlotTable.Keys))
+                    if (!rarityIds.Contains(k)) problems.Add($"{p.Id}: unknown rarity {k}");
                 if (p.CardsPerPack != 5) problems.Add($"{p.Id}: cardsPerPack must be 5");
+                bool divineWeight = p.SlotTable.TryGetValue(RarityDef.Divine, out var dw) && dw > 0;
+                if (divineWeight != (p.DivinePool.Count > 0)) problems.Add($"{p.Id}: divine weight and divine pool must come together");
+                foreach (var id in p.DivinePool)
+                    if (!Forms.TryGetValue(id, out var df) || df.DivineSet == null) problems.Add($"{p.Id}: {id} is not a divine pet");
             }
+            foreach (var fam in Families.Where(x => x.Divine != null))
+                if (fam.Stages != 1) problems.Add($"{fam.Id}: divine pets are single-stage");
             return problems;
         }
     }
@@ -115,6 +130,8 @@ namespace PetStar.Rules
 
     public sealed class RarityDef
     {
+        /// <summary>Rarity tier of the 15 Divine Pet Cards (Thần Pet). Only obtainable from their divine pool.</summary>
+        public const string Divine = "DV";
         public string Id { get; set; } = "";
         public int Order { get; set; }
         public string Color { get; set; } = "";
@@ -144,6 +161,8 @@ namespace PetStar.Rules
         public string Role { get; set; } = "";
         public int Stages { get; set; }
         public string Identity { get; set; } = "";
+        /// <summary>premium | limited | star for the Divine Pet Cards (Thần Pet), null for regular pets.</summary>
+        public string? Divine { get; set; }
         public List<PetFormDef> Forms { get; set; } = new List<PetFormDef>();
     }
 
@@ -158,12 +177,15 @@ namespace PetStar.Rules
         public string? Passive { get; set; }
         public string Art { get; set; } = "";
         public Dictionary<string, string> Lore { get; set; } = new Dictionary<string, string>();
+        /// <summary>Localised names (vi/en) when they differ from Name (Divine Pets).</summary>
+        public Dictionary<string, string> Names { get; set; } = new Dictionary<string, string>();
 
         // denormalised from family by GameCatalog.Forms
         public string FamilyId { get; set; } = "";
         public string Element { get; set; } = "";
         public string Role { get; set; } = "";
         public int FamilyStages { get; set; }
+        public string? DivineSet { get; set; }
     }
 
     public sealed class SkillEffect
@@ -231,6 +253,26 @@ namespace PetStar.Rules
         public Dictionary<string, int> FinalSlotTable { get; set; } = new Dictionary<string, int>();
         public Dictionary<string, int> QualityTable { get; set; } = new Dictionary<string, int>();
         public Dictionary<string, int> FinishTable { get; set; } = new Dictionary<string, int>();
+        /// <summary>Divine Pet form ids rolled when a slot lands on rarity DV (uniform within the group).</summary>
+        public List<string> DivinePool { get; set; } = new List<string>();
+        public PackRequirements Requirements { get; set; } = new PackRequirements();
+        public Dictionary<string, string> Names { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> Descriptions { get; set; } = new Dictionary<string, string>();
+        /// <summary>Display order in the shop.</summary>
+        public int Order { get; set; }
+        /// <summary>Visual theme of the opening animation (standard | advanced | transcendent | epic | legendary | mythic | premium | limited | star).</summary>
+        public string Theme { get; set; } = "standard";
+    }
+
+    /// <summary>Purchase conditions, all checked by the server at purchase time.</summary>
+    public sealed class PackRequirements
+    {
+        public int MinLevel { get; set; }
+        public int MinVip { get; set; }
+        /// <summary>Only purchasable while an admin-scheduled limited event for this pack is running.</summary>
+        public bool RequiresEvent { get; set; }
+        /// <summary>Needs a valid, unexpired, unrevoked invitation issued by an authorised admin.</summary>
+        public bool RequiresInvitation { get; set; }
     }
 
     public sealed class EvolutionStep

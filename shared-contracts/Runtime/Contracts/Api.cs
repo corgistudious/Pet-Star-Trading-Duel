@@ -84,6 +84,52 @@ namespace PetStar.Contracts
         public int PriceAmount { get; set; }
         public int Owned { get; set; }
         public DateTimeOffset? AvailableUntil { get; set; }
+        // card system expansion (additive)
+        public int Order { get; set; }
+        public string Theme { get; set; } = "";
+        public Dictionary<string, string> Names { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> Descriptions { get; set; } = new Dictionary<string, string>();
+        public int MinLevel { get; set; }
+        public int MinVip { get; set; }
+        public bool RequiresEvent { get; set; }
+        public bool RequiresInvitation { get; set; }
+        /// <summary>Whether this player may buy it now (server-evaluated) and, if not, the reason code.</summary>
+        public bool CanBuy { get; set; }
+        public string? BlockedReason { get; set; }
+        public int Version { get; set; }
+        public LimitedEventDto? Event { get; set; }
+        public int? InvitationPacksLeft { get; set; }
+        public DateTimeOffset? InvitationExpiresAt { get; set; }
+    }
+
+    public class LimitedEventDto
+    {
+        public long Id { get; set; }
+        public string NameVi { get; set; } = "";
+        public string NameEn { get; set; } = "";
+        public DateTimeOffset StartsAt { get; set; }
+        public DateTimeOffset EndsAt { get; set; }
+        public int? TotalLimit { get; set; }
+        public int? PerPlayerLimit { get; set; }
+        public int Sold { get; set; }
+        public int BoughtByMe { get; set; }
+    }
+
+    public class VipDto
+    {
+        public int Level { get; set; }
+        public long Points { get; set; }
+        public long? NextLevelPoints { get; set; }
+        public List<long> Thresholds { get; set; } = new List<long>();
+    }
+
+    /// <summary>Probability of getting at least one card of a tier (or better) in a whole 5-card pack.</summary>
+    public class PackOddsRow
+    {
+        public string Rarity { get; set; } = "";
+        public double PerSlot { get; set; }
+        public double AtLeastOneInPack { get; set; }
+        public double AtLeastOneThisOrBetter { get; set; }
     }
 
     /// <summary>Public odds disclosure (percentages).</summary>
@@ -96,6 +142,14 @@ namespace PetStar.Contracts
         public Dictionary<string, double> Quality { get; set; } = new Dictionary<string, double>();
         public Dictionary<string, double> Finish { get; set; } = new Dictionary<string, double>();
         public List<string> PossiblePets { get; set; } = new List<string>();
+        /// <summary>Same table for all 5 slots (no hidden last-slot guarantee).</summary>
+        public bool SameTableAllSlots { get; set; }
+        public List<PackOddsRow> Pack { get; set; } = new List<PackOddsRow>();
+        public List<string> DivinePets { get; set; } = new List<string>();
+        /// <summary>Per-slot chance of each individual Divine Pet (group chance / pool size), percent.</summary>
+        public double DivinePerPetPerSlot { get; set; }
+        public double DivineGroupPerSlot { get; set; }
+        public double DivineAtLeastOneInPack { get; set; }
     }
 
     public class PurchasePackRequest { public string PackTypeId { get; set; } = ""; public int Quantity { get; set; } = 1; }
@@ -143,6 +197,15 @@ namespace PetStar.Contracts
         public bool IsLocked { get; set; }
         public bool IsBusy { get; set; }
         public int Slot { get; set; }
+        // card system expansion (additive)
+        public int Stars { get; set; } = 1;
+        public int EnhanceLevel { get; set; }
+        public int Breakthrough { get; set; }
+        public int LevelCap { get; set; } = 50;
+        public bool Awakened { get; set; }
+        /// <summary>premium | limited | star for Divine Pet Cards (Thần Pet), null otherwise.</summary>
+        public string? DivineSet { get; set; }
+        public List<EngravingDto> Engravings { get; set; } = new List<EngravingDto>();
     }
 
     public class CardPageDto { public List<CardDto> Items { get; set; } = new List<CardDto>(); public int Total { get; set; } public int Page { get; set; } public int PageSize { get; set; } public Dictionary<string, int> CopiesByForm { get; set; } = new Dictionary<string, int>(); }
@@ -211,4 +274,63 @@ namespace PetStar.Contracts
     public class AdminServerRequest { public int Id { get; set; } public string Code { get; set; } = ""; public string Name { get; set; } = "Global"; public string Status { get; set; } = "coming_soon"; public bool RegistrationOpen { get; set; } }
     public class AdminServerPatch { public string? Status { get; set; } public bool? RegistrationOpen { get; set; } public string? Name { get; set; } }
     public class AdminServerDto : ServerDto { public int Members { get; set; } public int ActiveLast24h { get; set; } public int Online { get; set; } }
+
+    // ---------------- Card progression (stars, enhancement, breakthrough, awakening, skill, engravings) ----------------
+    public class EngravingDto
+    {
+        public long Id { get; set; }
+        public string Type { get; set; } = "";
+        public int Level { get; set; }
+        public long? CardId { get; set; }
+        public int? Slot { get; set; }
+        public double Value { get; set; }
+    }
+
+    public class UpgradeCostDto
+    {
+        public long Beans { get; set; }
+        public Dictionary<string, int> Items { get; set; } = new Dictionary<string, int>();
+        public int MinLevel { get; set; }
+        public int MinStars { get; set; }
+        public int MinBreakthrough { get; set; }
+    }
+
+    public class UpgradeOptionDto
+    {
+        public string Kind { get; set; } = "";        // star | enhance | breakthrough | awaken | skill
+        public int Current { get; set; }
+        public int Max { get; set; }
+        public UpgradeCostDto? Cost { get; set; }
+        /// <summary>null when possible now, otherwise the reason code (max_reached, level_too_low, not_enough_*, card_busy ...).</summary>
+        public string? Blocked { get; set; }
+        /// <summary>Card as it would be after this upgrade (server-computed preview).</summary>
+        public CardDto? Preview { get; set; }
+    }
+
+    public class CardUpgradesDto
+    {
+        public CardDto Card { get; set; } = new CardDto();
+        public List<UpgradeOptionDto> Options { get; set; } = new List<UpgradeOptionDto>();
+        public Dictionary<string, long> Materials { get; set; } = new Dictionary<string, long>();
+        public long Beans { get; set; }
+        public List<EngravingDto> FreeEngravings { get; set; } = new List<EngravingDto>();
+        public List<int> UnlockedSlots { get; set; } = new List<int>();
+    }
+
+    /// <summary>Every upgrade request carries the value the player saw: a stale or double-tapped request is refused.</summary>
+    public class UpgradeRequest { public int From { get; set; } }
+    public class EquipEngravingRequest { public long EngravingId { get; set; } public int Slot { get; set; } }
+    public class UnequipEngravingRequest { public int Slot { get; set; } }
+    public class CraftEngravingRequest { public string Type { get; set; } = ""; }
+    public class ResetRequest { public string Kind { get; set; } = ""; public int From { get; set; } }
+
+    public class ResetPreviewDto
+    {
+        public string Kind { get; set; } = "";
+        public int From { get; set; }
+        public int To { get; set; }
+        public long RefundBeans { get; set; }
+        public Dictionary<string, int> RefundItems { get; set; } = new Dictionary<string, int>();
+        public string? Blocked { get; set; }
+    }
 }

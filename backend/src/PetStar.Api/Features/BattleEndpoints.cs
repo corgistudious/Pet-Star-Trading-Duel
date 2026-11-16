@@ -56,10 +56,11 @@ public static class BattleEndpoints
                     .ExecuteUpdateAsync(u => u.SetProperty(b => b.Status, "abandoned").SetProperty(b => b.FinishedAt, now).SetProperty(b => b.EndReason, "abandoned"));
 
                 var cat = data.Catalog;
+                var engr = await CardProgressLoader.Engravings(db, cards.Keys);
                 var mine = deck.Slots.OrderBy(s => s.Position).Select((s, i) =>
                 {
                     var c = cards[s.CardId];
-                    return BattleEngine.CreateUnit(cat, 0, i, s.Position, c.Id, c.FormId, c.Level, c.Rarity, c.Quality, c.SkillLevel);
+                    return BattleEngine.CreateUnit(cat, 0, i, s.Position, c.Id, c.FormId, c.Rarity, c.Quality, CardProgressLoader.Progress(c, engr.GetValueOrDefault(c.Id)));
                 }).ToList();
                 var enemy = stage.Enemies.OrderBy(e => e.Position).Select((e, i) =>
                     BattleEngine.CreateUnit(cat, 1, i, e.Position, 0, e.FormId, e.Level, e.Rarity, e.Quality)).ToList();
@@ -187,7 +188,7 @@ public static class BattleEndpoints
                 foreach (var c in cards)
                 {
                     int before = c.Level;
-                    (c.Level, c.Exp) = StatCalculator.AddExp(c.Level, c.Exp, rewards.CardExp);
+                    (c.Level, c.Exp) = StatCalculator.AddExp(c.Level, c.Exp, rewards.CardExp, Progression.LevelCap(c.Breakthrough));
                     c.UpdatedAt = DateTimeOffset.UtcNow;
                     if (c.Level > before)
                         db.CardProgress.Add(new CardProgressEvent { CardId = c.Id, Type = "level_up", DataJson = JsonSerializer.Serialize(new { from = before, to = c.Level, source = "battle:" + b.Id.ToString("N") }), At = DateTimeOffset.UtcNow });

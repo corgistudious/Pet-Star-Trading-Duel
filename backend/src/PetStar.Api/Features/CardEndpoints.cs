@@ -28,7 +28,7 @@ public static class CardEndpoints
                 var forms = cat.Forms.Values.Where(f => (els == null || els.Contains(f.Element)) && (!stage.HasValue || f.Stage == stage)).Select(f => f.Id).ToList();
                 q = q.Where(c => forms.Contains(c.FormId));
             }
-            var all = (await q.ToListAsync()).Select(c => data.ToDto(c)).ToList();
+            var all = await data.ToDtos(db, await q.ToListAsync());
             var rarityOrder = cat.Rarities.ToDictionary(r => r.Id, r => r.Order);
             IEnumerable<CardDto> sorted = (sort ?? "newest") switch
             {
@@ -45,7 +45,7 @@ public static class CardEndpoints
         });
 
         g.MapGet("/cards/{id:long}", async (long id, HttpContext ctx, PetStarDb db, GameData data) =>
-            data.ToDto(await Owned(db, ctx, id)));
+            await data.ToDtoFull(db, await Owned(db, ctx, id)));
 
         g.MapPost("/cards/{id:long}/favorite", async (long id, FlagRequest req, HttpContext ctx, PetStarDb db, GameData data) =>
         {

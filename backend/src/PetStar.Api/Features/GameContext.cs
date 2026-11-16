@@ -28,20 +28,37 @@ public sealed class GameData(GameCatalog catalog, EconomyConfig economy, PveConf
         return (def, row.Version);
     }
 
-    public CardDto ToDto(CardInstance c, int slot = 0)
+    /// <summary>Card DTO with server-computed stats from the stored progression (stars, enhancement, breakthrough,
+    /// awakening, skill level and — when given — equipped engravings).</summary>
+    public CardDto ToDto(CardInstance c, int slot = 0, IReadOnlyList<CardEngraving>? engravings = null)
     {
         var f = Catalog.Form(c.FormId);
-        var s = StatCalculator.Compute(Catalog, c.FormId, c.Level, c.Rarity, c.Quality);
+        var progress = CardProgressLoader.Progress(c, engravings);
+        var s = Progression.Compute(Catalog, c.FormId, c.Rarity, c.Quality, progress);
+        int cap = Progression.LevelCap(c.Breakthrough);
         return new CardDto
         {
             Id = c.Id, FormId = c.FormId, Name = f.Name, FamilyId = f.FamilyId, Stage = f.Stage, Element = f.Element, Role = f.Role,
             Rarity = c.Rarity, Quality = c.Quality, Finish = c.Finish, Level = c.Level, Exp = c.Exp,
-            ExpToNext = c.Level >= StatCalculator.MaxLevel ? 0 : StatCalculator.ExpToNext(c.Level),
+            ExpToNext = c.Level >= cap ? 0 : StatCalculator.ExpToNextUncapped(c.Level),
             Hp = s.Hp, Atk = s.Atk, Def = s.Def, Spd = s.Spd, Crit = s.Crit, Power = s.Power,
             SkillId = f.Skill, UltimateId = f.Ultimate, PassiveId = f.Passive, Serial = c.Serial, SkillLevel = c.SkillLevel,
             IsFavorite = c.IsFavorite, IsLocked = c.IsLocked, IsBusy = c.BusyState != null, Slot = slot,
+            Stars = c.Stars, EnhanceLevel = c.EnhanceLevel, Breakthrough = c.Breakthrough, LevelCap = cap, Awakened = c.Awakened,
+            DivineSet = f.DivineSet,
+            Engravings = engravings?.Select(CardProgressLoader.ToDto).ToList() ?? new List<EngravingDto>(),
         };
     }
+
+    /// <summary>DTOs for many cards with their engravings loaded in one query.</summary>
+    public async Task<List<CardDto>> ToDtos(PetStarDb db, IReadOnlyList<CardInstance> cards)
+    {
+        var engr = await CardProgressLoader.Engravings(db, cards.Select(c => c.Id));
+        return cards.Select(c => ToDto(c, 0, engr.GetValueOrDefault(c.Id))).ToList();
+    }
+
+    public async Task<CardDto> ToDtoFull(PetStarDb db, CardInstance c, int slot = 0) =>
+        ToDto(c, slot, (await CardProgressLoader.Engravings(db, new[] { c.Id })).GetValueOrDefault(c.Id));
 
     public static async Task DiscoverCodex(PetStarDb db, long membershipId, string formId, long cardId) =>
         await db.Database.ExecuteSqlRawAsync(

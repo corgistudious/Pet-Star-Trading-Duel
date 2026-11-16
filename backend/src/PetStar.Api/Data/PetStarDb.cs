@@ -53,6 +53,12 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
     public DbSet<CardSerialRegistry> SerialRegistry => Set<CardSerialRegistry>();
     public DbSet<CardPassport> Passports => Set<CardPassport>();
     public DbSet<CardProgressEvent> CardProgress => Set<CardProgressEvent>();
+    public DbSet<MembershipVip> Vip => Set<MembershipVip>();
+    public DbSet<PackTypeVersion> PackTypeVersions => Set<PackTypeVersion>();
+    public DbSet<PackPurchase> PackPurchases => Set<PackPurchase>();
+    public DbSet<LimitedEvent> LimitedEvents => Set<LimitedEvent>();
+    public DbSet<StarInvitation> StarInvitations => Set<StarInvitation>();
+    public DbSet<CardEngraving> Engravings => Set<CardEngraving>();
     public DbSet<CardValuationSnapshot> ValuationSnapshots => Set<CardValuationSnapshot>();
     public DbSet<MarketListing> Listings => Set<MarketListing>();
     public DbSet<MarketTransaction> MarketTransactions => Set<MarketTransaction>();
@@ -153,12 +159,16 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
         {
             e.ToTable("card_instances", t =>
             {
-                t.HasCheckConstraint("ck_card_level", "level BETWEEN 1 AND 50");
-                t.HasCheckConstraint("ck_card_rarity", "rarity IN ('N','R','SR','SSR','UR','LR','MR','GR','EX','Secret')");
+                t.HasCheckConstraint("ck_card_level", "level BETWEEN 1 AND 70");
+                t.HasCheckConstraint("ck_card_rarity", "rarity IN ('N','R','SR','SSR','UR','LR','MR','GR','EX','Secret','DV')");
+                t.HasCheckConstraint("ck_card_stars", "stars BETWEEN 1 AND 10");
+                t.HasCheckConstraint("ck_card_enhance", "enhance_level BETWEEN 0 AND 20");
+                t.HasCheckConstraint("ck_card_breakthrough", "breakthrough BETWEEN 0 AND 4");
                 t.HasCheckConstraint("ck_card_quality", "quality IN ('D','C','B','A','S','SS','SSS')");
                 t.HasCheckConstraint("ck_card_finish", "finish IN ('Normal','Foil','Holographic','Shiny','Prismatic')");
             });
             e.Property(x => x.Id).HasDefaultValueSql("nextval('card_instance_seq')").ValueGeneratedOnAdd();
+            e.Property(x => x.Stars).HasDefaultValue(1);
             // owner must be a membership on the SAME server as the card
             e.HasOne<ServerMembership>().WithMany().HasForeignKey(x => new { x.OwnerMembershipId, x.ServerId })
                 .HasPrincipalKey(m => new { m.Id, m.ServerId }).OnDelete(DeleteBehavior.Restrict);
@@ -317,12 +327,69 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
             e.HasIndex(x => new { x.ActorAccountId, x.At });
         });
         ConfigureExpansion(b);
+        ConfigureCardSystem(b);
         ConfigureLive(b);
     }
 
     private static void MembershipFk<T>(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<T> e,
         System.Linq.Expressions.Expression<Func<T, object?>> fk) where T : class =>
         e.HasOne<ServerMembership>().WithMany().HasForeignKey(fk).HasPrincipalKey(m => new { m.Id, m.ServerId }).OnDelete(DeleteBehavior.Restrict);
+
+    private static void ConfigureCardSystem(ModelBuilder b)
+    {
+        b.Entity<MembershipVip>(e =>
+        {
+            e.ToTable("membership_vip", t => t.HasCheckConstraint("ck_vip", "points >= 0 AND level BETWEEN 0 AND 10"));
+            e.HasKey(x => x.MembershipId);
+            MembershipFk(e, x => new { x.MembershipId, x.ServerId });
+        });
+        b.Entity<PackTypeVersion>(e =>
+        {
+            e.ToTable("pack_type_versions");
+            e.Property(x => x.DataJson).HasColumnType("jsonb");
+            e.HasIndex(x => new { x.PackTypeId, x.Version }).IsUnique();
+        });
+        b.Entity<PackPurchase>(e =>
+        {
+            e.ToTable("pack_purchases", t => t.HasCheckConstraint("ck_pack_purchase", "quantity > 0 AND amount >= 0"));
+            e.HasIndex(x => new { x.MembershipId, x.PackTypeId, x.CreatedAt });
+            e.HasIndex(x => new { x.EventId, x.MembershipId });
+            e.HasIndex(x => new { x.ServerId, x.CreatedAt });
+            MembershipFk(e, x => new { x.MembershipId, x.ServerId });
+        });
+        b.Entity<LimitedEvent>(e =>
+        {
+            e.ToTable("limited_events", t =>
+            {
+                t.HasCheckConstraint("ck_event_window", "ends_at > starts_at");
+                t.HasCheckConstraint("ck_event_limits", "sold >= 0 AND (total_limit IS NULL OR (total_limit > 0 AND sold <= total_limit)) AND (per_player_limit IS NULL OR per_player_limit > 0)");
+            });
+            e.HasIndex(x => new { x.PackTypeId, x.StartsAt, x.EndsAt });
+        });
+        b.Entity<StarInvitation>(e =>
+        {
+            e.ToTable("star_invitations", t =>
+            {
+                t.HasCheckConstraint("ck_invite_status", "status IN ('active','revoked')");
+                t.HasCheckConstraint("ck_invite_uses", "max_packs > 0 AND used_packs >= 0 AND used_packs <= max_packs");
+            });
+            e.HasIndex(x => new { x.MembershipId, x.Status });
+            MembershipFk(e, x => new { x.MembershipId, x.ServerId });
+        });
+        b.Entity<CardEngraving>(e =>
+        {
+            e.ToTable("card_engravings", t =>
+            {
+                t.HasCheckConstraint("ck_engraving_type", "type IN ('atk','def','hp','spd','crit')");
+                t.HasCheckConstraint("ck_engraving_level", "level BETWEEN 1 AND 5");
+                t.HasCheckConstraint("ck_engraving_slot", "(card_id IS NULL AND slot IS NULL) OR (card_id IS NOT NULL AND slot BETWEEN 1 AND 3)");
+            });
+            e.HasIndex(x => new { x.CardId, x.Slot }).IsUnique().HasFilter("card_id IS NOT NULL");
+            e.HasIndex(x => new { x.MembershipId, x.CardId });
+            MembershipFk(e, x => new { x.MembershipId, x.ServerId });
+            e.HasOne<CardInstance>().WithMany().HasForeignKey(x => x.CardId).OnDelete(DeleteBehavior.Restrict);
+        });
+    }
 
     private static void ConfigureExpansion(ModelBuilder b)
     {
@@ -333,7 +400,7 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
             e.ToTable(t =>
             {
                 t.HasCheckConstraint("ck_card_serial", "serial ~ '^[A-Z0-9]{12}$'");
-                t.HasCheckConstraint("ck_card_skill_level", "skill_level BETWEEN 1 AND 5");
+                t.HasCheckConstraint("ck_card_skill_level", "skill_level BETWEEN 1 AND 10");
             });
         });
         b.Entity<CardSerialRegistry>(e =>

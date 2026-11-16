@@ -17,13 +17,18 @@ public class CatalogTests
     {
         var cat = TestCatalog.Get();
         Assert.Empty(cat.Validate());
-        Assert.Equal(200, cat.Forms.Count);
-        Assert.Equal(80, cat.Families.Count);
-        Assert.Equal(50, cat.Families.Count(f => f.Stages == 3));
-        Assert.Equal(20, cat.Families.Count(f => f.Stages == 2));
-        Assert.Equal(10, cat.Families.Count(f => f.Stages == 1));
-        Assert.All(cat.Elements.Elements, e => Assert.Equal(10, cat.Families.Count(f => f.Element == e.Id)));
-        Assert.Equal(10, cat.Rarities.Count);
+        // 200 regular forms (80 families) unchanged + 15 Divine Pets (single-stage families)
+        Assert.Equal(215, cat.Forms.Count);
+        Assert.Equal(200, cat.Forms.Values.Count(f => f.DivineSet == null));
+        Assert.Equal(95, cat.Families.Count);
+        var regular = cat.Families.Where(f => f.Divine == null).ToList();
+        Assert.Equal(50, regular.Count(f => f.Stages == 3));
+        Assert.Equal(20, regular.Count(f => f.Stages == 2));
+        Assert.Equal(10, regular.Count(f => f.Stages == 1));
+        Assert.All(cat.Elements.Elements, e => Assert.Equal(10, regular.Count(f => f.Element == e.Id)));
+        foreach (var set in new[] { "premium", "limited", "star" })
+            Assert.Equal(5, cat.Families.Count(f => f.Divine == set && f.Stages == 1));
+        Assert.Equal(11, cat.Rarities.Count);
         Assert.Equal(7, cat.Qualities.Count);
         Assert.Equal(5, cat.Finishes.Count);
         Assert.Equal(8, cat.Elements.Elements.Count);
@@ -35,7 +40,7 @@ public class CatalogTests
         var expected = new Dictionary<string, string>
         {
             ["N"] = "#9CA3AF", ["R"] = "#43BD78", ["SR"] = "#4099F4", ["SSR"] = "#AA70E8", ["UR"] = "#F3C04F",
-            ["LR"] = "#F36D79", ["MR"] = "#DE6DC9", ["GR"] = "#48D0C4", ["EX"] = "#E6B95E", ["Secret"] = "#9673EC",
+            ["LR"] = "#F36D79", ["MR"] = "#DE6DC9", ["GR"] = "#48D0C4", ["EX"] = "#E6B95E", ["Secret"] = "#9673EC", ["DV"] = "#FFD86B",
         };
         foreach (var r in TestCatalog.Get().Rarities) Assert.Equal(expected[r.Id], r.Color);
     }
@@ -128,7 +133,7 @@ public class PackTests
         var rng = new SeededRandom(1);
         foreach (var p in Cat.PackTypes)
         {
-            var pool = PackRoller.Pool(Cat, p).Select(f => f.Id).ToHashSet();
+            var pool = PackRoller.Pool(Cat, p).Concat(PackRoller.DivinePool(Cat, p)).Select(f => f.Id).ToHashSet();
             for (int i = 0; i < 500; i++)
             {
                 var cards = PackRoller.Roll(Cat, p, rng);
@@ -149,38 +154,34 @@ public class PackTests
     }
 
     [Fact]
-    public void Final_slot_uses_its_own_table()
+    public void No_hidden_final_slot_guarantee_all_slots_share_one_table()
     {
-        // premium final slot has N weight 0: slot 5 must never be N, while slots 1-4 sometimes are
-        var p = Cat.PackType("premium_pack")!;
+        foreach (var p in Cat.PackTypes) Assert.Empty(p.FinalSlotTable);
         var rng = new SeededRandom(99);
-        int nInSlots1To4 = 0;
-        for (int i = 0; i < 5000; i++)
-        {
-            var cards = PackRoller.Roll(Cat, p, rng);
-            Assert.NotEqual("N", cards[4].Rarity);
-            nInSlots1To4 += cards.Take(4).Count(c => c.Rarity == "N");
-        }
-        Assert.True(nInSlots1To4 > 0);
+        int nInSlot5 = 0;
+        for (int i = 0; i < 5000; i++) nInSlot5 += PackRoller.Roll(Cat, Cat.PackType("basic_pack")!, rng)[4].Rarity == "N" ? 1 : 0;
+        Assert.InRange(nInSlot5 / 5000.0, 0.57, 0.63); // slot 5 has the same 60 % N as every other slot
     }
 
     [Fact]
-    public void Observed_rarity_rates_match_configured_odds()
+    public void Observed_rarity_rates_match_configured_odds_for_all_nine_packs()
     {
-        var p = Cat.PackType("basic_pack")!;
-        var rng = new SeededRandom(2026);
-        const int n = 200_000;
-        var slot = new Dictionary<string, int>(); var last = new Dictionary<string, int>();
-        for (int i = 0; i < n; i++)
+        const int n = 60_000; // packs → 300,000 slots each
+        foreach (var p in Cat.PackTypes)
         {
-            var cards = PackRoller.Roll(Cat, p, rng);
-            slot[cards[0].Rarity] = slot.GetValueOrDefault(cards[0].Rarity) + 1;
-            last[cards[4].Rarity] = last.GetValueOrDefault(cards[4].Rarity) + 1;
-        }
-        foreach (var r in new[] { "N", "R", "SR", "SSR" })
-        {
-            Assert.InRange(slot.GetValueOrDefault(r) / (double)n, p.SlotTable[r] / 1e6 * 0.95, p.SlotTable[r] / 1e6 * 1.05);
-            Assert.InRange(last.GetValueOrDefault(r) / (double)n, p.FinalSlotTable[r] / 1e6 * 0.95, p.FinalSlotTable[r] / 1e6 * 1.05);
+            var rng = new SeededRandom(2026 + (ulong)p.Order);
+            var seen = new Dictionary<string, int>();
+            for (int i = 0; i < n; i++)
+                foreach (var c in PackRoller.Roll(Cat, p, rng)) seen[c.Rarity] = seen.GetValueOrDefault(c.Rarity) + 1;
+            double slots = n * 5.0;
+            foreach (var (r, w) in p.SlotTable)
+            {
+                double expected = w / 1e6;
+                double sd = Math.Sqrt(expected * (1 - expected) / slots);
+                double observed = seen.GetValueOrDefault(r) / slots;
+                Assert.True(Math.Abs(observed - expected) < 5 * sd + 1e-9, $"{p.Id} {r}: observed {observed:P4} expected {expected:P4}");
+            }
+            Assert.All(seen.Keys, r => Assert.True(p.SlotTable.GetValueOrDefault(r) > 0, $"{p.Id} produced {r} with 0 weight"));
         }
     }
 }

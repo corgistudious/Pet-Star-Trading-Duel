@@ -105,7 +105,7 @@ public sealed class ValuationService(PetStarDb db, GameData data)
     }
 }
 
-public sealed record NewCard(string FormId, string Rarity, string Quality, string Finish);
+public sealed record NewCard(string FormId, string Rarity, string Quality, string Finish, int Stars = 1);
 
 /// <summary>The only way cards are created: serial reserved in the permanent registry (collision → retry), passport
 /// written once, ownership history, codex discovery. Must run inside the caller's transaction.</summary>
@@ -123,7 +123,7 @@ public sealed class CardFactory(PetStarDb db, ValuationService valuation)
             cards.Add(new CardInstance
             {
                 ServerId = serverId, OwnerMembershipId = membershipId, FormId = s.FormId, Rarity = s.Rarity, Quality = s.Quality, Finish = s.Finish,
-                Level = 1, SkillLevel = 1, Origin = origin, OriginRef = originRef, CreatedAt = now, UpdatedAt = now, Serial = await ReserveSerial(),
+                Level = 1, SkillLevel = 1, Stars = Math.Clamp(s.Stars, 1, Progression.MaxStars), Origin = origin, OriginRef = originRef, CreatedAt = now, UpdatedAt = now, Serial = await ReserveSerial(),
             });
         }
         db.Cards.AddRange(cards);
@@ -172,6 +172,9 @@ public static class CardTransfer
         card.BusyState = null; card.IsFavorite = false; card.IsLocked = false; card.UpdatedAt = now;
         db.CardOwnership.Add(new CardOwnershipHistory { CardId = card.Id, ServerId = card.ServerId, FromMembershipId = from, ToMembershipId = toMembershipId, Reason = reason, RefId = refId, At = now });
         await db.SaveChangesAsync();
+        // trading policy: equipped engravings travel with the card (stars, enhancement, breakthrough, awakening and
+        // skill level live on the card row and are preserved as they are)
+        await db.Engravings.Where(e => e.CardId == card.Id).ExecuteUpdateAsync(u => u.SetProperty(e => e.MembershipId, toMembershipId).SetProperty(e => e.UpdatedAt, now));
         await db.DeckSlots.Where(s => s.CardId == card.Id).ExecuteDeleteAsync();
         await db.Showcase.Where(s => s.CardId == card.Id).ExecuteDeleteAsync();
         await db.CollectionItems.Where(i => i.CardId == card.Id).ExecuteDeleteAsync();

@@ -76,10 +76,11 @@ public static class PassportEndpoints
         {
             var (sid, mid) = ctx.User.Player();
             var c = await db.Cards.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id && x.OwnerMembershipId == mid && x.ServerId == sid) ?? throw ApiException.NotFound("card_not_found");
-            var step = TrainingRules.Next(c.SkillLevel);
+            var cost = Progression.SkillCost(c.SkillLevel);
+            var step = cost == null ? null : new TrainingStep { MinCardLevel = cost.MinLevel, Scrolls = cost.Items[Progression.TrainingScroll], Beans = (int)cost.Beans };
             long scrolls = await db.Items.Where(i => i.MembershipId == mid && i.ItemId == TrainingRules.ScrollItemId).Select(i => i.Quantity).FirstOrDefaultAsync();
             long beans = await db.Wallets.Where(w => w.MembershipId == mid && w.Currency == Currency.MiniGreenBean).Select(w => w.Balance).FirstOrDefaultAsync();
-            return new { skillLevel = c.SkillLevel, maxSkillLevel = TrainingRules.MaxSkillLevel, next = step, scrollsOwned = scrolls, beansOwned = beans, cardLevel = c.Level };
+            return new { skillLevel = c.SkillLevel, maxSkillLevel = Progression.MaxSkillLevel, next = step, minBreakthrough = cost?.MinBreakthrough ?? 0, breakthrough = c.Breakthrough, scrollsOwned = scrolls, beansOwned = beans, cardLevel = c.Level };
         });
 
         // Skill upgrade: server-validated, capped at level 5, materials consumed once (ledger ref card:{id}:skill{n}).
@@ -90,15 +91,19 @@ public static class PassportEndpoints
                 var c = await db.Cards.FromSqlRaw("SELECT * FROM card_instances WHERE id = {0} AND owner_membership_id = {1} AND server_id = {2} FOR UPDATE", id, mid, sid)
                     .FirstOrDefaultAsync() ?? throw ApiException.NotFound("card_not_found");
                 if (c.BusyState != null) throw ApiException.Conflict("card_busy");
-                var step = TrainingRules.Next(c.SkillLevel) ?? throw ApiException.Conflict("skill_max_level");
-                if (c.Level < step.MinCardLevel) throw ApiException.Conflict("training_level_too_low");
-                string refId = $"card:{c.Id}:skill{c.SkillLevel + 1}";
-                await eco.Item(mid, sid, TrainingRules.ScrollItemId, -step.Scrolls, "training", refId);
-                await eco.Currency(mid, sid, Currency.MiniGreenBean, -step.Beans, "training", refId);
+                // levels 2..5 keep the original training costs; 6..10 also need breakthroughs (Progression.SkillCost)
+                var cost = Progression.SkillCost(c.SkillLevel) ?? throw ApiException.Conflict("skill_max_level");
+                if (c.Level < cost.MinLevel) throw ApiException.Conflict("training_level_too_low");
+                if (c.Breakthrough < cost.MinBreakthrough) throw ApiException.Conflict("training_breakthrough_too_low");
+                int scrollsNeeded = cost.Items[Progression.TrainingScroll];
+                // row version in the reference: training again after a skill reset is a new, distinct charge
+                string refId = $"card:{c.Id}:skill{c.SkillLevel + 1}:{c.UpdatedAt.UtcTicks}";
+                await eco.Item(mid, sid, TrainingRules.ScrollItemId, -scrollsNeeded, "training", refId);
+                await eco.Currency(mid, sid, Currency.MiniGreenBean, -cost.Beans, "training", refId);
                 c.SkillLevel++; c.UpdatedAt = DateTimeOffset.UtcNow;
-                db.CardProgress.Add(new CardProgressEvent { CardId = c.Id, Type = "skill_upgrade", DataJson = JsonSerializer.Serialize(new { to = c.SkillLevel, step.Scrolls, step.Beans }), At = DateTimeOffset.UtcNow });
+                db.CardProgress.Add(new CardProgressEvent { CardId = c.Id, Type = "skill_upgrade", DataJson = JsonSerializer.Serialize(new { to = c.SkillLevel, Scrolls = scrollsNeeded, Beans = cost.Beans }), At = DateTimeOffset.UtcNow });
                 await db.SaveChangesAsync();
-                return new { card = data.ToDto(c), currencies = await eco.Balances(mid) };
+                return new { card = await data.ToDtoFull(db, c), currencies = await eco.Balances(mid) };
             }));
     }
 

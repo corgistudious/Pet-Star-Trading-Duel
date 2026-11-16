@@ -594,6 +594,72 @@ namespace PetStar.Api.Data.Migrations
                     b.ToTable("battle_actions", (string)null);
                 });
 
+            modelBuilder.Entity("PetStar.Api.Data.CardEngraving", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("CardId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("card_id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("integer")
+                        .HasColumnName("level");
+
+                    b.Property<long>("MembershipId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("membership_id");
+
+                    b.Property<int>("ServerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("server_id");
+
+                    b.Property<int?>("Slot")
+                        .HasColumnType("integer")
+                        .HasColumnName("slot");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("type");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id")
+                        .HasName("pk_card_engravings");
+
+                    b.HasIndex("CardId", "Slot")
+                        .IsUnique()
+                        .HasDatabaseName("ix_card_engravings_card_id_slot")
+                        .HasFilter("card_id IS NOT NULL");
+
+                    b.HasIndex("MembershipId", "CardId")
+                        .HasDatabaseName("ix_card_engravings_membership_id_card_id");
+
+                    b.HasIndex("MembershipId", "ServerId")
+                        .HasDatabaseName("ix_card_engravings_membership_id_server_id");
+
+                    b.ToTable("card_engravings", null, t =>
+                        {
+                            t.HasCheckConstraint("ck_engraving_level", "level BETWEEN 1 AND 5");
+
+                            t.HasCheckConstraint("ck_engraving_slot", "(card_id IS NULL AND slot IS NULL) OR (card_id IS NOT NULL AND slot BETWEEN 1 AND 3)");
+
+                            t.HasCheckConstraint("ck_engraving_type", "type IN ('atk','def','hp','spd','crit')");
+                        });
+                });
+
             modelBuilder.Entity("PetStar.Api.Data.CardEvolutionHistory", b =>
                 {
                     b.Property<long>("Id")
@@ -647,6 +713,14 @@ namespace PetStar.Api.Data.Migrations
                         .HasColumnName("id")
                         .HasDefaultValueSql("nextval('card_instance_seq')");
 
+                    b.Property<bool>("Awakened")
+                        .HasColumnType("boolean")
+                        .HasColumnName("awakened");
+
+                    b.Property<int>("Breakthrough")
+                        .HasColumnType("integer")
+                        .HasColumnName("breakthrough");
+
                     b.Property<string>("BusyState")
                         .HasColumnType("text")
                         .HasColumnName("busy_state");
@@ -654,6 +728,10 @@ namespace PetStar.Api.Data.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
+
+                    b.Property<int>("EnhanceLevel")
+                        .HasColumnType("integer")
+                        .HasColumnName("enhance_level");
 
                     b.Property<int>("Exp")
                         .HasColumnType("integer")
@@ -719,6 +797,12 @@ namespace PetStar.Api.Data.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("skill_level");
 
+                    b.Property<int>("Stars")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(1)
+                        .HasColumnName("stars");
+
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_at");
@@ -741,17 +825,23 @@ namespace PetStar.Api.Data.Migrations
 
                     b.ToTable("card_instances", null, t =>
                         {
+                            t.HasCheckConstraint("ck_card_breakthrough", "breakthrough BETWEEN 0 AND 4");
+
+                            t.HasCheckConstraint("ck_card_enhance", "enhance_level BETWEEN 0 AND 20");
+
                             t.HasCheckConstraint("ck_card_finish", "finish IN ('Normal','Foil','Holographic','Shiny','Prismatic')");
 
-                            t.HasCheckConstraint("ck_card_level", "level BETWEEN 1 AND 50");
+                            t.HasCheckConstraint("ck_card_level", "level BETWEEN 1 AND 70");
 
                             t.HasCheckConstraint("ck_card_quality", "quality IN ('D','C','B','A','S','SS','SSS')");
 
-                            t.HasCheckConstraint("ck_card_rarity", "rarity IN ('N','R','SR','SSR','UR','LR','MR','GR','EX','Secret')");
+                            t.HasCheckConstraint("ck_card_rarity", "rarity IN ('N','R','SR','SSR','UR','LR','MR','GR','EX','Secret','DV')");
 
                             t.HasCheckConstraint("ck_card_serial", "serial ~ '^[A-Z0-9]{12}$'");
 
-                            t.HasCheckConstraint("ck_card_skill_level", "skill_level BETWEEN 1 AND 5");
+                            t.HasCheckConstraint("ck_card_skill_level", "skill_level BETWEEN 1 AND 10");
+
+                            t.HasCheckConstraint("ck_card_stars", "stars BETWEEN 1 AND 10");
                         });
                 });
 
@@ -2257,6 +2347,84 @@ namespace PetStar.Api.Data.Migrations
                     b.ToTable("economy_ledger", (string)null);
                 });
 
+            modelBuilder.Entity("PetStar.Api.Data.LimitedEvent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("Cancelled")
+                        .HasColumnType("boolean")
+                        .HasColumnName("cancelled");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<long>("CreatedByAccountId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("created_by_account_id");
+
+                    b.Property<DateTimeOffset>("EndsAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("ends_at");
+
+                    b.Property<string>("NameEn")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name_en");
+
+                    b.Property<string>("NameVi")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name_vi");
+
+                    b.Property<string>("PackTypeId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("pack_type_id");
+
+                    b.Property<int?>("PerPlayerLimit")
+                        .HasColumnType("integer")
+                        .HasColumnName("per_player_limit");
+
+                    b.Property<int?>("ServerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("server_id");
+
+                    b.Property<int>("Sold")
+                        .HasColumnType("integer")
+                        .HasColumnName("sold");
+
+                    b.Property<DateTimeOffset>("StartsAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("starts_at");
+
+                    b.Property<int?>("TotalLimit")
+                        .HasColumnType("integer")
+                        .HasColumnName("total_limit");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id")
+                        .HasName("pk_limited_events");
+
+                    b.HasIndex("PackTypeId", "StartsAt", "EndsAt")
+                        .HasDatabaseName("ix_limited_events_pack_type_id_starts_at_ends_at");
+
+                    b.ToTable("limited_events", null, t =>
+                        {
+                            t.HasCheckConstraint("ck_event_limits", "sold >= 0 AND (total_limit IS NULL OR (total_limit > 0 AND sold <= total_limit)) AND (per_player_limit IS NULL OR per_player_limit > 0)");
+
+                            t.HasCheckConstraint("ck_event_window", "ends_at > starts_at");
+                        });
+                });
+
             modelBuilder.Entity("PetStar.Api.Data.LoginRewardClaim", b =>
                 {
                     b.Property<long>("MembershipId")
@@ -2579,6 +2747,40 @@ namespace PetStar.Api.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PetStar.Api.Data.MembershipVip", b =>
+                {
+                    b.Property<long>("MembershipId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("membership_id");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("integer")
+                        .HasColumnName("level");
+
+                    b.Property<long>("Points")
+                        .HasColumnType("bigint")
+                        .HasColumnName("points");
+
+                    b.Property<int>("ServerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("server_id");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("MembershipId")
+                        .HasName("pk_membership_vip");
+
+                    b.HasIndex("MembershipId", "ServerId")
+                        .HasDatabaseName("ix_membership_vip_membership_id_server_id");
+
+                    b.ToTable("membership_vip", null, t =>
+                        {
+                            t.HasCheckConstraint("ck_vip", "points >= 0 AND level BETWEEN 0 AND 10");
+                        });
+                });
+
             modelBuilder.Entity("PetStar.Api.Data.MissionClaim", b =>
                 {
                     b.Property<long>("MembershipId")
@@ -2840,6 +3042,76 @@ namespace PetStar.Api.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PetStar.Api.Data.PackPurchase", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<long>("Amount")
+                        .HasColumnType("bigint")
+                        .HasColumnName("amount");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("currency");
+
+                    b.Property<long?>("EventId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("event_id");
+
+                    b.Property<Guid?>("InvitationId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("invitation_id");
+
+                    b.Property<long>("MembershipId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("membership_id");
+
+                    b.Property<string>("PackTypeId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("pack_type_id");
+
+                    b.Property<int>("PackVersion")
+                        .HasColumnType("integer")
+                        .HasColumnName("pack_version");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
+
+                    b.Property<int>("ServerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("server_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_pack_purchases");
+
+                    b.HasIndex("EventId", "MembershipId")
+                        .HasDatabaseName("ix_pack_purchases_event_id_membership_id");
+
+                    b.HasIndex("MembershipId", "ServerId")
+                        .HasDatabaseName("ix_pack_purchases_membership_id_server_id");
+
+                    b.HasIndex("ServerId", "CreatedAt")
+                        .HasDatabaseName("ix_pack_purchases_server_id_created_at");
+
+                    b.HasIndex("MembershipId", "PackTypeId", "CreatedAt")
+                        .HasDatabaseName("ix_pack_purchases_membership_id_pack_type_id_created_at");
+
+                    b.ToTable("pack_purchases", null, t =>
+                        {
+                            t.HasCheckConstraint("ck_pack_purchase", "quantity > 0 AND amount >= 0");
+                        });
+                });
+
             modelBuilder.Entity("PetStar.Api.Data.PackTypeRow", b =>
                 {
                     b.Property<string>("Id")
@@ -2867,6 +3139,56 @@ namespace PetStar.Api.Data.Migrations
                         .HasName("pk_pack_types");
 
                     b.ToTable("pack_types", (string)null);
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.PackTypeVersion", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("ChangedByAccountId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("changed_by_account_id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("DataJson")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("data_json");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("boolean")
+                        .HasColumnName("enabled");
+
+                    b.Property<string>("PackTypeId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("pack_type_id");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("reason");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("integer")
+                        .HasColumnName("version");
+
+                    b.HasKey("Id")
+                        .HasName("pk_pack_type_versions");
+
+                    b.HasIndex("PackTypeId", "Version")
+                        .IsUnique()
+                        .HasDatabaseName("ix_pack_type_versions_pack_type_id_version");
+
+                    b.ToTable("pack_type_versions", (string)null);
                 });
 
             modelBuilder.Entity("PetStar.Api.Data.PetFamilyRow", b =>
@@ -3453,6 +3775,79 @@ namespace PetStar.Api.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PetStar.Api.Data.StarInvitation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTimeOffset>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("expires_at");
+
+                    b.Property<DateTimeOffset>("IssuedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("issued_at");
+
+                    b.Property<long>("IssuedByAccountId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("issued_by_account_id");
+
+                    b.Property<int>("MaxPacks")
+                        .HasColumnType("integer")
+                        .HasColumnName("max_packs");
+
+                    b.Property<long>("MembershipId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("membership_id");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("text")
+                        .HasColumnName("note");
+
+                    b.Property<string>("RevokeReason")
+                        .HasColumnType("text")
+                        .HasColumnName("revoke_reason");
+
+                    b.Property<DateTimeOffset?>("RevokedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("revoked_at");
+
+                    b.Property<long?>("RevokedByAccountId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("revoked_by_account_id");
+
+                    b.Property<int>("ServerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("server_id");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("status");
+
+                    b.Property<int>("UsedPacks")
+                        .HasColumnType("integer")
+                        .HasColumnName("used_packs");
+
+                    b.HasKey("Id")
+                        .HasName("pk_star_invitations");
+
+                    b.HasIndex("MembershipId", "ServerId")
+                        .HasDatabaseName("ix_star_invitations_membership_id_server_id");
+
+                    b.HasIndex("MembershipId", "Status")
+                        .HasDatabaseName("ix_star_invitations_membership_id_status");
+
+                    b.ToTable("star_invitations", null, t =>
+                        {
+                            t.HasCheckConstraint("ck_invite_status", "status IN ('active','revoked')");
+
+                            t.HasCheckConstraint("ck_invite_uses", "max_packs > 0 AND used_packs >= 0 AND used_packs <= max_packs");
+                        });
+                });
+
             modelBuilder.Entity("PetStar.Api.Data.UserBlock", b =>
                 {
                     b.Property<long>("BlockerMembershipId")
@@ -3816,6 +4211,23 @@ namespace PetStar.Api.Data.Migrations
                         .HasConstraintName("fk_battle_actions_battles_battle_id");
                 });
 
+            modelBuilder.Entity("PetStar.Api.Data.CardEngraving", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.CardInstance", null)
+                        .WithMany()
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("fk_card_engravings_card_instances_card_id");
+
+                    b.HasOne("PetStar.Api.Data.ServerMembership", null)
+                        .WithMany()
+                        .HasForeignKey("MembershipId", "ServerId")
+                        .HasPrincipalKey("Id", "ServerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_card_engravings_server_memberships_membership_id_server_id");
+                });
+
             modelBuilder.Entity("PetStar.Api.Data.CardEvolutionHistory", b =>
                 {
                     b.HasOne("PetStar.Api.Data.CardInstance", null)
@@ -4153,6 +4565,17 @@ namespace PetStar.Api.Data.Migrations
                         .HasConstraintName("fk_market_listings_server_memberships_seller_membership_id_ser");
                 });
 
+            modelBuilder.Entity("PetStar.Api.Data.MembershipVip", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.ServerMembership", null)
+                        .WithMany()
+                        .HasForeignKey("MembershipId", "ServerId")
+                        .HasPrincipalKey("Id", "ServerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_membership_vip_server_memberships_membership_id_server_id");
+                });
+
             modelBuilder.Entity("PetStar.Api.Data.MissionClaim", b =>
                 {
                     b.HasOne("PetStar.Api.Data.ServerMembership", null)
@@ -4207,6 +4630,17 @@ namespace PetStar.Api.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_pack_opening_results_pack_openings_opening_id");
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.PackPurchase", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.ServerMembership", null)
+                        .WithMany()
+                        .HasForeignKey("MembershipId", "ServerId")
+                        .HasPrincipalKey("Id", "ServerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_pack_purchases_server_memberships_membership_id_server_id");
                 });
 
             modelBuilder.Entity("PetStar.Api.Data.PetFormRow", b =>
@@ -4285,6 +4719,17 @@ namespace PetStar.Api.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_card_showcase_card_instances_card_id");
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.StarInvitation", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.ServerMembership", null)
+                        .WithMany()
+                        .HasForeignKey("MembershipId", "ServerId")
+                        .HasPrincipalKey("Id", "ServerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_star_invitations_server_memberships_membership_id_server_id");
                 });
 
             modelBuilder.Entity("PetStar.Api.Data.UserFollow", b =>

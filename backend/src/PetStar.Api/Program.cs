@@ -70,6 +70,8 @@ builder.Services.AddSingleton<TokenService>();
 builder.Services.AddSingleton<PasswordService>();
 builder.Services.AddScoped<AuditService>();
 builder.Services.AddScoped<EconomyService>();
+builder.Services.AddScoped<VipService>();
+builder.Services.AddScoped<PackGate>();
 builder.Services.AddScoped<IdempotencyService>();
 builder.Services.AddScoped<ServerGate>();
 builder.Services.AddScoped<ValuationService>();
@@ -168,6 +170,7 @@ AuthEndpoints.Map(app);
 ServerEndpoints.Map(app);
 PackEndpoints.Map(app);
 CardEndpoints.Map(app);
+CardUpgradeEndpoints.Map(app);
 DeckEndpoints.Map(app);
 BattleEndpoints.Map(app);
 // Real-money purchases are disabled in this phase (owner decision); the verification code stays for a future,
@@ -187,6 +190,7 @@ RewardsEndpoints.Map(app);
 MissionEndpoints.Map(app);
 WebPushEndpoints.Map(app);
 AdminEndpoints.Map(app);
+AdminCardSystemEndpoints.Map(app);
 
 if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing"))
     app.MapGet("/dev/outbox", () => { lock (DevEmailSender.Outbox) return DevEmailSender.Outbox.Select(m => new { m.To, m.Subject, m.Body, m.At }).ToList(); });

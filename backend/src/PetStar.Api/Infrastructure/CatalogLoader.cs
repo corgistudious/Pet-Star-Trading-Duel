@@ -9,6 +9,8 @@ public sealed class EconomyConfig
     public Dictionary<string, long> StarterCurrencies { get; init; } = new();
     public Dictionary<string, int> StarterPacks { get; init; } = new();
     public List<IapProduct> IapProducts { get; init; } = new();
+    /// <summary>VIP thresholds (points for level 0..10). Points = Rainbow Stars spent on system purchases.</summary>
+    public List<long> VipThresholds { get; init; } = new() { 0 };
 }
 
 public sealed record IapProduct(string ProductId, string Currency, long Amount, long Bonus, string AssetId);
@@ -112,6 +114,7 @@ public static class CatalogLoader
             StarterCurrencies = Currency.All.ToDictionary(c => c, c => starter[c]?.GetValue<long>() ?? 0),
             StarterPacks = starter["packs"].Deserialize<Dictionary<string, int>>(Json)!,
             IapProducts = e["iapProducts"].Deserialize<List<IapProduct>>(Json)!,
+            VipThresholds = e["vip"]?["thresholds"].Deserialize<List<long>>(Json) ?? new List<long> { 0 },
         };
     }
 

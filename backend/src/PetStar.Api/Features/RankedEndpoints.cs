@@ -125,12 +125,15 @@ public static class RankedEndpoints
         var err = DeckRules.Validate(data.Catalog, deck.Slots.Select(s => new DeckCardInfo { CardId = s.CardId, Position = s.Position, FormId = cards.TryGetValue(s.CardId, out var c) ? c.FormId : "" }).ToList());
         if (err != null || cards.Count != 5) throw ApiException.Conflict("deck_invalid", err);
         if (requireFree && cards.Values.Any(c => c.BusyState != null)) throw ApiException.Conflict("deck_card_busy");
+        // stats come only from the server-stored progression (stars, enhancement, breakthrough, awakening, skill, engravings)
+        var engr = await CardProgressLoader.Engravings(db, cards.Keys);
+        var progress = cards.Values.ToDictionary(c => c.Id, c => CardProgressLoader.Progress(c, engr.GetValueOrDefault(c.Id)));
         var units = deck.Slots.OrderBy(s => s.Position).Select((s, i) =>
         {
             var c = cards[s.CardId];
-            return BattleEngine.CreateUnit(data.Catalog, side, i, s.Position, c.Id, c.FormId, c.Level, c.Rarity, c.Quality, c.SkillLevel);
+            return BattleEngine.CreateUnit(data.Catalog, side, i, s.Position, c.Id, c.FormId, c.Rarity, c.Quality, progress[c.Id]);
         }).ToList();
-        int power = cards.Values.Sum(c => StatCalculator.Compute(data.Catalog, c.FormId, c.Level, c.Rarity, c.Quality).Power);
+        int power = cards.Values.Sum(c => Progression.Compute(data.Catalog, c.FormId, c.Rarity, c.Quality, progress[c.Id]).Power);
         return (units, power);
     }
 

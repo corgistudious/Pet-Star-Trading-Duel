@@ -1,17 +1,124 @@
 {
   "version": 1,
   "currencies": [
-    { "id": "RAINBOW_STAR",    "nameKey": "currency.rainbow_star",    "icon": "ui_currency_rainbow_star",    "premium": true,
-      "sources": ["iap", "event", "admin_grant", "giftcode"],
-      "notes": "Premium currency. Real-money purchases are verified server-side. Until the owner approves a monetization policy, Rainbow Star sinks are cosmetic only (no combat power)." },
-    { "id": "MINI_GREEN_BEAN", "nameKey": "currency.mini_green_bean", "icon": "ui_currency_mini_green_bean", "premium": false,
-      "sources": ["pve", "mission", "achievement", "event", "starter", "giftcode", "login_reward"] }
+    {
+      "id": "RAINBOW_STAR",
+      "nameKey": "currency.rainbow_star",
+      "icon": "ui_currency_rainbow_star",
+      "premium": true,
+      "sources": [
+        "iap",
+        "event",
+        "admin_grant",
+        "giftcode"
+      ],
+      "notes": "Premium currency. Real-money purchases stay disabled in this phase. Owner decision (card expansion): Rainbow Stars buy the Epic/Legendary/Mythic/Premium/Limited/Star packs and can be used on the player market; they can never be exchanged for real money."
+    },
+    {
+      "id": "MINI_GREEN_BEAN",
+      "nameKey": "currency.mini_green_bean",
+      "icon": "ui_currency_mini_green_bean",
+      "premium": false,
+      "sources": [
+        "pve",
+        "mission",
+        "achievement",
+        "event",
+        "starter",
+        "giftcode",
+        "login_reward"
+      ]
+    }
   ],
-  "starterGrant": { "MINI_GREEN_BEAN": 500, "RAINBOW_STAR": 0, "packs": { "basic_pack": 3 } },
+  "starterGrant": {
+    "MINI_GREEN_BEAN": 500,
+    "RAINBOW_STAR": 0,
+    "packs": {
+      "basic_pack": 3
+    }
+  },
   "iapProducts": [
-    { "productId": "rainbow_star_60",   "currency": "RAINBOW_STAR", "amount": 60,   "bonus": 0,   "assetId": "ui_currency_rainbow_star" },
-    { "productId": "rainbow_star_300",  "currency": "RAINBOW_STAR", "amount": 300,  "bonus": 30,  "assetId": "ui_currency_rainbow_star_cluster" },
-    { "productId": "rainbow_star_980",  "currency": "RAINBOW_STAR", "amount": 980,  "bonus": 110, "assetId": "ui_currency_rainbow_star_bag" },
-    { "productId": "rainbow_star_3280", "currency": "RAINBOW_STAR", "amount": 3280, "bonus": 420, "assetId": "ui_currency_rainbow_star_chest" }
+    {
+      "productId": "rainbow_star_60",
+      "currency": "RAINBOW_STAR",
+      "amount": 60,
+      "bonus": 0,
+      "assetId": "ui_currency_rainbow_star"
+    },
+    {
+      "productId": "rainbow_star_300",
+      "currency": "RAINBOW_STAR",
+      "amount": 300,
+      "bonus": 30,
+      "assetId": "ui_currency_rainbow_star_cluster"
+    },
+    {
+      "productId": "rainbow_star_980",
+      "currency": "RAINBOW_STAR",
+      "amount": 980,
+      "bonus": 110,
+      "assetId": "ui_currency_rainbow_star_bag"
+    },
+    {
+      "productId": "rainbow_star_3280",
+      "currency": "RAINBOW_STAR",
+      "amount": 3280,
+      "bonus": 420,
+      "assetId": "ui_currency_rainbow_star_chest"
+    }
+  ],
+  "vip": {
+    "notes": "VIP points = Rainbow Stars spent on packs and other system purchases (1 point per star). Player-to-player market trades never count (no wash-trading for VIP). No real money is involved in this phase. Owner can grant points (audited).",
+    "thresholds": [
+      0,
+      100,
+      300,
+      800,
+      1500,
+      3000,
+      6000,
+      10000,
+      20000,
+      40000,
+      80000
+    ]
+  },
+  "materials": [
+    {
+      "id": "pet_shard",
+      "nameKey": "item.pet_shard",
+      "icon": "ui_mat_pet_shard",
+      "use": "stars"
+    },
+    {
+      "id": "enhance_stone",
+      "nameKey": "item.enhance_stone",
+      "icon": "ui_mat_enhance_stone",
+      "use": "enhance"
+    },
+    {
+      "id": "breakthrough_core",
+      "nameKey": "item.breakthrough_core",
+      "icon": "ui_mat_breakthrough_core",
+      "use": "breakthrough"
+    },
+    {
+      "id": "awakening_crystal",
+      "nameKey": "item.awakening_crystal",
+      "icon": "ui_mat_awakening_crystal",
+      "use": "awakening"
+    },
+    {
+      "id": "engraving_dust",
+      "nameKey": "item.engraving_dust",
+      "icon": "ui_mat_engraving_dust",
+      "use": "engraving"
+    },
+    {
+      "id": "training_scroll",
+      "nameKey": "item.training_scroll",
+      "icon": "ui_mat_training_scroll",
+      "use": "skill"
+    }
   ]
 }
