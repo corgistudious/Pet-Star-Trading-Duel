@@ -48,6 +48,17 @@ namespace PetStar.Client.Screens
             Tile(quick, "lobby.mailbox", UiKit.Mint, () => Nav.Push(new MailboxScreen()));
             Tile(quick, "lobby.profile", UiKit.Hex("#FFF1C9"), () => Nav.Push(new ProfileScreen()));
             Tile(quick, "lobby.settings", UiKit.Hex("#E8ECF5"), () => Nav.Push(new SettingsScreen()));
+
+            // live features row: missions, rewards (login / gift code / events), guild, chat
+            var live = UiKit.Rect(Root, "Live");
+            if (Wide) live.Place(new Vector2(0, 0.5f), new Vector2(560, 520), new Vector2(40, 0), new Vector2(0, 0.5f));
+            else live.Place(new Vector2(0.5f, 0), new Vector2(1000, 130), new Vector2(0, 350), new Vector2(0.5f, 0));
+            var ll = Wide ? (HorizontalOrVerticalLayoutGroup)UiKit.VStack(live, 24) : UiKit.HStack(live, 20);
+            ll.childForceExpandWidth = true;
+            Tile(live, "web.missions", UiKit.Hex("#FFE3EC"), () => Nav.Push(new MissionsScreen()));
+            Tile(live, "web.rewards", UiKit.Hex("#FFF1C9"), () => Nav.Push(new RewardsScreen()));
+            Tile(live, "web.guild", UiKit.Lilac, () => Nav.Push(new GuildScreen()));
+            Tile(live, "web.chat", UiKit.Mint, () => Nav.Push(new ChatScreen()));
             HubNav.Build(Root, Mode, "home");
         }
 

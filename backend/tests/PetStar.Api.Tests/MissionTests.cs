@@ -92,3 +92,58 @@ public class MissionTests(ApiFactory f)
         Assert.Equal(0, Mission(m, "daily", "d_login").GetProperty("progress").GetInt32());
     }
 }
+
+public class EmailBodyTests
+{
+    [Fact]
+    public void Emails_link_to_the_web_client_in_both_languages_and_keep_the_raw_code()
+    {
+        var b = PetStar.Api.Auth.AuthEndpoints.EmailBody("reset", "abc+/=", "https://petstar.pages.dev/");
+        Assert.Contains("https://petstar.pages.dev/?reset=abc%2B%2F%3D", b);
+        Assert.Contains("đặt lại mật khẩu", b);
+        Assert.Contains("reset your Pet Star password", b);
+        Assert.EndsWith("Token: abc+/=", b);
+        Assert.Contains("https://x.test/?verify=t1", PetStar.Api.Auth.AuthEndpoints.EmailBody("verify", "t1", "https://x.test"));
+    }
+}
+
+[Collection("api")]
+public class FeedGuildTabTests(ApiFactory f)
+{
+    [Fact]
+    public async Task Feed_guild_tab_shows_the_members_guild_posts_only()
+    {
+        var p = await f.NewPlayer("fgt");
+        var none = await X.J(await p.Http.GetAsync("/api/feed?tab=guild"));
+        Assert.Equal("not_in_guild", none.GetProperty("note").GetString());
+        await Player.Ok(await p.Post("/api/guilds", new PetStar.Api.Features.CreateGuildRequest { Name = "Tab" + Guid.NewGuid().ToString("N")[..6], Description = "", JoinPolicy = "open" }));
+        await Player.Ok(await p.Post("/api/guilds/feed", new PetStar.Api.Features.CreatePostRequest { Type = "text", Caption = "guild only " + Guid.NewGuid() }));
+        var tab = await X.J(await p.Http.GetAsync("/api/feed?tab=guild"));
+        Assert.Equal(1, tab.GetProperty("items").GetArrayLength());
+        var pub = await X.J(await p.Http.GetAsync("/api/feed?tab=global"));
+        Assert.DoesNotContain(pub.GetProperty("items").EnumerateArray(), x => x.GetProperty("caption").GetString()!.StartsWith("guild only"));
+    }
+}
+
+[Collection("api")]
+public class EventAlbumTests(ApiFactory f)
+{
+    [Fact]
+    public async Task Event_album_lists_pets_offered_by_events_and_counts_discovery()
+    {
+        var owner = await L2.Admin(f, "owner");
+        var p = await f.NewPlayer("evalb");
+        string code = "ALB-" + Guid.NewGuid().ToString("N")[..8].ToUpperInvariant();
+        await Player.Ok(await owner.Post("/api/admin/giftcodes", new PetStar.Api.Features.CreateGiftcodeRequest
+        {
+            Code = code, MaxUses = 5, Rewards = new() { Cards = { new PetStar.Api.Features.RewardCard { FormId = "pet_emberkit", Rarity = "SR", Quality = "A", Finish = "Foil" } } },
+        }));
+        JsonElement Album(JsonElement r) => r.GetProperty("system").EnumerateArray().First(a => a.GetProperty("id").GetString() == "event");
+        var before = Album(await X.J(await p.Http.GetAsync("/api/collections")));
+        Assert.True(before.GetProperty("total").GetInt32() >= 1);
+        await Player.Ok(await p.Post("/api/giftcodes/redeem", new PetStar.Api.Features.RedeemRequest { Code = code }));
+        var after = Album(await X.J(await p.Http.GetAsync("/api/collections")));
+        Assert.Equal(before.GetProperty("discovered").GetInt32() + (before.GetProperty("discovered").GetInt32() < before.GetProperty("total").GetInt32() ? 1 : 0),
+            after.GetProperty("discovered").GetInt32());
+    }
+}

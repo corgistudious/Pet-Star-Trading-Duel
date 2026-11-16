@@ -71,6 +71,7 @@ services:
       Jwt__SigningKey: ${JWT_SIGNING_KEY:?set JWT_SIGNING_KEY (at least 32 chars)}
       Cors__AllowedOrigins__0: ${WEB_ORIGIN:?set WEB_ORIGIN, e.g. https://petstar.pages.dev}
       Cors__AllowedOrigins__1: ${WEB_ORIGIN_2:-}
+      App__WebBaseUrl: ${WEB_ORIGIN}                # links in verification / password-reset e-mails
       Database__AutoMigrate: "true"          # additive migrations only; deploy.sh takes a backup first
       Seed__SyncPackTypes: ${SEED_SYNC_PACK_TYPES:-false}
       Bootstrap__OwnerEmail: ${OWNER_EMAIL:-}
@@ -82,6 +83,8 @@ services:
       Smtp__Host: ${SMTP_HOST:-}
       Smtp__User: ${SMTP_USER:-}
       Smtp__Password: ${SMTP_PASSWORD:-}
+      Smtp__From: ${SMTP_FROM:-no-reply@petstar.game}
+      Smtp__Port: ${SMTP_PORT:-587}
     ports:
       - "127.0.0.1:${API_HOST_PORT:-18080}:8080"   # loopback only: never reachable from the internet directly
     healthcheck:

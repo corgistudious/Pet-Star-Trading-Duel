@@ -189,6 +189,8 @@ AdminEndpoints.Map(app);
 if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing"))
     app.MapGet("/dev/outbox", () => { lock (DevEmailSender.Outbox) return DevEmailSender.Outbox.Select(m => new { m.To, m.Subject, m.Body, m.At }).ToList(); });
 
+AuthEndpoints.WebBaseUrl = cfg["App:WebBaseUrl"] is { Length: > 0 } webBase ? webBase
+    : (cfg.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>()).FirstOrDefault(o => !string.IsNullOrWhiteSpace(o));
 await Seeder.Run(app.Services, cfg, app.Logger);
 app.Run();
 

@@ -224,6 +224,22 @@ public static class AuthEndpoints
 
     private static string? Trim(string? s, int n) => s == null ? null : s.Length <= n ? s : s[..n];
 
+    /// <summary>Public web origin used in e-mail links (App:WebBaseUrl, else the first CORS origin). Set at startup.</summary>
+    public static string? WebBaseUrl;
+
+    /// <summary>Bilingual body with an HTTPS link for the web client, the app deep link and the raw code.
+    /// The last line stays "Token: ..." (support staff and tests read it).</summary>
+    public static string EmailBody(string purpose, string token, string? web)
+    {
+        bool reset = purpose == "reset";
+        string q = (reset ? "reset" : "verify") + "=" + Uri.EscapeDataString(token);
+        string link = string.IsNullOrEmpty(web) ? "" : $"{web.TrimEnd('/')}/?{q}";
+        var vi = reset ? "Mở liên kết dưới đây để đặt lại mật khẩu Pet Star (hết hạn sau 1 giờ):" : "Mở liên kết dưới đây để xác thực email Pet Star (hết hạn sau 48 giờ):";
+        var en = reset ? "Open the link below to reset your Pet Star password (expires in 1 hour):" : "Open the link below to verify your Pet Star email (expires in 48 hours):";
+        var ignore = "Nếu không phải bạn yêu cầu, hãy bỏ qua email này. / If you did not request this, ignore this e-mail.";
+        return $"{vi}\n{link}\n\n{en}\n{link}\n\n{ignore}\n\nApp: petstar://auth/{purpose}?token={token}\nToken: {token}";
+    }
+
     private static async Task SendEmailToken(PetStarDb db, IEmailSender mail, Account acc, string purpose)
     {
         var token = SecureRandomSource.Token(32);
@@ -233,8 +249,7 @@ public static class AuthEndpoints
             CreatedAt = DateTimeOffset.UtcNow, ExpiresAt = DateTimeOffset.UtcNow.AddHours(purpose == "reset" ? 1 : 48),
         });
         await db.SaveChangesAsync();
-        await mail.SendAsync(acc.Email, purpose == "reset" ? "email.reset" : "email.verify",
-            $"petstar://auth/{purpose}?token={token}\n\nToken: {token}");
+        await mail.SendAsync(acc.Email, purpose == "reset" ? "email.reset" : "email.verify", EmailBody(purpose, token, WebBaseUrl));
     }
 
     private static async Task<EmailToken> ConsumeEmailToken(PetStarDb db, string token, string purpose)

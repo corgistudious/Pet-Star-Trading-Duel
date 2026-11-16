@@ -32,7 +32,11 @@ export default function AuthScreen() {
       if (ok !== undefined) { toast(t('auth.reset_sent'), 'ok'); setMode('login'); }
     } else {
       const ok = await run(() => api.post('/api/auth/reset-password', { token: resetToken, newPassword: password }, { auth: false }));
-      if (ok !== undefined) { toast(t('web.reset_done'), 'ok'); history.replaceState(null, '', '/'); setMode('login'); }
+      if (ok !== undefined) {
+        toast(t('web.reset_done'), 'ok');
+        // all sessions were revoked by the reset: start clean on this browser too
+        window.location.replace('/');
+      }
     }
   };
 

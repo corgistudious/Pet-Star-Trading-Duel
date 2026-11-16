@@ -100,7 +100,11 @@ public static class CommunityEndpoints
             foreach (var el in cat.Elements.Elements) system.Add(Album("element_" + el.Id, cat.Forms.Values.Where(f => f.Element == el.Id).Select(f => f.Id)));
             int rareForms = owned.Where(o => RareSet.Contains(o.Rarity)).Select(o => o.FormId).Distinct().Count();
             system.Add(new { id = "rare", total = 25, discovered = Math.Min(25, rareForms), complete = rareForms >= 25 });
-            system.Add(new { id = "event", total = 0, discovered = 0, complete = false });
+            // Event collection: every Pet ever offered as a card reward by this server's events and gift codes
+            var rewardJson = await db.Events.AsNoTracking().Where(e => e.ServerId == null || e.ServerId == sid).Select(e => e.RewardsJson)
+                .Concat(db.Giftcodes.AsNoTracking().Where(x => x.ServerId == null || x.ServerId == sid).Select(x => x.RewardsJson)).ToListAsync();
+            var eventForms = rewardJson.SelectMany(EventRewardForms).Where(cat.Forms.ContainsKey).Distinct();
+            system.Add(Album("event", eventForms));
             var custom = await db.Collections.AsNoTracking().Include(c => c.Items).Where(c => c.MembershipId == mid).OrderBy(c => c.Id).ToListAsync();
             return new
             {
@@ -148,5 +152,15 @@ public static class CommunityEndpoints
         if (ids.Count > data.Market.L("social", "maxCollectionItems") || ids.Distinct().Count() != ids.Count) throw ApiException.BadRequest("album_items_invalid");
         if (await db.Cards.CountAsync(c => ids.Contains(c.Id) && c.OwnerMembershipId == mid && c.ServerId == sid) != ids.Count) throw ApiException.BadRequest("card_not_owned");
         for (int i = 0; i < ids.Count; i++) col.Items.Add(new CollectionItem { CardId = ids[i], Position = i });
+    }
+
+    private static IEnumerable<string> EventRewardForms(string json)
+    {
+        try
+        {
+            var cards = JsonNode.Parse(json)?["cards"] as JsonArray;
+            return cards == null ? Array.Empty<string>() : cards.Select(c => c?["formId"]?.GetValue<string>()).Where(x => x != null).Cast<string>().ToList();
+        }
+        catch (System.Text.Json.JsonException) { return Array.Empty<string>(); }
     }
 }

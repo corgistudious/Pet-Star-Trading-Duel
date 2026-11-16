@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 using PetStar.Client.Core;
 using PetStar.Client.UI;
 using PetStar.Contracts;
@@ -94,7 +95,67 @@ namespace PetStar.Client.Screens
         private FxRunner _anim = null!;
         private float Cw => Wide ? 130 : 168;
 
-        public DuelBattleScreen(BattleDto b) { _b = b; }
+        // Live PvP: sealed plans, 30 s deadline; the server resolves when both sides submitted (or at the deadline)
+        private readonly bool _live;
+        private bool _waiting;
+        private TextMeshProUGUI? _timer;
+        private bool _subscribed, _ticking;
+
+        public DuelBattleScreen(BattleDto b, bool live = false) { _live = live; _b = live ? LiveBattle.Normalize(b) : b; }
+
+        public override void OnShow()
+        {
+            if (!_live || Realtime.I == null || _subscribed) return; // OnShow runs again on layout rebuilds
+            _subscribed = true;
+            Realtime.I.Message += OnRealtime;
+            Realtime.I.Connected += OnReconnect;
+        }
+
+        public override void OnHide()
+        {
+            if (Realtime.I == null || !_subscribed) return;
+            _subscribed = false;
+            Realtime.I.Message -= OnRealtime;
+            Realtime.I.Connected -= OnReconnect;
+        }
+
+        private void OnRealtime(string type, JToken? data)
+        {
+            if (type == "pvp_round" && data?["id"]?.ToString() == _b.Id.ToString()) _ = FetchLive();
+        }
+
+        private void OnReconnect() => _ = FetchLive(); // never trust that a push arrived while disconnected
+
+        private async System.Threading.Tasks.Task FetchLive()
+        {
+            if (_busy) return; // a round animation is playing; the next poll catches up
+            var v = await Call(() => Api.Get<JObject>($"/api/pvp/battles/{_b.Id}"), overlay: false);
+            if (v == null) return;
+            var next = LiveBattle.Normalize(v["battle"]!.ToObject<BattleDto>(Newtonsoft.Json.JsonSerializer.Create(ApiClient.Json))!);
+            if (next.Round != _b.Round || next.Status != _b.Status)
+            {
+                _waiting = false;
+                _plan.Clear(); _selected = null;
+                _busy = true; // Play() clears it when the animation ends
+                _anim.StartCoroutine(Play(next));
+            }
+        }
+
+        private IEnumerator LiveTick()
+        {
+            while (_live && _b.Status == "active" && Root != null)
+            {
+                if (_timer != null && _b.RoundDeadline is System.DateTimeOffset dl)
+                {
+                    var left = dl - System.DateTimeOffset.UtcNow;
+                    _timer.text = (_waiting ? L.T("web.waiting_opponent") + "  " : "") + (left.TotalSeconds > 0 ? $"{(int)left.TotalSeconds}s" : "…");
+                }
+                // fallback polling while waiting (covers missed pushes and server-side deadline resolution)
+                if (_waiting || (_b.RoundDeadline is System.DateTimeOffset d2 && d2 < System.DateTimeOffset.UtcNow)) _ = FetchLive();
+                yield return new WaitForSeconds(1.5f);
+            }
+            _ticking = false;
+        }
 
         public override void Build()
         {
@@ -141,6 +202,12 @@ namespace PetStar.Client.Screens
             _log = UiKit.Text(logPanel.transform, "", 24, UiKit.Ink, UiKit.Weight.Regular, TextAlignmentOptions.BottomLeft);
             _log.rectTransform.Stretch(20, 10, 20, 10);
             _log.overflowMode = TextOverflowModes.Truncate;
+            if (_live)
+            {
+                _timer = UiKit.Text(hud.transform, "", 30, UiKit.Danger, UiKit.Weight.Bold, TextAlignmentOptions.MidlineRight);
+                _timer.rectTransform.Stretch(600, 0, 240, 0);
+                if (!_ticking) { _ticking = true; _anim.StartCoroutine(LiveTick()); }
+            }
             RefreshHud();
             if (_b.Status != "active") ShowEnd();
         }
@@ -260,9 +327,18 @@ namespace PetStar.Client.Screens
 
         private async void Submit()
         {
-            if (_busy || _b.Status != "active") return;
+            if (_busy || _waiting || _b.Status != "active") return;
             _busy = true;
             var req = new SubmitRoundRequest { Round = _b.Round, Actions = _plan.Values.ToList() };
+            if (_live)
+            {
+                var r = await Call(() => Api.Post<JObject>($"/api/pvp/battles/{_b.Id}/rounds", req), overlay: false);
+                _busy = false;
+                if (r == null) return;
+                _waiting = true; // plan locked; the round resolves when the opponent submits or the deadline passes
+                if ((bool?)r["resolved"] == true) await FetchLive();
+                return;
+            }
             var next = await Call(() => Api.Post<BattleDto>($"/api/battles/{_b.Id}/rounds", req), overlay: false);
             if (next == null) { _busy = false; return; }
             _plan.Clear(); _selected = null;
@@ -347,6 +423,11 @@ namespace PetStar.Client.Screens
 
         private async void Surrender()
         {
+            if (_live)
+            {
+                if (await Call(() => Api.Post<JObject>($"/api/pvp/battles/{_b.Id}/surrender", null)) != null) await FetchLive();
+                return;
+            }
             var r = await Call(() => Api.Post<BattleDto>($"/api/battles/{_b.Id}/surrender", null));
             if (r != null) { _b = r; UiKit.Clear(Root); Build(); }
         }
@@ -399,6 +480,26 @@ namespace PetStar.Client.Screens
             ((RectTransform)transform).anchoredPosition += new Vector2(0, 120 * Time.deltaTime);
             var t = GetComponent<TextMeshProUGUI>(); t.alpha = Mathf.Clamp01(1.4f - _t);
             if (_t > 1.4f) Destroy(gameObject);
+        }
+    }
+}
+
+namespace PetStar.Client.Screens
+{
+    /// <summary>The duel screen draws "me" as side 0. Live PvP players may be side 1, so their view is mirrored:
+    /// unit/event sides and the winner are swapped. Plans only carry my unit indices and enemy target indices, so
+    /// nothing is changed on the way back to the server.</summary>
+    public static class LiveBattle
+    {
+        public static BattleDto Normalize(BattleDto b)
+        {
+            if (b.MySide == 0) return b;
+            int Flip(int s) => s < 0 ? s : 1 - s;
+            foreach (var u in b.Units) u.Side = Flip(u.Side);
+            foreach (var e in b.LastEvents) { e.ActorSide = Flip(e.ActorSide); e.TargetSide = Flip(e.TargetSide); }
+            if (b.WinnerSide is int w) b.WinnerSide = Flip(w);
+            b.MySide = 0;
+            return b;
         }
     }
 }

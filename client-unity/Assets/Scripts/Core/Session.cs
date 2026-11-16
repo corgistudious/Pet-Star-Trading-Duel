@@ -18,6 +18,7 @@ namespace PetStar.Client.Core
         public int? ServerId { get; private set; }
         public PlayerDto? Player { get; private set; }
         public event Action<PlayerDto>? PlayerChanged;
+        public event Action? LoggedOut;
 
         private Task<bool>? _refreshing;
 
@@ -50,6 +51,7 @@ namespace PetStar.Client.Core
         {
             AccessToken = null; Player = null; ServerId = null;
             SecureStore.Delete(RefreshKey);
+            LoggedOut?.Invoke();
         }
 
         /// <summary>Single-flight refresh: concurrent 401s share one refresh call (refresh tokens rotate).</summary>

@@ -40,6 +40,10 @@ jobs:
           python-version: "3.12"
       - name: Localization coverage (en/vi)
         run: python tools/check_localization.py
+      - name: Unity scripts syntax check (C# 9; not a Unity compile)
+        run: |
+          dotnet run --project tools/unity-syntax-check -- client-unity/Assets/Scripts
+          dotnet run --project tools/unity-syntax-check -- shared-contracts/Runtime
       - name: Migrations are in sync with the model
         working-directory: backend
         run: |

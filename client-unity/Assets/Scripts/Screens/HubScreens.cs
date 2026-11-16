@@ -249,6 +249,7 @@ namespace PetStar.Client.Screens
                      {
                          ("battle.pve", UiKit.Lilac, () => Nav.Push(new DuelLobbyScreen())),
                          ("battle.ranked", UiKit.Peach, () => Nav.Push(new RankedScreen())),
+                         ("web.live_pvp", UiKit.Hex("#FFD7D2"), () => Nav.Push(new PvpLobbyScreen())),
                          ("battle.friend", UiKit.Mint, () => Nav.Push(new FriendsScreen())),
                          ("battle.history", UiKit.SkyDeep, () => Nav.Push(new BattleHistoryScreen())),
                      })

@@ -49,6 +49,10 @@ namespace PetStar.Client.Core
                 cam.tag = "MainCamera"; cam.clearFlags = CameraClearFlags.SolidColor; cam.backgroundColor = UiKit.Sky; cam.orthographic = true;
                 DontDestroyOnLoad(cam.gameObject);
             }
+            // realtime push while a server is selected; dropped on logout
+            var rt = Realtime.Ensure(gameObject);
+            Session.PlayerChanged += _ => { if (Session.ServerId is int sid && Session.AccessToken != null) rt.ConnectFor(sid); };
+            Session.LoggedOut += rt.Disconnect;
             var nav = Navigator.Create(transform);
             nav.Replace(new PetStar.Client.Screens.SplashScreen());
         }

@@ -121,7 +121,15 @@ public static class FeedEndpoints
                     q = q.Where(p => db.Saves.Any(s => s.PostId == p.Id && s.MembershipId == mid));
                     break;
                 case "guild":
-                    return new { items = new List<FeedPostView>(), note = "guild_feed_next_milestone" };
+                {
+                    // same posts as /api/guilds/feed: members only (non-members get an empty list + reason)
+                    var mg = await GuildChatEndpoints.MyGuild(db, mid);
+                    if (mg == null) return new { items = new List<FeedPostView>(), note = (string?)"not_in_guild" };
+                    var gq = db.Posts.AsNoTracking().Where(p => p.GuildId == mg.Value.guild.Id && p.Status == "visible" && !hidden.Contains(p.AuthorMembershipId));
+                    if (before.HasValue) gq = gq.Where(p => p.Id < before);
+                    var gp = await gq.OrderByDescending(p => p.Id).Take(Math.Clamp(limit ?? 20, 1, 50)).ToListAsync();
+                    return new { items = await Views(db, gp, mid), note = (string?)null };
+                }
             }
             if (before.HasValue) q = q.Where(p => p.Id < before);
             var posts = await (tab == "featured" ? q.OrderByDescending(p => p.LikeCount).ThenByDescending(p => p.Id) : q.OrderByDescending(p => p.Id))

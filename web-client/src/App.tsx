@@ -1,9 +1,10 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { useSession } from './state/session';
 import { useT } from './i18n';
 import { Layout } from './components/Layout';
-import { Loading } from './components/ui';
+import { Loading, useToast } from './components/ui';
+import { api } from './api/client';
 import { BattleFrame, PortraitFrame } from './components/Frames';
 import AuthScreen from './screens/Auth';
 import ServersScreen from './screens/Servers';
@@ -38,8 +39,28 @@ const Achievements = lazy(() => import('./screens/Achievements'));
 const Settings = lazy(() => import('./screens/Settings'));
 const Admin = lazy(() => import('./screens/Admin'));
 
+/** Links from verification / password-reset e-mails work whether or not someone is signed in on this browser. */
+function useEmailLinks() {
+  const toast = useToast();
+  const t = useT();
+  const { status, reloadProfile } = useSession();
+  const [done, setDone] = useState(false);
+  useEffect(() => {
+    const token = new URLSearchParams(window.location.search).get('verify');
+    if (!token || done || status === 'loading') return;
+    setDone(true);
+    history.replaceState(null, '', window.location.pathname); // never leave the token in the address bar
+    api.post('/api/auth/verify-email', { token }, { auth: false })
+      .then(() => { toast(t('web.email_verified'), 'ok'); if (status !== 'anonymous' && status !== 'unreachable') void reloadProfile(); })
+      .catch(() => toast(t('error.invalid_or_expired_token'), 'err'));
+  }, [status, done]); // eslint-disable-line react-hooks/exhaustive-deps
+}
+
 export default function App() {
   const { status } = useSession();
+  useEmailLinks();
+  // a password-reset link always shows the reset form (even if another account is signed in here)
+  if (new URLSearchParams(window.location.search).get('reset')) return <PortraitFrame><AuthScreen /></PortraitFrame>;
   if (status === 'loading') return <PortraitFrame><div className="boot"><div className="spinner" /></div></PortraitFrame>;
   if (status === 'unreachable') return <PortraitFrame><Unreachable /></PortraitFrame>;
   if (status === 'anonymous') return <PortraitFrame><Routes><Route path="*" element={<AuthScreen />} /></Routes></PortraitFrame>;

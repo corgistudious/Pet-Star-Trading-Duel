@@ -281,7 +281,8 @@ export const WEB_STRINGS: Record<'en' | 'vi', Record<string, string>> = {
   "web.push_cat_system": "Achievements & notices",
   "error.push_endpoint_not_allowed": "This browser push service is not supported.",
   "error.push_not_configured": "Notifications are not available on this server yet.",
-  "error.push_too_many_devices": "Too many devices with notifications. Turn them off on an old device first."
+  "error.push_too_many_devices": "Too many devices with notifications. Turn them off on an old device first.",
+  "web.email_verified": "Email verified. Thank you!"
  },
  "vi": {
   "web.accept": "Chấp nhận",
@@ -563,6 +564,7 @@ export const WEB_STRINGS: Record<'en' | 'vi', Record<string, string>> = {
   "web.push_cat_system": "Thành tựu & thông báo",
   "error.push_endpoint_not_allowed": "Dịch vụ thông báo của trình duyệt này chưa được hỗ trợ.",
   "error.push_not_configured": "Máy chủ chưa bật thông báo.",
-  "error.push_too_many_devices": "Quá nhiều thiết bị bật thông báo. Hãy tắt trên thiết bị cũ trước."
+  "error.push_too_many_devices": "Quá nhiều thiết bị bật thông báo. Hãy tắt trên thiết bị cũ trước.",
+  "web.email_verified": "Đã xác thực email. Cảm ơn bạn!"
  }
 };

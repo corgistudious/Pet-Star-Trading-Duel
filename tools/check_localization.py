@@ -21,7 +21,7 @@ for code, t in tables.items():
         problems.append(f"{code}: missing {k}")
 
 code = "\n".join(p.read_text() for p in SRC.rglob("*.cs"))
-static = set(re.findall(r'L\.T\("([a-z0-9_.]+[a-z0-9_])"', code)) | set(re.findall(r'TitleKey => "([a-z0-9_.]+)"', code))
+static = set(re.findall(r'L\.T\("([a-z0-9_.]+[a-z0-9_])"(?!\s*\+)', code)) | set(re.findall(r'TitleKey => "([a-z0-9_.]+)"', code))
 derived = set()
 skills = json.loads((SEED / "skills.json").read_text())
 derived |= {f"skill.{s['id']}" for s in skills["skills"]} | {f"passive.{p['id']}" for p in skills["passives"]}
@@ -41,6 +41,9 @@ derived |= {f"duel.short.{a}" for a in ("Basic", "Skill", "Ultimate", "Defend")}
 derived |= {f"ach.{a['id']}" for a in json.loads((SEED / "achievements.json").read_text())["achievements"]}
 derived |= {f"album.{x}" for x in ("starter", "evolution", "standalone", "rare", "event")} | {f"album.element_{e['id']}" for e in elements}
 derived |= {f"hub.{x}" for x in ("home", "collection", "market", "social", "battle")}
+derived |= {f"web.role_{x}" for x in ("leader", "officer", "member")}
+_missions = json.loads((SEED / "missions.json").read_text())
+derived |= {f"mission.{m['id']}" for m in _missions["daily"] + _missions["weekly"]}
 derived |= {f"market.status.{x}" for x in ("active", "sold", "cancelled", "expired", "removed", "settled", "expired_no_bids")}
 derived |= {f"market.kind.{x}" for x in ("listing", "auction")}
 derived |= {f"market.warning.{x}" for x in ("price_far_below_reference", "price_far_above_reference")}

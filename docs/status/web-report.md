@@ -1,5 +1,21 @@
 # Web-first report: live features, web client, deployment (2026-11-15)
 
+## Update: remaining items
+
+- **E-mail links:** verification and reset mails now link to the web client (`App:WebBaseUrl`, default
+  `WEB_ORIGIN`), with bilingual text plus the app link and raw code.
+  - Before this, mails only had a `petstar://` link, so web players could not verify or reset.
+  - The web client handles `?verify=` and `?reset=` whether or not a player is signed in, and removes the token
+    from the address bar.
+  - New e2e test covers both flows.
+- **Placeholders closed:**
+  - The feed `guild` tab returns the guild's posts (members only).
+  - The Event Collection album lists Pets offered by events and gift codes.
+- **Unity live features:** realtime client, live PvP, Missions, Rewards, Guild and Chat screens. New shared
+  en/vi keys (1,164 per language). A Unity syntax check was added to CI.
+- **Tests:** API 76/76, rules 46/46, web unit 42/42, web e2e 12/12, localization coverage OK, Unity syntax 25
+  files OK.
+
 ## Update: Web Push
 
 - Backend sends standards-based Web Push: RFC 8291 encryption, verified byte-for-byte against the RFC example,
@@ -120,26 +136,31 @@ There are no mocks.
 - No fake data or local balance math.
 - No real-money purchases: the Rainbow Star tab says the store is unavailable, and `/api/iap/*` is disabled.
 
-## 3. Missing or not done (reported, not simulated)
+## 3. Still open (current as of the latest update; reported, not simulated)
 
-- **Real Safari/WebKit** testing is not possible here. Chromium iPhone emulation is not WebKit, so one manual
-  play-through on a real iPhone is still needed.
-- **Web Push** notifications while the tab is closed: not implemented. Realtime works only while the page is
-  open; the app refetches on return.
-- **Unity:** scripts are still uncompiled. This phase switched the duel background to the slot-free board and
-  synced the new art and backgrounds. Addressables entries for the board sprites must be added in the Editor.
-  The license and keystore are deferred.
-- **Deployment:**
-  - No production or staging deploy was performed (needs approval).
-  - Docker images could not be built inside this sandbox (registry TLS / Docker Hub rate limit); the compose file
-    was validated with `docker compose config`.
-  - The first image build happens on the VPS or in the manual workflow.
-- E-mail delivery (SMTP) is not configured. Without it, verification and reset e-mails are logged, not sent.
-- Known limitations:
-  - Ranked opponents are snapshots of other players' decks driven by the server AI (asynchronous), by design.
-    Live PvP is the real-time mode.
-  - The refresh token is stored in `localStorage`. This is mitigated by a strict CSP and rotation with reuse
-    detection.
+**Needs the owner or a device**
+- One play-through on a **real iPhone**: Safari tab and Home Screen app, including push. Chromium emulation is not
+  WebKit, and headless browsers here cannot reach push services.
+- **Production / staging deploy**: needs approval. Docker images cannot be built in this sandbox (registry TLS /
+  rate limit); the compose file is validated with `docker compose config`. The first build runs on the VPS or in
+  the manual workflow.
+- **SMTP credentials**: e-mail sending is implemented. Mails carry a web link, in Vietnamese and English, and are
+  tested end to end through the dev outbox. Real delivery needs `SMTP_*` set on the VPS (STARTTLS on port 587).
+- **VAPID keys for Web Push**: generated on the VPS with `generate-vapid`.
+
+**Deferred by decision**
+- **Unity compile and device builds**: license step deferred.
+  - The Unity code now also has the live features: realtime socket, Missions, Rewards (login / gift code /
+    events), Guild, Chat, live PvP lobby and live duel mode.
+  - It is checked only for **syntax** (Roslyn, C# 9, in CI); it has never been compiled against UnityEngine.
+  - The board sprites still need Addressables entries in the Editor.
+- **Android keystore**: deferred.
+
+**Known limitations (by design)**
+- Ranked opponents are snapshots of other players' decks driven by the server AI (asynchronous). Live PvP is the
+  real-time mode.
+- The web refresh token lives in `localStorage`, mitigated by a strict CSP and rotation with reuse detection.
+- The Unity client has no Web Push (native push would need FCM/APNs setup and store builds).
 
 ## 4. Test results (run in this environment)
 
