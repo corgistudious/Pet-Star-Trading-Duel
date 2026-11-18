@@ -32,7 +32,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const need: Lang[] = lang === 'en' ? ['en'] : ['en', lang];
     need.filter((l) => !tables[l]).forEach((l) =>
-      fetch(`/i18n/${l}.json`).then((r) => r.json()).then((j: Table) => setTables((t) => ({ ...t, [l]: j }))).catch(() => {}));
+      fetch(`${import.meta.env.BASE_URL}i18n/${l}.json`).then((r) => r.json()).then((j: Table) => setTables((t) => ({ ...t, [l]: j }))).catch(() => {}));
     document.documentElement.lang = lang;
   }, [lang, tables]);
   const setLang = useCallback((l: Lang) => { setLangState(l); try { localStorage.setItem(LS_LANG, l); } catch { /* ignore */ } }, []);

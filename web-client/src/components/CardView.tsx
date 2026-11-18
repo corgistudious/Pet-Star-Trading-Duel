@@ -4,7 +4,7 @@
 import type { CSSProperties } from 'react';
 import type { CardDto } from '../api/types';
 import { useI18n } from '../i18n';
-import { ELEMENT_COLORS, RARITY_COLORS, petArt, useCatalog } from '../state/catalog';
+import { ELEMENT_COLORS, RARITY_COLORS, petArt, uiArt, useCatalog } from '../state/catalog';
 
 const R = (x: number, y: number, w: number, h: number): CSSProperties => ({
   left: `${(x / 1080) * 100}%`, top: `${(y / 1920) * 100}%`, width: `${(w / 1080) * 100}%`, height: `${(h / 1920) * 100}%`,
@@ -15,25 +15,31 @@ export const ELEMENT_GLYPH: Record<string, string> = { fire: '🔥', water: '�
 export function CardView({ card, compact, onClick, selected, badge }: { card: CardDto; compact?: boolean; onClick?: () => void; selected?: boolean; badge?: string }) {
   const { t, lang } = useI18n();
   const cat = useCatalog();
-  const color = RARITY_COLORS[card.rarity] ?? '#9CA3AF';
+  // Divine Pet Cards use their set's frame colour (Premium white-gold, Limited festival red, Star cosmic violet)
+  const color = card.divineSet ? ({ premium: '#E9C46A', limited: '#D9483B', star: '#5B3FD1' } as Record<string, string>)[card.divineSet] ?? '#FFD86B' : RARITY_COLORS[card.rarity] ?? '#9CA3AF';
+  const petKey = 'pet.' + card.formId;
+  const name = t(petKey) !== petKey ? t(petKey) : card.name;
   const skill = card.skillId ? cat.skills[card.skillId] : undefined;
   const ult = card.ultimateId ? cat.skills[card.ultimateId] : undefined;
   const style = { '--rarity': color, '--element': ELEMENT_COLORS[card.element] ?? '#888' } as CSSProperties;
   const Tag = onClick ? 'button' : 'div';
   return (
     <Tag className={`pcard finish-${card.finish.toLowerCase()} rar-${card.rarity} ${compact ? 'compact' : ''} ${selected ? 'selected' : ''}`}
-      style={style} onClick={onClick} aria-label={`${card.name} ${card.rarity} Lv.${card.level}`} type={onClick ? 'button' : undefined}>
+      style={style} onClick={onClick} aria-label={`${name} ${card.rarity} Lv.${card.level}`} type={onClick ? 'button' : undefined}>
       <div className="pcard-inner">
         <div className="pc-namebar" style={R(70, 56, 940, 124)}>
-          <span className="pc-name">{card.name}</span>
+          <span className="pc-name">{name}</span>
         </div>
         <span className="pc-element" style={R(890, 70, 96, 96)} title={t('element.' + card.element)}>{ELEMENT_GLYPH[card.element] ?? '•'}</span>
         <span className="pc-chip pc-rarity" style={R(70, 200, 210, 72)}>{card.rarity}</span>
         <span className="pc-chip pc-quality" style={R(296, 200, 150, 72)}>{card.quality}</span>
-        <span className="pc-chip pc-level" style={R(790, 200, 220, 72)}>Lv.{card.level}</span>
+        <span className="pc-chip pc-level" style={R(790, 200, 220, 72)}>Lv.{card.level}{(card.enhanceLevel ?? 0) > 0 ? ` +${card.enhanceLevel}` : ''}</span>
         <div className="pc-art" style={R(70, 292, 940, 860)}>
           <img src={petArt(card.formId, compact)} alt="" loading="lazy" decoding="async" draggable={false} />
           {card.finish !== 'Normal' && <div className="pc-finish" />}
+          {((card.stars ?? 1) > 1 || card.divineSet) && <span className="pc-stars" aria-label={`${card.stars} stars`}>{'★'.repeat(Math.min(10, card.stars ?? 1))}</span>}
+          {card.divineSet && <img className="pc-crest" src={uiArt('ui_crest_' + card.divineSet)} alt="" />}
+          {card.awakened && <span className="pc-awake" />}
         </div>
         <div className="pc-stat" style={R(70, 1178, 300, 150)}><small>HP</small><b>{card.hp}</b></div>
         <div className="pc-stat" style={R(390, 1178, 300, 150)}><small>ATK</small><b>{card.atk}</b></div>

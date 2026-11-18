@@ -26,7 +26,7 @@ export function CatalogProvider({ children }: { children: ReactNode }) {
   const [cat, setCat] = useState<Catalog | null>(null);
   const [err, setErr] = useState(false);
   useEffect(() => {
-    fetch('/data/catalog.json').then((r) => r.json()).then(setCat).catch(() => setErr(true));
+    fetch(`${import.meta.env.BASE_URL}data/catalog.json`).then((r) => r.json()).then(setCat).catch(() => setErr(true));
   }, []);
   if (err) return <div className="boot">Could not load game data. Check your connection and reload.</div>;
   if (!cat) return <div className="boot"><div className="spinner" /></div>;
@@ -39,7 +39,7 @@ export function useCatalog(): Catalog {
   return c;
 }
 
-export const RARITY_ORDER = ['N', 'R', 'SR', 'SSR', 'UR', 'LR', 'MR', 'GR', 'EX', 'Secret'];
+export const RARITY_ORDER = ['N', 'R', 'SR', 'SSR', 'UR', 'LR', 'MR', 'GR', 'EX', 'Secret', 'DV'];
 export const RARITY_COLORS: Record<string, string> = {
   N: '#9CA3AF', R: '#43BD78', SR: '#4099F4', SSR: '#AA70E8', UR: '#F3C04F', LR: '#F36D79', MR: '#DE6DC9', GR: '#48D0C4', EX: '#E6B95E', Secret: '#9673EC', DV: '#FFD86B',
 };
@@ -47,5 +47,6 @@ export const ELEMENT_COLORS: Record<string, string> = {
   fire: '#F2643D', water: '#3D9BF2', nature: '#55C26A', earth: '#B98A52', lightning: '#F5C83B', wind: '#7FD6C9', light: '#FFE7A3', dark: '#6B4FA8',
 };
 export const rarityRank = (r: string) => Math.max(0, RARITY_ORDER.indexOf(r));
-export const petArt = (formId: string, thumb = false) => `/art/pets/${thumb ? 'thumb/' : ''}${formId}.webp`;
-export const uiArt = (id: string) => `/art/ui/${id}.webp`;
+// BASE_URL is '/' for the game build and './' for the standalone preview build (works under any path)
+export const petArt = (formId: string, thumb = false) => `${import.meta.env.BASE_URL}art/pets/${thumb ? 'thumb/' : ''}${formId}.webp`;
+export const uiArt = (id: string) => `${import.meta.env.BASE_URL}art/ui/${id}.webp`;

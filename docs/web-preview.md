@@ -1,0 +1,48 @@
+# Interactive Web Preview (owner review before the official Unity build)
+
+A login-free, browser-only preview of Pet Star: Trading Duel, built from the existing React/Vite web client
+(`web-client/preview.html`, `web-client/src/preview/`). It reuses the real card component, catalog, VI/EN texts and
+**all real assets**: 215 Pets including the 15 Divine Pets, the 9 pack arts, materials, crests, backgrounds and the
+official logo.
+
+**Safety:** everything is simulated in the browser (`src/preview/sim.ts`). There is no login, no API call and no
+database. The sandbox state lives in `sessionStorage` (this tab only) and disappears when the tab closes.
+The automated test confirms that the preview makes zero `/api` requests. No Unity Cloud Build or GitHub Actions
+build is triggered.
+
+## Open it
+
+- **Shared link:** the private Artifact page the owner received in chat. Only the owner can open it until they share
+  it.
+- **Locally:** run these from `web-client`:
+
+  ```
+  npm ci
+  npm run dev:preview      # opens http://localhost:5173/preview.html
+  npm run build:preview    # static folder web-client/dist-preview/ (relative paths, works on any static host)
+  ```
+
+- **Cloudflare Pages:** not deployed (it needs the owner's approval). The `dist-preview/` folder could later be
+  published to a preview branch of the existing `petstar` project.
+
+## What it covers
+
+| Screen | Interactive | Mirrors the real game |
+|---|---|---|
+| Lobby (portrait 9:16) | player, Level 65, VIP 7, wallet, menu, VI/EN switch, reset test data | layout and assets |
+| Shop: 9 packs | buy (Level/VIP/event/invitation conditions), open, odds per card and per 5-card pack | same prices, odds tables, divine pools and conditions as `packs.json` |
+| Pack opening | 5 face-down cards, flip one by one or all, rare glow, Divine Pet reveal | same RNG tables (browser CSPRNG here; the server's CSPRNG in the game) |
+| Collection and Pet Hub | filters; stars 1–10, enhancement +0–+20, evolution, breakthrough, awakening, skill 1–10, "+10 Lv" test button | same costs, gates and stat formulas as `Progression.cs` |
+| 15 Divine Pet Cards | gallery by set, 10★, real art, frames and crests, owned marker | — |
+| Marketplace | buy (stars or beans), list own card (locked while listed), cancel | 3 % fee; the real market is server-side |
+| Battle (landscape 16:9) | 3 front + 2 back, energy, Basic → Skill → Ultimate per Pet, enemy AI, damage numbers, rotate prompt on portrait phones | layout only; damage is simplified (the real BattleEngine runs on the server) |
+| Preview status | lists what is done and what is missing | — |
+
+## Missing or simulated only (also shown inside the preview)
+
+- **Battle:** a simplified browser simulation. Statuses, shields, passives and synergies are not fully shown; real
+  battles are resolved by the server.
+- **Engravings and Reset:** implemented in the real game (Unity and web), not simulated in the preview.
+- **Per-pack sounds and per-pack opening animations:** not made yet; all packs share one effect.
+- **Real game only:** login, servers, realtime PvP, Ranked, guilds and chat.
+- **Unity WebGL:** still untested in a real Unity Editor.

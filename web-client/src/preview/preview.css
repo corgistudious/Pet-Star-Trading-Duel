@@ -1,0 +1,115 @@
+/* Interactive Web Preview: lobby/screens in a portrait 9:16 frame, battle in a landscape 16:9 frame, pure black around. */
+html, body, #root { height: 100%; }
+.pv-stage { min-height: 100dvh; background: #000; display: flex; align-items: center; justify-content: center; }
+.pv-frame { position: relative; background: #eef4ff; color: #1D2B4F; overflow-x: hidden; overflow-y: auto; display: flex; flex-direction: column;
+  padding-bottom: env(safe-area-inset-bottom, 0px); box-sizing: border-box; }
+.pv-portrait .pv-frame { width: min(100vw, calc(100dvh * 9 / 16)); height: 100dvh; }
+.pv-landscape .pv-frame { width: min(100vw, calc(100dvh * 16 / 9)); height: min(100dvh, calc(100vw * 9 / 16)); overflow: hidden; }
+.pv-banner { background: linear-gradient(90deg, #5B3FD1, #2457C5); color: #fff; font: 600 11px/1.35 system-ui, sans-serif; padding: calc(4px + env(safe-area-inset-top, 0px)) 10px 4px; text-align: center; flex: none; }
+.pv-top { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; position: sticky; top: 0; background: rgba(238,244,255,.95); z-index: 5; backdrop-filter: blur(6px); }
+.pv-body { flex: 1; padding: 10px 12px 18px; min-height: 0; }
+.pv-landscape .pv-body { padding: 0; }
+.pv-h { font-size: 18px; margin: 4px 0 10px; }
+.pv-wallet { display: flex; gap: 10px; font-weight: 800; }
+.pv-wallet span { display: inline-flex; align-items: center; gap: 4px; background: #fff; border-radius: 99px; padding: 2px 10px 2px 4px; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.pv-wallet img { width: 22px; height: 22px; }
+.pv-toast { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); background: #1D2B4F; color: #fff; padding: 10px 16px; border-radius: 14px; font-weight: 600; z-index: 20; max-width: 90%; text-align: center; animation: pvin .2s ease-out; }
+@keyframes pvin { from { opacity: 0; transform: translate(-50%, 8px); } }
+
+/* lobby */
+.pv-lobby { margin: -10px -12px -18px; padding: 14px 14px 20px; min-height: 100%; background-size: cover; background-position: center; display: flex; flex-direction: column; gap: 12px; }
+.pv-lobby-head { display: flex; align-items: center; gap: 10px; }
+.pv-logo { width: 34%; max-width: 150px; aspect-ratio: 1; border-radius: 12%; box-shadow: 0 6px 24px rgba(60,90,220,.35); }
+.pv-player { flex: 1; display: flex; flex-direction: column; background: rgba(255,255,255,.88); border-radius: 14px; padding: 8px 10px; font-size: 12px; }
+.pv-player b { font-size: 16px; }
+.pv-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pv-tile { display: flex; flex-direction: column; align-items: center; gap: 6px; background: rgba(255,255,255,.92); border: 0; border-radius: 18px; padding: 12px 8px; font: 700 13px system-ui, sans-serif; color: #1D2B4F; box-shadow: 0 3px 10px rgba(29,43,79,.15); cursor: pointer; }
+.pv-tile img { width: 64px; height: 64px; object-fit: contain; }
+.pv-tile:active { transform: scale(.97); }
+.pv-reset { align-self: center; }
+
+/* shop */
+.pv-packs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pv-pack { background: #fff; border-radius: 16px; padding: 10px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 2px 8px rgba(29,43,79,.12); font-size: 12px; }
+.pv-pack > img { width: 70%; align-self: center; aspect-ratio: 2/3; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,.25)); }
+.pv-pack.theme-premium, .pv-pack.theme-limited, .pv-pack.theme-star { background: linear-gradient(160deg, #fff, #fff6dc); box-shadow: 0 0 0 2px #E9C46A, 0 2px 10px rgba(201,154,46,.3); }
+.pv-pack .row { flex-wrap: wrap; gap: 4px; }
+.pv-price { display: inline-flex; align-items: center; gap: 4px; font-weight: 800; font-size: 15px; }
+.pv-price img { width: 20px; height: 20px; }
+.pv-modal { position: absolute; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: flex-end; z-index: 30; }
+.pv-sheet { background: #fff; width: 100%; max-height: 85%; overflow: auto; border-radius: 18px 18px 0 0; padding: 14px; box-sizing: border-box; }
+.odds-pack { width: 100%; border-collapse: collapse; font-size: 13px; }
+.odds-pack td, .odds-pack th { padding: 4px 6px; border-bottom: 1px solid #e6ebf5; text-align: left; }
+.pv-mini { display: flex; flex-wrap: wrap; gap: 6px; }
+.pv-mini img { width: 52px; height: 52px; border-radius: 10px; background: #f3f0ff; }
+
+/* opening */
+.pv-open { margin: -10px -12px -18px; padding: 12px; min-height: 100%; background-size: cover; text-align: center; }
+.pv-open-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0; }
+.pv-flip { cursor: pointer; transition: transform .25s; }
+.pv-flip.up { animation: pvflip .45s ease-out; }
+.pv-flip.up.rare { filter: drop-shadow(0 0 10px var(--glow)); }
+.pv-flip.up.divine { filter: drop-shadow(0 0 16px #FFD86B) drop-shadow(0 0 30px #AA70E8); animation: pvflip .45s ease-out, pvdivine 1.6s ease-in-out infinite .45s; }
+@keyframes pvflip { from { transform: rotateY(90deg) scale(.9); } to { transform: none; } }
+@keyframes pvdivine { 50% { transform: scale(1.04); } }
+.pv-divine-msg { font-weight: 900; font-size: 20px; color: #C79A2E; text-shadow: 0 0 8px #fff; }
+
+/* collection / hub / market */
+.pv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+.pv-hub-card { display: grid; grid-template-columns: 44% 1fr; gap: 10px; align-items: start; }
+.pv-hub-card > div:last-child { display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+.pv-stars { color: #E9B52E; font-size: 18px; letter-spacing: -1px; }
+.pv-stars span { color: #d6dce8; } .pv-stars em { color: #2457C5; font-style: normal; font-weight: 800; }
+.gold { color: #C79A2E; font-weight: 700; }
+.pv-tabs { display: flex; flex-wrap: wrap; gap: 4px; margin: 10px 0; }
+.pv-cost { display: flex; flex-direction: column; gap: 4px; }
+.pv-cost span { display: inline-flex; align-items: center; gap: 6px; }
+.pv-cost img { width: 28px; height: 28px; }
+.pv-evo { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 6px; max-width: 320px; }
+.pv-burst { animation: pvburst .6s ease-out; }
+@keyframes pvburst { 0% { transform: scale(.9); filter: drop-shadow(0 0 0 #FFD86B); } 50% { transform: scale(1.05); filter: drop-shadow(0 0 22px #FFD86B); } 100% { transform: none; } }
+.pv-set { display: flex; align-items: center; gap: 6px; font-size: 15px; margin: 14px 0 0; }
+.pv-set img { width: 32px; height: 32px; }
+.pv-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.pv-listing { display: grid; grid-template-columns: 30% 1fr; gap: 10px; background: #fff; border-radius: 14px; padding: 8px; align-items: center; }
+.pv-listing > div { display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+.pv-listing b img { width: 18px; height: 18px; vertical-align: -3px; }
+.pv-status li { margin: 4px 0; font-size: 13px; }
+
+/* battle (16:9) */
+.pv-battle { height: 100%; background-size: cover; background-position: center; display: grid; grid-template-rows: auto 1fr auto; color: #fff; }
+.pv-bhead { display: flex; gap: 10px; align-items: center; justify-content: space-between; padding: 6px 10px; background: rgba(10,20,64,.55); font-size: 12px; }
+.pv-board { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 2%; }
+.pv-vs { font-weight: 900; font-size: 3vmin; opacity: .8; }
+.pv-side { display: flex; gap: 2%; justify-content: center; }
+.side-0 { flex-direction: row-reverse; } /* front row faces the enemy */
+.pv-row { display: flex; flex-direction: column; justify-content: center; gap: 4%; width: 34%; }
+.pv-unit { position: relative; aspect-ratio: 1; border: 0; border-radius: 14%; background: rgba(255,255,255,.85); padding: 4%; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,.35); }
+.pv-unit.empty { background: rgba(255,255,255,.15); box-shadow: none; }
+.pv-unit img { width: 100%; height: 100%; object-fit: contain; }
+.pv-unit.down { filter: grayscale(1) brightness(.6); }
+.pv-hp { position: absolute; left: 6%; right: 6%; bottom: 4%; height: 7%; background: rgba(0,0,0,.4); border-radius: 99px; overflow: hidden; }
+.pv-hp i { display: block; height: 100%; background: linear-gradient(90deg, #43BD78, #9be15d); transition: width .4s; }
+.pv-act { position: absolute; top: -8%; left: 50%; transform: translateX(-50%); font: 800 clamp(8px, 1.4vmin, 12px) system-ui, sans-serif; padding: 1px 6px; border-radius: 99px; background: #2457C5; white-space: nowrap; }
+.act-Skill { background: #AA70E8; } .act-Ultimate { background: #E6B95E; color: #1D2B4F; }
+.pv-dmg { position: absolute; top: 20%; left: 50%; color: #ff5a5f; font: 900 clamp(10px, 2.4vmin, 18px) system-ui; text-shadow: 0 1px 2px #000; animation: pvdmg .9s ease-out forwards; }
+@keyframes pvdmg { from { transform: translate(-50%, 0); opacity: 1; } to { transform: translate(-50%, -120%); opacity: 0; } }
+.pv-bfoot { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; padding: 6px 10px; background: rgba(10,20,64,.6); font-size: 12px; }
+.pv-log { grid-column: 1 / -1; font-size: 11px; opacity: .9; max-height: 5.2em; overflow: hidden; }
+.pv-rotate { height: 100%; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: #000; color: #fff; margin: -10px -12px; text-align: center; padding: 20px; }
+.pv-phone { font-size: 56px; animation: pvtilt 2.4s ease-in-out infinite; }
+@keyframes pvtilt { 30%, 70% { transform: rotate(-90deg); } }
+@media (prefers-reduced-motion: reduce) { .pv-flip.up, .pv-burst, .pv-phone, .pv-dmg { animation: none !important; } }
+@media (min-width: 900px) { .pv-portrait .pv-frame { box-shadow: 0 0 0 1px #222, 0 10px 60px rgba(70,110,230,.25); } }
+/* battle units are sized by the available HEIGHT so 3 front + 2 back always fit a short landscape phone */
+.pv-landscape .pv-banner { font-size: 10px; padding-top: 2px; padding-bottom: 2px; }
+.pv-battle { min-height: 0; }
+.pv-board { min-height: 0; height: 100%; overflow: hidden; }
+.pv-side { height: 100%; align-items: stretch; }
+.pv-row { width: auto; height: 100%; gap: 3%; align-items: center; }
+.pv-unit { height: 29%; width: auto; aspect-ratio: 1; padding: 3%; }
+.pv-log { max-height: 2.6em; }
+@media (min-height: 600px) { .pv-log { max-height: 5.2em; } }
+.pv-landscape .pv-frame { --fh: min(100dvh, calc(100vw * 9 / 16)); }
+.pv-landscape .pv-unit { height: calc(var(--fh) * 0.155); }
+.pv-landscape .pv-row { gap: calc(var(--fh) * 0.035); justify-content: center; }

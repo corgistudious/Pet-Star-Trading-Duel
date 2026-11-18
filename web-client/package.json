@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "typecheck": "tsc -b",
     "test": "vitest run",
-    "e2e": "playwright test --trace off"
+    "e2e": "playwright test --trace off",
+    "build:preview": "tsc -b && vite build --config vite.preview.config.ts && node scripts/preview-dist.mjs",
+    "dev:preview": "vite --open /preview.html"
   },
   "dependencies": {
     "react": "18.3.1",
