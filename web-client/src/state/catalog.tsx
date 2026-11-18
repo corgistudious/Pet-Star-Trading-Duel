@@ -48,5 +48,6 @@ export const ELEMENT_COLORS: Record<string, string> = {
 };
 export const rarityRank = (r: string) => Math.max(0, RARITY_ORDER.indexOf(r));
 // BASE_URL is '/' for the game build and './' for the standalone preview build (works under any path)
-export const petArt = (formId: string, thumb = false) => `${import.meta.env.BASE_URL}art/pets/${thumb ? 'thumb/' : ''}${formId}.webp`;
+// the standalone preview ships one art size only (VITE_NO_THUMBS) to stay small and host-friendly
+export const petArt = (formId: string, thumb = false) => `${import.meta.env.BASE_URL}art/pets/${thumb && import.meta.env.VITE_NO_THUMBS !== '1' ? 'thumb/' : ''}${formId}.webp`;
 export const uiArt = (id: string) => `${import.meta.env.BASE_URL}art/ui/${id}.webp`;

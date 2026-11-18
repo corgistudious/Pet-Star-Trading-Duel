@@ -12,8 +12,9 @@ build is triggered.
 
 ## Open it
 
-- **Shared link:** the private Artifact page the owner received in chat. Only the owner can open it until they share
-  it.
+- **Shared link (private Artifact):** https://claude.ai/artifact/YAWXgwGv6JQdXHrVTCAKPM. Only the owner can open it
+  until they share it from the page's Share menu. It is built from `npm run build:preview`; the artifact page itself
+  is `web-client/preview-artifact.html`, which is not committed and is regenerated for each publish.
 - **Locally:** run these from `web-client`:
 
   ```

@@ -5,5 +5,6 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   base: './',
+  define: { 'import.meta.env.VITE_NO_THUMBS': JSON.stringify('1') },
   build: { target: 'es2020', outDir: 'dist-preview', emptyOutDir: true, sourcemap: false, rollupOptions: { input: 'preview.html' } },
 });

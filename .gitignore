@@ -38,3 +38,4 @@ dump.rdb
 cloudflare/pages/site/
 cloudflare/pages/.wrangler/
 web-client/dist-preview/
+web-client/preview-artifact.html
