@@ -60,6 +60,16 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
     public DbSet<StarInvitation> StarInvitations => Set<StarInvitation>();
     public DbSet<CardEngraving> Engravings => Set<CardEngraving>();
     public DbSet<DuelDeck> DuelDecks => Set<DuelDeck>();
+    public DbSet<ArenaDeckRow> ArenaDecks => Set<ArenaDeckRow>();
+    public DbSet<ArenaDeckCardRow> ArenaDeckCards => Set<ArenaDeckCardRow>();
+    public DbSet<ArenaCardVersion> ArenaCardVersions => Set<ArenaCardVersion>();
+    public DbSet<ArenaMatch> ArenaMatches => Set<ArenaMatch>();
+    public DbSet<ArenaMatchPlayer> ArenaMatchPlayers => Set<ArenaMatchPlayer>();
+    public DbSet<ArenaEventRow> ArenaEvents => Set<ArenaEventRow>();
+    public DbSet<ArenaSnapshot> ArenaSnapshots => Set<ArenaSnapshot>();
+    public DbSet<ArenaRating> ArenaRatings => Set<ArenaRating>();
+    public DbSet<ArenaReward> ArenaRewards => Set<ArenaReward>();
+    public DbSet<ArenaQueueEntry> ArenaQueue => Set<ArenaQueueEntry>();
     public DbSet<CardValuationSnapshot> ValuationSnapshots => Set<CardValuationSnapshot>();
     public DbSet<MarketListing> Listings => Set<MarketListing>();
     public DbSet<MarketTransaction> MarketTransactions => Set<MarketTransaction>();
@@ -331,6 +341,88 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
         ConfigureExpansion(b);
         ConfigureCardSystem(b);
         ConfigureLive(b);
+        ConfigureArena(b);
+    }
+
+    private static void ConfigureArena(ModelBuilder b)
+    {
+        b.Entity<ArenaDeckRow>(e =>
+        {
+            e.ToTable("arena_decks");
+            e.HasIndex(x => new { x.MembershipId, x.IsDefault });
+            e.HasMany(x => x.Cards).WithOne().HasForeignKey(c => c.DeckId).OnDelete(DeleteBehavior.Cascade);
+            MembershipFk(e, x => new { x.MembershipId, x.ServerId });
+        });
+        b.Entity<ArenaDeckCardRow>(e =>
+        {
+            e.ToTable("arena_deck_cards", t => t.HasCheckConstraint("ck_arena_deck_count", "count BETWEEN 1 AND 20"));
+            e.HasIndex(x => new { x.DeckId, x.CardInstanceId }).IsUnique().HasFilter("card_instance_id IS NOT NULL");
+            e.HasOne<CardInstance>().WithMany().HasForeignKey(x => x.CardInstanceId).OnDelete(DeleteBehavior.Restrict);
+        });
+        b.Entity<ArenaCardVersion>(e =>
+        {
+            e.ToTable("arena_card_versions");
+            e.HasKey(x => x.Version);
+            e.Property(x => x.DefinitionsJson).HasColumnType("jsonb");
+        });
+        b.Entity<ArenaMatch>(e =>
+        {
+            e.ToTable("arena_matches");
+            e.Property(x => x.StateJson).HasColumnType("jsonb");
+            e.HasIndex(x => new { x.Status, x.Deadline });
+            e.HasIndex(x => x.RoomCode).IsUnique().HasFilter("status = 'waiting'");
+            e.HasOne<ArenaCardVersion>().WithMany().HasForeignKey(x => x.DefsVersion).OnDelete(DeleteBehavior.Restrict);
+            e.HasOne<GameServer>().WithMany().HasForeignKey(x => x.ServerId).OnDelete(DeleteBehavior.Restrict);
+            e.HasOne<RankedSeason>().WithMany().HasForeignKey(x => x.SeasonId).OnDelete(DeleteBehavior.Restrict);
+        });
+        b.Entity<ArenaMatchPlayer>(e =>
+        {
+            e.ToTable("arena_match_players", t => t.HasCheckConstraint("ck_arena_side", "side IN (0, 1)"));
+            e.HasKey(x => new { x.MatchId, x.Side });
+            e.Property(x => x.DeckJson).HasColumnType("jsonb");
+            e.HasIndex(x => new { x.MatchId, x.MembershipId }).IsUnique().HasFilter("membership_id IS NOT NULL");
+            e.HasIndex(x => x.MembershipId);
+            e.HasOne<ArenaMatch>().WithMany().HasForeignKey(x => x.MatchId).OnDelete(DeleteBehavior.Cascade);
+            e.HasOne<ServerMembership>().WithMany().HasForeignKey(x => x.MembershipId).OnDelete(DeleteBehavior.Restrict);
+        });
+        b.Entity<ArenaEventRow>(e =>
+        {
+            e.ToTable("arena_events");
+            e.Property(x => x.ActionJson).HasColumnType("jsonb");
+            e.HasIndex(x => new { x.MatchId, x.Seq }).IsUnique();
+            e.HasIndex(x => new { x.MatchId, x.ActionId }).IsUnique().HasFilter("action_id IS NOT NULL");
+            e.HasOne<ArenaMatch>().WithMany().HasForeignKey(x => x.MatchId).OnDelete(DeleteBehavior.Cascade);
+        });
+        b.Entity<ArenaSnapshot>(e =>
+        {
+            e.ToTable("arena_snapshots");
+            e.Property(x => x.StateJson).HasColumnType("jsonb");
+            e.HasIndex(x => new { x.MatchId, x.Seq }).IsUnique();
+            e.HasOne<ArenaMatch>().WithMany().HasForeignKey(x => x.MatchId).OnDelete(DeleteBehavior.Cascade);
+        });
+        b.Entity<ArenaRating>(e =>
+        {
+            e.ToTable("arena_ratings");
+            e.HasKey(x => new { x.SeasonId, x.MembershipId });
+            e.HasOne<RankedSeason>().WithMany().HasForeignKey(x => x.SeasonId).OnDelete(DeleteBehavior.Restrict);
+            MembershipFk(e, x => new { x.MembershipId, x.ServerId });
+        });
+        b.Entity<ArenaReward>(e =>
+        {
+            e.ToTable("arena_rewards");
+            e.Property(x => x.RewardsJson).HasColumnType("jsonb");
+            e.HasIndex(x => new { x.MatchId, x.MembershipId }).IsUnique();
+            e.HasOne<ArenaMatch>().WithMany().HasForeignKey(x => x.MatchId).OnDelete(DeleteBehavior.Restrict);
+            e.HasOne<ServerMembership>().WithMany().HasForeignKey(x => x.MembershipId).OnDelete(DeleteBehavior.Restrict);
+        });
+        b.Entity<ArenaQueueEntry>(e =>
+        {
+            e.ToTable("arena_queue");
+            e.HasKey(x => x.MembershipId);
+            e.HasIndex(x => new { x.ServerId, x.Mode, x.EnqueuedAt });
+            e.HasOne<ArenaDeckRow>().WithMany().HasForeignKey(x => x.DeckId).OnDelete(DeleteBehavior.Cascade);
+            MembershipFk(e, x => new { x.MembershipId, x.ServerId });
+        });
     }
 
     private static void MembershipFk<T>(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<T> e,

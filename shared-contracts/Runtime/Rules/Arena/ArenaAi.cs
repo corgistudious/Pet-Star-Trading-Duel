@@ -140,7 +140,8 @@ namespace PetStar.Rules.Arena
             switch (d.Id)
             {
                 case "at_herb_salve": return hurt != null ? A("item", hurt.Uid) : null;
-                case "at_star_lantern": return pl.Bench.Count < rules.Config.BenchSize && pl.Deck.Any(x => rules.Def(st.Card(x).DefId).IsBasic) ? A("item") : null;
+                case "at_star_lantern":   // works from a masked view too (hidden deck ids are 0)
+                    return pl.Bench.Count < rules.Config.BenchSize && pl.Deck.Any(x => x == 0 || rules.Def(st.Card(x).DefId).IsBasic) ? A("item") : null;
                 case "at_lucky_coin": return pl.Hand.Count <= 5 && pl.Deck.Count > 0 ? A("item") : null;
                 case "at_wind_boots":
                     return act != null && pl.Retreats == 0 && BestAttack(rules, st, p) < 0 && ArenaEngine.RetreatCost(rules, st, p) > act.Energy.Count && pl.Bench.Any(b => rules.Def(b.DefId).Attacks.Any(a => ArenaEngine.CostPaid(b.Energy, a.Cost))) ? A("item") : null;

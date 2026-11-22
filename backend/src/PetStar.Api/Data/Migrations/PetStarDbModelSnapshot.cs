@@ -212,6 +212,494 @@ namespace PetStar.Api.Data.Migrations
                     b.ToTable("achievement_progress", (string)null);
                 });
 
+            modelBuilder.Entity("PetStar.Api.Data.ArenaCardVersion", b =>
+                {
+                    b.Property<string>("Version")
+                        .HasColumnType("text")
+                        .HasColumnName("version");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("DefinitionsJson")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("definitions_json");
+
+                    b.HasKey("Version")
+                        .HasName("pk_arena_card_versions");
+
+                    b.ToTable("arena_card_versions", (string)null);
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaDeckCardRow", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("CardInstanceId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("card_instance_id");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("integer")
+                        .HasColumnName("count");
+
+                    b.Property<long>("DeckId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("deck_id");
+
+                    b.Property<string>("DefId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("def_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_arena_deck_cards");
+
+                    b.HasIndex("CardInstanceId")
+                        .HasDatabaseName("ix_arena_deck_cards_card_instance_id");
+
+                    b.HasIndex("DeckId", "CardInstanceId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_arena_deck_cards_deck_id_card_instance_id")
+                        .HasFilter("card_instance_id IS NOT NULL");
+
+                    b.ToTable("arena_deck_cards", null, t =>
+                        {
+                            t.HasCheckConstraint("ck_arena_deck_count", "count BETWEEN 1 AND 20");
+                        });
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaDeckRow", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("EnergyTypes")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("energy_types");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_default");
+
+                    b.Property<long>("MembershipId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("membership_id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.Property<int>("ServerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("server_id");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id")
+                        .HasName("pk_arena_decks");
+
+                    b.HasIndex("MembershipId", "IsDefault")
+                        .HasDatabaseName("ix_arena_decks_membership_id_is_default");
+
+                    b.HasIndex("MembershipId", "ServerId")
+                        .HasDatabaseName("ix_arena_decks_membership_id_server_id");
+
+                    b.ToTable("arena_decks", (string)null);
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaEventRow", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("ActionId")
+                        .HasColumnType("text")
+                        .HasColumnName("action_id");
+
+                    b.Property<string>("ActionJson")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("action_json");
+
+                    b.Property<DateTimeOffset>("At")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("at");
+
+                    b.Property<string>("Kind")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("kind");
+
+                    b.Property<Guid>("MatchId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("match_id");
+
+                    b.Property<int>("Seq")
+                        .HasColumnType("integer")
+                        .HasColumnName("seq");
+
+                    b.Property<int>("Side")
+                        .HasColumnType("integer")
+                        .HasColumnName("side");
+
+                    b.Property<int>("VersionAfter")
+                        .HasColumnType("integer")
+                        .HasColumnName("version_after");
+
+                    b.HasKey("Id")
+                        .HasName("pk_arena_events");
+
+                    b.HasIndex("MatchId", "ActionId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_arena_events_match_id_action_id")
+                        .HasFilter("action_id IS NOT NULL");
+
+                    b.HasIndex("MatchId", "Seq")
+                        .IsUnique()
+                        .HasDatabaseName("ix_arena_events_match_id_seq");
+
+                    b.ToTable("arena_events", (string)null);
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaMatch", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTimeOffset?>("Deadline")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deadline");
+
+                    b.Property<string>("DefsVersion")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("defs_version");
+
+                    b.Property<string>("EndReason")
+                        .HasColumnType("text")
+                        .HasColumnName("end_reason");
+
+                    b.Property<int>("EventSeq")
+                        .HasColumnType("integer")
+                        .HasColumnName("event_seq");
+
+                    b.Property<DateTimeOffset?>("FinishedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("finished_at");
+
+                    b.Property<string>("Mode")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("mode");
+
+                    b.Property<string>("RoomCode")
+                        .HasColumnType("text")
+                        .HasColumnName("room_code");
+
+                    b.Property<int?>("SeasonId")
+                        .HasColumnType("integer")
+                        .HasColumnName("season_id");
+
+                    b.Property<long>("Seed")
+                        .HasColumnType("bigint")
+                        .HasColumnName("seed");
+
+                    b.Property<int>("ServerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("server_id");
+
+                    b.Property<string>("StageId")
+                        .HasColumnType("text")
+                        .HasColumnName("stage_id");
+
+                    b.Property<DateTimeOffset?>("StartedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("started_at");
+
+                    b.Property<string>("StateJson")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("state_json");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("status");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("integer")
+                        .HasColumnName("version");
+
+                    b.Property<int?>("WinnerSide")
+                        .HasColumnType("integer")
+                        .HasColumnName("winner_side");
+
+                    b.HasKey("Id")
+                        .HasName("pk_arena_matches");
+
+                    b.HasIndex("DefsVersion")
+                        .HasDatabaseName("ix_arena_matches_defs_version");
+
+                    b.HasIndex("RoomCode")
+                        .IsUnique()
+                        .HasDatabaseName("ix_arena_matches_room_code")
+                        .HasFilter("status = 'waiting'");
+
+                    b.HasIndex("SeasonId")
+                        .HasDatabaseName("ix_arena_matches_season_id");
+
+                    b.HasIndex("ServerId")
+                        .HasDatabaseName("ix_arena_matches_server_id");
+
+                    b.HasIndex("Status", "Deadline")
+                        .HasDatabaseName("ix_arena_matches_status_deadline");
+
+                    b.ToTable("arena_matches", (string)null);
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaMatchPlayer", b =>
+                {
+                    b.Property<Guid>("MatchId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("match_id");
+
+                    b.Property<int>("Side")
+                        .HasColumnType("integer")
+                        .HasColumnName("side");
+
+                    b.Property<string>("DeckJson")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("deck_json");
+
+                    b.Property<bool>("IsAi")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_ai");
+
+                    b.Property<long?>("MembershipId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("membership_id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.Property<int?>("RatingAfter")
+                        .HasColumnType("integer")
+                        .HasColumnName("rating_after");
+
+                    b.Property<int?>("RatingBefore")
+                        .HasColumnType("integer")
+                        .HasColumnName("rating_before");
+
+                    b.HasKey("MatchId", "Side")
+                        .HasName("pk_arena_match_players");
+
+                    b.HasIndex("MembershipId")
+                        .HasDatabaseName("ix_arena_match_players_membership_id");
+
+                    b.HasIndex("MatchId", "MembershipId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_arena_match_players_match_id_membership_id")
+                        .HasFilter("membership_id IS NOT NULL");
+
+                    b.ToTable("arena_match_players", null, t =>
+                        {
+                            t.HasCheckConstraint("ck_arena_side", "side IN (0, 1)");
+                        });
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaQueueEntry", b =>
+                {
+                    b.Property<long>("MembershipId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("membership_id");
+
+                    b.Property<long>("DeckId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("deck_id");
+
+                    b.Property<DateTimeOffset>("EnqueuedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("enqueued_at");
+
+                    b.Property<string>("Mode")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("mode");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("integer")
+                        .HasColumnName("rating");
+
+                    b.Property<int>("ServerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("server_id");
+
+                    b.HasKey("MembershipId")
+                        .HasName("pk_arena_queue");
+
+                    b.HasIndex("DeckId")
+                        .HasDatabaseName("ix_arena_queue_deck_id");
+
+                    b.HasIndex("MembershipId", "ServerId")
+                        .HasDatabaseName("ix_arena_queue_membership_id_server_id");
+
+                    b.HasIndex("ServerId", "Mode", "EnqueuedAt")
+                        .HasDatabaseName("ix_arena_queue_server_id_mode_enqueued_at");
+
+                    b.ToTable("arena_queue", (string)null);
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaRating", b =>
+                {
+                    b.Property<int>("SeasonId")
+                        .HasColumnType("integer")
+                        .HasColumnName("season_id");
+
+                    b.Property<long>("MembershipId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("membership_id");
+
+                    b.Property<int>("Draws")
+                        .HasColumnType("integer")
+                        .HasColumnName("draws");
+
+                    b.Property<int>("Losses")
+                        .HasColumnType("integer")
+                        .HasColumnName("losses");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("integer")
+                        .HasColumnName("rating");
+
+                    b.Property<int>("ServerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("server_id");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<int>("Wins")
+                        .HasColumnType("integer")
+                        .HasColumnName("wins");
+
+                    b.HasKey("SeasonId", "MembershipId")
+                        .HasName("pk_arena_ratings");
+
+                    b.HasIndex("MembershipId", "ServerId")
+                        .HasDatabaseName("ix_arena_ratings_membership_id_server_id");
+
+                    b.ToTable("arena_ratings", (string)null);
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaReward", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTimeOffset>("At")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("at");
+
+                    b.Property<Guid>("MatchId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("match_id");
+
+                    b.Property<long>("MembershipId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("membership_id");
+
+                    b.Property<string>("RewardsJson")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("rewards_json");
+
+                    b.HasKey("Id")
+                        .HasName("pk_arena_rewards");
+
+                    b.HasIndex("MembershipId")
+                        .HasDatabaseName("ix_arena_rewards_membership_id");
+
+                    b.HasIndex("MatchId", "MembershipId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_arena_rewards_match_id_membership_id");
+
+                    b.ToTable("arena_rewards", (string)null);
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaSnapshot", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTimeOffset>("At")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("at");
+
+                    b.Property<Guid>("MatchId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("match_id");
+
+                    b.Property<int>("Seq")
+                        .HasColumnType("integer")
+                        .HasColumnName("seq");
+
+                    b.Property<string>("StateJson")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("state_json");
+
+                    b.HasKey("Id")
+                        .HasName("pk_arena_snapshots");
+
+                    b.HasIndex("MatchId", "Seq")
+                        .IsUnique()
+                        .HasDatabaseName("ix_arena_snapshots_match_id_seq");
+
+                    b.ToTable("arena_snapshots", (string)null);
+                });
+
             modelBuilder.Entity("PetStar.Api.Data.AuctionBid", b =>
                 {
                     b.Property<long>("Id")
@@ -4213,6 +4701,145 @@ namespace PetStar.Api.Data.Migrations
                         .HasConstraintName("fk_account_roles_accounts_account_id");
                 });
 
+            modelBuilder.Entity("PetStar.Api.Data.ArenaDeckCardRow", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.CardInstance", null)
+                        .WithMany()
+                        .HasForeignKey("CardInstanceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("fk_arena_deck_cards_card_instances_card_instance_id");
+
+                    b.HasOne("PetStar.Api.Data.ArenaDeckRow", null)
+                        .WithMany("Cards")
+                        .HasForeignKey("DeckId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_arena_deck_cards_arena_decks_deck_id");
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaDeckRow", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.ServerMembership", null)
+                        .WithMany()
+                        .HasForeignKey("MembershipId", "ServerId")
+                        .HasPrincipalKey("Id", "ServerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_arena_decks_server_memberships_membership_id_server_id");
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaEventRow", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.ArenaMatch", null)
+                        .WithMany()
+                        .HasForeignKey("MatchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_arena_events_arena_matches_match_id");
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaMatch", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.ArenaCardVersion", null)
+                        .WithMany()
+                        .HasForeignKey("DefsVersion")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_arena_matches_arena_card_versions_defs_version");
+
+                    b.HasOne("PetStar.Api.Data.RankedSeason", null)
+                        .WithMany()
+                        .HasForeignKey("SeasonId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("fk_arena_matches_ranked_seasons_season_id");
+
+                    b.HasOne("PetStar.Api.Data.GameServer", null)
+                        .WithMany()
+                        .HasForeignKey("ServerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_arena_matches_game_servers_server_id");
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaMatchPlayer", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.ArenaMatch", null)
+                        .WithMany()
+                        .HasForeignKey("MatchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_arena_match_players_arena_matches_match_id");
+
+                    b.HasOne("PetStar.Api.Data.ServerMembership", null)
+                        .WithMany()
+                        .HasForeignKey("MembershipId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("fk_arena_match_players_server_memberships_membership_id");
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaQueueEntry", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.ArenaDeckRow", null)
+                        .WithMany()
+                        .HasForeignKey("DeckId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_arena_queue_arena_decks_deck_id");
+
+                    b.HasOne("PetStar.Api.Data.ServerMembership", null)
+                        .WithMany()
+                        .HasForeignKey("MembershipId", "ServerId")
+                        .HasPrincipalKey("Id", "ServerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_arena_queue_server_memberships_membership_id_server_id");
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaRating", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.RankedSeason", null)
+                        .WithMany()
+                        .HasForeignKey("SeasonId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_arena_ratings_ranked_seasons_season_id");
+
+                    b.HasOne("PetStar.Api.Data.ServerMembership", null)
+                        .WithMany()
+                        .HasForeignKey("MembershipId", "ServerId")
+                        .HasPrincipalKey("Id", "ServerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_arena_ratings_server_memberships_membership_id_server_id");
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaReward", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.ArenaMatch", null)
+                        .WithMany()
+                        .HasForeignKey("MatchId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_arena_rewards_arena_matches_match_id");
+
+                    b.HasOne("PetStar.Api.Data.ServerMembership", null)
+                        .WithMany()
+                        .HasForeignKey("MembershipId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_arena_rewards_server_memberships_membership_id");
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaSnapshot", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.ArenaMatch", null)
+                        .WithMany()
+                        .HasForeignKey("MatchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_arena_snapshots_arena_matches_match_id");
+                });
+
             modelBuilder.Entity("PetStar.Api.Data.AuctionBid", b =>
                 {
                     b.HasOne("PetStar.Api.Data.AuctionListing", null)
@@ -4850,6 +5477,11 @@ namespace PetStar.Api.Data.Migrations
             modelBuilder.Entity("PetStar.Api.Data.Account", b =>
                 {
                     b.Navigation("Roles");
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.ArenaDeckRow", b =>
+                {
+                    b.Navigation("Cards");
                 });
 
             modelBuilder.Entity("PetStar.Api.Data.Collection", b =>
