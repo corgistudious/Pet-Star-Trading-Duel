@@ -59,6 +59,7 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
     public DbSet<LimitedEvent> LimitedEvents => Set<LimitedEvent>();
     public DbSet<StarInvitation> StarInvitations => Set<StarInvitation>();
     public DbSet<CardEngraving> Engravings => Set<CardEngraving>();
+    public DbSet<DuelDeck> DuelDecks => Set<DuelDeck>();
     public DbSet<CardValuationSnapshot> ValuationSnapshots => Set<CardValuationSnapshot>();
     public DbSet<MarketListing> Listings => Set<MarketListing>();
     public DbSet<MarketTransaction> MarketTransactions => Set<MarketTransaction>();
@@ -289,6 +290,7 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
         {
             e.Property(x => x.StateJson).HasColumnType("jsonb");
             e.HasIndex(x => new { x.PlayerAMembershipId, x.Status });
+            e.HasIndex(x => new { x.IsDuel, x.Status, x.RoundDeadline });
             e.HasOne<ServerMembership>().WithMany().HasForeignKey(x => new { x.PlayerAMembershipId, x.ServerId })
                 .HasPrincipalKey(m => new { m.Id, m.ServerId });
         });
@@ -337,6 +339,13 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
 
     private static void ConfigureCardSystem(ModelBuilder b)
     {
+        b.Entity<DuelDeck>(e =>
+        {
+            e.ToTable("duel_decks");
+            e.Property(x => x.EntriesJson).HasColumnType("jsonb");
+            e.HasIndex(x => new { x.MembershipId, x.IsDefault });
+            MembershipFk(e, x => new { x.MembershipId, x.ServerId });
+        });
         b.Entity<MembershipVip>(e =>
         {
             e.ToTable("membership_vip", t => t.HasCheckConstraint("ck_vip", "points >= 0 AND level BETWEEN 0 AND 10"));

@@ -79,7 +79,7 @@ public static class BattleEndpoints
         g.MapGet("/battles/{id:guid}", async (Guid id, HttpContext ctx, PetStarDb db) =>
         {
             var (_, mid) = ctx.User.Player();
-            var b = await db.Battles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id && x.PlayerAMembershipId == mid) ?? throw ApiException.NotFound("battle_not_found");
+            var b = await db.Battles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id && x.PlayerAMembershipId == mid && !x.IsDuel) ?? throw ApiException.NotFound("battle_not_found");
             var st = JsonSerializer.Deserialize<BattleState>(b.StateJson, J)!;
             var last = await db.BattleRounds.AsNoTracking().Where(r => r.BattleId == id).OrderByDescending(r => r.Round).FirstOrDefaultAsync();
             var res = await db.BattleResults.AsNoTracking().FirstOrDefaultAsync(r => r.BattleId == id);
@@ -93,7 +93,7 @@ public static class BattleEndpoints
         {
             var (sid, mid) = ctx.User.Player();
             await using var tx = await db.Database.BeginTransactionAsync();
-            var b = await db.Battles.FromSqlRaw("SELECT * FROM battles WHERE id = {0} AND player_a_membership_id = {1} FOR UPDATE", id, mid)
+            var b = await db.Battles.FromSqlRaw("SELECT * FROM battles WHERE id = {0} AND player_a_membership_id = {1} AND NOT is_duel FOR UPDATE", id, mid)
                 .FirstOrDefaultAsync() ?? throw ApiException.NotFound("battle_not_found");
             if (LivePvpEndpoints.IsLive(b)) throw ApiException.BadRequest("use_pvp_endpoint");
             var st = JsonSerializer.Deserialize<BattleState>(b.StateJson, J)!;
@@ -128,7 +128,7 @@ public static class BattleEndpoints
         {
             var (_, mid) = ctx.User.Player();
             await using var tx = await db.Database.BeginTransactionAsync();
-            var b = await db.Battles.FromSqlRaw("SELECT * FROM battles WHERE id = {0} AND player_a_membership_id = {1} FOR UPDATE", id, mid)
+            var b = await db.Battles.FromSqlRaw("SELECT * FROM battles WHERE id = {0} AND player_a_membership_id = {1} AND NOT is_duel FOR UPDATE", id, mid)
                 .FirstOrDefaultAsync() ?? throw ApiException.NotFound("battle_not_found");
             if (b.Status != "active") throw ApiException.Conflict("battle_finished");
             var st = JsonSerializer.Deserialize<BattleState>(b.StateJson, J)!;
@@ -154,7 +154,7 @@ public static class BattleEndpoints
     }
 
     /// <summary>Grants rewards once (battle id is the ledger reference). Daily cap per stage limits farming.</summary>
-    private static async Task<BattleRewardsDto> FinishPve(PetStarDb db, EconomyService eco, GameData data, Battle b, BattleState st,
+    internal static async Task<BattleRewardsDto> FinishPve(PetStarDb db, EconomyService eco, GameData data, Battle b, BattleState st,
         PveStage stage, int sid, long mid, AchievementService? ach = null)
     {
         var rewards = new BattleRewardsDto();

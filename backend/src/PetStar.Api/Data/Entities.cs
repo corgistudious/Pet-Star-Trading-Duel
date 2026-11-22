@@ -364,6 +364,8 @@ public class Battle
     public int MissedA { get; set; }
     public int MissedB { get; set; }
     public DateTimeOffset? FinishedAt { get; set; }
+    /// <summary>Pet Card Tactical Duel (StateJson holds a DuelState) instead of the legacy 5v5 battle.</summary>
+    public bool IsDuel { get; set; }
 }
 
 public class BattleRound

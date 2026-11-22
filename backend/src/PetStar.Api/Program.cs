@@ -84,6 +84,10 @@ builder.Services.AddScoped<FraudService>();
 builder.Services.AddScoped<ContentGuard>();
 builder.Services.AddHostedService<MarketMaintenanceService>();
 builder.Services.AddHostedService<PvpTimeoutService>();
+builder.Services.AddHostedService<DuelTimeoutService>();
+builder.Services.AddSingleton(CatalogLoader.LoadDuel(seedDir));
+builder.Services.AddSingleton<DuelRulesProvider>();
+builder.Services.AddScoped<DuelService>();
 builder.Services.AddSingleton<RealtimeHub>();
 builder.Services.AddSingleton<TicketStore>();
 
@@ -171,6 +175,7 @@ ServerEndpoints.Map(app);
 PackEndpoints.Map(app);
 CardEndpoints.Map(app);
 CardUpgradeEndpoints.Map(app);
+DuelEndpoints.Map(app);
 DeckEndpoints.Map(app);
 BattleEndpoints.Map(app);
 // Real-money purchases are disabled in this phase (owner decision); the verification code stays for a future,

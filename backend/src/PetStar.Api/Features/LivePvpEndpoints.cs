@@ -116,7 +116,7 @@ public static class LivePvpEndpoints
         g.MapGet("/pvp/battles/{id:guid}", async (Guid id, HttpContext ctx, PetStarDb db) =>
         {
             var (_, mid) = ctx.User.Player();
-            var b = await db.Battles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id && (x.PlayerAMembershipId == mid || x.PlayerBMembershipId == mid) && x.Mode.StartsWith("live_"))
+            var b = await db.Battles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id && (x.PlayerAMembershipId == mid || x.PlayerBMembershipId == mid) && x.Mode.StartsWith("live_") && !x.IsDuel)
                     ?? throw ApiException.NotFound("battle_not_found");
             int side = b.PlayerAMembershipId == mid ? 0 : 1;
             var st = JsonSerializer.Deserialize<BattleState>(b.StateJson, J)!;
@@ -129,7 +129,7 @@ public static class LivePvpEndpoints
         {
             var (_, mid) = ctx.User.Player();
             await using var tx = await db.Database.BeginTransactionAsync();
-            var b = await db.Battles.FromSqlRaw("SELECT * FROM battles WHERE id = {0} AND (player_a_membership_id = {1} OR player_b_membership_id = {1}) FOR UPDATE", id, mid)
+            var b = await db.Battles.FromSqlRaw("SELECT * FROM battles WHERE id = {0} AND (player_a_membership_id = {1} OR player_b_membership_id = {1}) AND NOT is_duel FOR UPDATE", id, mid)
                 .FirstOrDefaultAsync() ?? throw ApiException.NotFound("battle_not_found");
             if (!IsLive(b)) throw ApiException.BadRequest("not_live_battle");
             if (b.Status != "active") throw ApiException.Conflict("battle_finished");
@@ -155,7 +155,7 @@ public static class LivePvpEndpoints
         {
             var (_, mid) = ctx.User.Player();
             await using var tx = await db.Database.BeginTransactionAsync();
-            var b = await db.Battles.FromSqlRaw("SELECT * FROM battles WHERE id = {0} AND (player_a_membership_id = {1} OR player_b_membership_id = {1}) FOR UPDATE", id, mid)
+            var b = await db.Battles.FromSqlRaw("SELECT * FROM battles WHERE id = {0} AND (player_a_membership_id = {1} OR player_b_membership_id = {1}) AND NOT is_duel FOR UPDATE", id, mid)
                 .FirstOrDefaultAsync() ?? throw ApiException.NotFound("battle_not_found");
             if (!IsLive(b) || b.Status != "active") throw ApiException.Conflict("battle_finished");
             var st = JsonSerializer.Deserialize<BattleState>(b.StateJson, J)!;
@@ -173,7 +173,7 @@ public static class LivePvpEndpoints
         var now = DateTimeOffset.UtcNow;
         foreach (var x in sideA) x.Side = 0;
         foreach (var x in sideB) x.Side = 1;
-        await db.Battles.Where(x => (x.PlayerAMembershipId == a || x.PlayerAMembershipId == bMid || x.PlayerBMembershipId == a || x.PlayerBMembershipId == bMid) && x.Status == "active" && x.Mode.StartsWith("live_"))
+        await db.Battles.Where(x => (x.PlayerAMembershipId == a || x.PlayerAMembershipId == bMid || x.PlayerBMembershipId == a || x.PlayerBMembershipId == bMid) && x.Status == "active" && x.Mode.StartsWith("live_") && !x.IsDuel)
             .ExecuteUpdateAsync(u => u.SetProperty(x => x.Status, "abandoned").SetProperty(x => x.FinishedAt, now).SetProperty(x => x.EndReason, "abandoned"));
         long seed = SecureRandomSource.NewSeed();
         var st = new BattleEngine(data.Catalog).Start(sideA, sideB, unchecked((ulong)seed));
@@ -272,7 +272,7 @@ public sealed class PvpTimeoutService(IServiceProvider sp, ILogger<PvpTimeoutSer
         {
             var db = scope.ServiceProvider.GetRequiredService<PetStarDb>();
             var now = DateTimeOffset.UtcNow;
-            due = await db.Battles.AsNoTracking().Where(b => b.Status == "active" && b.Mode.StartsWith("live_") && b.RoundDeadline != null && b.RoundDeadline < now)
+            due = await db.Battles.AsNoTracking().Where(b => b.Status == "active" && b.Mode.StartsWith("live_") && !b.IsDuel && b.RoundDeadline != null && b.RoundDeadline < now)
                 .Select(b => b.Id).Take(100).ToListAsync(ct);
             await db.PvpChallenges.Where(c => c.Status == "pending" && c.ExpiresAt < now).ExecuteUpdateAsync(u => u.SetProperty(c => c.Status, "expired"), ct);
             await db.PvpQueue.Where(q => q.EnqueuedAt < now.AddMinutes(-10)).ExecuteDeleteAsync(ct);

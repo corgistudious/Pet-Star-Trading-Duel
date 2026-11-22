@@ -93,3 +93,16 @@ public class CardEngraving
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
 }
+
+/// <summary>A 40-card Tactical Duel deck (Pet card instances + Spell/Trap cards). Entries are validated again at duel start.</summary>
+public class DuelDeck
+{
+    public long Id { get; set; }
+    public long MembershipId { get; set; }
+    public int ServerId { get; set; }
+    public string Name { get; set; } = "";
+    public bool IsDefault { get; set; }
+    /// <summary>[{ "kind": "pet", "cardId": 123 } | { "kind": "tactic", "tacticId": "sp_x", "count": 2 }]</summary>
+    public string EntriesJson { get; set; } = "[]";
+    public DateTimeOffset UpdatedAt { get; set; }
+}

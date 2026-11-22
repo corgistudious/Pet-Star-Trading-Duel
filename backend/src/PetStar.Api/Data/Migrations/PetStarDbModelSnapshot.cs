@@ -463,6 +463,10 @@ namespace PetStar.Api.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("finished_at");
 
+                    b.Property<bool>("IsDuel")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_duel");
+
                     b.Property<int>("MissedA")
                         .HasColumnType("integer")
                         .HasColumnName("missed_a");
@@ -530,6 +534,9 @@ namespace PetStar.Api.Data.Migrations
 
                     b.HasIndex("PlayerAMembershipId", "Status")
                         .HasDatabaseName("ix_battles_player_a_membership_id_status");
+
+                    b.HasIndex("IsDuel", "Status", "RoundDeadline")
+                        .HasDatabaseName("ix_battles_is_duel_status_round_deadline");
 
                     b.ToTable("battles", (string)null);
                 });
@@ -1308,6 +1315,53 @@ namespace PetStar.Api.Data.Migrations
                         {
                             t.HasCheckConstraint("ck_deck_slot_position", "position BETWEEN 0 AND 4");
                         });
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.DuelDeck", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("EntriesJson")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("entries_json");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_default");
+
+                    b.Property<long>("MembershipId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("membership_id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.Property<int>("ServerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("server_id");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id")
+                        .HasName("pk_duel_decks");
+
+                    b.HasIndex("MembershipId", "IsDefault")
+                        .HasDatabaseName("ix_duel_decks_membership_id_is_default");
+
+                    b.HasIndex("MembershipId", "ServerId")
+                        .HasDatabaseName("ix_duel_decks_membership_id_server_id");
+
+                    b.ToTable("duel_decks", (string)null);
                 });
 
             modelBuilder.Entity("PetStar.Api.Data.EconomyAuditEvent", b =>
@@ -4358,6 +4412,17 @@ namespace PetStar.Api.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_deck_slots_decks_deck_id");
+                });
+
+            modelBuilder.Entity("PetStar.Api.Data.DuelDeck", b =>
+                {
+                    b.HasOne("PetStar.Api.Data.ServerMembership", null)
+                        .WithMany()
+                        .HasForeignKey("MembershipId", "ServerId")
+                        .HasPrincipalKey("Id", "ServerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_duel_decks_server_memberships_membership_id_server_id");
                 });
 
             modelBuilder.Entity("PetStar.Api.Data.EmailToken", b =>
