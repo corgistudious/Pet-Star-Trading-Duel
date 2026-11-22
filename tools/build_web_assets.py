@@ -111,7 +111,28 @@ def build_catalog() -> dict:
         "finishes": rar.get("finishes", []),
         "elements": elements,
         "packs": packs,
+        "duelRules": duel_rules(skills, elements),
     }
+
+
+def duel_rules(skills: dict, elements: dict) -> dict:
+    """Same conversion as DuelBuilder.Rules (C#): percent integers, banker's rounding (Python round == Math.Round)."""
+    duel = json.loads((SEED / "duel_cards.json").read_text())
+    def eff(e):
+        return {"op": e["op"], "target": e.get("target"), "pct": e.get("pct", 0), "stat": e.get("stat"), "turns": e.get("turns", 0),
+                "status": e.get("status"), "chance": e.get("chance", 100), "element": e.get("element"), "n": e.get("n", 0),
+                "maxStage": e.get("maxStage", 0), "what": e.get("what")}
+    tactics = {t["id"]: {"id": t["id"], "type": t["type"], "speed": t["speed"], "category": t["category"], "cost": t["cost"],
+                         "targeting": t.get("targeting", "none"), "trigger": t.get("trigger"), "effects": [eff(e) for e in t["effects"]],
+                         "oncePerTurn": t.get("oncePerTurn", False), "oncePerDuel": t.get("oncePerDuel", False),
+                         "name": t["name"], "text": t["text"]} for t in duel["cards"]}
+    sk = {s["id"]: {"id": s["id"], "cost": s["cost"], "target": s["target"], "effects": [
+        {"type": e["type"], "powerPct": round(e.get("power", 0) * 100), "scale": e.get("scale", "atk"), "status": e.get("status"),
+         "chance": round(e.get("chance", 1.0) * 100), "duration": e.get("duration", 0)} for e in s.get("effects", [])]} for s in skills["skills"]}
+    pas = {p["id"]: {"type": p["type"], "stat": p.get("stat"), "pct": round(p.get("pct", 0) * 100), "amount": p.get("amount", 0)} for p in skills["passives"]}
+    strong = {e["id"]: e.get("strongAgainst", []) for e in elements["elements"]}
+    return {"config": duel["config"] | {"notes": None} if False else {k: v for k, v in duel["config"].items() if k != "notes"},
+            "tactics": tactics, "skills": sk, "passives": pas, "strong": strong}
 
 
 def build_icons(sizes: dict) -> None:

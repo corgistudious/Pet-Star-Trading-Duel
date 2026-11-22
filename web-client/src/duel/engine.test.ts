@@ -26,3 +26,13 @@ describe('TypeScript duel engine matches the C# engine', () => {
     });
   }
 });
+
+describe('the rules shipped to the web preview are the server rules', () => {
+  it('catalog.json duelRules equals the C# DuelRules (config, 33 tactics, skills, passives, elements)', async () => {
+    const fsName = 'node:fs';
+    const { readFileSync } = await import(/* @vite-ignore */ fsName) as { readFileSync: (f: string, e: string) => string };
+    const cat = JSON.parse(readFileSync('public/data/catalog.json', 'utf8'));
+    expect(cat.duelRules).toEqual(fixtures.rules);
+    expect(Object.keys(cat.duelRules.tactics)).toHaveLength(33);
+  });
+});

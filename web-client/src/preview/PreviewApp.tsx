@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { CardBack, CardView } from '../components/CardView';
 import { useI18n } from '../i18n';
 import { RARITY_COLORS, petArt, uiArt, useCatalog } from '../state/catalog';
-import { Battle } from './Battle';
+import { Duel } from './Duel';
 import {
   RARITY_ORDER, VIP_THRESHOLDS, applyUpgrade, blocked, cost, evolution, levelCap, openPack, packBlocked, packOdds, seed, toDto, vipLevel,
   type FullCatalog, type PackDef, type SimCard, type SimState,
@@ -68,7 +68,7 @@ export default function PreviewApp() {
           {screen.name === 'hub' && <Hub s={s} id={screen.id} P={P} t={t} setS={setS} say={say} err={err} />}
           {screen.name === 'divine' && <Divine s={s} P={P} />}
           {screen.name === 'market' && <Market s={s} setS={setS} P={P} say={say} err={err} />}
-          {screen.name === 'battle' && <Battle s={s} P={P} exit={() => go({ name: 'lobby' })} />}
+          {screen.name === 'battle' && <Duel s={s} P={P} exit={() => go({ name: 'lobby' })} />}
           {screen.name === 'status' && <Status P={P} />}
         </div>
         {toast && <div className="pv-toast" role="status">{toast}</div>}
@@ -95,7 +95,7 @@ function Lobby({ s, go, P, lang, setLang }: { s: SimState; go: (sc: Screen) => v
     ['collection', P('Bộ sưu tập · Pet Hub', 'Collection · Pet Hub'), 'ui_mat_pet_shard'],
     ['divine', P('15 Thần Pet Card', '15 Divine Pet Cards'), 'ui_crest_star'],
     ['market', P('Chợ giao dịch', 'Marketplace'), 'ui_currency_rainbow_star_bag'],
-    ['battle', P('Chiến đấu (16:9)', 'Battle (16:9)'), 'ui_mat_breakthrough_core'],
+    ['battle', P('Đấu bài chiến thuật (16:9)', 'Tactical Duel (16:9)'), 'ui_mat_breakthrough_core'],
     ['status', P('Trạng thái bản xem trước', 'Preview status'), 'ui_mat_training_scroll'],
   ];
   return (
@@ -362,7 +362,7 @@ function Status({ P }: { P: PFn }) {
     P('Bộ sưu tập, Pet Hub: nâng sao, cường hóa, tiến hóa, đột phá, thức tỉnh, kỹ năng (công thức như server)', 'Collection, Pet Hub: stars, enhancement, evolution, breakthrough, awakening, skill (server formulas)'),
     P('15 Thần Pet Card 10 sao với artwork, khung và huy hiệu thật', '15 Divine Pet Cards at 10 stars with real art, frames and crests'),
     P('Chợ giao dịch: mua, đăng bán, hủy, khóa thẻ khi đang bán', 'Marketplace: buy, list, cancel, card locked while listed'),
-    P('Chiến đấu 3 trước + 2 sau, năng lượng, kỹ năng, tuyệt kỹ', 'Battle 3 front + 2 back, energy, skills, ultimates'),
+    P('Đấu bài 40 lá: 5 ô Pet + 3 ô Spell/Trap, 2.500 LP, chuỗi phản ứng, tiến hóa trong trận (engine đối chiếu server)', '40-card duel: 5 Pet + 3 Spell/Trap zones, 2,500 LP, reaction chain, in-duel evolution (server-verified engine)'),
     P('Asset thật: 215 Pet, 9 gói, nguyên liệu, huy hiệu, nền, logo chính thức', 'Real assets: 215 Pets, 9 packs, materials, crests, backgrounds, official logo'),
   ];
   const missing = [

@@ -14,7 +14,7 @@ public static class DuelFixture
 
     public static DuelCard Pet(string formId, int level = 20, string rarity = "SR", CardProgress? prog = null, bool ranked = false) => new()
     {
-        Kind = "pet", CardInstanceId = formId.GetHashCode(),
+        Kind = "pet", CardInstanceId = formId.Aggregate(17L, (h, ch) => (h * 31 + ch) & 0x7fffffff),   // stable across processes (string.GetHashCode is randomized)
         Forms = DuelBuilder.PetForms(Cat, Data.Value.Config, formId, rarity, "B", prog ?? new CardProgress { Level = level }, ranked),
     };
 
