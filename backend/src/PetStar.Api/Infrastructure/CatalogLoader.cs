@@ -127,8 +127,27 @@ public static class CatalogLoader
     public static AchievementCatalog LoadAchievements(string dir) =>
         new() { Items = JsonSerializer.Deserialize<List<AchievementDef>>(JsonNode.Parse(File.ReadAllText(Path.Combine(dir, "achievements.json")))!["achievements"]!.ToJsonString(), Json)! };
 
+    /// <summary>Duel rules (database/seed/duel_cards.json): configuration, Spell/Trap definitions, starter collection.</summary>
+    public static DuelData LoadDuel(string dir)
+    {
+        var j = JsonNode.Parse(File.ReadAllText(Path.Combine(dir, "duel_cards.json")))!;
+        return new DuelData
+        {
+            Config = j["config"].Deserialize<PetStar.Rules.Duel.DuelConfig>(Json)!,
+            Tactics = j["cards"].Deserialize<List<PetStar.Rules.Duel.TacticDef>>(Json)!,
+            Starter = j["starter"]!["cards"].Deserialize<Dictionary<string, int>>(Json)!,
+        };
+    }
+
     public static PveConfig LoadPve(string dir) =>
         JsonSerializer.Deserialize<PveConfig>(File.ReadAllText(Path.Combine(dir, "pve_stages.json")), Json)!;
+}
+
+public sealed class DuelData
+{
+    public PetStar.Rules.Duel.DuelConfig Config { get; init; } = new();
+    public List<PetStar.Rules.Duel.TacticDef> Tactics { get; init; } = new();
+    public Dictionary<string, int> Starter { get; init; } = new();
 }
 
 public sealed class MarketConfig

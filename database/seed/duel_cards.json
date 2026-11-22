@@ -1,0 +1,898 @@
+{
+ "version": 1,
+ "config": {
+  "deckSize": 40,
+  "petMin": 10,
+  "petMax": 25,
+  "maxCopies": 3,
+  "divineMaxCopies": 1,
+  "startLp": 2500,
+  "deathPenalty": 500,
+  "startHand": 5,
+  "maxHand": 7,
+  "petZones": 5,
+  "frontZones": 3,
+  "spellTrapZones": 3,
+  "maxEnergy": 8,
+  "startEnergy": 2,
+  "energyPerTurn": 1,
+  "maxTurnsPerPlayer": 40,
+  "turnSeconds": 60,
+  "reactionSeconds": 15,
+  "chainMaxDepth": 8,
+  "damageScale": 300,
+  "critPct": 150,
+  "strongPct": 150,
+  "weakPct": 75,
+  "guardPct": 50,
+  "weakenPct": 75,
+  "burnPct": 6,
+  "poisonPct": 8,
+  "evolveCost": [
+   0,
+   3,
+   5
+  ],
+  "tributes": {
+   "stage1": 0,
+   "stage2": 1,
+   "stage3": 2,
+   "divine": 2
+  },
+  "rankedGrowthCap": 145,
+  "timeoutsToForfeit": 3,
+  "notes": "All values are configurable baselines and must be playtested before Ranked. LP only changes when a Pet is destroyed (−deathPenalty). damageScale 300 = ×3.00."
+ },
+ "cards": [
+  {
+   "id": "sp_herbal_tonic",
+   "type": "spell",
+   "speed": "normal",
+   "category": "recovery",
+   "cost": 1,
+   "targeting": "own_pet",
+   "effects": [
+    {
+     "op": "heal",
+     "target": "t0",
+     "pct": 30
+    }
+   ],
+   "name": {
+    "vi": "Thuốc Thảo Mộc",
+    "en": "Herbal Tonic"
+   },
+   "text": {
+    "vi": "Hồi 30% HP tối đa cho 1 Pet của bạn.",
+    "en": "Restore 30% max HP to one of your Pets."
+   }
+  },
+  {
+   "id": "sp_group_remedy",
+   "type": "spell",
+   "speed": "normal",
+   "category": "recovery",
+   "cost": 3,
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "heal",
+     "target": "own_all",
+     "pct": 20
+    }
+   ],
+   "name": {
+    "vi": "Liệu Pháp Đồng Đội",
+    "en": "Group Remedy"
+   },
+   "text": {
+    "vi": "Hồi 20% HP tối đa cho mọi Pet của bạn.",
+    "en": "Restore 20% max HP to all your Pets."
+   }
+  },
+  {
+   "id": "sp_purify",
+   "type": "spell",
+   "speed": "quick",
+   "category": "recovery",
+   "cost": 1,
+   "targeting": "own_pet",
+   "effects": [
+    {
+     "op": "cleanse",
+     "target": "t0"
+    },
+    {
+     "op": "heal",
+     "target": "t0",
+     "pct": 10
+    }
+   ],
+   "name": {
+    "vi": "Thanh Tẩy",
+    "en": "Purify"
+   },
+   "text": {
+    "vi": "(Nhanh) Xóa mọi hiệu ứng xấu của 1 Pet và hồi 10% HP.",
+    "en": "(Quick) Remove all negative statuses from one Pet and restore 10% HP."
+   }
+  },
+  {
+   "id": "sp_power_surge",
+   "type": "spell",
+   "speed": "normal",
+   "category": "boost",
+   "cost": 2,
+   "targeting": "own_pet",
+   "effects": [
+    {
+     "op": "buff",
+     "target": "t0",
+     "stat": "atk",
+     "pct": 30,
+     "turns": 1
+    }
+   ],
+   "name": {
+    "vi": "Bùng Nổ Sức Mạnh",
+    "en": "Power Surge"
+   },
+   "text": {
+    "vi": "1 Pet của bạn +30% ATK đến hết lượt.",
+    "en": "One of your Pets gains +30% ATK until end of turn."
+   }
+  },
+  {
+   "id": "sp_iron_hide",
+   "type": "spell",
+   "speed": "quick",
+   "category": "boost",
+   "cost": 2,
+   "targeting": "own_pet",
+   "effects": [
+    {
+     "op": "shield",
+     "target": "t0",
+     "pct": 25
+    }
+   ],
+   "name": {
+    "vi": "Da Sắt",
+    "en": "Iron Hide"
+   },
+   "text": {
+    "vi": "(Nhanh) 1 Pet nhận khiên bằng 25% HP tối đa.",
+    "en": "(Quick) One Pet gains a shield equal to 25% of its max HP."
+   }
+  },
+  {
+   "id": "sp_battle_cry",
+   "type": "spell",
+   "speed": "normal",
+   "category": "boost",
+   "cost": 3,
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "buff",
+     "target": "own_all",
+     "stat": "atk",
+     "pct": 15,
+     "turns": 1
+    }
+   ],
+   "name": {
+    "vi": "Chiến Hống",
+    "en": "Battle Cry"
+   },
+   "text": {
+    "vi": "Mọi Pet của bạn +15% ATK đến hết lượt.",
+    "en": "All your Pets gain +15% ATK until end of turn."
+   }
+  },
+  {
+   "id": "sp_tactical_draw",
+   "type": "spell",
+   "speed": "normal",
+   "category": "tactic",
+   "cost": 1,
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "draw",
+     "n": 2
+    }
+   ],
+   "name": {
+    "vi": "Mưu Lược",
+    "en": "Tactical Insight"
+   },
+   "text": {
+    "vi": "Rút 2 lá.",
+    "en": "Draw 2 cards."
+   }
+  },
+  {
+   "id": "sp_energy_well",
+   "type": "spell",
+   "speed": "normal",
+   "category": "tactic",
+   "cost": 0,
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "energy",
+     "n": 2
+    }
+   ],
+   "name": {
+    "vi": "Giếng Năng Lượng",
+    "en": "Energy Well"
+   },
+   "text": {
+    "vi": "+2 năng lượng lượt này. Mỗi lượt 1 lần.",
+    "en": "Gain 2 energy this turn. Once per turn."
+   },
+   "oncePerTurn": true
+  },
+  {
+   "id": "sp_formation_shift",
+   "type": "spell",
+   "speed": "normal",
+   "category": "tactic",
+   "cost": 1,
+   "targeting": "own_two",
+   "effects": [
+    {
+     "op": "swap"
+    }
+   ],
+   "name": {
+    "vi": "Đổi Trận Hình",
+    "en": "Formation Shift"
+   },
+   "text": {
+    "vi": "Đổi vị trí 2 Pet của bạn (không tính lượt điều chỉnh).",
+    "en": "Swap the positions of two of your Pets (does not use their move)."
+   }
+  },
+  {
+   "id": "sp_scout",
+   "type": "spell",
+   "speed": "normal",
+   "category": "tactic",
+   "cost": 1,
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "search_pet"
+    }
+   ],
+   "name": {
+    "vi": "Trinh Sát",
+    "en": "Scout"
+   },
+   "text": {
+    "vi": "Thêm 1 Pet từ bộ bài lên tay (Pet đầu tiên trong bộ bài).",
+    "en": "Add the top-most Pet of your deck to your hand."
+   }
+  },
+  {
+   "id": "sp_fire_storm",
+   "type": "spell",
+   "speed": "normal",
+   "category": "elemental",
+   "cost": 3,
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "damage",
+     "target": "enemy_all",
+     "pct": 15,
+     "element": "fire"
+    }
+   ],
+   "name": {
+    "vi": "Bão Lửa",
+    "en": "Fire Storm"
+   },
+   "text": {
+    "vi": "Gây sát thương Hỏa bằng 15% HP tối đa cho mọi Pet đối thủ (tính khắc chế nguyên tố).",
+    "en": "Deal Fire damage equal to 15% max HP to every enemy Pet (element advantage applies)."
+   }
+  },
+  {
+   "id": "sp_tidal_wave",
+   "type": "spell",
+   "speed": "normal",
+   "category": "elemental",
+   "cost": 3,
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "damage",
+     "target": "enemy_front",
+     "pct": 22,
+     "element": "water"
+    }
+   ],
+   "name": {
+    "vi": "Sóng Thần",
+    "en": "Tidal Wave"
+   },
+   "text": {
+    "vi": "Gây sát thương Thủy 22% HP tối đa cho hàng trước đối thủ.",
+    "en": "Deal Water damage equal to 22% max HP to the enemy front row."
+   }
+  },
+  {
+   "id": "sp_thunderbolt",
+   "type": "spell",
+   "speed": "normal",
+   "category": "elemental",
+   "cost": 2,
+   "targeting": "enemy_pet",
+   "effects": [
+    {
+     "op": "damage",
+     "target": "t0",
+     "pct": 28,
+     "element": "lightning"
+    },
+    {
+     "op": "status",
+     "target": "t0",
+     "status": "stun",
+     "chance": 30,
+     "turns": 1
+    }
+   ],
+   "name": {
+    "vi": "Sấm Sét",
+    "en": "Thunderbolt"
+   },
+   "text": {
+    "vi": "Gây sát thương Lôi 28% HP tối đa cho 1 Pet đối thủ, 30% gây choáng.",
+    "en": "Deal Lightning damage equal to 28% max HP to one enemy Pet; 30% chance to stun."
+   }
+  },
+  {
+   "id": "sp_nature_blessing",
+   "type": "spell",
+   "speed": "normal",
+   "category": "elemental",
+   "cost": 2,
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "heal",
+     "target": "own_element",
+     "element": "nature",
+     "pct": 25
+    },
+    {
+     "op": "heal",
+     "target": "own_all",
+     "pct": 8
+    }
+   ],
+   "name": {
+    "vi": "Phúc Lành Thiên Nhiên",
+    "en": "Nature's Blessing"
+   },
+   "text": {
+    "vi": "Pet hệ Mộc của bạn hồi 25% HP, mọi Pet hồi thêm 8%.",
+    "en": "Your Nature Pets restore 25% HP; all your Pets restore 8%."
+   }
+  },
+  {
+   "id": "sp_call_reinforcement",
+   "type": "spell",
+   "speed": "normal",
+   "category": "summon",
+   "cost": 2,
+   "targeting": "hand_pet",
+   "effects": [
+    {
+     "op": "special_summon",
+     "maxStage": 1
+    }
+   ],
+   "name": {
+    "vi": "Gọi Viện Binh",
+    "en": "Call Reinforcements"
+   },
+   "text": {
+    "vi": "Triệu hồi đặc biệt 1 Pet hình thái 1 từ tay (không tính lượt triệu hồi thường).",
+    "en": "Special summon a first-form Pet from your hand (does not use your normal summon)."
+   }
+  },
+  {
+   "id": "sp_second_chance",
+   "type": "spell",
+   "speed": "normal",
+   "category": "summon",
+   "cost": 4,
+   "targeting": "grave_pet",
+   "effects": [
+    {
+     "op": "revive",
+     "pct": 40,
+     "maxStage": 2
+    }
+   ],
+   "name": {
+    "vi": "Cơ Hội Thứ Hai",
+    "en": "Second Chance"
+   },
+   "text": {
+    "vi": "Hồi sinh 1 Pet (tối đa hình thái 2, không phải Thần Pet) từ mộ với 40% HP. Mỗi trận 1 lần.",
+    "en": "Revive a Pet (up to second form, not Divine) from your graveyard with 40% HP. Once per duel."
+   },
+   "oncePerDuel": true
+  },
+  {
+   "id": "sp_quick_guard",
+   "type": "spell",
+   "speed": "quick",
+   "category": "quick",
+   "cost": 1,
+   "targeting": "own_pet",
+   "effects": [
+    {
+     "op": "status",
+     "target": "t0",
+     "status": "guard",
+     "chance": 100,
+     "turns": 1
+    }
+   ],
+   "name": {
+    "vi": "Hộ Vệ Chớp Nhoáng",
+    "en": "Quick Guard"
+   },
+   "text": {
+    "vi": "(Nhanh) 1 Pet nhận 50% sát thương ít hơn đến hết lượt.",
+    "en": "(Quick) One Pet takes 50% less damage until end of turn."
+   }
+  },
+  {
+   "id": "sp_counter_spell",
+   "type": "spell",
+   "speed": "quick",
+   "category": "quick",
+   "cost": 2,
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "negate",
+     "what": "spell"
+    }
+   ],
+   "name": {
+    "vi": "Phá Phép",
+    "en": "Counter Spell"
+   },
+   "text": {
+    "vi": "(Nhanh) Vô hiệu Spell vừa được kích hoạt.",
+    "en": "(Quick) Negate the Spell just activated."
+   }
+  },
+  {
+   "id": "sp_smoke_screen",
+   "type": "spell",
+   "speed": "quick",
+   "category": "quick",
+   "cost": 2,
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "negate",
+     "what": "attack"
+    }
+   ],
+   "name": {
+    "vi": "Màn Khói",
+    "en": "Smoke Screen"
+   },
+   "text": {
+    "vi": "(Nhanh) Vô hiệu đòn tấn công vừa được tuyên bố.",
+    "en": "(Quick) Negate the attack just declared."
+   }
+  },
+  {
+   "id": "sp_dispel",
+   "type": "spell",
+   "speed": "normal",
+   "category": "tactic",
+   "cost": 1,
+   "targeting": "enemy_st",
+   "effects": [
+    {
+     "op": "destroy_st"
+    }
+   ],
+   "name": {
+    "vi": "Giải Trừ",
+    "en": "Dispel"
+   },
+   "text": {
+    "vi": "Phá hủy 1 lá Spell/Trap đã đặt của đối thủ.",
+    "en": "Destroy one set Spell/Trap card of your opponent."
+   }
+  },
+  {
+   "id": "tr_spike_shield",
+   "type": "trap",
+   "speed": "trap",
+   "category": "counter",
+   "cost": 1,
+   "trigger": "attack",
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "damage",
+     "target": "attacker",
+     "pct": 18
+    }
+   ],
+   "name": {
+    "vi": "Khiên Gai",
+    "en": "Spike Shield"
+   },
+   "text": {
+    "vi": "Khi Pet của bạn bị tấn công: Pet tấn công nhận sát thương bằng 18% HP tối đa của nó.",
+    "en": "When your Pet is attacked: the attacker takes damage equal to 18% of its max HP."
+   }
+  },
+  {
+   "id": "tr_mirror_ward",
+   "type": "trap",
+   "speed": "trap",
+   "category": "counter",
+   "cost": 3,
+   "trigger": "attack",
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "negate",
+     "what": "attack"
+    },
+    {
+     "op": "reflect"
+    }
+   ],
+   "name": {
+    "vi": "Gương Phản Chiếu",
+    "en": "Mirror Ward"
+   },
+   "text": {
+    "vi": "Khi Pet của bạn bị tấn công: vô hiệu đòn đó và Pet tấn công tự nhận 50% sát thương nó định gây ra.",
+    "en": "When your Pet is attacked: negate it and the attacker takes 50% of the damage it would have dealt."
+   }
+  },
+  {
+   "id": "tr_guardian_barrier",
+   "type": "trap",
+   "speed": "trap",
+   "category": "defense",
+   "cost": 1,
+   "trigger": "attack",
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "shield",
+     "target": "attack_target",
+     "pct": 35
+    }
+   ],
+   "name": {
+    "vi": "Kết Giới Hộ Vệ",
+    "en": "Guardian Barrier"
+   },
+   "text": {
+    "vi": "Khi Pet của bạn bị tấn công: Pet đó nhận khiên 35% HP tối đa.",
+    "en": "When your Pet is attacked: it gains a shield equal to 35% of its max HP."
+   }
+  },
+  {
+   "id": "tr_last_stand",
+   "type": "trap",
+   "speed": "trap",
+   "category": "defense",
+   "cost": 2,
+   "trigger": "attack",
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "status",
+     "target": "attack_target",
+     "status": "endure",
+     "chance": 100,
+     "turns": 1
+    }
+   ],
+   "name": {
+    "vi": "Trụ Vững",
+    "en": "Last Stand"
+   },
+   "text": {
+    "vi": "Khi Pet của bạn bị tấn công: lượt này nó không thể bị hạ dưới 1 HP.",
+    "en": "When your Pet is attacked: this turn it cannot drop below 1 HP."
+   }
+  },
+  {
+   "id": "tr_binding_vines",
+   "type": "trap",
+   "speed": "trap",
+   "category": "control",
+   "cost": 2,
+   "trigger": "attack",
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "negate",
+     "what": "attack"
+    },
+    {
+     "op": "status",
+     "target": "attacker",
+     "status": "stun",
+     "chance": 100,
+     "turns": 1
+    }
+   ],
+   "name": {
+    "vi": "Dây Trói",
+    "en": "Binding Vines"
+   },
+   "text": {
+    "vi": "Khi Pet của bạn bị tấn công: vô hiệu đòn đó, Pet tấn công bị choáng 1 lượt.",
+    "en": "When your Pet is attacked: negate it and stun the attacker for 1 turn."
+   }
+  },
+  {
+   "id": "tr_frost_snare",
+   "type": "trap",
+   "speed": "trap",
+   "category": "control",
+   "cost": 1,
+   "trigger": "summon",
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "status",
+     "target": "summoned",
+     "status": "stun",
+     "chance": 100,
+     "turns": 1
+    },
+    {
+     "op": "status",
+     "target": "summoned",
+     "status": "weaken",
+     "chance": 100,
+     "turns": 2
+    }
+   ],
+   "name": {
+    "vi": "Bẫy Băng",
+    "en": "Frost Snare"
+   },
+   "text": {
+    "vi": "Khi đối thủ triệu hồi: Pet đó bị choáng 1 lượt và suy yếu 2 lượt.",
+    "en": "When your opponent summons: that Pet is stunned for 1 turn and weakened for 2."
+   }
+  },
+  {
+   "id": "tr_gravity_well",
+   "type": "trap",
+   "speed": "trap",
+   "category": "control",
+   "cost": 2,
+   "trigger": "attack",
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "status",
+     "target": "enemy_all",
+     "status": "weaken",
+     "chance": 100,
+     "turns": 1
+    }
+   ],
+   "name": {
+    "vi": "Giếng Trọng Lực",
+    "en": "Gravity Well"
+   },
+   "text": {
+    "vi": "Khi Pet của bạn bị tấn công: mọi Pet đối thủ bị suy yếu (−25% ATK) 1 lượt.",
+    "en": "When your Pet is attacked: all enemy Pets are weakened (−25% ATK) for 1 turn."
+   }
+  },
+  {
+   "id": "tr_spell_seal",
+   "type": "trap",
+   "speed": "trap",
+   "category": "dispel",
+   "cost": 2,
+   "trigger": "spell",
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "negate",
+     "what": "spell"
+    }
+   ],
+   "name": {
+    "vi": "Phong Ấn Phép",
+    "en": "Spell Seal"
+   },
+   "text": {
+    "vi": "Khi đối thủ kích hoạt Spell: vô hiệu Spell đó.",
+    "en": "When your opponent activates a Spell: negate it."
+   }
+  },
+  {
+   "id": "tr_trap_breaker",
+   "type": "trap",
+   "speed": "trap",
+   "category": "dispel",
+   "cost": 1,
+   "trigger": "trap",
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "negate",
+     "what": "trap"
+    }
+   ],
+   "name": {
+    "vi": "Phá Bẫy",
+    "en": "Trap Breaker"
+   },
+   "text": {
+    "vi": "Khi đối thủ kích hoạt Trap: vô hiệu Trap đó.",
+    "en": "When your opponent activates a Trap: negate it."
+   }
+  },
+  {
+   "id": "tr_elemental_backlash",
+   "type": "trap",
+   "speed": "trap",
+   "category": "elemental",
+   "cost": 2,
+   "trigger": "attack",
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "damage",
+     "target": "attacker",
+     "pct": 20,
+     "element": "target"
+    }
+   ],
+   "name": {
+    "vi": "Phản Phệ Nguyên Tố",
+    "en": "Elemental Backlash"
+   },
+   "text": {
+    "vi": "Khi Pet của bạn bị tấn công: Pet tấn công nhận sát thương nguyên tố của Pet bị tấn công bằng 20% HP tối đa (tính khắc chế).",
+    "en": "When your Pet is attacked: the attacker takes damage of the defender's element equal to 20% of its max HP (element advantage applies)."
+   }
+  },
+  {
+   "id": "tr_flame_mine",
+   "type": "trap",
+   "speed": "trap",
+   "category": "elemental",
+   "cost": 1,
+   "trigger": "summon",
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "damage",
+     "target": "summoned",
+     "pct": 25,
+     "element": "fire"
+    }
+   ],
+   "name": {
+    "vi": "Mìn Lửa",
+    "en": "Flame Mine"
+   },
+   "text": {
+    "vi": "Khi đối thủ triệu hồi: gây sát thương Hỏa 25% HP tối đa cho Pet đó.",
+    "en": "When your opponent summons: deal Fire damage equal to 25% max HP to that Pet."
+   }
+  },
+  {
+   "id": "tr_rally",
+   "type": "trap",
+   "speed": "trap",
+   "category": "formation",
+   "cost": 1,
+   "trigger": "destroyed",
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "draw",
+     "n": 1
+    },
+    {
+     "op": "heal",
+     "target": "own_all",
+     "pct": 10
+    }
+   ],
+   "name": {
+    "vi": "Tập Hợp",
+    "en": "Rally"
+   },
+   "text": {
+    "vi": "Khi Pet của bạn bị tiêu diệt: rút 1 lá và mọi Pet còn lại hồi 10% HP.",
+    "en": "When one of your Pets is destroyed: draw 1 card and your remaining Pets restore 10% HP."
+   }
+  },
+  {
+   "id": "tr_decoy_swap",
+   "type": "trap",
+   "speed": "trap",
+   "category": "formation",
+   "cost": 2,
+   "trigger": "attack",
+   "targeting": "none",
+   "effects": [
+    {
+     "op": "redirect"
+    }
+   ],
+   "name": {
+    "vi": "Thế Thân",
+    "en": "Decoy Swap"
+   },
+   "text": {
+    "vi": "Khi Pet của bạn bị tấn công: chuyển đòn sang Pet khác của bạn có HP cao nhất.",
+    "en": "When your Pet is attacked: redirect the attack to your other Pet with the highest HP."
+   }
+  }
+ ],
+ "starter": {
+  "notes": "Every membership receives this starter tactic collection once (ledger ref starter_tactics), enough for a legal 40-card deck with the starter Pets.",
+  "cards": {
+   "sp_herbal_tonic": 3,
+   "sp_group_remedy": 2,
+   "sp_purify": 2,
+   "sp_power_surge": 3,
+   "sp_iron_hide": 2,
+   "sp_battle_cry": 2,
+   "sp_tactical_draw": 3,
+   "sp_energy_well": 2,
+   "sp_formation_shift": 1,
+   "sp_scout": 2,
+   "sp_fire_storm": 1,
+   "sp_tidal_wave": 1,
+   "sp_thunderbolt": 2,
+   "sp_nature_blessing": 1,
+   "sp_call_reinforcement": 2,
+   "sp_second_chance": 1,
+   "sp_quick_guard": 2,
+   "sp_counter_spell": 1,
+   "sp_smoke_screen": 2,
+   "sp_dispel": 2,
+   "tr_spike_shield": 2,
+   "tr_mirror_ward": 1,
+   "tr_guardian_barrier": 2,
+   "tr_last_stand": 1,
+   "tr_binding_vines": 1,
+   "tr_frost_snare": 2,
+   "tr_gravity_well": 1,
+   "tr_spell_seal": 1,
+   "tr_trap_breaker": 1,
+   "tr_elemental_backlash": 1,
+   "tr_flame_mine": 2,
+   "tr_rally": 2,
+   "tr_decoy_swap": 1
+  }
+ }
+}
