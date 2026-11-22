@@ -1,5 +1,34 @@
 # Web-first report: live features, web client, deployment (2026-11-15)
 
+## Update: Pet Card Tactical Duel (2026-11-22)
+
+Rules and API: [docs/duel-rules.md](../duel-rules.md).
+
+**Done**
+- **Shared C# engine** (`shared-contracts/Runtime/Rules/Duel`), used by the backend and the Unity client:
+  - 40-card decks (10–25 Pets, max 3 copies, Divine max 1);
+  - coin flip; Draw/Main/Battle/End; no attack on the first player's first turn;
+  - 5 Pet zones + 3 Spell/Trap zones; one normal summon per turn; tributes;
+  - Pet HP separate from 2,500 LP; −500 LP exactly once per destroyed Pet;
+  - 20 Spells (6 categories) and 13 Traps (6 categories);
+  - LIFO reaction chain with re-validation at resolution;
+  - in-duel evolution; hand limit 7;
+  - 60 s / 15 s timers; 40-turn limit; deck-out; draw.
+- **Backend:**
+  - `/api/duel/*` and `/api/duels/*` for decks, PvE, Ranked and friend PvP;
+  - ownership and lock validation; hidden information; version and row lock against cheating;
+  - timeout service; reconnect;
+  - rewards, missions and Ranked through the existing `battles` table.
+  - The migration is additive (`duel_decks`, `battles.is_duel`). No existing data is changed.
+- **Unity:** Tactical Duel lobby (PvE, Ranked, PvP challenge, resume), 40-card Deck Builder, landscape duel board against the server, 159 new strings in each language (vi/en), including readable messages for the duel error codes.
+- **Web Preview:** a complete playable duel against the AI on the TypeScript port, cross-checked event-by-event with the C# engine.
+
+**Not done / limits (reported, not simulated)**
+- The main React web client (petstar.pages.dev) still plays the classic battle. The duel lives in the Unity client and the Preview.
+- The Unity board uses procedural UI (no dedicated duel art or particle effects yet). It has passed the offline compile check but has not been run in the Unity Editor or on a device.
+- PvP challenges are by UID with a realtime popup. There is no matchmaking queue for casual PvP. Ranked uses the stored deck of a matched opponent, played by the server AI.
+- Nothing was deployed. Unity Cloud Build and GitHub Actions Unity builds were not run.
+
 ## Update: card system expansion (9 packs, 15 Divine Pets, progression)
 
 Full design, odds tables, costs and RBAC: [docs/card-system.md](../card-system.md).

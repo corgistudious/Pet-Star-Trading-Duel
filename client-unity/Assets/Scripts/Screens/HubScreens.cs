@@ -247,7 +247,7 @@ namespace PetStar.Client.Screens
             var col = W.Column(this, Root, 20, hubNav: true);
             foreach (var (key, color, open) in new (string, Color, System.Action)[]
                      {
-                         ("battle.pve", UiKit.Lilac, () => Nav.Push(new DuelLobbyScreen())),
+                         ("battle.pve", UiKit.Lilac, () => Nav.Push(new TacticalDuelLobbyScreen())),
                          ("battle.ranked", UiKit.Peach, () => Nav.Push(new RankedScreen())),
                          ("web.live_pvp", UiKit.Hex("#FFD7D2"), () => Nav.Push(new PvpLobbyScreen())),
                          ("battle.friend", UiKit.Mint, () => Nav.Push(new FriendsScreen())),

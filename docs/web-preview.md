@@ -36,13 +36,14 @@ build is triggered.
 | Collection and Pet Hub | filters; stars 1–10, enhancement +0–+20, evolution, breakthrough, awakening, skill 1–10, "+10 Lv" test button | same costs, gates and stat formulas as `Progression.cs` |
 | 15 Divine Pet Cards | gallery by set, 10★, real art, frames and crests, owned marker | — |
 | Marketplace | buy (stars or beans), list own card (locked while listed), cancel | 3 % fee; the real market is server-side |
-| Battle (landscape 16:9) | 3 front + 2 back, energy, Basic → Skill → Ultimate per Pet, enemy AI, damage numbers, rotate prompt on portrait phones | layout only; damage is simplified (the real BattleEngine runs on the server) |
+| Tactical Duel (landscape 16:9) | Full 40-card duel vs AI: coin flip, hand fan, 5 Pet + 3 Spell/Trap zones, tributes, Spells/Traps, reaction chain, in-duel evolution, 2,500 LP with −500 per destroyed Pet, turn/reaction timers, log, result + rematch | real rules: TypeScript port of the server engine, verified event-by-event against C# fixtures; decks come from the simulated preview collection |
 | Preview status | lists what is done and what is missing | — |
 
 ## Missing or simulated only (also shown inside the preview)
 
-- **Battle:** a simplified browser simulation. Statuses, shields, passives and synergies are not fully shown; real
-  battles are resolved by the server.
+- **Tactical Duel:** runs the TypeScript port of the server's DuelEngine (`src/duel/engine.ts`), not a mock. `engine.test.ts`
+  replays 8 C#-generated AI-vs-AI duels and asserts identical events, and that `catalog.json` → `duelRules` equals the
+  server rules. Preview decks use the simulated collection; nothing is sent to a server. See [duel-rules.md](duel-rules.md).
 - **Engravings and Reset:** implemented in the real game (Unity and web), not simulated in the preview.
 - **Per-pack sounds and per-pack opening animations:** not made yet; all packs share one effect.
 - **Real game only:** login, servers, realtime PvP, Ranked, guilds and chat.

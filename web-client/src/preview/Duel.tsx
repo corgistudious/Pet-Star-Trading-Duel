@@ -84,7 +84,7 @@ export function Duel({ s, P, exit }: { s: SimState; P: PFn; exit: () => void }) 
     setSel(null); collect(); force();
   };
   const errorText = (code: string) => {
-    const k = 'duel.err.' + code; const v = t(k);
+    const k = 'error.' + code; const v = t(k);
     return v !== k ? v : code.replace(/_/g, ' ');
   };
 
@@ -160,7 +160,7 @@ export function Duel({ s, P, exit }: { s: SimState; P: PFn; exit: () => void }) 
   const targetOwn = (_u: DuelUnit) => (selectedTactic?.targeting === 'own_pet' || selectedTactic?.targeting === 'own_two') || (selectedCard?.kind === 'pet' && tributesFor(rules, selectedCard.forms[0]) > 0);
 
   // ---------------------------------------------------------------- render
-  const Unit = ({ u }: { u: DuelUnit }) => {
+  const unitView = (u: DuelUnit) => {
     const pct = Math.max(0, Math.round((100 * u.hp) / u.maxHp));
     const mine = u.owner === ME;
     const glow = mine ? targetOwn(u) || (sel?.kind === 'unit' && sel.uid === u.uid) : targetEnemy(u);
@@ -178,13 +178,13 @@ export function Duel({ s, P, exit }: { s: SimState; P: PFn; exit: () => void }) 
       </div>
     );
   };
-  const Side = ({ side }: { side: number }) => {
+  const sideView = (side: number) => {
     const pl = st.players[side];
     const row = (zones: number[]) => (
       <div className="du-row">
         {zones.map((z) => {
           const u = pl.units.find((x) => x.zone === z);
-          return <button key={z} className={'du-zone' + (u ? '' : ' empty')} onClick={() => tapPetZone(side, z)} data-testid={`zone-${side}-${z}`}>{u ? <Unit u={u} /> : <span>{z < 3 ? P('Trước', 'Front') : P('Sau', 'Back')}</span>}</button>;
+          return <button key={z} className={'du-zone' + (u ? '' : ' empty')} onClick={() => tapPetZone(side, z)} data-testid={`zone-${side}-${z}`}>{u ? unitView(u) : <span>{z < 3 ? P('Trước', 'Front') : P('Sau', 'Back')}</span>}</button>;
         })}
       </div>
     );
@@ -217,14 +217,14 @@ export function Duel({ s, P, exit }: { s: SimState; P: PFn; exit: () => void }) 
           <span className="du-lp">LP <b>{ai.lp}</b></span><span>⚡{ai.energy}/{ai.maxEnergy}</span>
           <span>🂠 {ai.hand.length}</span><span>📚 {ai.deck.length}</span><span>⚰ {ai.grave.length}</span>
         </div>
-        <Side side={AI} />
+        {sideView(AI)}
         <div className="du-mid">
           <span className="du-turn">{P('Lượt', 'Turn')} {st.turn} · {st.active === ME ? P('Bạn', 'You') : 'AI'}</span>
           <span className="du-phases">{['Rút', 'Chính', 'Chiến đấu', 'Kết thúc'].map((x, i) => <i key={x} className={(i === 1 && st.phase === 'main') || (i === 2 && st.phase === 'battle') ? 'on' : ''}>{lang === 'vi' ? x : ['Draw', 'Main', 'Battle', 'End'][i]}</i>)}</span>
           {st.chain.length > 0 && <span className="du-chain">{P('Chuỗi', 'Chain')} ×{st.chain.length}</span>}
           {toAct(st) === ME && !finished(st) && <span className={'du-timer' + (left <= 10 ? ' warn' : '')}>⏱ {timerOn ? left : '∞'}</span>}
         </div>
-        <Side side={ME} />
+        {sideView(ME)}
         <div className="du-hud bottom">
           <span className="du-player blue">🔵 {me.name}</span>
           <span className="du-lp">LP <b>{me.lp}</b></span><span>⚡{me.energy}/{me.maxEnergy}</span><span>📚 {me.deck.length}</span>
