@@ -139,6 +139,10 @@ public static class CatalogLoader
         };
     }
 
+    /// <summary>Pet Battle Arena card definitions + config (database/seed/arena_cards.json, built by tools/build_arena_cards.py).</summary>
+    public static PetStar.Rules.Arena.ArenaRules LoadArena(string dir) =>
+        JsonSerializer.Deserialize<PetStar.Rules.Arena.ArenaRules>(File.ReadAllText(Path.Combine(dir, "arena_cards.json")), Json)!;
+
     public static PveConfig LoadPve(string dir) =>
         JsonSerializer.Deserialize<PveConfig>(File.ReadAllText(Path.Combine(dir, "pve_stages.json")), Json)!;
 }
