@@ -1,5 +1,33 @@
 # Web-first report: live features, web client, deployment (2026-11-15)
 
+## Update: Pet Battle Arena (20-card battle, Active + 3 Bench, Energy Zone, PvP) (2026-11-22)
+
+Rules, architecture, API, database, tests and operations: [docs/arena-rules.md](../arena-rules.md).
+Licenses and asset sources: [docs/licenses.md](../licenses.md).
+
+**Done (run and verified here)**
+- Original engine shared by the server and Unity (`shared-contracts/Runtime/Rules/Arena`).
+  - Data-driven effects; deterministic replay.
+  - 215 Pet cards (15 EX) built from existing designs, plus 16 original trainer cards.
+- Server-authoritative backend.
+  - Modes: PvE vs AI, Casual and Ranked matchmaking, Friend Battle, Private Room.
+  - Protection: action ids (idempotent), state versions, row locks, filtered views.
+  - Timers and reconnect; WebSocket pushes.
+  - Snapshots and replay with the card-definition version; history; Elo per season.
+  - Rewards: PvE wins pay the existing stage rewards under the existing daily caps; one reward row per player per match.
+  - Additive migration `ArenaBattle`.
+- Tests: Rules 94/94 (incl. 10,000 simulated matches); API 105/105 (incl. 6 Arena tests); Web 76/76 (incl. 25 cross-engine checks); Unity offline compile check OK.
+- The cross-engine check found a real C# bug (a chosen Bench target was evaluated once per Bench Pet); it is fixed and covered by a regression test.
+- Preview: a playable Arena match (portrait) against the AI, on the TypeScript port verified against the C# engine.
+
+**Not done / limits (reported, not simulated)**
+- No official Pocket rulebook was available. Contested rules are config values with defaults; see the verification table in arena-rules.md.
+- Unity Arena screens have only passed the offline compile check. They have not run in the Unity Editor or on a device, and there has been no two-device test.
+- Visuals are procedural (no new HD battle art, card animations or sound yet). New art must go through the asset pipeline and be listed in licenses.md.
+- Actions use HTTPS; WebSocket is used for pushes. No load test of matchmaking at scale.
+- Missions count Arena wins through the achievement hook (`duel_win`) only.
+- Nothing was deployed. Unity Cloud Build and GitHub Actions Unity builds were not run.
+
 ## Update: Pet Card Tactical Duel (2026-11-22)
 
 Rules and API: [docs/duel-rules.md](../duel-rules.md).

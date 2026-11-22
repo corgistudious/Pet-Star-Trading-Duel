@@ -61,6 +61,8 @@ derived |= {f"friends.status.{x}" for x in ("friends", "incoming", "outgoing")} 
 derived |= {"item.training_scroll", "mail.admin"}
 sys.path.insert(0, str(ROOT / "tools"))
 from localization_duel import STATUSES, END_REASONS, LOG_TYPES, MODES  # noqa: E402
+from localization_arena import DERIVED as ARENA_DERIVED  # noqa: E402
+derived |= ARENA_DERIVED
 derived |= {f"tduel.status.{x}" for x in STATUSES} | {f"tduel.end.{x}" for x in END_REASONS} | {f"tduel.log.{x}" for x in LOG_TYPES} | {f"tduel.mode.{x}" for x in MODES}
 for k in sorted(static | derived):
     for c, t in tables.items():
