@@ -81,7 +81,7 @@ export function apply(rules: ArenaRules, st: ArenaState, p: number, a: ArenaActi
     st.version++; return;
   }
   if (st.active !== p) throw err('not_your_turn');
-  if (++st.actionsThisTurn > rules.config.maxActionsPerTurn) throw err('too_many_actions');
+  if (st.actionsThisTurn >= rules.config.maxActionsPerTurn) throw err('too_many_actions');
   switch (a.type) {
     case 'bench': playBasic(rules, st, p, a.card ?? 0); break;
     case 'evolve': evolve(rules, st, p, a.card ?? 0, a.uid ?? 0); break;
@@ -93,6 +93,7 @@ export function apply(rules: ArenaRules, st: ArenaState, p: number, a: ArenaActi
     case 'end': endTurn(rules, st, p); break;
     default: throw err('invalid_action');
   }
+  if (st.active === p && a.type !== 'end' && a.type !== 'attack') st.actionsThisTurn++;
   st.version++;
 }
 

@@ -70,7 +70,7 @@ namespace PetStar.Rules.Arena
                 Bump(st); return;
             }
             if (st.Active != p) throw new ArenaRuleException("not_your_turn");
-            if (++st.ActionsThisTurn > rules.Config.MaxActionsPerTurn) throw new ArenaRuleException("too_many_actions");
+            if (st.ActionsThisTurn >= rules.Config.MaxActionsPerTurn) throw new ArenaRuleException("too_many_actions");
             switch (a.Type)
             {
                 case "bench": PlayBasic(rules, st, p, a.Card); break;
@@ -83,6 +83,7 @@ namespace PetStar.Rules.Arena
                 case "end": EndTurn(rules, st, p); break;
                 default: throw new ArenaRuleException("invalid_action");
             }
+            if (st.Active == p && a.Type != "end" && a.Type != "attack") st.ActionsThisTurn++;   // refused actions do not count
             Bump(st);
         }
 

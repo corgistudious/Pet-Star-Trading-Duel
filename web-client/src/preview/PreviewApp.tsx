@@ -2,13 +2,14 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { CardBack, CardView } from '../components/CardView';
 import { useI18n } from '../i18n';
 import { RARITY_COLORS, petArt, uiArt, useCatalog } from '../state/catalog';
+import { Arena } from './Arena';
 import { Duel } from './Duel';
 import {
   RARITY_ORDER, VIP_THRESHOLDS, applyUpgrade, blocked, cost, evolution, levelCap, openPack, packBlocked, packOdds, seed, toDto, vipLevel,
   type FullCatalog, type PackDef, type SimCard, type SimState,
 } from './sim';
 
-type Screen = { name: 'lobby' | 'shop' | 'collection' | 'divine' | 'market' | 'battle' | 'status' } | { name: 'open'; cards: SimCard[]; pack: PackDef } | { name: 'hub'; id: number };
+type Screen = { name: 'lobby' | 'shop' | 'collection' | 'divine' | 'market' | 'battle' | 'arena' | 'status' } | { name: 'open'; cards: SimCard[]; pack: PackDef } | { name: 'hub'; id: number };
 const KEY = 'petstar.preview.state.v1';
 
 function load(cat: FullCatalog): SimState {
@@ -69,6 +70,7 @@ export default function PreviewApp() {
           {screen.name === 'divine' && <Divine s={s} P={P} />}
           {screen.name === 'market' && <Market s={s} setS={setS} P={P} say={say} err={err} />}
           {screen.name === 'battle' && <Duel s={s} P={P} exit={() => go({ name: 'lobby' })} />}
+          {screen.name === 'arena' && <Arena s={s} P={P} exit={() => go({ name: 'lobby' })} />}
           {screen.name === 'status' && <Status P={P} />}
         </div>
         {toast && <div className="pv-toast" role="status">{toast}</div>}
@@ -95,6 +97,7 @@ function Lobby({ s, go, P, lang, setLang }: { s: SimState; go: (sc: Screen) => v
     ['collection', P('Bộ sưu tập · Pet Hub', 'Collection · Pet Hub'), 'ui_mat_pet_shard'],
     ['divine', P('15 Thần Pet Card', '15 Divine Pet Cards'), 'ui_crest_star'],
     ['market', P('Chợ giao dịch', 'Marketplace'), 'ui_currency_rainbow_star_bag'],
+    ['arena', P('Đấu Pet Arena · 20 lá · PvE', 'Pet Battle Arena · 20 cards · PvE'), 'ui_crest_star'],
     ['battle', P('Đấu bài chiến thuật (16:9)', 'Tactical Duel (16:9)'), 'ui_mat_breakthrough_core'],
     ['status', P('Trạng thái bản xem trước', 'Preview status'), 'ui_mat_training_scroll'],
   ];
