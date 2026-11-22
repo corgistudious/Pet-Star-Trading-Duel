@@ -270,6 +270,7 @@ namespace PetStar.Rules.Arena
                 return;
             }
             if (!TrainerPlayable(rules, st, p, def, a.Targets)) throw new ArenaRuleException("no_valid_target");
+            CheckChoices(st, p, def.Effects, a.Targets);
             pl.Hand.Remove(a.Card);
             if (def.Kind == "supporter") pl.SupportersUsed++;
             Log(st, def.Kind, p, 0, a.Card, def.Id);
@@ -305,6 +306,7 @@ namespace PetStar.Rules.Arena
             if (AbilityLocked(st, pet)) throw new ArenaRuleException("ability_locked");
             if (ab.Effects.Any(e => e.Cond == "is_active") && pl.Active != pet) throw new ArenaRuleException("must_be_active");
             if (ab.Effects.All(e => e.Op == "heal") && (pl.Active == null || pl.Active.Damage == 0)) throw new ArenaRuleException("nothing_to_heal");
+            CheckChoices(st, p, ab.Effects, a.Targets);
             pet.AbilityTurn = st.Turn;
             Log(st, "ability", p, pet.Uid, 0, ab.Id);
             RunEffects(rules, st, p, pet, null, ab.Effects, a.Targets, "ability:" + ab.Id, 0);
@@ -377,6 +379,7 @@ namespace PetStar.Rules.Arena
             var problem = AttackProblem(rules, st, p, index);
             if (problem != null) throw new ArenaRuleException(problem);
             var pl = st.Players[p]; var att = pl.Active!; var atk = rules.Def(att.DefId).Attacks[index];
+            CheckChoices(st, p, atk.Effects, targets);
             Log(st, "attack", p, att.Uid, index, atk.Id);
             if (att.Special == "confused" && !Flip(st, p, "confused"))
             {
@@ -410,6 +413,26 @@ namespace PetStar.Rules.Arena
                 dmg -= dab.Effects.Where(e => e.Op == "reduce_taken").Sum(e => e.Amount);
             if (ActiveMods(st, def, "prevent").Any()) return 0;
             return Math.Max(0, dmg);
+        }
+
+        /// <summary>Rejects an illegal player choice before anything changes (no half-applied action).</summary>
+        private static void CheckChoices(ArenaState st, int p, List<ArenaEffect> effects, List<int> chosen)
+        {
+            var pl = st.Players[p]; var opp = st.Players[1 - p]; int i = 0;
+            foreach (var e in effects)
+            {
+                IEnumerable<ArenaPet>? pool = null;
+                if (e.Op == "bench_damage" && e.Target == "opp_bench_chosen") pool = opp.Bench;
+                else if (e.Op == "heal" && e.Target == "own_chosen") pool = pl.InPlay();
+                else if (e.Op == "switch_self" || (e.Op == "energy_attach" && e.Target == "own_bench_chosen")) pool = pl.Bench;
+                else if (e.Op == "force_switch") pool = opp.Bench;
+                else if (e.Op == "energy_transfer") pool = pl.Bench.Where(b => b.Energy.Count > 0);
+                if (pool == null) continue;
+                var list = pool.ToList();
+                if (list.Count == 0) continue;
+                if (i < chosen.Count && !list.Any(x => x.Uid == chosen[i])) throw new ArenaRuleException("invalid_target");
+                i++;
+            }
         }
 
         // ------------------------------------------------------------ effect engine
@@ -460,7 +483,9 @@ namespace PetStar.Rules.Arena
                         if (defender != null && defender.Damage < MaxHp(rules, st, defender)) ApplyStatus(rules, st, defender, e.Status!);
                         break;
                     case "bench_damage":
-                        var benchTargets = e.Target == "opp_bench_all" ? opp.Bench.ToList() : opp.Bench.Where(b => b.Uid == Choose(opp.Bench)).ToList();
+                        List<ArenaPet> benchTargets;
+                        if (e.Target == "opp_bench_all") benchTargets = opp.Bench.ToList();
+                        else { int bu = Choose(opp.Bench); benchTargets = opp.Bench.Where(b => b.Uid == bu).ToList(); }   // choose once, not per Pet
                         foreach (var b in benchTargets) Damage(st, b, e.Amount, p, "bench");
                         break;
                     case "heal":
@@ -505,7 +530,10 @@ namespace PetStar.Rules.Arena
                     case "energy_attach":
                         {
                             var el = e.Element ?? rules.Def(src?.DefId ?? pl.Active!.DefId).Element;
-                            ArenaPet? to = e.Target == "self" ? src : e.Target == "own_active" ? pl.Active : pl.Bench.FirstOrDefault(b => b.Uid == Choose(pl.Bench));
+                            ArenaPet? to;
+                            if (e.Target == "self") to = src;
+                            else if (e.Target == "own_active") to = pl.Active;
+                            else { int bu = Choose(pl.Bench); to = pl.Bench.FirstOrDefault(b => b.Uid == bu); }
                             if (to != null) for (int i = 0; i < Math.Max(1, e.Count); i++) { to.Energy.Add(el); Log(st, "energy_gain", p, to.Uid, 1, el); }
                         }
                         break;

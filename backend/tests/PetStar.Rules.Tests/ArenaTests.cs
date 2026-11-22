@@ -436,6 +436,33 @@ public class ArenaRuleTests(ITestOutputHelper output)
         Assert.Equal("match_finished", ArenaFixture.Err(st, 0, new ArenaAction { Type = "end" }));
     }
 
+    [Fact]
+    public void A_chosen_bench_target_is_chosen_once_and_respected()
+    {
+        // regression: the choice used to be re-evaluated per Benched Pet, so a non-first target could be skipped
+        var (st, p, me, foe) = Duel(91);
+        var pl = st.Players[p]; var opp = st.Players[1 - p];
+        while (opp.Bench.Count < 2) { var b = opp.Deck.Concat(opp.Hand).First(c => R.Def(st.Card(c).DefId).IsBasic); opp.Deck.Remove(b); opp.Hand.Remove(b); opp.Bench.Add(new ArenaPet { Uid = st.NextUid++, Owner = 1 - p, Cards = new() { b }, DefId = st.Card(b).DefId }); }
+        var sniper = R.Cards.First(c => c.Kind == "pet" && c.Attacks.Any(a => a.Effects.Any(e => e.Op == "bench_damage" && e.Target == "opp_bench_chosen")));
+        int idx = sniper.Attacks.FindIndex(a => a.Effects.Any(e => e.Target == "opp_bench_chosen"));
+        me.DefId = sniper.Id; me.Special = null;
+        foreach (var t in sniper.Attacks[idx].Cost) me.Energy.Add(t == "colorless" ? sniper.Element : t);
+        var target = opp.Bench[1]; var other = opp.Bench[0];
+        ArenaFixture.Do(st, p, new ArenaAction { Type = "attack", Index = idx, Targets = new() { target.Uid } });
+        Assert.Contains(st.Log, e => e.Type == "damage" && e.A == target.Uid && e.S == "bench");
+        Assert.DoesNotContain(st.Log, e => e.Type == "damage" && e.A == other.Uid && e.S == "bench");
+        // a target that is not a legal choice is refused
+        var (s2, p2, m2, f2) = Duel(92);
+        m2.DefId = sniper.Id; foreach (var t in sniper.Attacks[idx].Cost) m2.Energy.Add(t == "colorless" ? sniper.Element : t);
+        if (s2.Players[1 - p2].Bench.Count > 0)
+        {
+            int logBefore = s2.Log.Count, v = s2.Version;
+            Assert.Equal("invalid_target", ArenaFixture.Err(s2, p2, new ArenaAction { Type = "attack", Index = idx, Targets = new() { m2.Uid } }));
+            Assert.Equal(logBefore, s2.Log.Count);                       // refused before anything happened
+            Assert.Equal(v, s2.Version);
+        }
+    }
+
     // ---------------------------------------------------------------- replay & simulation
 
     [Fact]
