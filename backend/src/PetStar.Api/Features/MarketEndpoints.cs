@@ -48,6 +48,8 @@ public static class MarketEndpoints
                 await guard.EnsureAllowed(ctx.User.AccountId(), "market");
                 var m = data.Market;
                 if (!Currency.All.Contains(req.Currency)) throw ApiException.BadRequest("unknown_currency");
+                // the Pet market trades in Mini Green Beans only (in-game currency; never exchangeable for real money)
+                if (req.Currency != Currency.MiniGreenBean) throw ApiException.BadRequest("market_currency_beans_only");
                 if (req.Price < m.L("listing", "minPrice") || req.Price > m.L("listing", "maxPrice")) throw ApiException.BadRequest("price_out_of_range");
                 int days = req.Days ?? (int)m.L("listing", "defaultDays");
                 if (days < m.L("listing", "minDays") || days > m.L("listing", "maxDays")) throw ApiException.BadRequest("invalid_duration");

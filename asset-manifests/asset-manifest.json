@@ -13290,6 +13290,558 @@
       },
       "reference": "trainer_girl",
       "history": []
+    },
+    "ui_hex_market": {
+      "assetId": "ui_hex_market",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nEmblem icon for a pet card trading market: a small golden merchant scale balancing two glowing trading cards with a tiny green bean coin, purple and gold accents.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "low",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "c0afedec40b1396f3caac8cdc6f05ed29eade6c5aeb1027f972bb091a9a7b748",
+      "bytes": 1881017,
+      "version": 1,
+      "generationCost": 0.015335,
+      "usage": {
+        "input_tokens": 123,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 123
+        },
+        "output_tokens": 460,
+        "output_tokens_details": {
+          "image_tokens": 272,
+          "text_tokens": 188
+        },
+        "total_tokens": 583
+      },
+      "jobKey": "ef43b7f850187010",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "c0afedec40b1396f3caac8cdc6f05ed29eade6c5aeb1027f972bb091a9a7b748",
+        "bytes": 1881017,
+        "alphaCoverage": 0.3198,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_hex_market_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T06:06:09Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_hex_games": {
+      "assetId": "ui_hex_games",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nEmblem icon for mini games: a cute blue game controller shaped like a cloud with a puzzle piece and a little star die bouncing beside it.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "low",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "1ff02f77be3d58ad987ef92a088a6ce4dbe50bb38367e908692235275f4731d7",
+      "bytes": 1598564,
+      "version": 1,
+      "generationCost": 0.016632,
+      "usage": {
+        "input_tokens": 120,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 120
+        },
+        "output_tokens": 501,
+        "output_tokens_details": {
+          "image_tokens": 272,
+          "text_tokens": 229
+        },
+        "total_tokens": 621
+      },
+      "jobKey": "4fd76b9ac0219be0",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "1ff02f77be3d58ad987ef92a088a6ce4dbe50bb38367e908692235275f4731d7",
+        "bytes": 1598564,
+        "alphaCoverage": 0.3325,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_hex_games_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T06:06:17Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_hex_world": {
+      "assetId": "ui_hex_world",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nEmblem icon for a pet world hub: a small teal floating island globe with a paw-print shaped lake, tiny trees and a little portal arch.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "low",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "70b7439aa377b452afac2bc0a8357e77efd004d774c252f8770807f6b06338b9",
+      "bytes": 1706144,
+      "version": 1,
+      "generationCost": 0.015165,
+      "usage": {
+        "input_tokens": 121,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 121
+        },
+        "output_tokens": 455,
+        "output_tokens_details": {
+          "image_tokens": 272,
+          "text_tokens": 183
+        },
+        "total_tokens": 576
+      },
+      "jobKey": "c6428036822e271a",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "70b7439aa377b452afac2bc0a8357e77efd004d774c252f8770807f6b06338b9",
+        "bytes": 1706144,
+        "alphaCoverage": 0.4049,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_hex_world_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T06:06:27Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_hex_battle": {
+      "assetId": "ui_hex_battle",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nEmblem icon for starting a battle: two crossed stylized wooden training swords behind a shining golden five-point star shield.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "low",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "acde3a57a6edb8f10c70ea6fdcf5bb4d096a939c15891f3522ff748f60489ff1",
+      "bytes": 1688568,
+      "version": 1,
+      "generationCost": 0.015871,
+      "usage": {
+        "input_tokens": 115,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 115
+        },
+        "output_tokens": 478,
+        "output_tokens_details": {
+          "image_tokens": 272,
+          "text_tokens": 206
+        },
+        "total_tokens": 593
+      },
+      "jobKey": "e6f4168d48586dac",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "acde3a57a6edb8f10c70ea6fdcf5bb4d096a939c15891f3522ff748f60489ff1",
+        "bytes": 1688568,
+        "alphaCoverage": 0.3188,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_hex_battle_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T06:06:35Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_hex_social": {
+      "assetId": "ui_hex_social",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nEmblem icon for a social hub: a pink-violet speech bubble with a glossy heart inside, small sparkling stars and a tiny camera charm attached.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "low",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "a70ec1a334386237348f2fed8c5005c5a663e3a11df33219cbf2045d2fd14d45",
+      "bytes": 1567710,
+      "version": 1,
+      "generationCost": 0.015965,
+      "usage": {
+        "input_tokens": 121,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 121
+        },
+        "output_tokens": 480,
+        "output_tokens_details": {
+          "image_tokens": 272,
+          "text_tokens": 208
+        },
+        "total_tokens": 601
+      },
+      "jobKey": "ce264f0ff43d24db",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "a70ec1a334386237348f2fed8c5005c5a663e3a11df33219cbf2045d2fd14d45",
+        "bytes": 1567710,
+        "alphaCoverage": 0.3741,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_hex_social_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T06:06:43Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "skin_boy_starlight": {
+      "assetId": "skin_boy_starlight",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.\nExactly the same boy character as the reference image (same face, same chestnut spiky hair with the star cowlick, same teal eyes, same proportions, same pose, same position, same size and framing). Only the outfit changes to a new original 'Starlight Ranger' outfit: midnight-blue hooded cape with tiny embroidered silver stars, cream tunic with a lavender sash, dark navy trousers, silver-trimmed ankle boots, a small crescent-moon brooch. Keep the transparent background.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "d50330ce40b5e91b5a58a04a698094dbe019f9736829156db7d7f7eac5963609",
+      "bytes": 2116561,
+      "version": 1,
+      "generationCost": 0.117812,
+      "usage": {
+        "input_tokens": 6799,
+        "input_tokens_details": {
+          "image_tokens": 6563,
+          "text_tokens": 236
+        },
+        "output_tokens": 2004,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 420
+        },
+        "total_tokens": 8803
+      },
+      "jobKey": "9a7d6864c9237b65",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "d50330ce40b5e91b5a58a04a698094dbe019f9736829156db7d7f7eac5963609",
+        "bytes": 2116561,
+        "alphaCoverage": 0.3487,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/skin_boy_starlight_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T06:07:03Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "trainer_boy",
+      "history": []
+    },
+    "skin_girl_blossom": {
+      "assetId": "skin_girl_blossom",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.\nExactly the same girl character as the reference image (same face, same hair style and hair color, same eyes, same proportions, same pose, same position, same size and framing). Only the outfit changes to a new original 'Blossom Festival' outfit: soft peach short kimono-style jacket with a sakura-petal pattern, mint ribbon belt tied in a bow, white pleated skirt, pink knee socks, light brown sandals with flower clips, a small petal hair pin. Keep the transparent background.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "0b9bbfd15af2ad45cfdfd51739c40b439984ec0f77b8b93396ca79bd96c91e10",
+      "bytes": 2460010,
+      "version": 1,
+      "generationCost": 0.114873,
+      "usage": {
+        "input_tokens": 6800,
+        "input_tokens_details": {
+          "image_tokens": 6563,
+          "text_tokens": 237
+        },
+        "output_tokens": 1912,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 328
+        },
+        "total_tokens": 8712
+      },
+      "jobKey": "2a1d8bbf2d2ea517",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "0b9bbfd15af2ad45cfdfd51739c40b439984ec0f77b8b93396ca79bd96c91e10",
+        "bytes": 2460010,
+        "alphaCoverage": 0.3856,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/skin_girl_blossom_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T06:07:25Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "trainer_girl",
+      "history": []
+    },
+    "skin_boy_starlight_blink": {
+      "assetId": "skin_boy_starlight_blink",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.\nExactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: both eyes are gently closed in a blink (curved closed eyelids). Keep everything else pixel-identical.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "37b516522a0fefaa87c2684a86017f36a23ff96b81bec82a748a7bb5dda90aed",
+      "bytes": 2471316,
+      "version": 1,
+      "generationCost": 0.115696,
+      "usage": {
+        "input_tokens": 6747,
+        "input_tokens_details": {
+          "image_tokens": 6563,
+          "text_tokens": 184
+        },
+        "output_tokens": 1946,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 362
+        },
+        "total_tokens": 8693
+      },
+      "jobKey": "4b3b93b748ca9ce0",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "37b516522a0fefaa87c2684a86017f36a23ff96b81bec82a748a7bb5dda90aed",
+        "bytes": 2471316,
+        "alphaCoverage": 0.3489,
+        "issues": [
+          "subject touches canvas edge (bbox (1, 0, 1024, 1535)) - possible crop"
+        ],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/skin_boy_starlight_blink_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T06:07:58Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "skin_boy_starlight",
+      "history": []
+    },
+    "skin_boy_starlight_happy": {
+      "assetId": "skin_boy_starlight_happy",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.\nExactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: a big happy open-mouth smile with happy curved eyes. Keep everything else identical.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "7cecbd3b39ce83c7c620a0a46b75b6db226720f6a72bcde3f332df40e4a8300e",
+      "bytes": 2467836,
+      "version": 1,
+      "generationCost": 0.113586,
+      "usage": {
+        "input_tokens": 6741,
+        "input_tokens_details": {
+          "image_tokens": 6563,
+          "text_tokens": 178
+        },
+        "output_tokens": 1881,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 297
+        },
+        "total_tokens": 8622
+      },
+      "jobKey": "b99e82a501349432",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "7cecbd3b39ce83c7c620a0a46b75b6db226720f6a72bcde3f332df40e4a8300e",
+        "bytes": 2467836,
+        "alphaCoverage": 0.3498,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/skin_boy_starlight_happy_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T06:08:16Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "skin_boy_starlight",
+      "history": []
+    },
+    "skin_girl_blossom_blink": {
+      "assetId": "skin_girl_blossom_blink",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.\nExactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: both eyes are gently closed in a blink (curved closed eyelids). Keep everything else pixel-identical.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "d2a3e480f8a5b1a6238c5a5d4745dea62f209253e2830a905948a2f9c03b5acc",
+      "bytes": 2583301,
+      "version": 1,
+      "generationCost": 0.11432,
+      "usage": {
+        "input_tokens": 6747,
+        "input_tokens_details": {
+          "image_tokens": 6563,
+          "text_tokens": 184
+        },
+        "output_tokens": 1903,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 319
+        },
+        "total_tokens": 8650
+      },
+      "jobKey": "83145e1e329dc0f9",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "d2a3e480f8a5b1a6238c5a5d4745dea62f209253e2830a905948a2f9c03b5acc",
+        "bytes": 2583301,
+        "alphaCoverage": 0.3846,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/skin_girl_blossom_blink_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T06:08:34Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "skin_girl_blossom",
+      "history": []
+    },
+    "skin_girl_blossom_happy": {
+      "assetId": "skin_girl_blossom_happy",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.\nExactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: a big happy open-mouth smile with happy curved eyes. Keep everything else identical.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "7b5d4a2be12522d5ff7fc97bef40734d336e91a2c3dac50915ec597e017df9fb",
+      "bytes": 2597253,
+      "version": 1,
+      "generationCost": 0.11477,
+      "usage": {
+        "input_tokens": 6741,
+        "input_tokens_details": {
+          "image_tokens": 6563,
+          "text_tokens": 178
+        },
+        "output_tokens": 1918,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 334
+        },
+        "total_tokens": 8659
+      },
+      "jobKey": "204adaa28e7ba646",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "7b5d4a2be12522d5ff7fc97bef40734d336e91a2c3dac50915ec597e017df9fb",
+        "bytes": 2597253,
+        "alphaCoverage": 0.389,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/skin_girl_blossom_happy_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T06:08:51Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "skin_girl_blossom",
+      "history": []
     }
   }
 }

@@ -119,7 +119,7 @@ public static class PackEndpoints
         // Server-side RNG. Pack is consumed and the 5 cards are persisted in ONE transaction before the response
         // is sent; retries with the same Idempotency-Key replay the stored result.
         g.MapPost("/packs/open", (OpenPackRequest req, HttpContext ctx, PetStarDb db, GameData data,
-            EconomyService eco, IdempotencyService idem, CardFactory factory, AchievementService ach) =>
+            EconomyService eco, IdempotencyService idem, CardFactory factory, AchievementService ach, GuildService guilds) =>
             idem.Run(ctx, "packs.open", req, async () =>
             {
                 var (sid, mid) = ctx.User.Player();
@@ -141,6 +141,7 @@ public static class PackEndpoints
                     opening.Results.Add(new PackOpeningResult { OpeningId = opening.Id, Slot = rolled[i].Slot, CardId = cards[i].Id, FormId = cards[i].FormId, Rarity = cards[i].Rarity, Quality = cards[i].Quality, Finish = cards[i].Finish });
                 await db.SaveChangesAsync();
                 await ach.Evaluate(mid, sid, "pack_opened", "rare_obtained", "codex_count", "family_complete", "element_complete", "rare_owned_distinct");
+                await guilds.Progress(mid, "pack_open", 1);
                 return new PackOpeningDto { OpeningId = opening.Id, PackTypeId = p.Id, CreatedAt = opening.CreatedAt, Cards = cards.Select((c, i) => data.ToDto(c, rolled[i].Slot)).ToList() };
             }));
 

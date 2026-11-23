@@ -21,6 +21,8 @@ public static class AuctionEndpoints
                 await guard.EnsureAllowed(ctx.User.AccountId(), "market");
                 var m = data.Market;
                 if (!Currency.All.Contains(req.Currency)) throw ApiException.BadRequest("unknown_currency");
+                // the Pet market trades in Mini Green Beans only (in-game currency; never exchangeable for real money)
+                if (req.Currency != Currency.MiniGreenBean) throw ApiException.BadRequest("market_currency_beans_only");
                 if (req.StartPrice < m.L("listing", "minPrice") || req.StartPrice > m.L("listing", "maxPrice")) throw ApiException.BadRequest("price_out_of_range");
                 if (req.BuyoutPrice.HasValue && (req.BuyoutPrice < req.StartPrice || req.BuyoutPrice > m.L("listing", "maxPrice"))) throw ApiException.BadRequest("invalid_buyout");
                 if (req.Hours < m.L("auction", "minHours") || req.Hours > m.L("auction", "maxHours")) throw ApiException.BadRequest("invalid_duration");

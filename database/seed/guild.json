@@ -1,0 +1,38 @@
+{
+  "version": "guild-1",
+  "roles": ["leader", "vice", "officer", "elite", "member"],
+  "roleRank": { "leader": 5, "vice": 4, "officer": 3, "elite": 2, "member": 1 },
+  "levels": [0, 600, 1800, 3600, 6000, 9500, 14000, 20000, 28000, 38000],
+  "membersBase": 30,
+  "membersPerLevel": 3,
+  "emblems": ["emblem_star", "emblem_flame", "emblem_leaf", "emblem_wave", "emblem_bolt", "emblem_moon", "emblem_crown", "emblem_paw"],
+  "banners": ["banner_sky", "banner_sunset", "banner_forest", "banner_ocean", "banner_aurora", "banner_night"],
+  "missions": [
+    { "id": "gd_pve_wins", "period": "daily", "category": "pve", "kind": "pve_win", "target": 15, "guildExp": 120, "contribution": 10, "reward": { "MINI_GREEN_BEAN": 30 } },
+    { "id": "gd_pvp_battles", "period": "daily", "category": "pvp", "kind": "pvp_battle", "target": 8, "guildExp": 120, "contribution": 12, "reward": { "MINI_GREEN_BEAN": 30 } },
+    { "id": "gd_packs", "period": "daily", "category": "collection", "kind": "pack_open", "target": 5, "guildExp": 80, "contribution": 8, "reward": { "MINI_GREEN_BEAN": 20 } },
+    { "id": "gd_posts", "period": "daily", "category": "community", "kind": "post", "target": 5, "guildExp": 60, "contribution": 5, "reward": { "MINI_GREEN_BEAN": 15 } },
+    { "id": "gw_pve_wins", "period": "weekly", "category": "pve", "kind": "pve_win", "target": 80, "guildExp": 500, "contribution": 10, "reward": { "MINI_GREEN_BEAN": 120 } },
+    { "id": "gw_pvp_wins", "period": "weekly", "category": "pvp", "kind": "pvp_win", "target": 30, "guildExp": 500, "contribution": 15, "reward": { "MINI_GREEN_BEAN": 150 } },
+    { "id": "gw_evolutions", "period": "weekly", "category": "collection", "kind": "evolve", "target": 10, "guildExp": 400, "contribution": 12, "reward": { "MINI_GREEN_BEAN": 100 } },
+    { "id": "gw_boss", "period": "weekly", "category": "pve", "kind": "boss_attack", "target": 40, "guildExp": 600, "contribution": 10, "reward": { "MINI_GREEN_BEAN": 150 } },
+    { "id": "gw_showcases", "period": "weekly", "category": "community", "kind": "showcase", "target": 10, "guildExp": 300, "contribution": 8, "reward": { "MINI_GREEN_BEAN": 80 } }
+  ],
+  "boss": {
+    "attacksPerDay": 3,
+    "rounds": 8,
+    "bosses": [
+      { "id": "gboss_ember_titan", "formId": "pet_calderon", "hpBase": 400000, "hpPerLevel": 80000, "minions": ["pet_magmite", "pet_emberkit"] },
+      { "id": "gboss_tide_colossus", "formId": "pet_tidecrown", "hpBase": 420000, "hpPerLevel": 85000, "minions": ["pet_puddlotl", "pet_pupsplash"] }
+    ],
+    "rewardOnDefeat": { "MINI_GREEN_BEAN": 200 },
+    "guildExpOnDefeat": 1500
+  },
+  "war": {
+    "pointsWin": 3,
+    "pointsDraw": 1,
+    "battlesPerMemberPerDay": 3,
+    "rewards": { "win": { "MINI_GREEN_BEAN": 250 }, "draw": { "MINI_GREEN_BEAN": 150 }, "loss": { "MINI_GREEN_BEAN": 80 } },
+    "guildExp": { "win": 1200, "draw": 700, "loss": 300 }
+  }
+}

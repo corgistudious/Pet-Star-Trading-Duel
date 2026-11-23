@@ -352,13 +352,12 @@ public class CardSystemTests(ApiFactory f)
         await X.Fund(owner, seller, X.Beans, 1000);
         long eid = (await X.J(await seller.Post("/api/engravings/craft", new CraftEngravingRequest { Type = "hp" }, Player.Key()))).GetProperty("engraving").GetProperty("id").GetInt64();
         await Player.Ok(await seller.Post($"/api/cards/{card.Id}/engravings/equip", new EquipEngravingRequest { EngravingId = eid, Slot = 1 }, Player.Key()));
-        await X.Fund(owner, buyer, X.Stars, 1000);
-        long lid = (await X.J(await seller.Post("/api/market/listings", new CreateListingRequest { CardId = card.Id, Currency = X.Stars, Price = 300, ConfirmPriceWarning = true }, Player.Key()))).GetProperty("listingId").GetInt64();
+        await X.Fund(owner, buyer, X.Beans, 1000);
+        long lid = (await X.J(await seller.Post("/api/market/listings", new CreateListingRequest { CardId = card.Id, Currency = X.Beans, Price = 300, ConfirmPriceWarning = true }, Player.Key()))).GetProperty("listingId").GetInt64();
         Assert.Equal("card_busy", await Player.Code(await Up(seller, card.Id, "enhance", 12)));   // listed cards cannot be changed
-        long totalBefore = X.Bal(await seller.Me(), X.Stars) + X.Bal(await buyer.Me(), X.Stars);
         await Player.Ok(await buyer.Post("/api/market/buy", new BuyRequest { ListingId = lid, ExpectedPrice = 300 }, Player.Key()));
-        long totalAfter = X.Bal(await seller.Me(), X.Stars) + X.Bal(await buyer.Me(), X.Stars);
-        Assert.Equal(totalBefore - 9, totalAfter);   // only the 3 % fee leaves; nothing is created
+        // the sale's own ledger rows: buyer -300, seller +291; only the 3 % fee leaves, nothing is created
+        Assert.Equal(-9, await f.Scalar<long>("SELECT sum(delta) FROM economy_ledger WHERE ref_id = @p0", "listing:" + lid));
         var c = await buyer.Get<CardDto>($"/api/cards/{card.Id}");
         Assert.Equal((7, 12, 4, 40, card.Serial), (c.Stars, c.EnhanceLevel, c.SkillLevel, c.Level, c.Serial));
         Assert.Single(c.Engravings);   // policy: equipped engravings travel with the card

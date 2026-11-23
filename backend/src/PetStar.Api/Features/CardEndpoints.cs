@@ -90,7 +90,7 @@ public static class CardEndpoints
 
         // Server-side evolution: same Card Instance ID, materials consumed exactly once (ledger ref = card + source form),
         // rarity unchanged, history + codex updated.
-        g.MapPost("/cards/{id:long}/evolve", (long id, HttpContext ctx, PetStarDb db, GameData data, EconomyService eco, IdempotencyService idem, AchievementService ach) =>
+        g.MapPost("/cards/{id:long}/evolve", (long id, HttpContext ctx, PetStarDb db, GameData data, EconomyService eco, IdempotencyService idem, AchievementService ach, GuildService guilds) =>
             idem.Run(ctx, "cards.evolve", new { id }, async () =>
             {
                 var (sid, mid) = ctx.User.Player();
@@ -117,6 +117,7 @@ public static class CardEndpoints
                 await db.SaveChangesAsync();
                 await GameData.DiscoverCodex(db, mid, next.Id, c.Id);
                 await ach.Evaluate(mid, sid, "evolution", "codex_count", "family_complete", "element_complete");
+                await guilds.Progress(mid, "evolve", 1);
                 return new { card = data.ToDto(c), fromFormId = form.Id, currencies = await eco.Balances(mid) };
             }));
 

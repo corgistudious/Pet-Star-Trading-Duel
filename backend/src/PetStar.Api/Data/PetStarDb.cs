@@ -61,6 +61,25 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
     public DbSet<CardEngraving> Engravings => Set<CardEngraving>();
     public DbSet<DuelDeck> DuelDecks => Set<DuelDeck>();
     public DbSet<TeamLineup> TeamLineups => Set<TeamLineup>();
+    public DbSet<CommentLike> CommentLikes => Set<CommentLike>();
+    public DbSet<ModerationQueueItem> ModerationQueue => Set<ModerationQueueItem>();
+    public DbSet<SocialSettings> SocialSettings => Set<SocialSettings>();
+    public DbSet<GuildInvite> GuildInvites => Set<GuildInvite>();
+    public DbSet<GuildLog> GuildLogs => Set<GuildLog>();
+    public DbSet<GuildContribution> GuildContributions => Set<GuildContribution>();
+    public DbSet<GuildMissionProgress> GuildMissionProgress => Set<GuildMissionProgress>();
+    public DbSet<GuildMissionClaim> GuildMissionClaims => Set<GuildMissionClaim>();
+    public DbSet<GuildBoss> GuildBosses => Set<GuildBoss>();
+    public DbSet<GuildBossAttack> GuildBossAttacks => Set<GuildBossAttack>();
+    public DbSet<GuildWarEntry> GuildWarEntries => Set<GuildWarEntry>();
+    public DbSet<LeaderboardSeason> LeaderboardSeasons => Set<LeaderboardSeason>();
+    public DbSet<LeaderboardSnapshot> LeaderboardSnapshots => Set<LeaderboardSnapshot>();
+    public DbSet<RankingReward> RankingRewards => Set<RankingReward>();
+    public DbSet<CosmeticOwned> Cosmetics => Set<CosmeticOwned>();
+    public DbSet<ShopPurchase> ShopPurchases => Set<ShopPurchase>();
+    public DbSet<TradeOffer> TradeOffers => Set<TradeOffer>();
+    public DbSet<MiniGameSession> MiniGameSessions => Set<MiniGameSession>();
+    public DbSet<ChatReadMarker> ChatReadMarkers => Set<ChatReadMarker>();
     public DbSet<TrainerProfile> TrainerProfiles => Set<TrainerProfile>();
     public DbSet<TrainerOutfitOwned> TrainerOutfits => Set<TrainerOutfitOwned>();
     public DbSet<ArenaCardVersion> ArenaCardVersions => Set<ArenaCardVersion>();
@@ -672,7 +691,7 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
         });
         b.Entity<GuildMember>(e =>
         {
-            e.ToTable("guild_members", t => t.HasCheckConstraint("ck_guild_role", "role IN ('leader','officer','member')"));
+            e.ToTable("guild_members", t => t.HasCheckConstraint("ck_guild_role", "role IN ('leader','vice','officer','elite','member')"));
             e.HasKey(x => new { x.GuildId, x.MembershipId });
             e.HasIndex(x => x.MembershipId).IsUnique();   // one guild per membership
             e.HasOne<Guild>().WithMany().HasForeignKey(x => x.GuildId).OnDelete(DeleteBehavior.Cascade);
@@ -748,5 +767,37 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
             MembershipFk(e, x => new { x.MembershipId, x.ServerId });
         });
         b.Entity<FeedPost>(e => e.HasIndex(x => x.GuildId));
+        b.Entity<FeedPost>(e => { e.HasIndex(x => new { x.ServerId, x.Visibility, x.Status, x.Id }); e.HasIndex(x => x.SharedFromPostId); });
+        b.Entity<FeedComment>(e => e.HasIndex(x => x.ParentId));
+        b.Entity<CommentLike>(e => { e.ToTable("feed_comment_likes"); e.HasKey(x => new { x.CommentId, x.MembershipId }); e.HasOne<FeedComment>().WithMany().HasForeignKey(x => x.CommentId); });
+        b.Entity<ModerationQueueItem>(e => { e.ToTable("moderation_queue"); e.HasIndex(x => new { x.ServerId, x.Status, x.CreatedAt }); e.HasIndex(x => new { x.TargetType, x.TargetId }); });
+        b.Entity<SocialSettings>(e => { e.ToTable("social_settings"); e.HasKey(x => x.MembershipId); MembershipFk(e, x => new { x.MembershipId, x.ServerId }); });
+        b.Entity<Guild>(e => { e.HasIndex(x => new { x.ServerId, x.Tag }).IsUnique().HasFilter("tag <> ''"); e.Property(x => x.Tag).HasMaxLength(5); });
+        b.Entity<GuildInvite>(e =>
+        {
+            e.ToTable("guild_invites");
+            e.HasIndex(x => new { x.GuildId, x.MembershipId }).HasFilter("status = 'pending'").IsUnique();
+            e.HasOne<Guild>().WithMany().HasForeignKey(x => x.GuildId).OnDelete(DeleteBehavior.Cascade);
+        });
+        b.Entity<GuildLog>(e => { e.ToTable("guild_logs"); e.Property(x => x.DataJson).HasColumnType("jsonb"); e.HasIndex(x => new { x.GuildId, x.Id }); });
+        b.Entity<GuildContribution>(e => { e.ToTable("guild_contributions"); e.HasKey(x => new { x.GuildId, x.MembershipId, x.PeriodKey }); e.Property(x => x.PeriodKey).HasMaxLength(16); e.HasIndex(x => new { x.PeriodKey, x.Points }); });
+        b.Entity<GuildMissionProgress>(e => { e.ToTable("guild_mission_progress"); e.HasKey(x => new { x.GuildId, x.MissionId, x.PeriodKey }); });
+        b.Entity<GuildMissionClaim>(e => { e.ToTable("guild_mission_claims"); e.HasKey(x => new { x.GuildId, x.MissionId, x.PeriodKey, x.MembershipId }); });
+        b.Entity<GuildBoss>(e => { e.ToTable("guild_bosses"); e.HasIndex(x => new { x.GuildId, x.PeriodKey }).IsUnique(); e.ToTable(t => t.HasCheckConstraint("ck_guild_boss_hp", "hp >= 0 AND hp <= max_hp")); });
+        b.Entity<GuildBossAttack>(e => { e.ToTable("guild_boss_attacks"); e.HasIndex(x => new { x.BossId, x.MembershipId, x.Day }); e.HasOne<GuildBoss>().WithMany().HasForeignKey(x => x.BossId).OnDelete(DeleteBehavior.Cascade); });
+        b.Entity<GuildWarEntry>(e => { e.ToTable("guild_war_entries"); e.HasIndex(x => new { x.PeriodKey, x.GuildId }).IsUnique(); });
+        b.Entity<LeaderboardSeason>(e => { e.ToTable("leaderboard_seasons"); e.HasIndex(x => new { x.ServerId, x.Key }).IsUnique(); });
+        b.Entity<LeaderboardSnapshot>(e => { e.ToTable("leaderboard_snapshots"); e.HasIndex(x => new { x.SeasonId, x.Board, x.Rank }).IsUnique(); });
+        b.Entity<RankingReward>(e => { e.ToTable("ranking_rewards"); e.Property(x => x.RewardJson).HasColumnType("jsonb"); e.HasIndex(x => new { x.SeasonId, x.Board, x.MembershipId }).IsUnique(); });
+        b.Entity<CosmeticOwned>(e => { e.ToTable("cosmetics_owned"); e.HasKey(x => new { x.MembershipId, x.ItemId }); e.HasOne<ServerMembership>().WithMany().HasForeignKey(x => x.MembershipId).OnDelete(DeleteBehavior.Restrict); });
+        b.Entity<ShopPurchase>(e => { e.ToTable("shop_purchases"); e.HasIndex(x => new { x.MembershipId, x.IdempotencyKey }).IsUnique(); e.HasIndex(x => new { x.MembershipId, x.At }); });
+        b.Entity<TradeOffer>(e =>
+        {
+            e.ToTable("trade_offers");
+            e.Property(x => x.OfferCardIds).HasColumnType("jsonb"); e.Property(x => x.RequestCardIds).HasColumnType("jsonb");
+            e.HasIndex(x => new { x.ToMembershipId, x.Status }); e.HasIndex(x => new { x.FromMembershipId, x.Status });
+        });
+        b.Entity<MiniGameSession>(e => { e.ToTable("minigame_sessions"); e.Property(x => x.RewardJson).HasColumnType("jsonb"); e.HasIndex(x => new { x.MembershipId, x.Day }); e.HasIndex(x => new { x.Game, x.Score }); });
+        b.Entity<ChatReadMarker>(e => { e.ToTable("chat_read_markers"); e.HasKey(x => new { x.MembershipId, x.Channel }); e.Property(x => x.Channel).HasMaxLength(64); });
     }
 }

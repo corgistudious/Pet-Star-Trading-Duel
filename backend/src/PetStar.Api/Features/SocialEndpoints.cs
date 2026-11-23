@@ -202,6 +202,7 @@ public static class SocialEndpoints
             if (await db.Reports.CountAsync(r => r.ReporterMembershipId == mid && r.CreatedAt > DateTimeOffset.UtcNow.AddHours(-1)) >= 20) throw new ApiException(429, "too_many_reports");
             db.Reports.Add(new UserReport { ServerId = sid, ReporterMembershipId = mid, TargetType = req.TargetType, TargetId = req.TargetId, Reason = req.Reason, Details = details, CreatedAt = DateTimeOffset.UtcNow });
             try { await db.SaveChangesAsync(); } catch (DbUpdateException) { throw ApiException.Conflict("already_reported"); }
+            await SocialModerationEndpoints.OnReport(db, sid, req.TargetType, req.TargetId);
             return Results.Ok(new { reported = true });
         });
     }

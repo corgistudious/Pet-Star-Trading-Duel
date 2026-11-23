@@ -307,6 +307,16 @@ public class FeedPost
     public bool Featured { get; set; }
     public int LikeCount { get; set; }
     public int CommentCount { get; set; }
+    /// <summary>public | friends | guild | private. Guild posts also carry GuildId.</summary>
+    public string Visibility { get; set; } = "public";
+    public long? SharedFromPostId { get; set; }
+    public int ShareCount { get; set; }
+    public bool Pinned { get; set; }
+    public DateTimeOffset? EditedAt { get; set; }
+    /// <summary>Pet Showcase kind (rare | new_pack | evolved | companion | team | element | theme); null for normal posts.</summary>
+    public string? ShowcaseKind { get; set; }
+    /// <summary>Highest rarity among attached cards, derived on the server (never from the client).</summary>
+    public int MaxRarity { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
 }
 
@@ -343,6 +353,9 @@ public class FeedComment
     public string Text { get; set; } = "";
     public string Status { get; set; } = "visible";
     public DateTimeOffset CreatedAt { get; set; }
+    /// <summary>One reply level: replies point at a top-level comment.</summary>
+    public long? ParentId { get; set; }
+    public int LikeCount { get; set; }
 }
 
 public class ModerationAction

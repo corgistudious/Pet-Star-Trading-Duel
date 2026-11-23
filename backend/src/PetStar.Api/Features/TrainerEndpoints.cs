@@ -57,7 +57,7 @@ public static class TrainerEndpoints
             var (_, mid) = ctx.User.Player();
             var p = await db.TrainerProfiles.FirstOrDefaultAsync(x => x.MembershipId == mid) ?? throw ApiException.Conflict("trainer_not_chosen");
             var o = rp.Trainers.Outfits.FirstOrDefault(x => x.Id == req.OutfitId) ?? throw ApiException.BadRequest("unknown_outfit");
-            if (o.CharacterId != p.CharacterId) throw ApiException.Conflict("outfit_wrong_character");
+            if (o.CharacterId != "*" && o.CharacterId != p.CharacterId) throw ApiException.Conflict("outfit_wrong_character");
             if (!await db.TrainerOutfits.AnyAsync(x => x.MembershipId == mid && x.OutfitId == o.Id)) throw ApiException.Conflict("outfit_not_owned");
             p.OutfitId = o.Id; p.UpdatedAt = DateTimeOffset.UtcNow;
             await db.SaveChangesAsync();

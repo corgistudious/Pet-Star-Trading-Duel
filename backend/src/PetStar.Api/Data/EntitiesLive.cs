@@ -15,13 +15,21 @@ public class Guild
     public int MaxMembers { get; set; } = 30;
     public long LeaderMembershipId { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
+    public string Tag { get; set; } = "";
+    public string EmblemId { get; set; } = "emblem_star";
+    public string BannerId { get; set; } = "banner_sky";
+    /// <summary>public (listed in search) | private (invite only).</summary>
+    public string Visibility { get; set; } = "public";
+    public int MinLevel { get; set; } = 1;
+    public int Level { get; set; } = 1;
+    public long Exp { get; set; }
 }
 
 public class GuildMember
 {
     public long GuildId { get; set; }
     public long MembershipId { get; set; }
-    public string Role { get; set; } = "member";        // leader | officer | member
+    public string Role { get; set; } = "member";        // leader (Guild Master) | vice | officer | elite | member
     public DateTimeOffset JoinedAt { get; set; }
 }
 

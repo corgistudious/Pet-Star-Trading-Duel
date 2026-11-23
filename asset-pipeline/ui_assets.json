@@ -1,289 +1,362 @@
 {
-  "style": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.",
-  "assets": [
-    {
-      "id": "ui_currency_rainbow_star",
-      "quality": "high",
-      "prompt": "A single five-pointed crystal star icon. The star is faceted translucent crystal with rainbow refraction across its facets (red, orange, yellow, green, cyan, blue, violet blending smoothly), framed by a thick polished gold rim with soft bevel, bright specular highlights and a few tiny sparkles around it. Slightly plump rounded points for a cute chibi feel."
-    },
-    {
-      "id": "ui_currency_mini_green_bean",
-      "quality": "high",
-      "prompt": "A single small plump mung-bean-shaped icon, glossy jade green (emerald to mint gradient), very shiny with a big soft specular highlight, smooth kidney bean shape, with one tiny fresh light-green sprout leaf growing from the top. Cute, round, juicy and sharp."
-    },
-    {
-      "id": "ui_currency_rainbow_star_cluster",
-      "quality": "medium",
-      "reference": "ui_currency_rainbow_star",
-      "prompt": "Using the exact same rainbow crystal star with gold rim from the reference image, create a small pile of five of those stars of slightly different sizes overlapping, with tiny sparkles. Keep identical materials, colors and rendering style."
-    },
-    {
-      "id": "ui_currency_mini_green_bean_cluster",
-      "quality": "medium",
-      "reference": "ui_currency_mini_green_bean",
-      "prompt": "Using the exact same glossy jade green bean from the reference image, create a small heap of about seven of those beans, a couple of them with the tiny sprout leaf. Keep identical materials, colors and rendering style."
-    },
-    {
-      "id": "ui_currency_rainbow_star_bag",
-      "quality": "medium",
-      "reference": "ui_currency_rainbow_star",
-      "prompt": "A cute plump royal purple velvet drawstring pouch tied with a gold cord, open at the top and overflowing with the exact same rainbow crystal stars with gold rims from the reference image, two stars spilling in front. Keep identical star materials and rendering style."
-    },
-    {
-      "id": "ui_currency_mini_green_bean_bag",
-      "quality": "medium",
-      "reference": "ui_currency_mini_green_bean",
-      "prompt": "A cute plump cream-colored burlap drawstring sack tied with twine, with a small green leaf emblem stitched on it, open at the top and overflowing with the exact same glossy jade green beans from the reference image, a few beans spilling in front. Keep identical bean materials and rendering style."
-    },
-    {
-      "id": "ui_currency_rainbow_star_chest",
-      "quality": "medium",
-      "reference": "ui_currency_rainbow_star",
-      "prompt": "A cute chunky treasure chest with magenta-violet lacquered panels and ornate gold trim, lid open, filled to overflowing with the exact same rainbow crystal stars with gold rims from the reference image, soft magical glow from inside. Keep identical star materials and rendering style."
-    },
-    {
-      "id": "ui_currency_mini_green_bean_chest",
-      "quality": "medium",
-      "reference": "ui_currency_mini_green_bean",
-      "prompt": "A cute chunky wooden treasure chest with warm honey-brown planks and bronze corner fittings, lid open, filled to overflowing with the exact same glossy jade green beans from the reference image, a few small green leaves among them. Keep identical bean materials and rendering style."
-    },
-    {
-      "id": "ui_pack_basic",
-      "quality": "medium",
-      "size": "1024x1536",
-      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in sky blue and white with sapphire accents and a large stylized golden five-pointed star emblem in the center, soft sparkles on the foil, cute and premium, no text, no letters, no logos besides the abstract star."
-    },
-    {
-      "id": "ui_pack_premium",
-      "quality": "medium",
-      "size": "1024x1536",
-      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in royal purple and rose-gold with a large stylized rainbow crystal five-pointed star emblem in the center surrounded by small gold sparkles, luxurious and premium, no text, no letters, no logos besides the abstract star."
-    },
-    {
-      "id": "bg_lobby_portrait",
-      "quality": "medium",
-      "size": "1024x1536",
-      "background": "opaque",
-      "prompt": "Premium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a floating cozy sky island plaza with soft clouds, rounded white stone paths, little pastel gardens and a gentle golden glow at the horizon, viewed from slightly above, portrait composition."
-    },
-    {
-      "id": "bg_lobby_landscape",
-      "quality": "medium",
-      "size": "1536x1024",
-      "background": "opaque",
-      "prompt": "Premium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a floating cozy sky island plaza with soft clouds, rounded white stone paths, little pastel gardens and a gentle golden glow at the horizon, viewed from slightly above, wide landscape composition."
-    },
-    {
-      "id": "bg_pack_opening",
-      "quality": "medium",
-      "size": "1024x1536",
-      "background": "opaque",
-      "prompt": "Premium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a soft radiant spotlight stage among clouds with a circular pedestal glow in the center and floating light motes, portrait composition, the center must stay calm and empty."
-    },
-    {
-      "id": "bg_duel_board_landscape",
-      "quality": "medium",
-      "size": "1536x1024",
-      "background": "opaque",
-      "prompt": "Premium HD 2D game background illustration, clean and bright, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, no characters, no creatures, no text, no letters, no UI, no watermark, original design. Scene: top-down view of an elegant magical duel table of polished pale marble with a thin sapphire and gold geometric border and a soft glowing divider line down the vertical center. The playing surface is EMPTY: no card slots, no markings, no circles, no squares, only subtle marble veins and faint sparkles, wide landscape composition."
-    },
-    {
-      "id": "bg_duel_board_portrait",
-      "quality": "medium",
-      "size": "1024x1536",
-      "background": "opaque",
-      "prompt": "Premium HD 2D game background illustration, clean and bright, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, no characters, no creatures, no text, no letters, no UI, no watermark, original design. Scene: top-down view of an elegant magical duel table of polished pale marble with a thin sapphire and gold geometric border and a soft glowing divider line across the horizontal center. The playing surface is EMPTY: no card slots, no markings, no circles, no squares, only subtle marble veins and faint sparkles, portrait composition."
-    },
-    {
-      "id": "ui_pack_transcendent",
-      "quality": "medium",
-      "size": "1024x1536",
-      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in teal and brushed silver with a large stylized winged five-pointed star emblem in the center, soft aurora sparkles drifting across the foil, cute and premium, no text, no letters, no numbers, no logo."
-    },
-    {
-      "id": "ui_pack_epic",
-      "quality": "medium",
-      "size": "1024x1536",
-      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in deep violet and polished silver with a large faceted amethyst crystal star emblem in the center, small violet light glints on the foil, cute and premium, no text, no letters, no numbers, no logo."
-    },
-    {
-      "id": "ui_pack_legendary",
-      "quality": "medium",
-      "size": "1024x1536",
-      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in crimson red and rich gold with a large golden star emblem framed by a laurel wreath in the center, warm golden sparkles on the foil, cute and premium, no text, no letters, no numbers, no logo."
-    },
-    {
-      "id": "ui_pack_mythic",
-      "quality": "medium",
-      "size": "1024x1536",
-      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in midnight blue and iridescent pearl with a large crowned star emblem glowing with pearlescent light in the center, iridescent shimmer bands across the foil, cute and premium, no text, no letters, no numbers, no logo."
-    },
-    {
-      "id": "ui_pack_divine_premium",
-      "quality": "medium",
-      "size": "1024x1536",
-      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in pure white and polished gold with diamond inlays with a large faceted diamond star crest in the center, brilliant diamond sparkles and a luxurious golden glow, cute and premium, no text, no letters, no numbers, no logo."
-    },
-    {
-      "id": "ui_pack_divine_limited",
-      "quality": "medium",
-      "size": "1024x1536",
-      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in festival red and gold with a satin ribbon band with a large star emblem sealed with a ribbon rosette and tiny paper lantern motifs in the center, celebratory confetti sparkles, a limited edition feel, cute and premium, no text, no letters, no numbers, no logo."
-    },
-    {
-      "id": "ui_pack_divine_star",
-      "quality": "medium",
-      "size": "1024x1536",
-      "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in a deep cosmic galaxy print of purple, blue and black with a large radiant star crest surrounded by a constellation pattern in the center, twinkling starlight and a soft nebula glow, cute and premium, no text, no letters, no numbers, no logo."
-    },
-    {
-      "id": "ui_mat_pet_shard",
-      "quality": "medium",
-      "prompt": "A single glowing crystal shard shaped like a cute paw print, translucent sky blue with a golden inner glow and tiny sparkles."
-    },
-    {
-      "id": "ui_mat_enhance_stone",
-      "quality": "medium",
-      "prompt": "A single faceted enhancement gemstone, sapphire blue with a thin gold band and a softly glowing rune engraved on its face (an abstract symbol, not a letter)."
-    },
-    {
-      "id": "ui_mat_breakthrough_core",
-      "quality": "medium",
-      "prompt": "A single round energy core orb with a cracked golden shell and bright white-gold light bursting through the cracks."
-    },
-    {
-      "id": "ui_mat_awakening_crystal",
-      "quality": "medium",
-      "prompt": "A single prismatic crystal blooming like a flower, rainbow refraction, radiant white light at its heart, a few floating light motes."
-    },
-    {
-      "id": "ui_mat_engraving_dust",
-      "quality": "medium",
-      "prompt": "A small cute drawstring pouch spilling glittering violet and gold sigil dust that sparkles in the air."
-    },
-    {
-      "id": "ui_mat_training_scroll",
-      "quality": "medium",
-      "prompt": "A single rolled training scroll tied with a red ribbon, parchment with faint abstract skill diagrams (no letters), small golden end caps."
-    },
-    {
-      "id": "ui_crest_premium",
-      "quality": "medium",
-      "prompt": "A small heraldic crest badge: a faceted white diamond set in an ornate polished gold frame with tiny gem accents, luxurious."
-    },
-    {
-      "id": "ui_crest_limited",
-      "quality": "medium",
-      "prompt": "A small seal badge: a gold medallion with a satin red ribbon rosette and a tiny star in the middle, festive limited edition feel."
-    },
-    {
-      "id": "ui_crest_star",
-      "quality": "medium",
-      "prompt": "A small crest badge: a radiant star inside a ring of tiny constellations on a deep purple-blue cosmic disc with a silver rim."
-    },
-    {
-      "id": "trainer_boy",
-      "style": "character",
-      "quality": "medium",
-      "size": "1024x1536",
-      "prompt": "A cheerful young boy pet trainer for the game Pet Star. Soft chestnut-brown hair in fluffy spikes with one star-shaped cowlick on top, big bright teal eyes, small smile with rosy cheeks. Outfit: sky-blue short explorer jacket with rolled sleeves and a small gold five-point star badge on the chest, white T-shirt, navy knee-length shorts with a brown belt holding a little card case, orange-and-white sneakers, a teal scarf. Relaxed friendly standing pose, three-quarter view facing slightly to the right, arms relaxed at the sides."
-    },
-    {
-      "id": "trainer_girl",
-      "style": "character",
-      "quality": "medium",
-      "size": "1024x1536",
-      "prompt": "A cheerful young girl pet trainer for the game Pet Star. Long lavender-pink hair in two high twin tails tied with gold star-shaped clips, side bangs, big warm amber eyes, small open smile with rosy cheeks. Outfit: mint-green and white explorer cape-dress with gold trim, a short white capelet, a cream belt with a heart-shaped card pouch, white leggings and light-brown ankle boots, a small star hairpin. Relaxed friendly standing pose, three-quarter view facing slightly to the right, hands loosely together in front."
-    },
-    {
-      "id": "trainer_boy_blink",
-      "style": "character",
-      "quality": "medium",
-      "size": "1024x1536",
-      "reference": "trainer_boy",
-      "prompt": "Exactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: both eyes are gently closed in a blink (curved closed eyelids). Keep everything else pixel-identical."
-    },
-    {
-      "id": "trainer_girl_blink",
-      "style": "character",
-      "quality": "medium",
-      "size": "1024x1536",
-      "reference": "trainer_girl",
-      "prompt": "Exactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: both eyes are gently closed in a blink (curved closed eyelids). Keep everything else pixel-identical."
-    },
-    {
-      "id": "trainer_boy_happy",
-      "style": "character",
-      "quality": "medium",
-      "size": "1024x1536",
-      "reference": "trainer_boy",
-      "prompt": "Exactly the same character, same outfit, same colors, same position, size and framing as the reference image, but now very happy: eyes closed in joyful upside-down U arcs, big open smile, one hand raised waving above the shoulder. Feet stay in the same place."
-    },
-    {
-      "id": "trainer_girl_happy",
-      "style": "character",
-      "quality": "medium",
-      "size": "1024x1536",
-      "reference": "trainer_girl",
-      "prompt": "Exactly the same character, same outfit, same colors, same position, size and framing as the reference image, but now very happy: eyes closed in joyful upside-down U arcs, big open smile, one hand raised waving above the shoulder. Feet stay in the same place."
-    },
-    {
-      "id": "bg_lobby_main",
-      "style": "scene",
-      "quality": "medium",
-      "size": "1536x1024",
-      "background": "opaque",
-      "prompt": "A magical floating-island town square at golden dusk for the game Pet Star. A wide open sunlit plaza of pale stone tiles in the left half and center foreground (empty, for characters to stand), with a glowing five-point-star mosaic on the floor. Behind: whimsical fairy-tale houses with rounded teal and coral roofs, a tall crystal clock tower topped by a golden star, blossoming pink trees, hanging paper-star lanterns glowing warm gold, a waterfall falling off the island edge, small floating islands and soft pink-orange clouds in a twilight sky with a few early stars. The right third of the image is calmer (sky, distant islands) so menu buttons can be placed there. Wide landscape composition, eye-level camera, gentle depth of field on the far background."
-    },
-    {
-      "id": "ui_podium",
-      "quality": "medium",
-      "size": "1536x1024",
-      "prompt": "A round display pedestal seen from slightly above: a wide low cylinder of white marble with a polished gold rim, a softly glowing ring of small star runes around its top edge in cyan light, a faint golden star emblem engraved in the middle of the flat top surface, small floating sparkles. Wide and flat, centered."
-    },
-    {
-      "id": "ui_icon_mail",
-      "quality": "low",
-      "prompt": "A cute plump envelope letter with a pink heart wax seal and a tiny gold star, slightly open with a paper peeking out."
-    },
-    {
-      "id": "ui_icon_friends",
-      "quality": "low",
-      "prompt": "Two cute round chibi creature heads side by side, one cream kitten-like with star cheeks and one mint bunny-like, smiling, a small heart between them."
-    },
-    {
-      "id": "ui_icon_starter_gift",
-      "quality": "low",
-      "prompt": "A sparkling treasure gift box with a big red ribbon bow and a small sprout leaf on top, lid slightly lifting with golden light rays."
-    },
-    {
-      "id": "ui_icon_center",
-      "quality": "low",
-      "prompt": "A floating open magic book with blue cover and a glowing info crystal (light-blue diamond) hovering above its pages."
-    },
-    {
-      "id": "ui_icon_gifts",
-      "quality": "low",
-      "prompt": "A stack of three colorful present boxes (pink, yellow, purple) with ribbons and confetti sparkles."
-    },
-    {
-      "id": "ui_icon_season",
-      "quality": "low",
-      "prompt": "A shiny golden laurel medal with a star in the center hanging on a purple ribbon, like a season pass emblem."
-    },
-    {
-      "id": "ui_icon_events",
-      "quality": "low",
-      "prompt": "A cute calendar page with a big gold star sticker and a small firework burst behind it."
-    },
-    {
-      "id": "ui_icon_shop",
-      "quality": "low",
-      "prompt": "A tiny cute market stall with a red-and-white striped awning, little card packs and potion bottles on the counter."
-    }
-  ],
-  "styles": {
-    "character": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.",
-    "scene": "Premium HD 2D painted mobile game background, original fantasy setting, bright saturated colors with depth, soft volumetric light, crisp details, no characters, no people, no animals, no text, no letters, no UI, no logo, no watermark, not based on or copied from any existing game."
+ "style": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.",
+ "assets": [
+  {
+   "id": "ui_currency_rainbow_star",
+   "quality": "high",
+   "prompt": "A single five-pointed crystal star icon. The star is faceted translucent crystal with rainbow refraction across its facets (red, orange, yellow, green, cyan, blue, violet blending smoothly), framed by a thick polished gold rim with soft bevel, bright specular highlights and a few tiny sparkles around it. Slightly plump rounded points for a cute chibi feel."
+  },
+  {
+   "id": "ui_currency_mini_green_bean",
+   "quality": "high",
+   "prompt": "A single small plump mung-bean-shaped icon, glossy jade green (emerald to mint gradient), very shiny with a big soft specular highlight, smooth kidney bean shape, with one tiny fresh light-green sprout leaf growing from the top. Cute, round, juicy and sharp."
+  },
+  {
+   "id": "ui_currency_rainbow_star_cluster",
+   "quality": "medium",
+   "reference": "ui_currency_rainbow_star",
+   "prompt": "Using the exact same rainbow crystal star with gold rim from the reference image, create a small pile of five of those stars of slightly different sizes overlapping, with tiny sparkles. Keep identical materials, colors and rendering style."
+  },
+  {
+   "id": "ui_currency_mini_green_bean_cluster",
+   "quality": "medium",
+   "reference": "ui_currency_mini_green_bean",
+   "prompt": "Using the exact same glossy jade green bean from the reference image, create a small heap of about seven of those beans, a couple of them with the tiny sprout leaf. Keep identical materials, colors and rendering style."
+  },
+  {
+   "id": "ui_currency_rainbow_star_bag",
+   "quality": "medium",
+   "reference": "ui_currency_rainbow_star",
+   "prompt": "A cute plump royal purple velvet drawstring pouch tied with a gold cord, open at the top and overflowing with the exact same rainbow crystal stars with gold rims from the reference image, two stars spilling in front. Keep identical star materials and rendering style."
+  },
+  {
+   "id": "ui_currency_mini_green_bean_bag",
+   "quality": "medium",
+   "reference": "ui_currency_mini_green_bean",
+   "prompt": "A cute plump cream-colored burlap drawstring sack tied with twine, with a small green leaf emblem stitched on it, open at the top and overflowing with the exact same glossy jade green beans from the reference image, a few beans spilling in front. Keep identical bean materials and rendering style."
+  },
+  {
+   "id": "ui_currency_rainbow_star_chest",
+   "quality": "medium",
+   "reference": "ui_currency_rainbow_star",
+   "prompt": "A cute chunky treasure chest with magenta-violet lacquered panels and ornate gold trim, lid open, filled to overflowing with the exact same rainbow crystal stars with gold rims from the reference image, soft magical glow from inside. Keep identical star materials and rendering style."
+  },
+  {
+   "id": "ui_currency_mini_green_bean_chest",
+   "quality": "medium",
+   "reference": "ui_currency_mini_green_bean",
+   "prompt": "A cute chunky wooden treasure chest with warm honey-brown planks and bronze corner fittings, lid open, filled to overflowing with the exact same glossy jade green beans from the reference image, a few small green leaves among them. Keep identical bean materials and rendering style."
+  },
+  {
+   "id": "ui_pack_basic",
+   "quality": "medium",
+   "size": "1024x1536",
+   "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in sky blue and white with sapphire accents and a large stylized golden five-pointed star emblem in the center, soft sparkles on the foil, cute and premium, no text, no letters, no logos besides the abstract star."
+  },
+  {
+   "id": "ui_pack_premium",
+   "quality": "medium",
+   "size": "1024x1536",
+   "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in royal purple and rose-gold with a large stylized rainbow crystal five-pointed star emblem in the center surrounded by small gold sparkles, luxurious and premium, no text, no letters, no logos besides the abstract star."
+  },
+  {
+   "id": "bg_lobby_portrait",
+   "quality": "medium",
+   "size": "1024x1536",
+   "background": "opaque",
+   "prompt": "Premium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a floating cozy sky island plaza with soft clouds, rounded white stone paths, little pastel gardens and a gentle golden glow at the horizon, viewed from slightly above, portrait composition."
+  },
+  {
+   "id": "bg_lobby_landscape",
+   "quality": "medium",
+   "size": "1536x1024",
+   "background": "opaque",
+   "prompt": "Premium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a floating cozy sky island plaza with soft clouds, rounded white stone paths, little pastel gardens and a gentle golden glow at the horizon, viewed from slightly above, wide landscape composition."
+  },
+  {
+   "id": "bg_pack_opening",
+   "quality": "medium",
+   "size": "1024x1536",
+   "background": "opaque",
+   "prompt": "Premium HD 2D game background illustration, simple and bright, minimal and uncluttered, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, subtle depth, lots of calm empty space for UI overlays in the center, no characters, no creatures, no text, no letters, no UI, no frames, no watermark, original design. Scene: a soft radiant spotlight stage among clouds with a circular pedestal glow in the center and floating light motes, portrait composition, the center must stay calm and empty."
+  },
+  {
+   "id": "bg_duel_board_landscape",
+   "quality": "medium",
+   "size": "1536x1024",
+   "background": "opaque",
+   "prompt": "Premium HD 2D game background illustration, clean and bright, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, no characters, no creatures, no text, no letters, no UI, no watermark, original design. Scene: top-down view of an elegant magical duel table of polished pale marble with a thin sapphire and gold geometric border and a soft glowing divider line down the vertical center. The playing surface is EMPTY: no card slots, no markings, no circles, no squares, only subtle marble veins and faint sparkles, wide landscape composition."
+  },
+  {
+   "id": "bg_duel_board_portrait",
+   "quality": "medium",
+   "size": "1024x1536",
+   "background": "opaque",
+   "prompt": "Premium HD 2D game background illustration, clean and bright, soft pastel palette of white, light sky blue and sapphire with gentle warm gold accents, soft dreamy lighting, no characters, no creatures, no text, no letters, no UI, no watermark, original design. Scene: top-down view of an elegant magical duel table of polished pale marble with a thin sapphire and gold geometric border and a soft glowing divider line across the horizontal center. The playing surface is EMPTY: no card slots, no markings, no circles, no squares, only subtle marble veins and faint sparkles, portrait composition."
+  },
+  {
+   "id": "ui_pack_transcendent",
+   "quality": "medium",
+   "size": "1024x1536",
+   "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in teal and brushed silver with a large stylized winged five-pointed star emblem in the center, soft aurora sparkles drifting across the foil, cute and premium, no text, no letters, no numbers, no logo."
+  },
+  {
+   "id": "ui_pack_epic",
+   "quality": "medium",
+   "size": "1024x1536",
+   "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in deep violet and polished silver with a large faceted amethyst crystal star emblem in the center, small violet light glints on the foil, cute and premium, no text, no letters, no numbers, no logo."
+  },
+  {
+   "id": "ui_pack_legendary",
+   "quality": "medium",
+   "size": "1024x1536",
+   "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in crimson red and rich gold with a large golden star emblem framed by a laurel wreath in the center, warm golden sparkles on the foil, cute and premium, no text, no letters, no numbers, no logo."
+  },
+  {
+   "id": "ui_pack_mythic",
+   "quality": "medium",
+   "size": "1024x1536",
+   "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in midnight blue and iridescent pearl with a large crowned star emblem glowing with pearlescent light in the center, iridescent shimmer bands across the foil, cute and premium, no text, no letters, no numbers, no logo."
+  },
+  {
+   "id": "ui_pack_divine_premium",
+   "quality": "medium",
+   "size": "1024x1536",
+   "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in pure white and polished gold with diamond inlays with a large faceted diamond star crest in the center, brilliant diamond sparkles and a luxurious golden glow, cute and premium, no text, no letters, no numbers, no logo."
+  },
+  {
+   "id": "ui_pack_divine_limited",
+   "quality": "medium",
+   "size": "1024x1536",
+   "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in festival red and gold with a satin ribbon band with a large star emblem sealed with a ribbon rosette and tiny paper lantern motifs in the center, celebratory confetti sparkles, a limited edition feel, cute and premium, no text, no letters, no numbers, no logo."
+  },
+  {
+   "id": "ui_pack_divine_star",
+   "quality": "medium",
+   "size": "1024x1536",
+   "prompt": "A sealed collectible card booster pack, front view, upright, crimped foil edges at top and bottom, glossy metallic foil wrapper in a deep cosmic galaxy print of purple, blue and black with a large radiant star crest surrounded by a constellation pattern in the center, twinkling starlight and a soft nebula glow, cute and premium, no text, no letters, no numbers, no logo."
+  },
+  {
+   "id": "ui_mat_pet_shard",
+   "quality": "medium",
+   "prompt": "A single glowing crystal shard shaped like a cute paw print, translucent sky blue with a golden inner glow and tiny sparkles."
+  },
+  {
+   "id": "ui_mat_enhance_stone",
+   "quality": "medium",
+   "prompt": "A single faceted enhancement gemstone, sapphire blue with a thin gold band and a softly glowing rune engraved on its face (an abstract symbol, not a letter)."
+  },
+  {
+   "id": "ui_mat_breakthrough_core",
+   "quality": "medium",
+   "prompt": "A single round energy core orb with a cracked golden shell and bright white-gold light bursting through the cracks."
+  },
+  {
+   "id": "ui_mat_awakening_crystal",
+   "quality": "medium",
+   "prompt": "A single prismatic crystal blooming like a flower, rainbow refraction, radiant white light at its heart, a few floating light motes."
+  },
+  {
+   "id": "ui_mat_engraving_dust",
+   "quality": "medium",
+   "prompt": "A small cute drawstring pouch spilling glittering violet and gold sigil dust that sparkles in the air."
+  },
+  {
+   "id": "ui_mat_training_scroll",
+   "quality": "medium",
+   "prompt": "A single rolled training scroll tied with a red ribbon, parchment with faint abstract skill diagrams (no letters), small golden end caps."
+  },
+  {
+   "id": "ui_crest_premium",
+   "quality": "medium",
+   "prompt": "A small heraldic crest badge: a faceted white diamond set in an ornate polished gold frame with tiny gem accents, luxurious."
+  },
+  {
+   "id": "ui_crest_limited",
+   "quality": "medium",
+   "prompt": "A small seal badge: a gold medallion with a satin red ribbon rosette and a tiny star in the middle, festive limited edition feel."
+  },
+  {
+   "id": "ui_crest_star",
+   "quality": "medium",
+   "prompt": "A small crest badge: a radiant star inside a ring of tiny constellations on a deep purple-blue cosmic disc with a silver rim."
+  },
+  {
+   "id": "trainer_boy",
+   "style": "character",
+   "quality": "medium",
+   "size": "1024x1536",
+   "prompt": "A cheerful young boy pet trainer for the game Pet Star. Soft chestnut-brown hair in fluffy spikes with one star-shaped cowlick on top, big bright teal eyes, small smile with rosy cheeks. Outfit: sky-blue short explorer jacket with rolled sleeves and a small gold five-point star badge on the chest, white T-shirt, navy knee-length shorts with a brown belt holding a little card case, orange-and-white sneakers, a teal scarf. Relaxed friendly standing pose, three-quarter view facing slightly to the right, arms relaxed at the sides."
+  },
+  {
+   "id": "trainer_girl",
+   "style": "character",
+   "quality": "medium",
+   "size": "1024x1536",
+   "prompt": "A cheerful young girl pet trainer for the game Pet Star. Long lavender-pink hair in two high twin tails tied with gold star-shaped clips, side bangs, big warm amber eyes, small open smile with rosy cheeks. Outfit: mint-green and white explorer cape-dress with gold trim, a short white capelet, a cream belt with a heart-shaped card pouch, white leggings and light-brown ankle boots, a small star hairpin. Relaxed friendly standing pose, three-quarter view facing slightly to the right, hands loosely together in front."
+  },
+  {
+   "id": "trainer_boy_blink",
+   "style": "character",
+   "quality": "medium",
+   "size": "1024x1536",
+   "reference": "trainer_boy",
+   "prompt": "Exactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: both eyes are gently closed in a blink (curved closed eyelids). Keep everything else pixel-identical."
+  },
+  {
+   "id": "trainer_girl_blink",
+   "style": "character",
+   "quality": "medium",
+   "size": "1024x1536",
+   "reference": "trainer_girl",
+   "prompt": "Exactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: both eyes are gently closed in a blink (curved closed eyelids). Keep everything else pixel-identical."
+  },
+  {
+   "id": "trainer_boy_happy",
+   "style": "character",
+   "quality": "medium",
+   "size": "1024x1536",
+   "reference": "trainer_boy",
+   "prompt": "Exactly the same character, same outfit, same colors, same position, size and framing as the reference image, but now very happy: eyes closed in joyful upside-down U arcs, big open smile, one hand raised waving above the shoulder. Feet stay in the same place."
+  },
+  {
+   "id": "trainer_girl_happy",
+   "style": "character",
+   "quality": "medium",
+   "size": "1024x1536",
+   "reference": "trainer_girl",
+   "prompt": "Exactly the same character, same outfit, same colors, same position, size and framing as the reference image, but now very happy: eyes closed in joyful upside-down U arcs, big open smile, one hand raised waving above the shoulder. Feet stay in the same place."
+  },
+  {
+   "id": "bg_lobby_main",
+   "style": "scene",
+   "quality": "medium",
+   "size": "1536x1024",
+   "background": "opaque",
+   "prompt": "A magical floating-island town square at golden dusk for the game Pet Star. A wide open sunlit plaza of pale stone tiles in the left half and center foreground (empty, for characters to stand), with a glowing five-point-star mosaic on the floor. Behind: whimsical fairy-tale houses with rounded teal and coral roofs, a tall crystal clock tower topped by a golden star, blossoming pink trees, hanging paper-star lanterns glowing warm gold, a waterfall falling off the island edge, small floating islands and soft pink-orange clouds in a twilight sky with a few early stars. The right third of the image is calmer (sky, distant islands) so menu buttons can be placed there. Wide landscape composition, eye-level camera, gentle depth of field on the far background."
+  },
+  {
+   "id": "ui_podium",
+   "quality": "medium",
+   "size": "1536x1024",
+   "prompt": "A round display pedestal seen from slightly above: a wide low cylinder of white marble with a polished gold rim, a softly glowing ring of small star runes around its top edge in cyan light, a faint golden star emblem engraved in the middle of the flat top surface, small floating sparkles. Wide and flat, centered."
+  },
+  {
+   "id": "ui_icon_mail",
+   "quality": "low",
+   "prompt": "A cute plump envelope letter with a pink heart wax seal and a tiny gold star, slightly open with a paper peeking out."
+  },
+  {
+   "id": "ui_icon_friends",
+   "quality": "low",
+   "prompt": "Two cute round chibi creature heads side by side, one cream kitten-like with star cheeks and one mint bunny-like, smiling, a small heart between them."
+  },
+  {
+   "id": "ui_icon_starter_gift",
+   "quality": "low",
+   "prompt": "A sparkling treasure gift box with a big red ribbon bow and a small sprout leaf on top, lid slightly lifting with golden light rays."
+  },
+  {
+   "id": "ui_icon_center",
+   "quality": "low",
+   "prompt": "A floating open magic book with blue cover and a glowing info crystal (light-blue diamond) hovering above its pages."
+  },
+  {
+   "id": "ui_icon_gifts",
+   "quality": "low",
+   "prompt": "A stack of three colorful present boxes (pink, yellow, purple) with ribbons and confetti sparkles."
+  },
+  {
+   "id": "ui_icon_season",
+   "quality": "low",
+   "prompt": "A shiny golden laurel medal with a star in the center hanging on a purple ribbon, like a season pass emblem."
+  },
+  {
+   "id": "ui_icon_events",
+   "quality": "low",
+   "prompt": "A cute calendar page with a big gold star sticker and a small firework burst behind it."
+  },
+  {
+   "id": "ui_icon_shop",
+   "quality": "low",
+   "prompt": "A tiny cute market stall with a red-and-white striped awning, little card packs and potion bottles on the counter."
+  },
+  {
+   "id": "ui_hex_market",
+   "quality": "low",
+   "prompt": "Emblem icon for a pet card trading market: a small golden merchant scale balancing two glowing trading cards with a tiny green bean coin, purple and gold accents."
+  },
+  {
+   "id": "ui_hex_games",
+   "quality": "low",
+   "prompt": "Emblem icon for mini games: a cute blue game controller shaped like a cloud with a puzzle piece and a little star die bouncing beside it."
+  },
+  {
+   "id": "ui_hex_world",
+   "quality": "low",
+   "prompt": "Emblem icon for a pet world hub: a small teal floating island globe with a paw-print shaped lake, tiny trees and a little portal arch."
+  },
+  {
+   "id": "ui_hex_battle",
+   "quality": "low",
+   "prompt": "Emblem icon for starting a battle: two crossed stylized wooden training swords behind a shining golden five-point star shield."
+  },
+  {
+   "id": "ui_hex_social",
+   "quality": "low",
+   "prompt": "Emblem icon for a social hub: a pink-violet speech bubble with a glossy heart inside, small sparkling stars and a tiny camera charm attached."
+  },
+  {
+   "id": "skin_boy_starlight",
+   "style": "character",
+   "quality": "medium",
+   "size": "1024x1536",
+   "reference": "trainer_boy",
+   "prompt": "Exactly the same boy character as the reference image (same face, same chestnut spiky hair with the star cowlick, same teal eyes, same proportions, same pose, same position, same size and framing). Only the outfit changes to a new original 'Starlight Ranger' outfit: midnight-blue hooded cape with tiny embroidered silver stars, cream tunic with a lavender sash, dark navy trousers, silver-trimmed ankle boots, a small crescent-moon brooch. Keep the transparent background."
+  },
+  {
+   "id": "skin_boy_starlight_blink",
+   "style": "character",
+   "quality": "medium",
+   "size": "1024x1536",
+   "reference": "skin_boy_starlight",
+   "prompt": "Exactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: both eyes are gently closed in a blink (curved closed eyelids). Keep everything else pixel-identical."
+  },
+  {
+   "id": "skin_boy_starlight_happy",
+   "style": "character",
+   "quality": "medium",
+   "size": "1024x1536",
+   "reference": "skin_boy_starlight",
+   "prompt": "Exactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: a big happy open-mouth smile with happy curved eyes. Keep everything else identical."
+  },
+  {
+   "id": "skin_girl_blossom",
+   "style": "character",
+   "quality": "medium",
+   "size": "1024x1536",
+   "reference": "trainer_girl",
+   "prompt": "Exactly the same girl character as the reference image (same face, same hair style and hair color, same eyes, same proportions, same pose, same position, same size and framing). Only the outfit changes to a new original 'Blossom Festival' outfit: soft peach short kimono-style jacket with a sakura-petal pattern, mint ribbon belt tied in a bow, white pleated skirt, pink knee socks, light brown sandals with flower clips, a small petal hair pin. Keep the transparent background."
+  },
+  {
+   "id": "skin_girl_blossom_blink",
+   "style": "character",
+   "quality": "medium",
+   "size": "1024x1536",
+   "reference": "skin_girl_blossom",
+   "prompt": "Exactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: both eyes are gently closed in a blink (curved closed eyelids). Keep everything else pixel-identical."
+  },
+  {
+   "id": "skin_girl_blossom_happy",
+   "style": "character",
+   "quality": "medium",
+   "size": "1024x1536",
+   "reference": "skin_girl_blossom",
+   "prompt": "Exactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: a big happy open-mouth smile with happy curved eyes. Keep everything else identical."
   }
+ ],
+ "styles": {
+  "character": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.",
+  "scene": "Premium HD 2D painted mobile game background, original fantasy setting, bright saturated colors with depth, soft volumetric light, crisp details, no characters, no people, no animals, no text, no letters, no UI, no logo, no watermark, not based on or copied from any existing game."
+ }
 }

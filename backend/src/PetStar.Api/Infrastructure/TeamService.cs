@@ -10,7 +10,8 @@ namespace PetStar.Api.Infrastructure;
 public sealed class TrainerCatalog
 {
     public sealed class Character { public string Id { get; set; } = ""; public Dictionary<string, string> Name { get; set; } = new(); public string DefaultOutfit { get; set; } = ""; public string DefaultAppearance { get; set; } = "default"; }
-    public sealed class Outfit { public string Id { get; set; } = ""; public string CharacterId { get; set; } = ""; public Dictionary<string, string> Name { get; set; } = new(); public string Source { get; set; } = ""; public object? StatBonus { get; set; } }
+    public sealed class Outfit { public string Id { get; set; } = ""; public string CharacterId { get; set; } = ""; public Dictionary<string, string> Name { get; set; } = new(); public string Source { get; set; } = ""; public object? StatBonus { get; set; }
+        public bool AssetsComplete { get; set; } public string? Rarity { get; set; } public PetStar.Api.Features.CosmeticPrice? Price { get; set; } public Dictionary<string, string>? Art { get; set; } }
     public string ChangePolicy { get; set; } = "locked";
     public List<Character> Characters { get; set; } = new();
     public List<Outfit> Outfits { get; set; } = new();
@@ -33,7 +34,7 @@ public sealed record TeamViewDto(Guid Id, string Mode, string Status, int You, i
 /// idempotent action ids, snapshots, filtered views, replays, ratings and rewards. Reuses the match tables of the
 /// first match server (arena_matches, arena_events, ...).
 /// </summary>
-public sealed class TeamService(PetStarDb db, GameData data, TeamRulesProvider rp, EconomyService eco, AchievementService ach, RealtimeHub hub)
+public sealed class TeamService(PetStarDb db, GameData data, TeamRulesProvider rp, EconomyService eco, AchievementService ach, RealtimeHub hub, GuildService guilds)
 {
     private static readonly JsonSerializerOptions J = IdempotencyService.Json;
     public TeamRules Rules => rp.Rules;
@@ -250,6 +251,15 @@ public sealed class TeamService(PetStarDb db, GameData data, TeamRulesProvider r
         }
         await db.SaveChangesAsync();
         if (st.Winner is int w && players[w].MembershipId is long winner) await ach.Evaluate(winner, m.ServerId, "duel_win");
+        // guild progress (missions/contribution) and Guild War scoring
+        bool pvp = players.All(p => p.MembershipId != null);
+        foreach (var p in players.Where(p => p.MembershipId != null))
+        {
+            long pm = p.MembershipId!.Value;
+            if (pvp) { await guilds.Progress(pm, "pvp_battle", 1); if (st.Winner == p.Side) await guilds.Progress(pm, "pvp_win", 1); }
+            else if ((m.Mode == "pve" || m.Mode == "boss") && st.Winner == p.Side) await guilds.Progress(pm, "pve_win", 1);
+        }
+        if (m.Mode == "guildwar" && players[0].MembershipId is long attacker) { await guilds.OnWarBattle(m.StageId, st.Winner, attacker); await guilds.Progress(attacker, "pvp_battle", 1); }
     }
 
     /// <summary>Stage rewards for a PvE/Boss win: the existing stage tables and the existing daily cap (shared counter).

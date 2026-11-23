@@ -119,7 +119,7 @@ public class MarketplaceTests(ApiFactory f)
         var seller = await f.NewPlayer("seller");
         var buyer = await f.NewPlayer("buyer");
         var card = (await X.Open(seller))[0];
-        await X.Fund(owner, buyer, X.Stars, 1000);
+        await X.Fund(owner, buyer, X.Beans, 1000);
         return (owner, seller, buyer, card);
     }
 
@@ -130,7 +130,7 @@ public class MarketplaceTests(ApiFactory f)
     public async Task Listing_locks_card_and_purchase_settles_atomically_with_fee()
     {
         var (_, seller, buyer, card) = await Setup();
-        var listing = await List(seller, card.Id, X.Stars, 200);
+        var listing = await List(seller, card.Id, X.Beans, 200);
         long lid = listing.GetProperty("listingId").GetInt64();
         Assert.Equal(6, listing.GetProperty("fee").GetInt64());          // 3%
         Assert.Equal(194, listing.GetProperty("sellerNet").GetInt64());
@@ -139,11 +139,13 @@ public class MarketplaceTests(ApiFactory f)
         Assert.Equal(HttpStatusCode.Conflict, (await seller.Post($"/api/cards/{card.Id}/evolve", null, Player.Key())).StatusCode);
         Assert.Equal("cannot_buy_own_listing", await Player.Code(await seller.Post("/api/market/buy", new BuyRequest { ListingId = lid }, Player.Key())));
 
-        var sellerBefore = X.Bal(await seller.Me(), X.Stars);
+        var sellerBefore = X.Bal(await seller.Me(), X.Beans);
+        var buyerBefore = X.Bal(await buyer.Me(), X.Beans);
         var buy = await X.J(await buyer.Post("/api/market/buy", new BuyRequest { ListingId = lid, ExpectedPrice = 200 }, Player.Key()));
         Assert.Equal(card.Serial, buy.GetProperty("card").GetProperty("serial").GetString());
-        Assert.Equal(800, X.Bal(await buyer.Me(), X.Stars));
-        Assert.Equal(sellerBefore + 194, X.Bal(await seller.Me(), X.Stars));
+        // ledger rows of this sale (balances can also move from achievement rewards)
+        Assert.Equal(-200, await f.Scalar<long>("SELECT sum(delta) FROM economy_ledger WHERE ref_id = @p0 AND membership_id = (SELECT id FROM server_memberships WHERE account_id = @p1 AND server_id = 1)", "listing:" + lid, buyer.Uid));
+        Assert.Equal(194, await f.Scalar<long>("SELECT sum(delta) FROM economy_ledger WHERE ref_id = @p0 AND membership_id = (SELECT id FROM server_memberships WHERE account_id = @p1 AND server_id = 1)", "listing:" + lid, seller.Uid));
         Assert.Equal(6, await f.Scalar<long>("SELECT amount FROM economy_system_ledger WHERE ref_id = @p0", "listing:" + lid));
         // ownership moved, serial unchanged, seller lost access, single owner
         var bought = await buyer.Get<CardPageDto>("/api/cards");
@@ -179,15 +181,16 @@ public class MarketplaceTests(ApiFactory f)
     public async Task Same_buyer_retry_is_idempotent_and_insufficient_funds_changes_nothing()
     {
         var (owner, seller, buyer, card) = await Setup();
-        long lid = (await List(seller, card.Id, X.Stars, 300)).GetProperty("listingId").GetInt64();
+        long lid = (await List(seller, card.Id, X.Beans, 1200)).GetProperty("listingId").GetInt64();
         var poor = await f.NewPlayer("poor");
-        Assert.Equal("insufficient_rainbow_star", await Player.Code(await poor.Post("/api/market/buy", new BuyRequest { ListingId = lid }, Player.Key())));
+        var buyerBefore = X.Bal(await buyer.Me(), X.Beans);
+        Assert.Equal("insufficient_mini_green_bean", await Player.Code(await poor.Post("/api/market/buy", new BuyRequest { ListingId = lid }, Player.Key())));
         Assert.Equal("active", (await X.GetJ(poor, $"/api/market/listings/{lid}")).GetProperty("listing").GetProperty("status").GetString());
         var key = Player.Key();
         await Player.Ok(await buyer.Post("/api/market/buy", new BuyRequest { ListingId = lid }, key));
         var replay = await buyer.Post("/api/market/buy", new BuyRequest { ListingId = lid }, key);
         await Player.Ok(replay);
-        Assert.Equal(700, X.Bal(await buyer.Me(), X.Stars));   // charged once
+        Assert.Equal(1, await f.Scalar<long>("SELECT count(*) FROM economy_ledger WHERE ref_id = @p0 AND delta = -1200", "listing:" + lid));   // charged once
     }
 
     [Fact]
@@ -221,18 +224,18 @@ public class MarketplaceTests(ApiFactory f)
     public async Task Listings_are_not_price_evidence_and_wash_trades_are_excluded()
     {
         var (owner, seller, buyer, card) = await Setup();
-        await X.Fund(owner, seller, X.Stars, 1000);
+        await X.Fund(owner, seller, X.Beans, 1000);
         string Path(string currency) => $"/api/valuation/history?formId={card.FormId}&rarity={card.Rarity}&currency={currency}";
-        long lid = (await List(seller, card.Id, X.Stars, 999)).GetProperty("listingId").GetInt64();
-        Assert.Empty((await X.GetJ(buyer, Path(X.Stars))).GetProperty("trades").EnumerateArray());   // listing price never shows as a trade
+        long lid = (await List(seller, card.Id, X.Beans, 999)).GetProperty("listingId").GetInt64();
+        Assert.Empty((await X.GetJ(buyer, Path(X.Beans))).GetProperty("trades").EnumerateArray());   // listing price never shows as a trade
         await Player.Ok(await buyer.Post("/api/market/buy", new BuyRequest { ListingId = lid }, Player.Key()));
         // buyer sells the same card straight back to the original seller: round trip => suspicious, excluded
         var back = (await buyer.Get<CardPageDto>("/api/cards")).Items.First(c => c.Serial == card.Serial);
-        long lid2 = (await List(buyer, back.Id, X.Stars, 10)).GetProperty("listingId").GetInt64();
+        long lid2 = (await List(buyer, back.Id, X.Beans, 10)).GetProperty("listingId").GetInt64();
         await Player.Ok(await seller.Post("/api/market/buy", new BuyRequest { ListingId = lid2 }, Player.Key()));
         Assert.True(await f.Scalar<bool>("SELECT suspicious FROM market_transactions WHERE kind='listing' AND ref_id=@p0", lid2));
         Assert.True(await f.Scalar<bool>("SELECT excluded FROM market_price_history h JOIN market_transactions t ON t.id = h.transaction_id WHERE t.ref_id=@p0 AND t.kind='listing'", lid2));
-        var trades = (await X.GetJ(buyer, Path(X.Stars))).GetProperty("trades").EnumerateArray().Select(t => t.GetProperty("price").GetInt64()).ToList();
+        var trades = (await X.GetJ(buyer, Path(X.Beans))).GetProperty("trades").EnumerateArray().Select(t => t.GetProperty("price").GetInt64()).ToList();
         Assert.DoesNotContain(10L, trades);
         Assert.True(await f.Scalar<long>("SELECT count(*) FROM economy_audit_events WHERE type='suspicious_trade'") >= 1);
     }
@@ -308,21 +311,21 @@ public class AuctionTests(ApiFactory f)
         var owner = await X.Owner(f);
         var seller = await f.NewPlayer("s");
         var cards = await X.Open(seller);
-        long a1 = (await X.J(await seller.Post("/api/auctions", new CreateAuctionRequest { CardId = cards[0].Id, Currency = X.Stars, StartPrice = 5, Hours = 1 }, Player.Key()))).GetProperty("auctionId").GetInt64();
+        long a1 = (await X.J(await seller.Post("/api/auctions", new CreateAuctionRequest { CardId = cards[0].Id, Currency = X.Beans, StartPrice = 5, Hours = 1 }, Player.Key()))).GetProperty("auctionId").GetInt64();
         await f.Sql("UPDATE auction_listings SET ends_at = now() - interval '1 second' WHERE id = @p0", a1);
         await MarketMaintenanceService.RunOnce(f.Services);
         Assert.False((await seller.Get<CardDto>($"/api/cards/{cards[0].Id}")).IsBusy);
 
-        long a2 = (await X.J(await seller.Post("/api/auctions", new CreateAuctionRequest { CardId = cards[1].Id, Currency = X.Stars, StartPrice = 10, Hours = 1 }, Player.Key()))).GetProperty("auctionId").GetInt64();
+        long a2 = (await X.J(await seller.Post("/api/auctions", new CreateAuctionRequest { CardId = cards[1].Id, Currency = X.Beans, StartPrice = 10, Hours = 1 }, Player.Key()))).GetProperty("auctionId").GetInt64();
         var bidders = new List<Player>();
-        for (int i = 0; i < 8; i++) { var b = await f.NewPlayer("cb"); await X.Fund(owner, b, X.Stars, 10_000); bidders.Add(b); }
+        for (int i = 0; i < 8; i++) { var b = await f.NewPlayer("cb"); await X.Fund(owner, b, X.Beans, 9_500); bidders.Add(b); }
         await Task.WhenAll(bidders.Select((b, i) => b.Post("/api/auctions/bid", new BidRequest { AuctionId = a2, Amount = 100 + i * 50 }, Player.Key())));
         // exactly one held reservation (the leader); everyone else whole again
         Assert.Equal(1, await f.Scalar<long>("SELECT count(*) FROM reserved_balances r JOIN auction_bids b ON 'bid:' || b.id = r.ref_id WHERE b.auction_id = @p0 AND r.status = 'held'", a2));
         var lead = await f.Scalar<long>("SELECT highest_amount FROM auction_listings WHERE id = @p0", a2);
         var bal = await Task.WhenAll(bidders.Select(b => b.Me()));
-        Assert.Equal(1, bal.Count(b => X.Bal(b, X.Stars) == 10_000 - lead));
-        Assert.Equal(7, bal.Count(b => X.Bal(b, X.Stars) == 10_000));
+        Assert.Equal(1, bal.Count(b => X.Bal(b, X.Beans) == 10_000 - lead));
+        Assert.Equal(7, bal.Count(b => X.Bal(b, X.Beans) == 10_000));
         Assert.Equal(0, await f.Scalar<long>("SELECT count(*) FROM economy_wallets w WHERE w.balance <> coalesce((SELECT sum(delta) FROM economy_ledger l WHERE l.membership_id = w.membership_id AND l.currency = w.currency), 0)"));
     }
 }

@@ -28,6 +28,10 @@ public class TrainerProfile
     public string AppearanceId { get; set; } = "default";
     public string OutfitId { get; set; } = "";
     public long? CompanionCardId { get; set; }
+    public string FrameId { get; set; } = "frame_default";
+    public string BubbleId { get; set; } = "bubble_default";
+    public string? EffectId { get; set; }
+    public string? TitleId { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
 }

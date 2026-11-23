@@ -1,0 +1,604 @@
+{
+ "version": "cosmetics-1",
+ "notes": "Avatar frames, chat bubbles, effects and titles are original procedural vector designs rendered from 'style' (no third-party art). Skins live in trainers.json. All items are cosmetic or existing game materials; nothing changes PvP stats. Prices use in-game currencies only; no real-money purchase exists.",
+ "defaults": [
+  "frame_default",
+  "bubble_default",
+  "title_rookie"
+ ],
+ "shopCategories": [
+  "packs",
+  "skins",
+  "frames",
+  "bubbles",
+  "accessories",
+  "evolution",
+  "event",
+  "profile"
+ ],
+ "items": [
+  {
+   "id": "frame_default",
+   "type": "frame",
+   "rarity": "default",
+   "name": {
+    "en": "Classic",
+    "vi": "Cổ điển"
+   },
+   "desc": {
+    "en": "The standard Pet Star frame.",
+    "vi": "Khung Pet Star tiêu chuẩn."
+   },
+   "price": null,
+   "style": {
+    "ring": [
+     "#FFFFFF",
+     "#C9D8FF"
+    ],
+    "gem": null
+   }
+  },
+  {
+   "id": "frame_leaf",
+   "type": "frame",
+   "rarity": "common",
+   "name": {
+    "en": "Leafy Ring",
+    "vi": "Vòng Lá Xanh"
+   },
+   "desc": {
+    "en": "Fresh leaves wrap your avatar.",
+    "vi": "Những chiếc lá tươi ôm lấy avatar."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 300
+   },
+   "style": {
+    "ring": [
+     "#9BE37A",
+     "#3FA35B"
+    ],
+    "gem": "leaf"
+   }
+  },
+  {
+   "id": "frame_bubble",
+   "type": "frame",
+   "rarity": "common",
+   "name": {
+    "en": "Bubble Pop",
+    "vi": "Bong Bóng Xà Phòng"
+   },
+   "desc": {
+    "en": "Playful floating bubbles.",
+    "vi": "Những bong bóng bay tinh nghịch."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 300
+   },
+   "style": {
+    "ring": [
+     "#9FE8FF",
+     "#4BA3F0"
+    ],
+    "gem": "bubble"
+   }
+  },
+  {
+   "id": "frame_crystal",
+   "type": "frame",
+   "rarity": "rare",
+   "name": {
+    "en": "Crystal Bloom",
+    "vi": "Pha Lê Nở Hoa"
+   },
+   "desc": {
+    "en": "Faceted crystals catch the light.",
+    "vi": "Những tinh thể pha lê bắt sáng."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 900
+   },
+   "style": {
+    "ring": [
+     "#D7C8FF",
+     "#7C5CF0"
+    ],
+    "gem": "crystal"
+   }
+  },
+  {
+   "id": "frame_sunflare",
+   "type": "frame",
+   "rarity": "rare",
+   "name": {
+    "en": "Sunflare",
+    "vi": "Lửa Mặt Trời"
+   },
+   "desc": {
+    "en": "A warm halo of sunlight.",
+    "vi": "Vầng hào quang ấm áp."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 900
+   },
+   "style": {
+    "ring": [
+     "#FFE08A",
+     "#FF8A3D"
+    ],
+    "gem": "sun"
+   }
+  },
+  {
+   "id": "frame_aurora",
+   "type": "frame",
+   "rarity": "epic",
+   "name": {
+    "en": "Aurora Veil",
+    "vi": "Màn Cực Quang"
+   },
+   "desc": {
+    "en": "Shimmering northern lights.",
+    "vi": "Ánh cực quang lung linh."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 2500
+   },
+   "style": {
+    "ring": [
+     "#7CF5D8",
+     "#7C8CFF",
+     "#FF7CE0"
+    ],
+    "gem": "star",
+    "animated": true
+   }
+  },
+  {
+   "id": "frame_starlord",
+   "type": "frame",
+   "rarity": "legendary",
+   "name": {
+    "en": "Star Sovereign",
+    "vi": "Chúa Tể Ánh Sao"
+   },
+   "desc": {
+    "en": "A crown of five-colour stars.",
+    "vi": "Vương miện sao ngũ sắc."
+   },
+   "price": {
+    "currency": "RAINBOW_STAR",
+    "amount": 60
+   },
+   "style": {
+    "ring": [
+     "#FFD54A",
+     "#FF6FD8",
+     "#5BE0FF"
+    ],
+    "gem": "crown",
+    "animated": true
+   }
+  },
+  {
+   "id": "frame_lantern_event",
+   "type": "frame",
+   "rarity": "event",
+   "name": {
+    "en": "Lantern Night",
+    "vi": "Đêm Hội Đèn Lồng"
+   },
+   "desc": {
+    "en": "Event reward — not sold.",
+    "vi": "Phần thưởng sự kiện — không bán."
+   },
+   "price": null,
+   "style": {
+    "ring": [
+     "#FF9E5E",
+     "#E5484D"
+    ],
+    "gem": "lantern"
+   },
+   "unlock": "event"
+  },
+  {
+   "id": "frame_season_champion",
+   "type": "frame",
+   "rarity": "limited",
+   "name": {
+    "en": "Season Champion",
+    "vi": "Nhà Vô Địch Mùa"
+   },
+   "desc": {
+    "en": "Top 3 of a leaderboard season.",
+    "vi": "Top 3 bảng xếp hạng mùa."
+   },
+   "price": null,
+   "style": {
+    "ring": [
+     "#FFE27A",
+     "#C9962B"
+    ],
+    "gem": "laurel",
+    "animated": true
+   },
+   "unlock": "ranking"
+  },
+  {
+   "id": "bubble_default",
+   "type": "bubble",
+   "rarity": "default",
+   "name": {
+    "en": "Default",
+    "vi": "Mặc định"
+   },
+   "desc": {
+    "en": "Clean white bubble.",
+    "vi": "Bong bóng trắng gọn gàng."
+   },
+   "price": null,
+   "style": {
+    "bg": "#FFFFFF",
+    "fg": "#1F2A44",
+    "border": "#D6DEF2",
+    "category": "default"
+   }
+  },
+  {
+   "id": "bubble_cute_paw",
+   "type": "bubble",
+   "rarity": "common",
+   "name": {
+    "en": "Paw Print",
+    "vi": "Dấu Chân Mèo"
+   },
+   "desc": {
+    "en": "Cute paw prints in the corner.",
+    "vi": "Dấu chân dễ thương ở góc."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 250
+   },
+   "style": {
+    "bg": "#FFF0F6",
+    "fg": "#5A2140",
+    "border": "#FFB3D1",
+    "deco": "paw",
+    "category": "cute"
+   }
+  },
+  {
+   "id": "bubble_cloud",
+   "type": "bubble",
+   "rarity": "common",
+   "name": {
+    "en": "Cotton Cloud",
+    "vi": "Mây Bông"
+   },
+   "desc": {
+    "en": "Soft as a cloud.",
+    "vi": "Mềm như mây."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 250
+   },
+   "style": {
+    "bg": "#EEF7FF",
+    "fg": "#173A5E",
+    "border": "#A9D4FF",
+    "deco": "cloud",
+    "category": "cute"
+   }
+  },
+  {
+   "id": "bubble_fantasy_scroll",
+   "type": "bubble",
+   "rarity": "rare",
+   "name": {
+    "en": "Ancient Scroll",
+    "vi": "Cuộn Giấy Cổ"
+   },
+   "desc": {
+    "en": "Parchment from a fantasy tale.",
+    "vi": "Giấy da từ chuyện cổ tích."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 700
+   },
+   "style": {
+    "bg": "#FBF1D9",
+    "fg": "#4A3313",
+    "border": "#C9A86A",
+    "deco": "scroll",
+    "category": "fantasy"
+   }
+  },
+  {
+   "id": "bubble_starlight",
+   "type": "bubble",
+   "rarity": "epic",
+   "name": {
+    "en": "Starlight",
+    "vi": "Ánh Sao"
+   },
+   "desc": {
+    "en": "Twinkling stars around your words.",
+    "vi": "Sao lấp lánh quanh lời bạn."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 1500
+   },
+   "style": {
+    "bg": "#1E2350",
+    "fg": "#FFFFFF",
+    "border": "#8C9BFF",
+    "deco": "stars",
+    "category": "starlight"
+   }
+  },
+  {
+   "id": "bubble_guild_banner",
+   "type": "bubble",
+   "rarity": "rare",
+   "name": {
+    "en": "Guild Banner",
+    "vi": "Cờ Bang Hội"
+   },
+   "desc": {
+    "en": "Show your guild pride (requires a guild).",
+    "vi": "Thể hiện niềm tự hào bang hội (cần có Guild)."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 400
+   },
+   "style": {
+    "bg": "#E9F8EF",
+    "fg": "#14462B",
+    "border": "#58C48A",
+    "deco": "banner",
+    "category": "guild"
+   },
+   "unlock": "guild_member"
+  },
+  {
+   "id": "bubble_event_lantern",
+   "type": "bubble",
+   "rarity": "event",
+   "name": {
+    "en": "Festival Lantern",
+    "vi": "Đèn Lồng Lễ Hội"
+   },
+   "desc": {
+    "en": "Event reward — not sold.",
+    "vi": "Phần thưởng sự kiện — không bán."
+   },
+   "price": null,
+   "style": {
+    "bg": "#FFF2E6",
+    "fg": "#5E2A0C",
+    "border": "#FF9E5E",
+    "deco": "lantern",
+    "category": "event"
+   },
+   "unlock": "event"
+  },
+  {
+   "id": "bubble_limited_crown",
+   "type": "bubble",
+   "rarity": "limited",
+   "name": {
+    "en": "Royal Crown",
+    "vi": "Vương Miện Hoàng Gia"
+   },
+   "desc": {
+    "en": "Limited ranking reward.",
+    "vi": "Phần thưởng xếp hạng giới hạn."
+   },
+   "price": null,
+   "style": {
+    "bg": "#FFF9E0",
+    "fg": "#4A3A00",
+    "border": "#E8C24A",
+    "deco": "crown",
+    "category": "limited"
+   },
+   "unlock": "ranking"
+  },
+  {
+   "id": "effect_sparkle",
+   "type": "effect",
+   "rarity": "rare",
+   "name": {
+    "en": "Sparkle Aura",
+    "vi": "Hào Quang Lấp Lánh"
+   },
+   "desc": {
+    "en": "Gentle sparkles around your Trainer.",
+    "vi": "Lấp lánh nhẹ quanh Huấn Luyện Viên."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 1200
+   },
+   "style": {
+    "particle": "sparkle",
+    "color": "#FFE27A"
+   }
+  },
+  {
+   "id": "effect_hearts",
+   "type": "effect",
+   "rarity": "epic",
+   "name": {
+    "en": "Floating Hearts",
+    "vi": "Trái Tim Bay"
+   },
+   "desc": {
+    "en": "Little hearts drift upward.",
+    "vi": "Những trái tim nhỏ bay lên."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 2000
+   },
+   "style": {
+    "particle": "heart",
+    "color": "#FF7FB0"
+   }
+  },
+  {
+   "id": "effect_aurora",
+   "type": "effect",
+   "rarity": "legendary",
+   "name": {
+    "en": "Aurora Mist",
+    "vi": "Sương Cực Quang"
+   },
+   "desc": {
+    "en": "Colourful mist swirls around you.",
+    "vi": "Làn sương nhiều màu xoay quanh bạn."
+   },
+   "price": {
+    "currency": "RAINBOW_STAR",
+    "amount": 50
+   },
+   "style": {
+    "particle": "mist",
+    "color": "#7CF5D8"
+   }
+  },
+  {
+   "id": "title_rookie",
+   "type": "title",
+   "rarity": "default",
+   "name": {
+    "en": "Rookie Trainer",
+    "vi": "Huấn Luyện Viên Tập Sự"
+   },
+   "desc": {
+    "en": "Everyone starts here.",
+    "vi": "Ai cũng bắt đầu từ đây."
+   },
+   "price": null,
+   "style": {},
+   "category": "profile"
+  },
+  {
+   "id": "title_pet_lover",
+   "type": "title",
+   "rarity": "common",
+   "name": {
+    "en": "Pet Lover",
+    "vi": "Người Yêu Pet"
+   },
+   "desc": {
+    "en": "A heart full of Pets.",
+    "vi": "Trái tim đầy ắp Pet."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 300
+   },
+   "style": {},
+   "category": "profile"
+  },
+  {
+   "id": "title_collector",
+   "type": "title",
+   "rarity": "rare",
+   "name": {
+    "en": "Grand Collector",
+    "vi": "Nhà Sưu Tầm Lớn"
+   },
+   "desc": {
+    "en": "Unlocked by discovering 50 Pets.",
+    "vi": "Mở khi khám phá 50 Pet."
+   },
+   "price": null,
+   "style": {},
+   "unlock": "codex_50",
+   "category": "profile"
+  },
+  {
+   "id": "bundle_pet_shards",
+   "type": "item",
+   "rarity": "common",
+   "name": {
+    "en": "Pet Shard ×10",
+    "vi": "Mảnh Pet ×10"
+   },
+   "desc": {
+    "en": "Evolution material.",
+    "vi": "Nguyên liệu tiến hóa."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 400
+   },
+   "style": {},
+   "category": "evolution",
+   "grant": {
+    "pet_shard": 10
+   },
+   "dailyLimit": 5
+  },
+  {
+   "id": "bundle_enhance_stones",
+   "type": "item",
+   "rarity": "common",
+   "name": {
+    "en": "Enhance Stone ×5",
+    "vi": "Đá Cường Hóa ×5"
+   },
+   "desc": {
+    "en": "Enhancement material.",
+    "vi": "Nguyên liệu cường hóa."
+   },
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 350
+   },
+   "style": {},
+   "category": "evolution",
+   "grant": {
+    "enhance_stone": 5
+   },
+   "dailyLimit": 5
+  },
+  {
+   "id": "bundle_breakthrough",
+   "type": "item",
+   "rarity": "rare",
+   "name": {
+    "en": "Breakthrough Core ×1",
+    "vi": "Lõi Đột Phá ×1"
+   },
+   "desc": {
+    "en": "Breakthrough material.",
+    "vi": "Nguyên liệu đột phá."
+   },
+   "price": {
+    "currency": "RAINBOW_STAR",
+    "amount": 8
+   },
+   "style": {},
+   "category": "evolution",
+   "grant": {
+    "breakthrough_core": 1
+   },
+   "dailyLimit": 3
+  }
+ ]
+}

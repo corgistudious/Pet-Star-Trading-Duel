@@ -170,6 +170,30 @@ public sealed partial class ContentGuard(PetStarDb db)
         return text;
     }
 
+    [GeneratedRegex(@"(\+?\d[\d .-]{8,}\d)")]
+    private static partial Regex PhonePattern();
+    [GeneratedRegex(@"[\w.+-]+@[\w-]+\.[\w.]+")]
+    private static partial Regex EmailPattern();
+
+    // High-risk but not always abusive: held for human review instead of being published (server decides, never the client).
+    private static readonly (string flag, string[] words)[] Risky =
+    {
+        ("payment", new[] { "momo", "chuyển khoản", "chuyen khoan", "stk", "paypal", "zalopay", "banking", "tiền thật", "tien that", "cash out", "cashout", "nạp hộ", "nap ho", "bán acc", "ban acc", "sell account", "real money", "venmo" }),
+        ("off_platform", new[] { "zalo", "telegram", "discord.gg", "whatsapp", "facebook.com", "inbox mình", "ib mình", "add zalo" }),
+        ("adult", new[] { "18+", "sex", "nude", "khỏa thân", "khoa than", "porn", "sexy", "nsfw", "onlyfans" }),
+        ("harassment", new[] { "ngu vãi", "đồ ngu", "óc chó", "oc cho", "kill yourself", "kys", "loser", "thằng ngu", "con ngu" }),
+    };
+
+    /// <summary>Auto-moderation flags for text that passed <see cref="Clean"/>; any flag means "hold for review".</summary>
+    public static List<string> Assess(string text)
+    {
+        var flags = new List<string>();
+        var lower = text.ToLowerInvariant();
+        foreach (var (flag, words) in Risky) if (words.Any(w => lower.Contains(w))) flags.Add(flag);
+        if (PhonePattern().IsMatch(text) || EmailPattern().IsMatch(text)) flags.Add("personal_info");
+        return flags;
+    }
+
     public async Task EnsureAllowed(long accountId, string scope)
     {
         var now = DateTimeOffset.UtcNow;

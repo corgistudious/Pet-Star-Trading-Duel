@@ -52,7 +52,7 @@ public class LoadTests(ApiFactory f, ITestOutputHelper output)
         // 3) auctions: each seller auctions a second card, everyone bids concurrently
         var auctions = new List<long>();
         foreach (var (p, c) in sellers.Take(5))
-            auctions.Add((await X.J(await Timed("auction_create", () => p.Post("/api/auctions", new CreateAuctionRequest { CardId = c[1].Id, Currency = X.Stars, StartPrice = 10, Hours = 1 }, Player.Key())))).GetProperty("auctionId").GetInt64());
+            auctions.Add((await X.J(await Timed("auction_create", () => p.Post("/api/auctions", new CreateAuctionRequest { CardId = c[1].Id, Currency = X.Beans, StartPrice = 10, Hours = 1 }, Player.Key())))).GetProperty("auctionId").GetInt64());
         await Task.WhenAll(buyers.SelectMany(b => auctions.Select(a => Timed("bid", () => b.Post("/api/auctions/bid", new BidRequest { AuctionId = a, Amount = 10 + rnd.Next(1, 200) }, Player.Key())))));
         // 4) feed: posts, likes, comments concurrently
         var posts = await Task.WhenAll(players.Take(10).Select(async (p, i) => (await X.J(await Timed("post", () => p.Post("/api/feed/posts", new CreatePostRequest { Type = "text", Caption = $"load post {i} {Guid.NewGuid()}" })))).GetProperty("id").GetInt64()));

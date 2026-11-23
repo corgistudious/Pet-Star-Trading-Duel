@@ -91,6 +91,9 @@ builder.Services.AddScoped<DuelService>();
 builder.Services.AddHostedService<TeamMatchmaker>();
 builder.Services.AddSingleton(new TeamRulesProvider(CatalogLoader.LoadTeam(seedDir), TrainerCatalog.Load(seedDir)));
 builder.Services.AddScoped<TeamService>();
+builder.Services.AddSingleton(GuildConfig.Load(seedDir));
+builder.Services.AddSingleton(CosmeticsCatalog.Load(seedDir));
+builder.Services.AddScoped<GuildService>();
 builder.Services.AddSingleton<RealtimeHub>();
 builder.Services.AddSingleton<TicketStore>();
 
@@ -181,6 +184,11 @@ CardUpgradeEndpoints.Map(app);
 DuelEndpoints.Map(app);
 TeamEndpoints.Map(app);
 TrainerEndpoints.Map(app);
+ShopCosmeticsEndpoints.Map(app);
+TradeEndpoints.Map(app);
+MiniGameEndpoints.Map(app);
+LeaderboardEndpoints.Map(app);
+SocialModerationEndpoints.Map(app);
 DeckEndpoints.Map(app);
 BattleEndpoints.Map(app);
 // Real-money purchases are disabled in this phase (owner decision); the verification code stays for a future,

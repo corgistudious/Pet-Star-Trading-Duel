@@ -1,14 +1,124 @@
 {
  "version": 1,
- "notes": "Trainer characters for the lobby/profile. Preview ships one default outfit per character. Outfits are cosmetic only (statBonus must stay null). Changing the chosen character is not allowed until the owner decides a policy (changePolicy).",
+ "notes": "Trainer characters for the lobby/profile. Preview ships one default outfit per character. Outfits are cosmetic only (statBonus must stay null). Changing the chosen character is not allowed until the owner decides a policy (changePolicy). Shop skins are sold only when assetsComplete is true (idle + blink + happy frames exist). Skins never change battle stats.",
  "changePolicy": "locked",
  "characters": [
-  {"id": "trainer_boy", "name": {"en": "Male Trainer", "vi": "Trainer Nam"}, "defaultOutfit": "outfit_boy_default", "defaultAppearance": "default", "art": {"idle": "trainer_boy", "blink": "trainer_boy_blink", "happy": "trainer_boy_happy"}},
-  {"id": "trainer_girl", "name": {"en": "Female Trainer", "vi": "Trainer Nữ"}, "defaultOutfit": "outfit_girl_default", "defaultAppearance": "default", "art": {"idle": "trainer_girl", "blink": "trainer_girl_blink", "happy": "trainer_girl_happy"}}
+  {
+   "id": "trainer_boy",
+   "name": {
+    "en": "Male Trainer",
+    "vi": "Trainer Nam"
+   },
+   "defaultOutfit": "outfit_boy_default",
+   "defaultAppearance": "default",
+   "art": {
+    "idle": "trainer_boy",
+    "blink": "trainer_boy_blink",
+    "happy": "trainer_boy_happy"
+   }
+  },
+  {
+   "id": "trainer_girl",
+   "name": {
+    "en": "Female Trainer",
+    "vi": "Trainer Nữ"
+   },
+   "defaultOutfit": "outfit_girl_default",
+   "defaultAppearance": "default",
+   "art": {
+    "idle": "trainer_girl",
+    "blink": "trainer_girl_blink",
+    "happy": "trainer_girl_happy"
+   }
+  }
  ],
- "appearances": [{"id": "default", "name": {"en": "Default", "vi": "Mặc định"}}],
+ "appearances": [
+  {
+   "id": "default",
+   "name": {
+    "en": "Default",
+    "vi": "Mặc định"
+   }
+  }
+ ],
  "outfits": [
-  {"id": "outfit_boy_default", "characterId": "trainer_boy", "name": {"en": "Sky Explorer", "vi": "Nhà Thám Hiểm Bầu Trời"}, "source": "default", "slot": "full", "statBonus": null},
-  {"id": "outfit_girl_default", "characterId": "trainer_girl", "name": {"en": "Mint Explorer", "vi": "Nhà Thám Hiểm Bạc Hà"}, "source": "default", "slot": "full", "statBonus": null}
+  {
+   "id": "outfit_boy_default",
+   "characterId": "trainer_boy",
+   "name": {
+    "en": "Sky Explorer",
+    "vi": "Nhà Thám Hiểm Bầu Trời"
+   },
+   "source": "default",
+   "slot": "full",
+   "statBonus": null,
+   "assetsComplete": true,
+   "art": {
+    "idle": "trainer_boy",
+    "blink": "trainer_boy_blink",
+    "happy": "trainer_boy_happy"
+   }
+  },
+  {
+   "id": "outfit_girl_default",
+   "characterId": "trainer_girl",
+   "name": {
+    "en": "Mint Explorer",
+    "vi": "Nhà Thám Hiểm Bạc Hà"
+   },
+   "source": "default",
+   "slot": "full",
+   "statBonus": null,
+   "assetsComplete": true,
+   "art": {
+    "idle": "trainer_girl",
+    "blink": "trainer_girl_blink",
+    "happy": "trainer_girl_happy"
+   }
+  },
+  {
+   "id": "skin_boy_starlight",
+   "characterId": "trainer_boy",
+   "name": {
+    "en": "Starlight Ranger",
+    "vi": "Kỵ Sĩ Ánh Sao"
+   },
+   "source": "shop",
+   "slot": "full",
+   "statBonus": null,
+   "assetsComplete": true,
+   "rarity": "epic",
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 2400
+   },
+   "art": {
+    "idle": "skin_boy_starlight",
+    "blink": "skin_boy_starlight_blink",
+    "happy": "skin_boy_starlight_happy"
+   }
+  },
+  {
+   "id": "skin_girl_blossom",
+   "characterId": "trainer_girl",
+   "name": {
+    "en": "Blossom Festival",
+    "vi": "Lễ Hội Hoa Đào"
+   },
+   "source": "shop",
+   "slot": "full",
+   "statBonus": null,
+   "assetsComplete": true,
+   "rarity": "epic",
+   "price": {
+    "currency": "MINI_GREEN_BEAN",
+    "amount": 2400
+   },
+   "art": {
+    "idle": "skin_girl_blossom",
+    "blink": "skin_girl_blossom_blink",
+    "happy": "skin_girl_blossom_happy"
+   }
+  }
  ]
 }
