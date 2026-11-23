@@ -60,8 +60,9 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
     public DbSet<StarInvitation> StarInvitations => Set<StarInvitation>();
     public DbSet<CardEngraving> Engravings => Set<CardEngraving>();
     public DbSet<DuelDeck> DuelDecks => Set<DuelDeck>();
-    public DbSet<ArenaDeckRow> ArenaDecks => Set<ArenaDeckRow>();
-    public DbSet<ArenaDeckCardRow> ArenaDeckCards => Set<ArenaDeckCardRow>();
+    public DbSet<TeamLineup> TeamLineups => Set<TeamLineup>();
+    public DbSet<TrainerProfile> TrainerProfiles => Set<TrainerProfile>();
+    public DbSet<TrainerOutfitOwned> TrainerOutfits => Set<TrainerOutfitOwned>();
     public DbSet<ArenaCardVersion> ArenaCardVersions => Set<ArenaCardVersion>();
     public DbSet<ArenaMatch> ArenaMatches => Set<ArenaMatch>();
     public DbSet<ArenaMatchPlayer> ArenaMatchPlayers => Set<ArenaMatchPlayer>();
@@ -346,18 +347,26 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
 
     private static void ConfigureArena(ModelBuilder b)
     {
-        b.Entity<ArenaDeckRow>(e =>
+        b.Entity<TeamLineup>(e =>
         {
-            e.ToTable("arena_decks");
+            e.ToTable("team_lineups", t => t.HasCheckConstraint("ck_team_lineup_distinct", "card1id <> card2id AND card1id <> card3id AND card2id <> card3id"));
             e.HasIndex(x => new { x.MembershipId, x.IsDefault });
-            e.HasMany(x => x.Cards).WithOne().HasForeignKey(c => c.DeckId).OnDelete(DeleteBehavior.Cascade);
+            e.Ignore(x => x.CardIds);
+            foreach (var col in new[] { "Card1Id", "Card2Id", "Card3Id" }) e.HasOne<CardInstance>().WithMany().HasForeignKey(col).OnDelete(DeleteBehavior.Restrict);
             MembershipFk(e, x => new { x.MembershipId, x.ServerId });
         });
-        b.Entity<ArenaDeckCardRow>(e =>
+        b.Entity<TrainerProfile>(e =>
         {
-            e.ToTable("arena_deck_cards", t => t.HasCheckConstraint("ck_arena_deck_count", "count BETWEEN 1 AND 20"));
-            e.HasIndex(x => new { x.DeckId, x.CardInstanceId }).IsUnique().HasFilter("card_instance_id IS NOT NULL");
-            e.HasOne<CardInstance>().WithMany().HasForeignKey(x => x.CardInstanceId).OnDelete(DeleteBehavior.Restrict);
+            e.ToTable("trainer_profiles");
+            e.HasKey(x => x.MembershipId);
+            e.HasOne<CardInstance>().WithMany().HasForeignKey(x => x.CompanionCardId).OnDelete(DeleteBehavior.SetNull);
+            MembershipFk(e, x => new { x.MembershipId, x.ServerId });
+        });
+        b.Entity<TrainerOutfitOwned>(e =>
+        {
+            e.ToTable("trainer_outfits");
+            e.HasKey(x => new { x.MembershipId, x.OutfitId });
+            e.HasOne<ServerMembership>().WithMany().HasForeignKey(x => x.MembershipId).OnDelete(DeleteBehavior.Restrict);
         });
         b.Entity<ArenaCardVersion>(e =>
         {
@@ -420,7 +429,7 @@ public class PetStarDb(DbContextOptions<PetStarDb> options) : DbContext(options)
             e.ToTable("arena_queue");
             e.HasKey(x => x.MembershipId);
             e.HasIndex(x => new { x.ServerId, x.Mode, x.EnqueuedAt });
-            e.HasOne<ArenaDeckRow>().WithMany().HasForeignKey(x => x.DeckId).OnDelete(DeleteBehavior.Cascade);
+            e.HasOne<TeamLineup>().WithMany().HasForeignKey(x => x.LineupId).OnDelete(DeleteBehavior.Cascade);
             MembershipFk(e, x => new { x.MembershipId, x.ServerId });
         });
     }

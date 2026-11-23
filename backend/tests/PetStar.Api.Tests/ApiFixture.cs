@@ -41,7 +41,7 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
     {
         PetStar.Api.Features.MarketMaintenanceService.Interval = TimeSpan.FromHours(1); // tests drive maintenance explicitly
         PetStar.Api.Features.PvpTimeoutService.Interval = TimeSpan.FromHours(1);
-        PetStar.Api.Features.ArenaMatchmaker.Interval = TimeSpan.FromHours(1);   // tests drive matchmaking and timers explicitly
+        PetStar.Api.Features.TeamMatchmaker.Interval = TimeSpan.FromHours(1);   // tests drive matchmaking and timers explicitly
         PetStar.Api.Infrastructure.PushDispatcher.CommitWait = TimeSpan.FromMilliseconds(150);
         _ = Server;
         return Task.CompletedTask;

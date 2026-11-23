@@ -1,28 +1,44 @@
 namespace PetStar.Api.Data;
 
-// Pet Battle Arena persistence. Ownership stays in card_instances / items; these tables only hold decks, matches
+// Battle 3v3 match persistence (tables keep the arena_ prefix from the first match server). Ownership stays in card_instances / items; these tables only hold decks, matches
 // and their history. Table names use the arena_ prefix so nothing collides with the existing battles/decks tables.
 
-/// <summary>A saved 20-card deck (several per player). Lines live in arena_deck_cards.</summary>
-public class ArenaDeckRow
+/// <summary>A saved Battle 3v3 team: exactly three of the player's own Pet cards (several teams per player).</summary>
+public class TeamLineup
 {
     public long Id { get; set; }
     public long MembershipId { get; set; }
     public int ServerId { get; set; }
     public string Name { get; set; } = "";
     public bool IsDefault { get; set; }
-    public string EnergyTypes { get; set; } = "";          // comma separated, 1–3 element ids
+    public long Card1Id { get; set; }
+    public long Card2Id { get; set; }
+    public long Card3Id { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }
-    public List<ArenaDeckCardRow> Cards { get; set; } = new();
+    public long[] CardIds => new[] { Card1Id, Card2Id, Card3Id };
 }
 
-public class ArenaDeckCardRow
+/// <summary>The player's chosen Trainer. Character, appearance and outfit are separate ids so outfits, hairstyles and
+/// accessories can be added later without schema changes. Cosmetics never change battle stats.</summary>
+public class TrainerProfile
 {
-    public long Id { get; set; }
-    public long DeckId { get; set; }
-    public string DefId { get; set; } = "";
-    public long? CardInstanceId { get; set; }               // Pets: the owned card instance; trainers: null
-    public int Count { get; set; } = 1;
+    public long MembershipId { get; set; }
+    public int ServerId { get; set; }
+    public string CharacterId { get; set; } = "";           // trainer_boy | trainer_girl (database/seed/trainers.json)
+    public string AppearanceId { get; set; } = "default";
+    public string OutfitId { get; set; } = "";
+    public long? CompanionCardId { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset UpdatedAt { get; set; }
+}
+
+/// <summary>Outfits a player owns (the default outfit is granted on character creation; future shop/event outfits too).</summary>
+public class TrainerOutfitOwned
+{
+    public long MembershipId { get; set; }
+    public string OutfitId { get; set; } = "";
+    public string Source { get; set; } = "default";
+    public DateTimeOffset AcquiredAt { get; set; }
 }
 
 /// <summary>Card definitions exactly as a match used them, so replays stay correct after balance changes.</summary>
@@ -118,7 +134,7 @@ public class ArenaQueueEntry
     public long MembershipId { get; set; }
     public int ServerId { get; set; }
     public string Mode { get; set; } = "casual";            // casual | ranked
-    public long DeckId { get; set; }
+    public long LineupId { get; set; }
     public int Rating { get; set; }
     public DateTimeOffset EnqueuedAt { get; set; }
 }

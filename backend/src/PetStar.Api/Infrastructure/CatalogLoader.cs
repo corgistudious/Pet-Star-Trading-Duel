@@ -139,10 +139,6 @@ public static class CatalogLoader
         };
     }
 
-    /// <summary>Pet Battle Arena card definitions + config (database/seed/arena_cards.json, built by tools/build_arena_cards.py).</summary>
-    public static PetStar.Rules.Arena.ArenaRules LoadArena(string dir) =>
-        JsonSerializer.Deserialize<PetStar.Rules.Arena.ArenaRules>(File.ReadAllText(Path.Combine(dir, "arena_cards.json")), Json)!;
-
     /// <summary>Battle 3v3 data (database/seed/team_battle.json, built by tools/build_team_battle.py).</summary>
     public static PetStar.Rules.Team.TeamRules LoadTeam(string dir) =>
         JsonSerializer.Deserialize<PetStar.Rules.Team.TeamRules>(File.ReadAllText(Path.Combine(dir, "team_battle.json")), Json)!;
