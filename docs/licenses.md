@@ -24,7 +24,7 @@ This is an engineering inventory, not legal advice. Before a commercial release,
 | Web client | react 18.3.1, react-dom 18.3.1, react-router-dom 6.30.1 | MIT |
 | Unity client | Unity 6000.0.58f2 and Unity packages (Addressables, Input System, URP, uGUI, 2D Sprite/Animation, Test Framework) | Unity Companion / Unity Terms of Service (needs a valid Unity license for the publisher) |
 | | com.unity.nuget.newtonsoft-json (Json.NET) | MIT |
-| Fonts | Be Vietnam Pro (Regular / SemiBold / Bold / ExtraBold) | SIL Open Font License 1.1 |
+| Fonts | Be Vietnam Pro (Regular / SemiBold / Bold / ExtraBold) — Unity TTF and web woff2 (`web-client/public/fonts`, converted with fontTools, licence text in `OFL.txt` next to the files) | SIL Open Font License 1.1 |
 
 ## Development-only dependencies (not shipped)
 
@@ -40,6 +40,8 @@ This is an engineering inventory, not legal advice. Before a commercial release,
 |---|---|---|
 | Pet artwork (215 forms incl. evolutions and 15 Divine Pets) | Generated for this project with OpenAI `gpt-image-1.5` from Pet Star's own written character descriptions (`database/seed/pets.json` → `art`) and style bible. Ledger and costs: [asset-budget.md](asset-budget.md). | Each Pet has its own design brief (silhouette, colors, markings). Evolutions reuse the identity notes of their family. No reference images from other games were used. Per OpenAI's terms, rights in the outputs belong to the user, but they may not be unique; review before trademarking characters. |
 | Chibi Trainers (boy/girl: idle, blink, happy), main lobby background, podium, 8 lobby icons | Same pipeline (`asset-pipeline/ui_assets.json`; provenance in `asset-manifests/`). Blink frames were aligned with `tools/align_blink_frame.py`. | Written from original prompts. The user's reference image was used only as a layout description; nothing from it was copied or used as an image input. |
+| Lobby hexagon emblems (`ui_hex_market/games/world/battle/social`) and Trainer skins (`skin_boy_starlight`, `skin_girl_blossom`, idle/blink/happy) | Same pipeline (`asset-pipeline/ui_assets.json`); skins are edits of the project's own Trainer art; blink frames aligned with `tools/align_blink_frame.py` | Original prompts; no external images |
+| Avatar frames, chat bubbles, effects, guild emblems/banners, podium | Procedural vector/CSS designs written for this project (`Cosmetics.tsx`, `Guild.tsx`, `social.css`, `database/seed/cosmetics.json`) | Original |
 | UI art (backgrounds, board, icons, packs, crests, materials) | Same pipeline (category `ui`), from project-written prompts | Same as above |
 | Logo / brand | Pet Star's official logo pipeline (`tools/brand/`) | Owner-provided brand |
 | Card template | Pet Star Master Card Template (9:16) built in-project (`CardView.cs`, `render_card_preview.py`) | Original layout. Rarity, foil and holographic effects are procedural. |

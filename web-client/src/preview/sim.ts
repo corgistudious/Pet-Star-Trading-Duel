@@ -192,16 +192,12 @@ export function seed(cat: FullCatalog): SimState {
     const f = Object.keys(sets).sort().find((k) => sets[k] === set)!;
     cards.push(mk(f, 'DV', 'A', set === 'star' ? 1 : 20, { stars: 10, origin: 'divine_' + set + '_pack' }));
   }
-  const sellers = ['Mèo Lửa', 'Gấu Trúc Xanh', 'StarHunter', 'Lan Anh', 'DuelKing'];
-  const listings: Listing[] = [s3[5], s2[30], s1[44], s3[17], s2[9]].map((f, i) => ({
-    id: 900 + i, card: mk(f, ['SSR', 'SR', 'R', 'UR', 'EX'][i], 'A', 20 + i * 8, { stars: 1 + i * 2, enhance: i * 3 }),
-    seller: sellers[i], currency: i % 2 ? 'MINI_GREEN_BEAN' : 'RAINBOW_STAR', price: [180, 2400, 600, 420, 1500][i], mine: false,
-  }));
-  const dv = Object.keys(sets).sort().find((k) => sets[k] === 'star')!;
-  listings.push({ id: 950, card: mk(dv, 'DV', 'S', 30, { stars: 10, enhance: 5 }), seller: 'Collector', currency: 'RAINBOW_STAR', price: 9800, mine: false });
+  // no seeded market listings: the Pet Market only shows cards listed by Preview accounts
+  const listings: Listing[] = [];
   return {
-    player: { nickname: 'Owner Preview', uid: 100001, level: 65, vipPoints: 12000 },
-    beans: 80000, stars: 6000,
+    player: { nickname: 'Preview', uid: 0, level: 65, vipPoints: 12000 },
+    // Preview test balance (labelled in the UI); not real money and never sent anywhere
+    beans: 12000, stars: 1200,
     materials: { pet_shard: 900, enhance_stone: 400, breakthrough_core: 120, awakening_crystal: 30, engraving_dust: 100, training_scroll: 150 },
     essences: Object.fromEntries(['fire', 'water', 'nature', 'earth', 'lightning', 'wind', 'light', 'dark'].map((e) => ['essence_' + e, 40])),
     packs: { basic_pack: 3, premium_pack: 1 }, cards, listings, nextId: 1000,

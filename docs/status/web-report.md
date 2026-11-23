@@ -1,5 +1,30 @@
 # Web / game status report
 
+## Update: Social Hub, Guild, Leaderboards, Pet Market trades, Chat, Cosmetics (2026-11-23)
+
+Details: [docs/social-hub.md](../social-hub.md).
+
+- **Lobby:** five original hexagons (Market, Mini Games, Pet World, Start, Social Hub), Be Vietnam Pro font, labels never clipped, 3-channel chat dock bottom-left.
+- **Server:**
+  - Social v2: visibility, filters, Pet Showcase from server data, replies, comment likes, shares with source, pin/edit, weekly spotlight, auto-moderation queue, report auto-hide, moderation API;
+  - Guild v2: 5 roles, privacy, invites, logs, EXP/level, missions, Guild Boss on the 3v3 engine, Guild War;
+  - 17 leaderboards with seasons and rewards;
+  - card-for-card trades; market is beans-only;
+  - Shop Hub with cosmetics (frames, bubbles, effects, titles, 2 new skins);
+  - server-scored mini games; chat bubbles and unread counts.
+- **Migration:** `SocialHubGuildV2` (additive).
+- **Preview:** a shared "Preview server" in the browser, so two accounts really interact. No NPCs, fake posts, fake listings or fake rivals.
+- **Tests:**
+  - API 116/116; Rules 86/86; web 83/83;
+  - Playwright two-account flow 47/47 on PC, iPhone landscape and Android landscape;
+  - Unity compile check unchanged (no new Unity screens).
+- **Not done:**
+  - image upload in posts; separate hairstyles/accessories (no finished art);
+  - admin UI for the new moderation/guild/market APIs;
+  - Unity Social/Guild/Shop screens;
+  - hosted Preview server; sound/music;
+  - tests on real devices (only browser emulation of the viewports).
+
 ## Update: Main lobby redesign, chibi Trainers, Battle 3v3 (replaces the Arena) (2026-11-23)
 
 Rules, API, database, tests and deployment: [docs/battle-3v3.md](../battle-3v3.md).

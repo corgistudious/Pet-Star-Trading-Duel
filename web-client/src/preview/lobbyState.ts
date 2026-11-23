@@ -24,15 +24,20 @@ export interface LobbyState {
   giftcodes: string[];
   season: { xp: number; claimed: number[] };
   missions: { claimed: string[]; counters: Record<string, number> };
-  mini: { best: Record<string, number>; plays: Record<string, number> };
+  mini: { best: Record<string, number>; plays: Record<string, number>; history?: { g: import('./MiniGames').GameId; score: number; reward: number; at: number }[] };
   team: number[];
   battles: ReplayData[];
   pveCleared: string[];
   record: { pveWins: number; pveLosses: number; pvpWins: number; pvpLosses: number };
   seen: Record<string, boolean>;
+  /** Cosmetics bought in the Shop (frames, bubbles, effects, titles) and owned skins. Equipped ones live on the world account. */
+  owned: string[]; outfits: string[];
+  purchases: { id: string; item: string; qty: number; currency: string; price: number; at: number }[];
+  /** Card ids of the latest pack opening and of cards evolved by this account (for Pet Showcase). */
+  lastPack: number[]; evolved: number[];
 }
 
-export const LOBBY_KEY = 'petstar.preview.lobby.v1';
+export const LOBBY_KEY = 'petstar.preview.lobby.v2';
 export const EXP_PER_LEVEL = (lvl: number) => 100 + lvl * 50;
 export const SEASON_TIERS = [
   { xp: 100, reward: { beans: 300 } }, { xp: 250, reward: { stars: 5 } }, { xp: 450, reward: { beans: 800 } },
@@ -51,8 +56,6 @@ export const MISSIONS = [
 export const EVENT = { id: 'ev_starlight_2026', vi: 'Lễ hội Sao Băng', en: 'Starlight Festival', ends: '2026-12-31T23:59:59Z',
   tasks: [{ id: 'ev_win3', vi: 'Thắng 3 trận', en: 'Win 3 battles', goal: 3, reward: { stars: 8 } }, { id: 'ev_mini5', vi: 'Chơi 5 Mini Game', en: 'Play 5 Mini Games', goal: 5, reward: { beans: 600 } }] };
 
-const NPC_NAMES = ['Mây Hồng', 'Tiểu Long', 'StarRunner', 'Bông Gòn', 'Kai', 'Mochi'];
-
 export function freshLobby(): LobbyState {
   const now = new Date().toISOString();
   return {
@@ -60,25 +63,26 @@ export function freshLobby(): LobbyState {
     privacy: { showOnline: true, allowInvites: true }, settings: { sound: true, music: true, effects: 'high' },
     level: 1, exp: 0,
     mail: [
-      { id: 1, kind: 'system', from: 'Pet Star', title: { vi: 'Chào mừng Trainer mới!', en: 'Welcome, new Trainer!' }, body: { vi: 'Cảm ơn bạn đã thử bản Preview. Đây là quà chào mừng (dữ liệu mô phỏng).', en: 'Thanks for trying the Preview. Here is a welcome gift (simulated).' }, read: false, hidden: false, gift: { beans: 300 }, at: now },
-      { id: 2, kind: 'battle', from: 'Tiểu Long', title: { vi: 'Lời mời đấu 3v3', en: '3v3 battle invite' }, body: { vi: 'Đấu thử một trận không? (NPC mô phỏng — PvP thật cần máy chủ)', en: 'Fancy a match? (simulated NPC — real PvP needs the server)' }, read: false, hidden: false, at: now },
-      { id: 3, kind: 'trade', from: 'Pet Star', title: { vi: 'Thông báo giao dịch', en: 'Trade notice' }, body: { vi: 'Giao dịch thẻ trực tiếp sẽ mở sau khi qua kiểm thử bảo mật. Chợ giao dịch đã có.', en: 'Direct card trades open after security testing. The Marketplace is available.' }, read: false, hidden: false, at: now },
+      { id: 1, kind: 'system', from: 'Pet Star', title: { vi: 'Chào mừng Trainer mới!', en: 'Welcome, new Trainer!' }, body: { vi: 'Cảm ơn bạn đã thử bản Preview. Đây là quà chào mừng (số dư Preview, không phải tiền thật).', en: 'Thanks for trying the Preview. Here is a welcome gift (Preview balance, not real money).' }, read: false, hidden: false, gift: { beans: 300 }, at: now },
+      { id: 3, kind: 'system', from: 'Pet Star', title: { vi: 'Thử tương tác 2 tài khoản', en: 'Try two accounts' }, body: { vi: 'Bảng tin, Guild, Chat, Chợ chỉ chứa dữ liệu thật của các tài khoản Preview. Đăng xuất và đăng ký tên khác (hoặc mở tab thứ hai) để kết bạn, thích, bình luận, trao đổi thẻ với chính mình.', en: 'Feed, Guild, Chat and Market only hold real data from Preview accounts. Log out and sign up with another name (or open a second tab) to friend, like, comment and trade with yourself.' }, read: false, hidden: false, at: now },
     ],
-    friends: [
-      { name: NPC_NAMES[0], uid: 2001001, online: true, trainer: 'trainer_girl', level: 12 },
-      { name: NPC_NAMES[2], uid: 2001003, online: false, trainer: 'trainer_boy', level: 25 },
-    ],
-    requests: [{ name: NPC_NAMES[3], uid: 2001004, online: true, trainer: 'trainer_girl', level: 7 }],
-    blocked: [], reported: [],
+    friends: [], requests: [], blocked: [], reported: [],
     starterClaimed: false, checkin: { last: null, streak: 0 }, giftcodes: [], season: { xp: 0, claimed: [] },
     missions: { claimed: [], counters: {} }, mini: { best: {}, plays: {} }, team: [], battles: [], pveCleared: [],
-    record: { pveWins: 0, pveLosses: 0, pvpWins: 0, pvpLosses: 0 }, seen: {},
+    record: { pveWins: 0, pveLosses: 0, pvpWins: 0, pvpLosses: 0 }, seen: {}, owned: [], outfits: [], purchases: [], lastPack: [], evolved: [],
   };
 }
 
-export function loadLobby(): LobbyState {
-  try { const j = sessionStorage.getItem(LOBBY_KEY); if (j) return { ...freshLobby(), ...(JSON.parse(j) as LobbyState) }; } catch { /* storage blocked */ }
+const store = { get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* blocked */ } } };
+export const lobbyKey = (uid: number) => `${LOBBY_KEY}.${uid}`;
+export function loadLobbyFor(uid: number): LobbyState {
+  const j = store.get(lobbyKey(uid));
+  if (j) { try { return { ...freshLobby(), ...(JSON.parse(j) as LobbyState) }; } catch { /* corrupt: fresh */ } }
   return freshLobby();
 }
-export function saveLobby(l: LobbyState) { try { sessionStorage.setItem(LOBBY_KEY, JSON.stringify(l)); } catch { /* ignore */ } }
-export { NPC_NAMES };
+export function saveLobbyFor(uid: number, l: LobbyState) { store.set(lobbyKey(uid), JSON.stringify(l)); }
+/** Which Preview account this tab is signed in as (per tab, so two tabs can be two different players). */
+export const CURRENT_KEY = 'petstar.preview.current';
+export function currentUid(): number | null { try { const v = sessionStorage.getItem(CURRENT_KEY); return v ? Number(v) : null; } catch { return null; } }
+export function setCurrentUid(uid: number | null) { try { if (uid == null) sessionStorage.removeItem(CURRENT_KEY); else sessionStorage.setItem(CURRENT_KEY, String(uid)); } catch { /* blocked */ } }
+

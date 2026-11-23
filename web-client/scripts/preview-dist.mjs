@@ -5,10 +5,10 @@ import { join } from 'node:path';
 
 const out = 'dist-preview';
 renameSync(join(out, 'preview.html'), join(out, 'index.html'));
-const keep = new Set(['index.html', 'assets', 'art', 'data', 'i18n', 'brand']);
+const keep = new Set(['index.html', 'assets', 'art', 'data', 'i18n', 'brand', 'fonts']);
 for (const f of readdirSync(out)) if (!keep.has(f)) rmSync(join(out, f), { recursive: true, force: true });
 rmSync(join(out, 'art/pets/thumb'), { recursive: true, force: true }); // full-size art only (VITE_NO_THUMBS)
-for (const need of ['art/pets', 'art/ui', 'data/catalog.json', 'i18n/vi.json', 'i18n/en.json']) {
+for (const need of ['art/pets', 'art/ui', 'data/catalog.json', 'data/cosmetics.json', 'data/guild.json', 'data/trainers.json', 'fonts/BeVietnamPro-Regular.woff2', 'i18n/vi.json', 'i18n/en.json']) {
   if (!existsSync(join(out, need))) { console.error('preview: missing ' + need); process.exit(1); }
 }
 let files = 0, bytes = 0;

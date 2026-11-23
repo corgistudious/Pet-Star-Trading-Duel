@@ -4,7 +4,10 @@ import { useI18n } from '../i18n';
 import { RARITY_COLORS, petArt, uiArt, useCatalog } from '../state/catalog';
 import type { TeamRules, TeamSetupPlayer, TeamSetupUnit, TeamState } from '../team/model';
 import { LobbyView, LoginScreen, Sheet, TrainerSelect, previewStages, type BattleStart, type Legacy } from './Lobby';
-import { EXP_PER_LEVEL, loadLobby, saveLobby, type LobbyState } from './lobbyState';
+import { useCosmetics } from './Cosmetics';
+import { EXP_PER_LEVEL, currentUid, freshLobby, loadLobbyFor, saveLobbyFor, setCurrentUid, type LobbyState } from './lobbyState';
+import { create as teamCreate, apply as teamApply, decide as teamDecide } from '../team/engine';
+import { drainInbox, guildEvent, loadWorld, loginOrRegister, patchAccount, rarityRank, setGuildMissions, snap, warResult, type CardSnap, type GuildMission } from './world';
 import { TeamBattle, type ReplayData } from './TeamBattle';
 import {
   RARITY_ORDER, applyUpgrade, blocked, cost, evolution, levelCap, openPack, packBlocked, packOdds, seed, stats, toDto, vipLevel,
@@ -12,12 +15,13 @@ import {
 } from './sim';
 
 type Screen = { name: Legacy } | { name: 'open'; cards: SimCard[]; pack: PackDef } | { name: 'hub'; id: number };
-const KEY = 'petstar.preview.state.v1';
-
-function load(cat: FullCatalog): SimState {
-  try { const j = sessionStorage.getItem(KEY); if (j) return JSON.parse(j) as SimState; } catch { /* storage blocked: fresh sandbox */ }
+const KEY = 'petstar.preview.state.v2';
+const simKey = (uid: number) => `${KEY}.${uid}`;
+function load(cat: FullCatalog, uid: number | null): SimState {
+  if (uid != null) { try { const j = localStorage.getItem(simKey(uid)); if (j) return JSON.parse(j) as SimState; } catch { /* storage blocked: fresh sandbox */ } }
   return seed(cat);
 }
+const BOSS_MINIONS: Record<string, string[]> = { pet_calderon: ['pet_magmite', 'pet_emberkit'], pet_tidecrown: ['pet_puddlotl', 'pet_pupsplash'] };
 
 let teamRulesCache: TeamRules | null = null;
 async function loadTeamRules(): Promise<TeamRules> {
@@ -41,15 +45,43 @@ export default function PreviewApp() {
   const cat = useCatalog() as FullCatalog;
   const { lang, setLang, t } = useI18n();
   const P = (vi: string, en: string) => (lang === 'vi' ? vi : en);
-  const [s, setS] = useState<SimState>(() => load(cat));
-  const [l, setL] = useState<LobbyState>(() => loadLobby());
+  const [uid, setUid] = useState<number | null>(() => currentUid());
+  const [s, setS] = useState<SimState>(() => load(cat, uid));
+  const [l, setL] = useState<LobbyState>(() => (uid != null ? loadLobbyFor(uid) : freshLobby()));
+  const cos = useCosmetics();
+  useEffect(() => { if (cos) setGuildMissions(cos.missions as GuildMission[]); }, [cos]);
   const [screen, setScreen] = useState<Screen | null>(null);
   const [fight, setFight] = useState<Fight | null>(null);
   const [rules, setRules] = useState<TeamRules | null>(teamRulesCache);
   const [toast, setToast] = useState<string | null>(null);
   const [portrait, setPortrait] = useState(false);
-  useEffect(() => { try { sessionStorage.setItem(KEY, JSON.stringify(s)); } catch { /* ignore */ } }, [s]);
-  useEffect(() => { saveLobby(l); }, [l]);
+  useEffect(() => { if (uid != null) { try { localStorage.setItem(simKey(uid), JSON.stringify(s)); } catch { /* ignore */ } } }, [s, uid]);
+  useEffect(() => { if (uid != null) saveLobbyFor(uid, l); }, [l, uid]);
+  // publish this account's public data to the shared Preview world (profile, leaderboards, trade partners, war defenders)
+  useEffect(() => {
+    if (uid == null || !l.loggedIn) return;
+    const teamCards = l.team.map((id) => s.cards.find((c) => c.id === id)).filter(Boolean) as SimCard[];
+    patchAccount(uid, {
+      level: l.level, trainer: l.trainer, outfit: l.outfit, companion: s.cards.find((c) => c.id === l.companionId)?.formId ?? null,
+      team: teamCards.map(snap), cards: s.cards.filter((c) => !c.listed).slice(0, 60).map((c) => ({ ...snap(c), id: c.id })),
+      stats: { pvpWins: l.record.pvpWins, pvpGames: l.record.pvpWins + l.record.pvpLosses, collection: new Set(s.cards.map((c) => c.formId)).size,
+        rare: s.cards.filter((c) => rarityRank(c.rarity) >= 3).length, evolutions: (l.evolved ?? []).length, pve: l.pveCleared.length,
+        achievements: [l.starterClaimed, l.record.pveWins > 0, l.pveCleared.length >= 5, Object.keys(l.mini.best).length >= 3].filter(Boolean).length,
+        minigames: Object.values(l.mini.best).reduce((x, v) => x + v, 0), bossDamage: loadWorld().accounts.find((a) => a.uid === uid)?.stats.bossDamage ?? 0,
+        power: teamCards.reduce((x, c) => x + stats(cat, c).power, 0) },
+    });
+  }, [s, l, uid, cat]);
+  // deliveries from other accounts (sale proceeds, bought/traded cards, returned escrow)
+  useEffect(() => {
+    if (uid == null) return;
+    const pull = () => {
+      const ib = drainInbox(uid);
+      if (!ib.cards.length && !ib.beans) return;
+      setS((x) => ({ ...x, beans: x.beans + ib.beans, cards: [...ib.cards, ...x.cards] }));
+      setToast(`${ib.beans ? `+${ib.beans} 🫘 ` : ''}${ib.cards.length ? `+${ib.cards.length} ${lang === 'vi' ? 'thẻ' : 'cards'}` : ''} (${lang === 'vi' ? 'từ Chợ/Trao đổi' : 'from Market/Trades'})`);
+    };
+    pull(); const hnd = setInterval(pull, 2000); return () => clearInterval(hnd);
+  }, [uid, lang]);
   useEffect(() => { if (!toast) return; const h = setTimeout(() => setToast(null), 2600); return () => clearTimeout(h); }, [toast]);
   useEffect(() => { loadTeamRules().then(setRules).catch(() => setRules(null)); }, []);
   useEffect(() => { const f = () => setPortrait(innerHeight > innerWidth); f(); addEventListener('resize', f); return () => removeEventListener('resize', f); }, []);
@@ -57,9 +89,14 @@ export default function PreviewApp() {
   const forms = useRef(new Map(s.cards.map((c) => [c.id, c.formId])));
   useEffect(() => {
     let evolved = 0;
+    const before0 = forms.current;
     for (const c of s.cards) { const before = forms.current.get(c.id); if (before && before !== c.formId) evolved++; }
     forms.current = new Map(s.cards.map((c) => [c.id, c.formId]));
-    if (evolved > 0) setL((x) => ({ ...x, missions: { ...x.missions, counters: { ...x.missions.counters, evolve: (x.missions.counters.evolve ?? 0) + evolved } } }));
+    if (evolved > 0) {
+      const ids = s.cards.filter((c) => { const b = before0.get(c.id); return b && b !== c.formId; }).map((c) => c.id);
+      setL((x) => ({ ...x, evolved: [...new Set([...(x.evolved ?? []), ...ids])], missions: { ...x.missions, counters: { ...x.missions.counters, evolve: (x.missions.counters.evolve ?? 0) + evolved } } }));
+      if (uid != null) guildEvent(uid, 'evolve', evolved);
+    }
   }, [s.cards]);
   const say = (m: string) => setToast(m);
   const err = (code: string) => say(t('error.' + code));
@@ -75,7 +112,10 @@ export default function PreviewApp() {
     const mine = teamIds.map((id) => s.cards.find((c) => c.id === id)!);
     if (mine.length < 3) return say(P('Cần ít nhất 3 Pet', 'You need at least 3 Pets'));
     const a: TeamSetupPlayer = { name: l.account?.name ?? 'You', units: mine.map((c) => unitOf(cat, rules, c)) };
-    if (b.mode === 'pve' || b.mode === 'boss') {
+    if (b.mode === 'war' && b.war) {
+      const foe = b.war.team.map((c, i) => unitOf(cat, rules, { ...synthetic(c.formId, c.level, -20 - i), rarity: c.rarity, quality: c.quality, stars: c.stars }));
+      setFight({ id: ++fightSeq, a, b: { name: b.war.name, units: foe }, start: b });
+    } else if (b.mode === 'pve' || b.mode === 'boss') {
       const stage = previewStages(Object.keys(cat.forms).filter((f) => !f.startsWith('pet_dv_')).sort()).find((x) => x.id === b.stageId)!;
       const ai = stage.forms.map((f, i) => unitOf(cat, rules, synthetic(f, stage.level, -1 - i), stage.boss && i === 0 ? 250 : 100));
       if (stage.boss) { ai[0].atk = Math.round(ai[0].atk * 1.37); ai[0].mag = Math.round(ai[0].mag * 1.37); }
@@ -104,10 +144,13 @@ export default function PreviewApp() {
       reward = { beans: fight.stage.reward.beans, stars: fight.stage.reward.stars + (first ? 1 : 0) };
       setS((x) => ({ ...x, beans: x.beans + reward.beans, stars: x.stars + reward.stars }));
     }
+    if (uid != null && mode === 'war') warResult(uid, st.winner === null ? null : win);
+    if (uid != null && (mode === 'pve' || mode === 'boss') && win) guildEvent(uid, 'pve_win');
     setL((x) => {
       let exp = x.exp + (win ? 40 : 15), level = x.level;
       while (exp >= EXP_PER_LEVEL(level)) { exp -= EXP_PER_LEVEL(level); level++; }
       const pvp = mode === 'hotseat';
+      if (mode === 'war') return { ...x, exp, level, battles: [rp, ...x.battles].slice(0, 12), record: { ...x.record, pvpWins: x.record.pvpWins + (win ? 1 : 0), pvpLosses: x.record.pvpLosses + (st.winner === 1 ? 1 : 0) } };
       return {
         ...x, exp, level, battles: [rp, ...x.battles].slice(0, 12),
         season: { ...x.season, xp: x.season.xp + (win ? 40 : 10) },
@@ -119,18 +162,41 @@ export default function PreviewApp() {
     if (reward.beans || reward.stars) say(`${P('Phần thưởng (mô phỏng)', 'Rewards (simulated)')}: +${reward.beans} ${P('Đậu Xanh Mini', 'Mini Green Beans')}${reward.stars ? ` · +${reward.stars} ${P('Sao Ngũ Sắc', 'Rainbow Stars')}` : ''}`);
   };
 
-  const login = (name: string) => setL((x) => ({ ...x, loggedIn: true, account: x.account ?? { name, uid: 100000000 + Math.floor(Math.random() * 899999999), createdAt: new Date().toISOString() } }));
+  const login = (name: string) => {
+    const acc = loginOrRegister(name);
+    setCurrentUid(acc.uid);
+    const lobby = loadLobbyFor(acc.uid);
+    setS(load(cat, acc.uid));
+    setL({ ...lobby, loggedIn: true, account: lobby.account ?? { name: acc.name, uid: acc.uid, createdAt: acc.createdAt }, trainer: lobby.trainer ?? acc.trainer });
+    setUid(acc.uid);
+  };
+  const logout = () => { setL((x) => ({ ...x, loggedIn: false })); setTimeout(() => { setCurrentUid(null); setUid(null); setL(freshLobby()); }, 0); };
+  /** Guild Boss hit: your saved team vs the boss formation for 8 rounds on the shared 3v3 engine (AI both sides). */
+  const bossFight = (formId: string, guildLevel: number): number | null => {
+    if (!rules) return null;
+    const best = [...s.cards].filter((c) => !c.listed).sort((x, y) => stats(cat, y).power - stats(cat, x).power);
+    const ids = l.team.length === 3 && l.team.every((id) => s.cards.some((c) => c.id === id && !c.listed)) ? l.team : best.slice(0, 3).map((c) => c.id);
+    if (ids.length < 3) return null;
+    const mine = ids.map((id) => unitOf(cat, rules, s.cards.find((c) => c.id === id)!));
+    const boss = unitOf(cat, rules, { ...synthetic(formId, 6 + 2 * guildLevel, -90), rarity: 'SR' }); boss.hp *= 40;
+    const minions = (BOSS_MINIONS[formId] ?? [formId, formId]).map((f, i) => unitOf(cat, rules, synthetic(f, 3 + guildLevel, -91 - i)));
+    const st = teamCreate(rules, { name: 'team', units: mine }, { name: 'boss', units: [boss, ...minions] }, BigInt(Math.floor(Math.random() * 2 ** 48)));
+    while (st.phase !== 'finished' && st.round <= 8) { teamApply(rules, st, 0, teamDecide(rules, st, 0)); if ((st.phase as string) !== 'finished') teamApply(rules, st, 1, teamDecide(rules, st, 1)); }
+    const bossSide = new Set(st.units.filter((u) => u.side === 1).map((u) => u.uid));
+    return st.log.filter((e) => ['damage', 'counter', 'burn', 'poison'].includes(e.type) && bossSide.has(e.b)).reduce((x, e) => x + e.n, 0);
+  };
+  const startWar = (team: CardSnap[], name: string) => startBattle({ mode: 'war', war: { team, name } });
   const legacyTitle = (sc: Screen) => ({ shop: P('Tiệm', 'Shop'), collection: 'Album Pet', divine: P('15 Thần Pet', '15 Divine Pets'), market: P('Chợ giao dịch', 'Marketplace'), status: P('Trạng thái', 'Status'), open: P('Mở gói', 'Pack opening'), hub: 'Pet Hub' } as Record<string, string>)[sc.name];
 
   return (
     <div className="pv-stage pv-landscape">
       <div className={'pv-frame lb-frame' + (portrait ? ' portrait' : '')}>
-        {!l.loggedIn || !l.account ? <LoginScreen P={P} known={l.account?.name ?? null} onLogin={login} />
+        {uid == null || !l.loggedIn || !l.account ? <LoginScreen P={P} known={null} accounts={loadWorld().accounts.map((a) => a.name)} onLogin={login} />
           : !l.trainer ? <TrainerSelect P={P} onPick={(id) => setL((x) => ({ ...x, trainer: id, outfit: id === 'trainer_boy' ? 'outfit_boy_default' : 'outfit_girl_default', seen: { ...x.seen } }))} />
           : fight && rules ? <TeamBattle key={fight.id} rules={rules} a={fight.a} b={fight.b}
-              mode={fight.start.replay ? 'replay' : fight.start.mode} replay={fight.start.replay} P={P} onExit={() => setFight(null)} onFinish={finishBattle} />
+              mode={fight.start.replay ? 'replay' : fight.start.mode === 'war' ? 'pve' : fight.start.mode} replay={fight.start.replay} P={P} onExit={() => setFight(null)} onFinish={finishBattle} />
           : <LobbyView s={s} setS={setS} l={l} upd={upd} P={P} lang={lang} setLang={setLang} say={say} openLegacy={(x) => go({ name: x })} startBattle={startBattle}
-              logout={() => setL((x) => ({ ...x, loggedIn: false }))} />}
+              logout={logout} bossFight={bossFight} startWar={startWar} />}
         {screen && (
           <Sheet title={legacyTitle(screen)} wide onClose={() => go(screen.name === 'hub' ? { name: 'collection' } : null)}>
             <div className="pv-legacy">
@@ -151,14 +217,14 @@ export default function PreviewApp() {
                   if ((s.packs[p.id] ?? 0) < 1) return;
                   const cards = openPack(cat, p, s.nextId);
                   setS((x) => ({ ...x, packs: { ...x.packs, [p.id]: x.packs[p.id] - 1 }, cards: [...cards, ...x.cards], nextId: x.nextId + 5 }));
-                  setL((x) => ({ ...x, missions: { ...x.missions, counters: { ...x.missions.counters, open_pack: (x.missions.counters.open_pack ?? 0) + 1 } } }));
+                  setL((x) => ({ ...x, lastPack: cards.map((c) => c.id), missions: { ...x.missions, counters: { ...x.missions.counters, open_pack: (x.missions.counters.open_pack ?? 0) + 1 } } }));
+                  if (uid != null) guildEvent(uid, 'pack_open');
                   go({ name: 'open', cards, pack: p });
                 }} />}
               {screen.name === 'open' && <Opening cards={screen.cards} pack={screen.pack} P={P} t={t} done={() => go({ name: 'collection' })} />}
               {screen.name === 'collection' && <Collection s={s} P={P} open={(id) => go({ name: 'hub', id })} />}
               {screen.name === 'hub' && <Hub s={s} id={screen.id} P={P} t={t} setS={setS} say={say} err={err} />}
               {screen.name === 'divine' && <Divine s={s} P={P} />}
-              {screen.name === 'market' && <Market s={s} setS={setS} P={P} say={say} err={err} />}
               {screen.name === 'status' && <Status P={P} />}
             </div>
           </Sheet>
@@ -369,69 +435,29 @@ function Divine({ s, P }: { s: SimState; P: PFn }) {
   );
 }
 
-function Market({ s, setS, P, say, err }: { s: SimState; setS: (f: (x: SimState) => SimState) => void; P: PFn; say: (m: string) => void; err: (c: string) => void }) {
-  const cat = useCatalog();
-  const [sell, setSell] = useState(false);
-  return (
-    <div>
-      <h2 className="pv-h">{P('Chợ giao dịch', 'Marketplace')} · {P('phí 3%', '3% fee')}</h2>
-      <p className="muted small">{P('Sao Ngũ Sắc chỉ chuyển giữa người chơi, không bao giờ đổi ra tiền thật.', 'Rainbow Stars only move between players and can never be exchanged for real money.')}</p>
-      <button className="btn small" onClick={() => setSell(!sell)}>{sell ? P('Xem tin đăng', 'Show listings') : P('Đăng bán thẻ của tôi', 'List one of my cards')}</button>
-      {!sell ? (
-        <div className="pv-list">{s.listings.map((l) => (
-          <div key={l.id} className="pv-listing">
-            <CardView card={toDto(cat, l.card)} compact />
-            <div>
-              <b>{l.price.toLocaleString()} <img src={uiArt(l.currency === 'RAINBOW_STAR' ? 'ui_currency_rainbow_star' : 'ui_currency_mini_green_bean')} alt="" /></b>
-              <small>{l.mine ? P('Tin của bạn', 'Your listing') : `${P('Người bán', 'Seller')}: ${l.seller}`}</small>
-              <small>★{l.card.stars} · +{l.card.enhance} · {l.card.serial}</small>
-              {l.mine ? <button className="btn ghost small" onClick={() => setS((x) => ({ ...x, listings: x.listings.filter((y) => y.id !== l.id), cards: x.cards.map((c) => (c.id === l.card.id ? { ...c, listed: false } : c)) }))}>{P('Hủy', 'Cancel')}</button> :
-                <button className="btn primary small" onClick={() => {
-                  const bal = l.currency === 'RAINBOW_STAR' ? s.stars : s.beans;
-                  if (bal < l.price) return err(l.currency === 'RAINBOW_STAR' ? 'insufficient_rainbow_star' : 'insufficient_mini_green_bean');
-                  setS((x) => ({ ...x, [l.currency === 'RAINBOW_STAR' ? 'stars' : 'beans']: bal - l.price, listings: x.listings.filter((y) => y.id !== l.id),
-                    cards: [{ ...l.card, id: x.nextId, listed: false }, ...x.cards], nextId: x.nextId + 1 }));
-                  say(P('Đã mua — thẻ giữ nguyên sao, cường hóa, serial (mô phỏng)', 'Bought — stars, enhancement and serial kept (simulated)'));
-                }}>{P('Mua', 'Buy')}</button>}
-            </div>
-          </div>
-        ))}</div>
-      ) : (
-        <div className="pv-grid">{s.cards.filter((c) => !c.listed).map((c) => (
-          <CardView key={c.id} card={toDto(cat, c)} compact onClick={() => {
-            const price = Math.max(10, Math.round(toDto(cat, c).power / 10));
-            setS((x) => ({ ...x, cards: x.cards.map((y) => (y.id === c.id ? { ...y, listed: true } : y)),
-              listings: [{ id: x.nextId, card: { ...c, listed: true }, seller: x.player.nickname, currency: 'RAINBOW_STAR', price, mine: true }, ...x.listings], nextId: x.nextId + 1 }));
-            setSell(false); say(P(`Đã đăng bán ${price} Sao Ngũ Sắc; thẻ bị khóa khi đang bán (mô phỏng)`, `Listed for ${price} Rainbow Stars; the card is locked while listed (simulated)`));
-          }} />
-        ))}</div>
-      )}
-    </div>
-  );
-}
-
 function Status({ P }: { P: PFn }) {
   const done = [
-    P('Sảnh chính mới theo bố cục tham khảo: 4 nút lục giác, menu trái, thanh dưới, huy hiệu NEW theo trạng thái thật', 'New main lobby following the reference layout: 4 hex buttons, left menu, bottom bar, NEW badges from real state'),
-    P('2 Huấn Luyện Viên chibi (nam/nữ) với khung chớp mắt, vui vẻ, chạm để phản ứng; Pet đồng hành đổi được', '2 chibi Trainers (boy/girl) with blink and happy frames and tap reactions; changeable companion Pet'),
-    P('Đấu Pet 3v3 theo lượt: ra lệnh đồng thời, ưu tiên rồi SPD, EN, hồi chiêu, 10 trạng thái (engine TS đối chiếu với C# của server)', 'Turn-based 3v3 battle: simultaneous orders, priority then SPD, EN, cooldowns, 10 statuses (TS engine checked against the server C#)'),
-    P('PvE theo chương, Boss, Luyện tập, 2 người cùng máy, xem lại trận (replay)', 'PvE chapters, Boss, Practice, same-device 2 players, match replay'),
-    P('5 trò chơi nhỏ có giới hạn lượt thưởng và chống gian lận phía client', '5 mini games with reward-play limits and client-side anti-cheat'),
-    P('Cửa hàng 9 gói, mở gói 5 thẻ với bảng tỷ lệ thật, bộ sưu tập, tiến hóa, chợ, 15 Thần Pet', 'Shop with 9 packs, 5-card opening with real odds tables, collection, evolution, market, 15 Divine Pets'),
+    P('Sảnh 5 nút lục giác (Chợ Giao Dịch, Trò Chơi Khác, Sảnh Liên Thông, Bắt Đầu, Social Hub) với artwork gốc, nhãn không bị cắt', '5-hex lobby (Market, Mini Games, Pet World, Start, Social Hub) with original art, labels never clipped'),
+    P('Social Hub: bảng tin với quyền xem, đính kèm Pet, Pet Showcase, Like/Bình luận/Trả lời/Like bình luận/Chia sẻ, thông báo, báo cáo, chặn, giữ bài nghi vấn để kiểm duyệt', 'Social Hub: feed with audiences, attached Pets, Pet Showcase, like/comment/reply/comment-like/share, notifications, report, block, risky posts held for moderation'),
+    P('Guild: lập/tìm/vào/rời/giải tán an toàn, 5 vai trò, nhiệm vụ, Boss Guild (engine 3v3), Guild War, chat, bài nội bộ', 'Guild: found/find/join/leave/safe dissolve, 5 roles, missions, Guild Boss (3v3 engine), Guild War, chat, members-only posts'),
+    P('Bảng xếp hạng 17 bảng, bục Top 1/2/3, bộ lọc kỳ, hạng của tôi', '17 leaderboards, Top 1/2/3 podium, period filters, my rank'),
+    P('Chợ Pet chỉ Đậu Xanh Mini: đăng bán (khóa thẻ), mua, trao đổi thẻ (kiểm tra lại khi chấp nhận), lịch sử', 'Pet Market in Mini Green Beans only: list (card locked), buy, card trades (re-checked on accept), history'),
+    P('Chat 3 kênh góc dưới trái, khung avatar, bong bóng chat, hiệu ứng, Tiệm Skin Trainer Nam/Nữ (thử, mua, trang bị), Shop Hub, Hồ sơ 10 tab', '3-channel chat dock, avatar frames, chat bubbles, effects, Male/Female skin shop (try, buy, equip), Shop Hub, 10-tab profile'),
+    P('Giữ nguyên: Trainer, Pet đồng hành, gói 5 thẻ, Album, tiến hóa, Battle 3v3 PvE/Boss/Luyện tập/2 người, Mini Games', 'Kept: Trainers, companion, 5-card packs, Album, evolution, Battle 3v3 PvE/Boss/Practice/2-player, Mini Games'),
   ];
   const missing = [
-    P('Mọi số dư, phần thưởng và đối thủ trong bản xem trước là mô phỏng trong trình duyệt (không phải tiền tệ thật của server)', 'All balances, rewards and opponents in the preview are simulated in the browser (not real server currency)'),
-    P('PvP 2 tài khoản qua mạng chỉ có trong game thật (server); đã kiểm thử bằng API tests, chưa có máy chủ Preview công khai', 'Online PvP between 2 accounts exists only in the real game (server); verified by API tests, no hosted Preview server yet'),
-    P('Trò chơi nhỏ, Quảng Trường Pet, Thẻ Mùa: chưa có backend, chỉ mô phỏng ở đây', 'Mini games, Pet Plaza, Season Pass: no backend yet, simulated here only'),
-    P('Âm thanh/nhạc, trang phục thêm, giao dịch trực tiếp giữa người chơi: chưa làm', 'Sound/music, extra outfits, direct player trading: not made yet'),
-    P('Bản Unity chưa được build bằng Unity Editor thật (chỉ qua kiểm tra biên dịch)', 'Unity has not been built in a real Unity Editor yet (compile check only)'),
+    P('Bản Preview chạy "máy chủ Preview" trong trình duyệt (localStorage): hai tài khoản tương tác thật bằng cách đổi tài khoản hoặc mở 2 tab; không có người chơi khác qua mạng', 'The Preview runs a "Preview server" inside the browser (localStorage): two accounts interact for real by switching accounts or using 2 tabs; no other players over the network'),
+    P('Bản thật dùng API máy chủ + PostgreSQL (đã có và đã kiểm thử), chưa có máy chủ Preview công khai', 'The real game uses the server API + PostgreSQL (built and tested); no hosted Preview server yet'),
+    P('Tải ảnh lên bài đăng, kiểu tóc/phụ kiện riêng, âm thanh/nhạc: chưa làm', 'Image upload in posts, separate hairstyles/accessories, sound/music: not done'),
+    P('Giao diện Admin cho kiểm duyệt Social/Guild/Chat/Market: chưa làm (đã có API)', 'Admin UI for Social/Guild/Chat/Market moderation: not done (API exists)'),
+    P('Unity chưa có các màn Social Hub/Guild/Shop mới', 'Unity does not have the new Social Hub/Guild/Shop screens yet'),
   ];
   return (
     <div className="pv-status">
       <h2 className="pv-h">{P('Trạng thái bản xem trước', 'Preview status')}</h2>
       <h3>✅ {P('Đã có', 'Done')}</h3><ul>{done.map((x) => <li key={x}>{x}</li>)}</ul>
       <h3>⏳ {P('Còn thiếu / chỉ mô phỏng', 'Missing / simulated only')}</h3><ul>{missing.map((x) => <li key={x}>{x}</li>)}</ul>
-      <p className="muted small">{P('Dữ liệu chỉ lưu trong tab trình duyệt này (sessionStorage) và mất khi đóng tab. Không có request nào tới API hay database.', 'Data lives only in this browser tab (sessionStorage) and disappears when it closes. No request goes to any API or database.')}</p>
+      <p className="muted small">{P('Dữ liệu Preview lưu trong trình duyệt này (localStorage). Không có request nào tới API hay database.', 'Preview data is stored in this browser (localStorage). No request goes to any API or database.')}</p>
     </div>
   );
 }

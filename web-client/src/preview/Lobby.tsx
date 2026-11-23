@@ -5,23 +5,32 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { petArt, uiArt, useCatalog } from '../state/catalog';
 import { GAME_LIMITS, MiniGames, rewardFor, today, type GameId } from './MiniGames';
-import { EVENT, EXP_PER_LEVEL, GIFTCODES, MISSIONS, NPC_NAMES, SEASON_TIERS, type Friend, type LobbyState } from './lobbyState';
+import { ChatDock } from './ChatDock';
+import { Avatar, Effect, skinArt, useCosmetics } from './Cosmetics';
+import type { Hub } from './hub';
+import { Leaderboards } from './Leaderboard';
+import { EVENT, EXP_PER_LEVEL, GIFTCODES, MISSIONS, SEASON_TIERS, type LobbyState } from './lobbyState';
+import { MarketHub } from './MarketHub';
+import { Profile } from './Profile';
+import { ShopHub, type ShopCat } from './ShopHub';
+import { SocialHub, type SocialTab } from './SocialHub';
+import { acc, guildOf, incoming, myNotifs, useWorld, type CardSnap } from './world';
 import { stats, type SimCard, type SimState } from './sim';
 import type { ReplayData } from './TeamBattle';
 
 type PFn = (vi: string, en: string) => string;
 type Upd = (f: (l: LobbyState) => LobbyState) => void;
 export type Panel = 'profile' | 'settings' | 'notices' | 'help' | 'mail' | 'friends' | 'starter' | 'center' | 'gifts' | 'season' | 'events'
-  | 'plaza' | 'games' | 'world' | 'battle' | 'team' | 'missions' | 'leaders' | 'history' | 'companion' | 'pve' | 'admin';
+  | 'social' | 'market' | 'shop' | 'viewProfile' | 'games' | 'world' | 'battle' | 'team' | 'missions' | 'leaders' | 'history' | 'companion' | 'pve' | 'admin';
 export type Legacy = 'shop' | 'collection' | 'divine' | 'market' | 'status';
-export interface BattleStart { mode: 'pve' | 'boss' | 'practice' | 'hotseat'; stageId?: string; replay?: ReplayData }
+export interface BattleStart { mode: 'pve' | 'boss' | 'practice' | 'hotseat' | 'war'; stageId?: string; replay?: ReplayData; war?: { team: CardSnap[]; name: string } }
 
 const BEANS = 'MINI_GREEN_BEAN', STARS = 'RAINBOW_STAR';
 export const trainerArt = (id: string, frame: 'idle' | 'blink' | 'happy' = 'idle') => uiArt(frame === 'idle' ? id : `${id}_${frame}`);
 
 // ------------------------------------------------------------------ login + trainer choice
 
-export function LoginScreen({ P, known, onLogin }: { P: PFn; known: string | null; onLogin: (name: string) => void }) {
+export function LoginScreen({ P, known, onLogin, accounts = [] }: { P: PFn; known: string | null; onLogin: (name: string) => void; accounts?: string[] }) {
   const [name, setName] = useState(known ?? '');
   return (
     <div className="lb-gate" style={{ backgroundImage: `url(${uiArt('bg_lobby_main')})` }}>
@@ -29,8 +38,9 @@ export function LoginScreen({ P, known, onLogin }: { P: PFn; known: string | nul
         <img src={`${import.meta.env.BASE_URL}brand/logo-512.webp`} alt="Pet Star: Trading Duel" className="lb-logo" onError={(e) => ((e.target as HTMLImageElement).style.display = 'none')} />
         <b>{known ? P('Đăng nhập lại', 'Sign in again') : P('Tạo tài khoản Preview', 'Create a Preview account')}</b>
         <small>{P('Tài khoản Preview chỉ lưu trong trình duyệt này (không phải tài khoản Production). Đăng ký/đăng nhập thật dùng máy chủ.', 'Preview accounts live only in this browser (not a Production account). Real sign-up/login uses the server.')}</small>
-        <input className="lb-input" value={name} maxLength={16} placeholder={P('Tên Trainer', 'Trainer name')} onChange={(e) => setName(e.target.value)} data-testid="login-name" />
-        <button className="btn primary" disabled={name.trim().length < 2} onClick={() => onLogin(name.trim())} data-testid="login-go">{known ? P('Đăng nhập', 'Sign in') : P('Đăng ký & vào game', 'Sign up & play')}</button>
+        <input className="lb-input" value={name} maxLength={24} placeholder={P('Tên Trainer', 'Trainer name')} onChange={(e) => setName(e.target.value)} data-testid="login-name" />
+        <button className="btn primary" disabled={name.trim().length < 2} onClick={() => onLogin(name.trim())} data-testid="login-go">{accounts.some((a) => a.toLowerCase() === name.trim().toLowerCase()) ? P('Đăng nhập', 'Sign in') : P('Đăng ký & vào game', 'Sign up & play')}</button>
+        {accounts.length > 0 && <div className="lb-accounts"><small>{P('Tài khoản Preview trên trình duyệt này:', 'Preview accounts in this browser:')}</small>{accounts.map((a) => <button key={a} className="btn small" onClick={() => onLogin(a)} data-testid={`login-as-${a}`}>{a}</button>)}</div>}
       </div>
     </div>
   );
@@ -60,12 +70,24 @@ export function TrainerSelect({ P, onPick }: { P: PFn; onPick: (id: 'trainer_boy
 
 // ------------------------------------------------------------------ lobby
 
-export function LobbyView({ s, setS, l, upd, P, lang, setLang, say, openLegacy, startBattle, logout }: {
+export function LobbyView({ s, setS, l, upd, P, lang, setLang, say, openLegacy, startBattle, logout, bossFight, startWar }: {
   s: SimState; setS: (f: (x: SimState) => SimState) => void; l: LobbyState; upd: Upd; P: PFn; lang: string; setLang: (x: 'vi' | 'en') => void;
   say: (m: string) => void; openLegacy: (x: Legacy) => void; startBattle: (b: BattleStart) => void; logout: () => void;
+  bossFight: (formId: string, guildLevel: number) => number | null; startWar: (team: CardSnap[], name: string) => void;
 }) {
   const cat = useCatalog();
+  const w = useWorld();
+  const d = useCosmetics();
+  const me = l.account?.uid ?? 0;
+  const meAcc = acc(w, me);
   const [panel, setPanel] = useState<Panel | null>(null);
+  const [socialTab, setSocialTab] = useState<SocialTab>('feed');
+  const [shopCat, setShopCat] = useState<ShopCat>('skins');
+  const [viewUid, setViewUid] = useState<number>(me);
+  const [dm, setDm] = useState<number | null>(null);
+  const openProfile = (uid: number) => { setViewUid(uid); setPanel('viewProfile'); };
+  const h: Hub = { me, w, s, setS, l, upd, P, lang, say, d, openProfile, bossFight, startWar: (t, n) => { setPanel(null); startWar(t, n); } };
+  const openChat = (uid: number) => { setPanel(null); setDm(uid); };
   const [frame, setFrame] = useState<'idle' | 'blink' | 'happy'>('idle');
   const [petHop, setPetHop] = useState(false);
   const [par, setPar] = useState({ x: 0, y: 0 });
@@ -90,6 +112,8 @@ export function LobbyView({ s, setS, l, upd, P, lang, setLang, say, openLegacy, 
 
   // NEW badges come from real state (cleared when the content is used or seen)
   const unreadMail = l.mail.filter((m) => !m.read && !m.hidden).length;
+  const unreadSocial = myNotifs(w, me).filter((n) => !n.read).length;
+  const friendReqs = incoming(w, me).length;
   const badges: Record<string, boolean | number> = {
     starter: !l.starterClaimed, gifts: l.checkin.last !== today(), season: SEASON_TIERS.some((t, i) => l.season.xp >= t.xp && !l.season.claimed.includes(i)),
     events: !l.seen.events, shop: !l.seen.shop, center: !l.seen.center,
@@ -109,8 +133,8 @@ export function LobbyView({ s, setS, l, upd, P, lang, setLang, say, openLegacy, 
 
       {/* header */}
       <button className="lb-profile" onClick={() => open('profile')} data-testid="open-profile">
-        <span className={'lb-avatar frame-' + l.frame} style={{ backgroundImage: `url(${trainerArt(trainer)})` }} />
-        <span className="lb-pinfo"><b>{l.account?.name}</b><small>UID {l.account?.uid}</small>
+        <Avatar a={meAcc ?? { trainer, outfit: l.outfit, frame: 'frame_default' }} d={d} size={58} />
+        <span className="lb-pinfo"><b className="ellipsis" title={l.account?.name}>{l.account?.name}</b><small>UID {l.account?.uid}{guildOf(w, me)?.tag ? ` · [${guildOf(w, me)!.tag}]` : ''}</small>
           <span className="lb-lv">Lv {l.level}<i><em style={{ width: `${Math.min(100, (100 * l.exp) / expNeed)}%` }} /></i></span></span>
       </button>
       <div className="lb-wallet">
@@ -119,7 +143,7 @@ export function LobbyView({ s, setS, l, upd, P, lang, setLang, say, openLegacy, 
         ))}
       </div>
       <div className="lb-tools">
-        <button onClick={() => open('notices')} aria-label={P('Thông báo', 'Notifications')}>🔔{(badges.season || unreadMail > 0) && <em className="lb-dot" />}</button>
+        <button onClick={() => open('notices')} aria-label={P('Thông báo', 'Notifications')}>🔔{(badges.season || unreadMail > 0 || unreadSocial > 0) && <em className="lb-dot" />}</button>
         <button onClick={() => open('help')} aria-label={P('Trợ giúp', 'Help')}>❔</button>
         <button onClick={() => open('settings')} aria-label={P('Cài đặt', 'Settings')} data-testid="open-settings">⚙️</button>
       </div>
@@ -127,7 +151,7 @@ export function LobbyView({ s, setS, l, upd, P, lang, setLang, say, openLegacy, 
       {/* left menu */}
       <div className="lb-left">
         <button onClick={() => open('mail')} data-testid="open-mail"><img src={uiArt('ui_icon_mail')} alt="" /><span>{P('Tin Nhắn', 'Messages')}</span>{unreadMail > 0 && <em className="lb-badge">{unreadMail}</em>}</button>
-        <button onClick={() => open('friends')} data-testid="open-friends"><img src={uiArt('ui_icon_friends')} alt="" /><span>{P('Bạn Bè', 'Friends')}</span>{l.requests.length > 0 && <em className="lb-badge">{l.requests.length}</em>}</button>
+        <button onClick={() => { setSocialTab('friends'); open('social'); }} data-testid="open-friends"><img src={uiArt('ui_icon_friends')} alt="" /><span>{P('Bạn Bè', 'Friends')}</span>{friendReqs > 0 && <em className="lb-badge">{friendReqs}</em>}</button>
       </div>
 
       {/* stage: podium + trainer + companion */}
@@ -135,9 +159,10 @@ export function LobbyView({ s, setS, l, upd, P, lang, setLang, say, openLegacy, 
         <img className="lb-podium" src={uiArt('ui_podium')} alt="" />
         <button className={'lb-trainer ' + frame} onClick={tapTrainer} aria-label={P('Trainer', 'Trainer')} data-testid="trainer">
           <span className="lb-shadow" />
-          <img src={trainerArt(trainer, 'idle')} alt="" className={frame === 'idle' ? 'on' : ''} />
-          <img src={trainerArt(trainer, 'blink')} alt="" className={frame === 'blink' ? 'on' : ''} />
-          <img src={trainerArt(trainer, 'happy')} alt="" className={frame === 'happy' ? 'on' : ''} />
+          <img src={skinArt(d, trainer, meAcc?.outfit ?? l.outfit, 'idle')} alt="" className={frame === 'idle' ? 'on' : ''} />
+          <img src={skinArt(d, trainer, meAcc?.outfit ?? l.outfit, 'blink')} alt="" className={frame === 'blink' ? 'on' : ''} />
+          <img src={skinArt(d, trainer, meAcc?.outfit ?? l.outfit, 'happy')} alt="" className={frame === 'happy' ? 'on' : ''} />
+          <Effect d={d} id={meAcc?.effect} />
           {frame === 'happy' && <span className="lb-heart">✨</span>}
         </button>
         {companion && (
@@ -150,43 +175,52 @@ export function LobbyView({ s, setS, l, upd, P, lang, setLang, say, openLegacy, 
         {companion && <button className="lb-pet-tag" onClick={() => open('companion')} data-testid="open-companion">🐾 {cat.forms[companion.formId]?.name ?? companion.formId} ›</button>}
       </div>
 
-      {/* four hexagon hubs */}
-      <div className="lb-hexes">
-        <Hex cls="plaza" label={P('Sảnh Tương Tác', 'Pet Plaza')} pets={['pet_bloomhare', 'pet_boltcub']} onClick={() => open('plaza')} id="hex-plaza" />
-        <Hex cls="games" label={P('Trò Chơi Khác', 'Mini Games')} pets={['pet_floatlet', 'pet_inklet']} icon="🧩" onClick={() => open('games')} id="hex-games" />
-        <Hex cls="world" label={P('Sảnh Liên Thông', 'Pet World')} pets={['pet_dandefluff', 'pet_emberkit']} icon="🗺️" onClick={() => open('world')} id="hex-world" />
-        <Hex cls="battle" label={P('Bắt Đầu', 'Battle 3v3')} pets={['pet_pyrelynx', 'pet_tidecrown', 'pet_aurelion'.replace('pet_aurelion', 'pet_celestallion')]} onClick={() => open('battle')} id="hex-battle" />
+      {/* five hexagon hubs (honeycomb: 2 on top, 3 below; Start is the largest) */}
+      <div className="lb-hexes five">
+        <Hex cls="market" label={P('Chợ Giao Dịch', 'Pet Market')} icon="ui_hex_market" pets={['pet_bloomhare']} onClick={() => open('market')} id="hex-market" />
+        <Hex cls="games" label={P('Trò Chơi Khác', 'Mini Games')} icon="ui_hex_games" pets={['pet_floatlet']} onClick={() => open('games')} id="hex-games" />
+        <Hex cls="world" label={P('Sảnh Liên Thông', 'Pet World')} icon="ui_hex_world" pets={['pet_dandefluff']} onClick={() => open('world')} id="hex-world" />
+        <Hex cls="battle" label={P('Bắt Đầu', 'Start')} icon="ui_hex_battle" pets={['pet_pyrelynx', 'pet_tidecrown']} onClick={() => open('battle')} id="hex-battle" />
+        <Hex cls="social" label="Social Hub" icon="ui_hex_social" pets={['pet_boltcub']} badge={unreadSocial + friendReqs} onClick={() => { setSocialTab('feed'); open('social'); }} id="hex-social" />
       </div>
 
       {/* utility bar */}
       <div className="lb-bottom">
         {bottom.map(([p, label, icon]) => (
-          <button key={p} onClick={() => { if (p === 'shop') { upd((x) => ({ ...x, seen: { ...x.seen, shop: true } })); openLegacy('shop'); } else open(p); }} data-testid={`bar-${p}`}>
+          <button key={p} onClick={() => { if (p === 'shop') setShopCat('skins'); open(p as Panel); }} data-testid={`bar-${p}`}>
             <img src={uiArt(icon)} alt="" /><span>{label}</span>{badges[p] ? <em className="lb-new">NEW</em> : null}
           </button>
         ))}
       </div>
-      <div className="lb-preview-tag">{P('PREVIEW · dữ liệu mô phỏng', 'PREVIEW · simulated data')}</div>
+      <div className="lb-preview-tag">{P('PREVIEW · dữ liệu cục bộ', 'PREVIEW · local data')}</div>
+      <ChatDock h={h} dm={dm} setDm={setDm} />
 
       {panel && (
-        <Sheet title={panelTitle(panel, P)} onClose={() => setPanel(null)} wide={panel === 'plaza' || panel === 'games'}>
-          <Panels panel={panel} setPanel={setPanel} s={s} setS={setS} l={l} upd={upd} P={P} lang={lang} setLang={setLang} say={say}
-            openLegacy={(x) => { setPanel(null); openLegacy(x); }} startBattle={(b) => { setPanel(null); startBattle(b); }} logout={logout} />
+        <Sheet title={panelTitle(panel, P)} onClose={() => setPanel(null)} wide={['social', 'market', 'shop', 'games', 'profile', 'viewProfile', 'leaders'].includes(panel)}>
+          {panel === 'social' ? <SocialHub h={h} tab={socialTab} setTab={setSocialTab} openChat={openChat} />
+            : panel === 'market' ? <MarketHub h={h} />
+            : panel === 'shop' ? <ShopHub h={h} initial={shopCat} openPacks={() => { setPanel(null); upd((x) => ({ ...x, seen: { ...x.seen, shop: true } })); openLegacy('shop'); }} />
+            : panel === 'viewProfile' || panel === 'profile' ? <Profile h={h} uid={panel === 'profile' ? me : viewUid} openChat={openChat} openFashion={() => { setShopCat('frames'); setPanel('shop'); }} />
+            : panel === 'leaders' ? <Leaderboards h={h} />
+            : <Panels panel={panel} setPanel={setPanel} s={s} setS={setS} l={l} upd={upd} P={P} lang={lang} setLang={setLang} say={say} h={h}
+              openLegacy={(x) => { setPanel(null); openLegacy(x); }} startBattle={(b) => { setPanel(null); startBattle(b); }} logout={logout} />}
         </Sheet>
       )}
     </div>
   );
 }
 
-function Hex({ cls, label, pets, icon, onClick, id }: { cls: string; label: string; pets: string[]; icon?: string; onClick: () => void; id: string }) {
+function Hex({ cls, label, pets, icon, onClick, id, badge }: { cls: string; label: string; pets: string[]; icon: string; onClick: () => void; id: string; badge?: number }) {
+  // the label sits in its own band inside the hexagon's safe area (never clipped, never scaled)
   return (
-    <button className={'lb-hex ' + cls} onClick={onClick} data-testid={id}>
+    <button className={'lb-hex ' + cls} onClick={onClick} data-testid={id} aria-label={label}>
       <span className="lb-hex-rim" />
       <span className="lb-hex-body">
         <span className="lb-hex-shine" />
-        <span className="lb-hex-art">{pets.map((p, i) => <img key={p} src={petArt(p, true)} alt="" className={'p' + i} onError={(e) => ((e.target as HTMLImageElement).style.visibility = 'hidden')} />)}{icon && <i className="lb-hex-icon">{icon}</i>}</span>
+        <span className="lb-hex-art"><img src={uiArt(icon)} alt="" className="lb-hex-emblem" />{pets.map((p, i) => <img key={p} src={petArt(p, true)} alt="" className={'p' + i} onError={(e) => ((e.target as HTMLImageElement).style.visibility = 'hidden')} />)}</span>
         <span className="lb-hex-label">{label}</span>
       </span>
+      {!!badge && <em className="lb-badge lb-hex-badge">{badge > 99 ? '99+' : badge}</em>}
     </button>
   );
 }
@@ -206,7 +240,7 @@ function panelTitle(p: Panel, P: PFn): string {
   return ({
     profile: P('Hồ sơ', 'Profile'), settings: P('Cài đặt', 'Settings'), notices: P('Thông báo', 'Notifications'), help: P('Trợ giúp', 'Help'),
     mail: P('Tin Nhắn', 'Messages'), friends: P('Bạn Bè', 'Friends'), starter: P('Quà Tân Thủ', 'Starter Gift'), center: P('Trung Tâm', 'Center'),
-    gifts: P('Quà Tặng', 'Gifts'), season: P('Thẻ Mùa', 'Season Pass'), events: P('Hoạt Động', 'Events'), plaza: P('Sảnh Tương Tác — Pet Plaza', 'Pet Plaza'),
+    gifts: P('Quà Tặng', 'Gifts'), season: P('Thẻ Mùa', 'Season Pass'), events: P('Hoạt Động', 'Events'), social: 'Social Hub', market: P('Chợ Giao Dịch Pet', 'Pet Market'), shop: P('Tiệm — Shop Hub', 'Shop Hub'), viewProfile: P('Hồ sơ', 'Profile'),
     games: P('Trò Chơi Khác — Mini Games', 'Mini Games'), world: P('Sảnh Liên Thông — Pet World', 'Pet World'), battle: P('Battle 3v3', 'Battle 3v3'),
     team: P('Quản lý đội hình', 'Team management'), missions: P('Nhiệm vụ', 'Missions'), leaders: P('Bảng xếp hạng', 'Leaderboard'),
     history: P('Lịch sử trận & Replay', 'Match history & Replay'), companion: P('Pet đồng hành', 'Companion Pet'), pve: P('PvE — Chương thử thách', 'PvE chapters'),
@@ -229,42 +263,19 @@ export function previewStages(forms: string[]): Stage[] {
 
 // ------------------------------------------------------------------ panels
 
-function Panels({ panel, setPanel, s, setS, l, upd, P, lang, setLang, say, openLegacy, startBattle, logout }: {
+function Panels({ panel, setPanel, s, setS, l, upd, P, lang, setLang, say, openLegacy, startBattle, logout, h }: {
   panel: Panel; setPanel: (p: Panel | null) => void; s: SimState; setS: (f: (x: SimState) => SimState) => void; l: LobbyState; upd: Upd; P: PFn; lang: string;
-  setLang: (x: 'vi' | 'en') => void; say: (m: string) => void; openLegacy: (x: Legacy) => void; startBattle: (b: BattleStart) => void; logout: () => void;
+  setLang: (x: 'vi' | 'en') => void; say: (m: string) => void; openLegacy: (x: Legacy) => void; startBattle: (b: BattleStart) => void; logout: () => void; h: Hub;
 }) {
   const cat = useCatalog();
   const L = (o: { vi: string; en: string }) => (lang === 'vi' ? o.vi : o.en);
   const pay = (r: { beans?: number; stars?: number }) => setS((x) => ({ ...x, beans: x.beans + (r.beans ?? 0), stars: x.stars + (r.stars ?? 0) }));
   const rewardText = (r: { beans?: number; stars?: number }) => [r.beans ? `+${r.beans} ${P('Đậu Xanh Mini', 'Mini Green Beans')}` : '', r.stars ? `+${r.stars} ${P('Sao Ngũ Sắc', 'Rainbow Stars')}` : ''].filter(Boolean).join(' · ');
-  const owned = new Set(s.cards.map((c) => c.formId));
   const best = [...s.cards].sort((a, b) => stats(cat, b).power - stats(cat, a).power);
   const team = (l.team.length === 3 && l.team.every((id) => s.cards.some((c) => c.id === id)) ? l.team : best.slice(0, 3).map((c) => c.id));
   const mission = (id: string) => l.missions.counters[id] ?? 0;
 
   switch (panel) {
-    case 'profile': return (
-      <div className="lp-grid">
-        <div className="lp-card center">
-          <span className={'lb-avatar big frame-' + l.frame} style={{ backgroundImage: `url(${trainerArt(l.trainer ?? 'trainer_boy')})` }} />
-          <b>{l.account?.name}</b><small>UID {l.account?.uid} · Lv {l.level}</small>
-          <small>{l.trainer === 'trainer_girl' ? P('Trainer Nữ · Nhà Thám Hiểm Bạc Hà', 'Female Trainer · Mint Explorer') : P('Trainer Nam · Nhà Thám Hiểm Bầu Trời', 'Male Trainer · Sky Explorer')}</small>
-          <div className="lp-row">{(['gold', 'star', 'leaf'] as const).map((f) => <button key={f} className={'btn small' + (l.frame === f ? ' primary' : '')} onClick={() => upd((x) => ({ ...x, frame: f }))}>{P('Khung', 'Frame')} {f}</button>)}</div>
-          <textarea className="lb-input" maxLength={80} placeholder={P('Giới thiệu bản thân', 'About me')} value={l.bio} onChange={(e) => upd((x) => ({ ...x, bio: e.target.value }))} />
-        </div>
-        <div className="lp-card">
-          <b>{P('Thống kê', 'Stats')}</b>
-          <small>{P('Album', 'Album')}: {owned.size}/{Object.keys(cat.forms).length} {P('dạng Pet', 'Pet forms')} · {s.cards.length} {P('thẻ', 'cards')}</small>
-          <small>PvE: {l.record.pveWins}W / {l.record.pveLosses}L · PvP: {l.record.pvpWins}W / {l.record.pvpLosses}L</small>
-          <small>{P('Huy hiệu', 'Badges')}: {[l.record.pveWins >= 1 && '🥉', l.record.pveWins >= 5 && '🥈', owned.size >= 20 && '📚', l.pveCleared.length >= 5 && '🏆'].filter(Boolean).join(' ') || '—'}</small>
-          <small>{P('Thành tích', 'Achievements')}: {[l.starterClaimed, l.record.pveWins > 0, l.pveCleared.length >= 5, Object.keys(l.mini.best).length >= 3].filter(Boolean).length}/4</small>
-          <b>{P('Riêng tư', 'Privacy')}</b>
-          <label className="small"><input type="checkbox" checked={l.privacy.showOnline} onChange={(e) => upd((x) => ({ ...x, privacy: { ...x.privacy, showOnline: e.target.checked } }))} /> {P('Hiện trạng thái online', 'Show online status')}</label>
-          <label className="small"><input type="checkbox" checked={l.privacy.allowInvites} onChange={(e) => upd((x) => ({ ...x, privacy: { ...x.privacy, allowInvites: e.target.checked } }))} /> {P('Cho phép mời đấu', 'Allow battle invites')}</label>
-          <div className="lp-row"><button className="btn small" onClick={() => setPanel('companion')}>🐾 {P('Pet đồng hành', 'Companion')}</button><button className="btn small" onClick={() => setPanel('history')}>📜 {P('Lịch sử trận', 'History')}</button><button className="btn small" onClick={() => openLegacy('collection')}>📚 Album</button></div>
-        </div>
-      </div>
-    );
     case 'companion': return (
       <div>
         <small>{P('Chạm một Pet trong bộ sưu tập để làm Pet đồng hành. Hình thái hiện tại theo thẻ bạn sở hữu.', 'Tap a Pet from your collection to make it your companion. The form shown is the one you own.')}</small>
@@ -282,7 +293,8 @@ function Panels({ panel, setPanel, s, setS, l, upd, P, lang, setLang, say, openL
         <div className="lp-row">{P('Đồ họa', 'Graphics')}: {(['high', 'low'] as const).map((q) => <button key={q} className={'btn small' + (l.settings.effects === q ? ' primary' : '')} onClick={() => upd((x) => ({ ...x, settings: { ...x.settings, effects: q } }))}>{q === 'high' ? P('Cao', 'High') : P('Tiết kiệm', 'Low')}</button>)}</div>
         <div className="lp-row">{P('Ngôn ngữ', 'Language')}: <button className={'btn small' + (lang === 'vi' ? ' primary' : '')} onClick={() => setLang('vi')}>Tiếng Việt</button><button className={'btn small' + (lang === 'en' ? ' primary' : '')} onClick={() => setLang('en')}>English</button></div>
         <small>{P('Tài khoản', 'Account')}: {l.account?.name} · UID {l.account?.uid}</small>
-        <button className="btn danger" onClick={logout} data-testid="logout">{P('Đăng xuất', 'Log out')}</button>
+        <button className="btn danger" onClick={logout} data-testid="logout">{P('Đăng xuất / Đổi tài khoản', 'Log out / Switch account')}</button>
+        <small className="muted">{P('Dữ liệu Preview lưu trong trình duyệt này (localStorage). Mỗi tab có thể đăng nhập một tài khoản khác nhau.', 'Preview data is stored in this browser (localStorage). Each tab can sign in as a different account.')}</small>
       </div>
     );
     case 'notices': return (
@@ -290,11 +302,12 @@ function Panels({ panel, setPanel, s, setS, l, upd, P, lang, setLang, say, openL
         <div className="lp-card"><b>📢 {L(EVENT)}</b><small>{P('Sự kiện đang diễn ra đến', 'Running until')} {EVENT.ends.slice(0, 10)}</small></div>
         {SEASON_TIERS.some((t, i) => l.season.xp >= t.xp && !l.season.claimed.includes(i)) && <div className="lp-card"><b>🎖 {P('Có phần thưởng Thẻ Mùa chờ nhận', 'Season Pass reward ready')}</b><button className="btn small" onClick={() => setPanel('season')}>{P('Xem', 'Open')}</button></div>}
         {l.mail.filter((m) => !m.read && !m.hidden).length > 0 && <div className="lp-card"><b>✉️ {P('Tin nhắn chưa đọc', 'Unread messages')}: {l.mail.filter((m) => !m.read && !m.hidden).length}</b><button className="btn small" onClick={() => setPanel('mail')}>{P('Mở', 'Open')}</button></div>}
+        {myNotifs(h.w, h.me).filter((n) => !n.read).length > 0 && <div className="lp-card"><b>💞 {P('Thông báo xã hội chưa đọc', 'Unread social notifications')}: {myNotifs(h.w, h.me).filter((n) => !n.read).length}</b><button className="btn small" onClick={() => setPanel('social')}>Social Hub</button></div>}
       </div>
     );
     case 'help': case 'center': return (
       <div className="lp-col">
-        {panel === 'center' && <div className="lp-card"><b>📰 {P('Tin nhà phát triển', 'Developer news')}</b><small>{P('Battle 3v3 theo lượt thay thế hoàn toàn cơ chế đấu bài kiểu TCG Pocket. Trainer Nam/Nữ và sảnh mới đã có trong Preview.', 'Turn-based Battle 3v3 fully replaces the TCG-Pocket-style card battle. Male/Female Trainers and the new lobby are in the Preview.')}</small></div>}
+        {panel === 'center' && <div className="lp-card"><b>📰 {P('Tin nhà phát triển', 'Developer news')}</b><small>{P('Mới: Social Hub (bảng tin, Pet Showcase, Guild, xếp hạng), Chợ Giao Dịch chỉ dùng Đậu Xanh Mini, chat 3 kênh, khung avatar, bong bóng chat và Tiệm Skin Trainer.', 'New: Social Hub (feed, Pet Showcase, Guild, rankings), Pet Market in Mini Green Beans only, 3-channel chat, avatar frames, chat bubbles and the Trainer Skin Shop.')}</small></div>}
         <div className="lp-card"><b>📘 {P('Hướng dẫn nhanh', 'Quick guide')}</b><small>{P('1) Mở gói thẻ ở Tiệm (5 thẻ/gói). 2) Chọn 3 Pet ở Quản lý đội hình. 3) Bắt Đầu → PvE. Mỗi vòng chọn lệnh cho 3 Pet rồi Khóa lệnh; hệ thống xử lý theo ưu tiên kỹ năng rồi SPD.', '1) Open packs in the Shop (5 cards each). 2) Pick 3 Pets in Team management. 3) Battle → PvE. Each round give orders to your 3 Pets and lock them; the round resolves by skill priority, then SPD.')}</small></div>
         <div className="lp-card"><b>❓ FAQ</b><small>{P('EN: bắt đầu 50/100, đánh thường +15, hết vòng +10. Kỹ năng tốn 20–60 EN, tuyệt kỹ có hồi chiêu. Khống chế cứng chỉ 1 vòng rồi miễn khống chế 1 vòng.', 'EN: start 50/100, basic attack +15, +10 each round. Skills cost 20–60 EN, ultimates have cooldowns. Hard control lasts 1 round, then 1 round of immunity.')}</small></div>
         <div className="lp-card"><b>🛠 {P('Hỗ trợ & báo lỗi', 'Support & bug report')}</b><small>{P('Bản Preview không gửi dữ liệu ra ngoài. Báo lỗi trong bản thật dùng mục Báo cáo (có kiểm duyệt).', 'The Preview sends nothing out. In the real game use Report (moderated).')}</small></div>
@@ -327,7 +340,6 @@ function Panels({ panel, setPanel, s, setS, l, upd, P, lang, setLang, say, openL
         {l.mail.every((m) => m.hidden) && <small>{P('Hộp thư trống.', 'Inbox is empty.')}</small>}
       </div>
     );
-    case 'friends': return <FriendsPanel l={l} upd={upd} P={P} say={say} startBattle={startBattle} />;
     case 'starter': return (
       <div className="lp-col center">
         <img src={uiArt('ui_icon_starter_gift')} alt="" className="lp-big-icon" />
@@ -363,15 +375,14 @@ function Panels({ panel, setPanel, s, setS, l, upd, P, lang, setLang, say, openL
         </div>
       );
     }
-    case 'plaza': return <Plaza l={l} upd={upd} P={P} say={say} startBattle={startBattle} s={s} />;
     case 'games': return (
-      <MiniGames P={P} best={l.mini.best}
+      <MiniGames P={P} best={l.mini.best} history={l.mini.history ?? []}
         playsLeft={(g: GameId) => Math.max(0, GAME_LIMITS.rewardedPlaysPerDay - (l.mini.plays[`${today()}:${g}`] ?? 0))}
         onScore={(g, score) => {
           const key = `${today()}:${g}`; const used = l.mini.plays[key] ?? 0;
           const reward = used < GAME_LIMITS.rewardedPlaysPerDay ? rewardFor(score) : 0;
           if (reward > 0) pay({ beans: reward });
-          upd((x) => ({ ...x, season: { ...x.season, xp: x.season.xp + 15 }, mini: { best: { ...x.mini.best, [g]: Math.max(x.mini.best[g] ?? 0, score) }, plays: { ...x.mini.plays, [key]: used + 1 } },
+          upd((x) => ({ ...x, season: { ...x.season, xp: x.season.xp + 15 }, mini: { best: { ...x.mini.best, [g]: Math.max(x.mini.best[g] ?? 0, score) }, plays: { ...x.mini.plays, [key]: used + 1 }, history: [{ g, score, reward, at: Date.now() }, ...(x.mini.history ?? [])].slice(0, 20) },
             missions: { ...x.missions, counters: { ...x.missions.counters, mini_game: (x.missions.counters.mini_game ?? 0) + 1, mini_total: (x.missions.counters.mini_total ?? 0) + 1 } } }));
           say(reward > 0 ? `${P('Điểm', 'Score')} ${score} · +${reward} ${P('Đậu Xanh Mini', 'Mini Green Beans')}` : `${P('Điểm', 'Score')} ${score} · ${P('hết lượt thưởng hôm nay', 'no rewarded plays left today')}`);
         }} />
@@ -379,11 +390,11 @@ function Panels({ panel, setPanel, s, setS, l, upd, P, lang, setLang, say, openL
     case 'world': return (
       <div className="lp-tiles">
         {([['📚', 'Album Pet', () => openLegacy('collection')], ['🎴', 'Booster Pack', () => openLegacy('shop')], ['🛡', P('Đội hình', 'Team'), () => setPanel('team')],
-          ['🧬', P('Tiến hóa', 'Evolution'), () => openLegacy('collection')], ['📋', P('Nhiệm vụ', 'Missions'), () => setPanel('missions')], ['🔄', P('Giao dịch', 'Trading'), () => openLegacy('market')],
-          ['🏆', P('Bảng xếp hạng', 'Leaderboard'), () => setPanel('leaders')], ['👥', P('Bạn bè', 'Friends'), () => setPanel('friends')], ['🎆', P('Sự kiện', 'Events'), () => setPanel('events')],
+          ['🧬', P('Tiến hóa', 'Evolution'), () => openLegacy('collection')], ['📋', P('Nhiệm vụ', 'Missions'), () => setPanel('missions')], ['🔄', P('Chợ Giao Dịch', 'Pet Market'), () => setPanel('market')],
+          ['🏆', P('Bảng xếp hạng', 'Leaderboard'), () => setPanel('leaders')], ['👥', 'Social Hub', () => setPanel('social')], ['🎆', P('Sự kiện', 'Events'), () => setPanel('events')],
           ['✨', P('15 Thần Pet', '15 Divine Pets'), () => openLegacy('divine')]] as [string, string, () => void][]).map(([i, label, go]) => (
           <button key={label} className="lp-tile" onClick={go} data-testid={`world-${label}`}><span>{i}</span><b>{label}</b></button>))}
-        <small className="lp-wide">{P('Tiến hóa: mở Album → chọn Pet → Tiến hóa (cần cấp và tinh chất; không tiêu thẻ trùng). Giao dịch trực tiếp giữa hai người: chờ kiểm thử bảo mật; Chợ giao dịch đã hoạt động.', 'Evolution: Album → pick a Pet → Evolve (needs level and essence; never consumes duplicates). Direct player-to-player trades wait for security testing; the Marketplace works.')}</small>
+        <small className="lp-wide">{P('Tiến hóa: mở Album → chọn Pet → Tiến hóa (cần cấp và tinh chất; không tiêu thẻ trùng). Chợ Giao Dịch: mua/bán bằng Đậu Xanh Mini và trao đổi thẻ (giữ thẻ trong escrow, kiểm tra lại khi chấp nhận).', 'Evolution: Album → pick a Pet → Evolve (needs level and essence; never consumes duplicates). Pet Market: buy/sell with Mini Green Beans and card trades (escrowed, re-checked on accept).')}</small>
       </div>
     );
     case 'battle': return (
@@ -420,12 +431,6 @@ function Panels({ panel, setPanel, s, setS, l, upd, P, lang, setLang, say, openL
         return <div key={m.id} className="lp-card"><b>{lang === 'vi' ? m.vi : m.en}</b><small>{Math.min(have, m.goal)}/{m.goal} · {rewardText(m.reward)}</small>
           <button className="btn small primary" disabled={have < m.goal || got} onClick={() => { pay(m.reward); upd((x) => ({ ...x, season: { ...x.season, xp: x.season.xp + 30 }, missions: { ...x.missions, claimed: [...x.missions.claimed, `${today()}:${m.id}`] } })); say(rewardText(m.reward)); }} data-testid={`mission-${m.id}`}>{got ? '✅' : P('Nhận', 'Claim')}</button></div>; })}</div>
     );
-    case 'leaders': {
-      const me = { name: l.account?.name ?? '', rating: 1000 + 16 * (l.record.pvpWins - l.record.pvpLosses) + 8 * l.record.pveWins, me: true };
-      const rows = [...NPC_NAMES.map((n, i) => ({ name: n, rating: 1180 - i * 37, me: false })), me].sort((a, b) => b.rating - a.rating);
-      return <div className="lp-col"><small>{P('Bảng xếp hạng trong Preview dùng đối thủ mô phỏng; bản thật lấy Elo theo mùa từ máy chủ.', 'The Preview leaderboard uses simulated rivals; the real one reads seasonal Elo from the server.')}</small>
-        {rows.map((r, i) => <div key={r.name} className={'lp-rank' + (r.me ? ' me' : '')}><b>#{i + 1}</b><span>{r.name}</span><small>{r.rating}</small></div>)}</div>;
-    }
     case 'history': return (
       <div className="lp-col">{l.battles.length === 0 && <small>{P('Chưa có trận nào.', 'No battles yet.')}</small>}
         {l.battles.map((b, i) => <div key={i} className="lp-card"><b>{({ pve: 'PvE', boss: 'Boss', practice: P('Luyện tập', 'Practice'), hotseat: P('Đấu bạn bè', 'Friend battle'), replay: 'Replay' } as Record<string, string>)[b.mode]} · {b.winner === 0 ? P('Thắng', 'Win') : b.winner === 1 ? P('Thua', 'Loss') : P('Hòa', 'Draw')}</b>
@@ -434,36 +439,6 @@ function Panels({ panel, setPanel, s, setS, l, upd, P, lang, setLang, say, openL
     );
   }
   return null;
-}
-
-function FriendsPanel({ l, upd, P, say, startBattle }: { l: LobbyState; upd: Upd; P: PFn; say: (m: string) => void; startBattle: (b: BattleStart) => void }) {
-  const [uid, setUid] = useState('');
-  const row = (f: Friend, kind: 'friend' | 'request') => (
-    <div key={f.uid} className="lp-friend">
-      <span className="lb-avatar small" style={{ backgroundImage: `url(${trainerArt(f.trainer)})` }} />
-      <span><b>{f.name}</b><small>UID {f.uid} · Lv {f.level} · {f.online ? '🟢 online' : '⚪ offline'}</small></span>
-      {kind === 'request' ? <>
-        <button className="btn small primary" onClick={() => upd((x) => ({ ...x, requests: x.requests.filter((r) => r.uid !== f.uid), friends: [...x.friends, f] }))}>{P('Chấp nhận', 'Accept')}</button>
-        <button className="btn small ghost" onClick={() => upd((x) => ({ ...x, requests: x.requests.filter((r) => r.uid !== f.uid) }))}>{P('Từ chối', 'Decline')}</button>
-      </> : <>
-        <button className="btn small" disabled={!f.online} onClick={() => startBattle({ mode: 'practice' })}>{P('Mời đấu', 'Invite')}</button>
-        <button className="btn small ghost" onClick={() => upd((x) => ({ ...x, friends: x.friends.filter((r) => r.uid !== f.uid) }))}>{P('Xóa bạn', 'Remove')}</button>
-        <button className="btn small ghost" onClick={() => { upd((x) => ({ ...x, friends: x.friends.filter((r) => r.uid !== f.uid), blocked: [...x.blocked, f.name] })); say(P('Đã chặn', 'Blocked')); }}>{P('Chặn', 'Block')}</button>
-      </>}
-    </div>
-  );
-  return (
-    <div className="lp-col">
-      <div className="lp-row"><input className="lb-input" placeholder={P('Tìm bằng UID', 'Find by UID')} value={uid} onChange={(e) => setUid(e.target.value.replace(/\D/g, ''))} data-testid="friend-uid" />
-        <button className="btn small primary" disabled={uid.length < 4} onClick={() => { say(P(`Đã gửi lời mời kết bạn tới UID ${uid} (Preview: chưa có máy chủ để gửi thật)`, `Friend request sent to UID ${uid} (Preview: no server to deliver it)`)); setUid(''); }}>{P('Gửi lời mời', 'Send request')}</button></div>
-      {l.requests.length > 0 && <b>{P('Lời mời kết bạn', 'Friend requests')}</b>}
-      {l.requests.map((f) => row(f, 'request'))}
-      <b>{P('Bạn bè', 'Friends')} ({l.friends.length})</b>
-      {l.friends.map((f) => row(f, 'friend'))}
-      {l.blocked.length > 0 && <small>{P('Đã chặn', 'Blocked')}: {l.blocked.join(', ')}</small>}
-      <small>{P('Danh sách bạn bè thật, trạng thái online và lời mời chạy trên máy chủ (đã có API). Trong Preview là dữ liệu mô phỏng.', 'Real friends, presence and requests run on the server (API exists). Preview data is simulated.')}</small>
-    </div>
-  );
 }
 
 function GiftsPanel({ l, upd, P, say, pay, rewardText }: { l: LobbyState; upd: Upd; P: PFn; say: (m: string) => void; pay: (r: { beans?: number; stars?: number }) => void; rewardText: (r: { beans?: number; stars?: number }) => string }) {
@@ -502,47 +477,6 @@ function TeamPanel({ s, l, upd, P, say, current }: { s: SimState; l: LobbyState;
           <img src={petArt(c.formId, true)} alt="" /><b>{cat.forms[c.formId]?.name}</b><small>HP {st.hp} · ATK {st.atk} · DEF {st.def} · SPD {st.spd}</small>{pick.includes(c.id) && <em>#{pick.indexOf(c.id) + 1}</em>}</button>; })}</div>
       <button className="btn primary" disabled={pick.length !== 3} onClick={() => { upd((x) => ({ ...x, team: pick })); say(P('Đã lưu đội hình', 'Team saved')); }} data-testid="team-save">{P('Lưu đội hình', 'Save team')} ({pick.length}/3)</button>
       {l.team.length === 3 && <small>{P('Đội đã lưu', 'Saved team')}: {l.team.map((id) => cat.forms[s.cards.find((c) => c.id === id)?.formId ?? '']?.name).join(', ')}</small>}
-    </div>
-  );
-}
-
-const BAD = ['đm', 'dm', 'fuck', 'shit', 'ngu'];
-function Plaza({ l, upd, P, say, startBattle, s }: { l: LobbyState; upd: Upd; P: PFn; say: (m: string) => void; startBattle: (b: BattleStart) => void; s: SimState }) {
-  const cat = useCatalog();
-  const npcs = NPC_NAMES.slice(0, 5).map((n, i) => ({ name: n, trainer: (i % 2 ? 'trainer_girl' : 'trainer_boy') as 'trainer_boy' | 'trainer_girl', x: 12 + i * 17, uid: 2001001 + i, pet: Object.keys(cat.forms).sort()[(i * 41) % Object.keys(cat.forms).length] }));
-  const [chat, setChat] = useState<{ from: string; text: string }[]>([{ from: NPC_NAMES[1], text: P('Chào cả nhà! 👋', 'Hi everyone! 👋') }]);
-  const [text, setText] = useState(''); const last = useRef(0);
-  const [who, setWho] = useState<typeof npcs[number] | null>(null);
-  const send = (t: string) => {
-    const now = Date.now();
-    if (now - last.current < 2000) return say(P('Chậm lại chút nhé (chống spam: 1 tin/2 giây)', 'Slow down (anti-spam: 1 message / 2 s)'));
-    const clean = t.trim().slice(0, 80); if (!clean) return;
-    const filtered = BAD.reduce((acc, w) => acc.replace(new RegExp(`\\b${w}\\b`, 'gi'), '***'), clean);
-    last.current = now; setChat((c) => [...c.slice(-30), { from: l.account?.name ?? 'Me', text: filtered }]); setText('');
-    if (Math.random() < 0.5) setTimeout(() => setChat((c) => [...c.slice(-30), { from: npcs[Math.floor(Math.random() * npcs.length)].name, text: ['😄', P('Hay quá!', 'Nice!'), '🔥', P('Đấu không?', 'Battle?')][Math.floor(Math.random() * 4)] }]), 900);
-  };
-  const me = s.cards.find((c) => c.id === l.companionId) ?? s.cards[0];
-  return (
-    <div className="pz">
-      <div className="pz-floor" style={{ backgroundImage: `url(${uiArt('bg_lobby_main')})` }}>
-        {npcs.filter((n) => !l.blocked.includes(n.name)).map((n, i) => (
-          <button key={n.name} className="pz-player" style={{ left: `${n.x}%`, animationDelay: `${i * 1.3}s` }} onClick={() => setWho(n)} data-testid={`plaza-${i}`}>
-            <img src={trainerArt(n.trainer)} alt="" /><img className="pz-pet" src={petArt(n.pet, true)} alt="" /><span>{n.name}</span></button>))}
-        <div className="pz-player me" style={{ left: '84%' }}><img src={trainerArt(l.trainer ?? 'trainer_boy')} alt="" />{me && <img className="pz-pet" src={petArt(me.formId, true)} alt="" />}<span>{l.account?.name}</span></div>
-      </div>
-      <div className="pz-side">
-        <div className="pz-chat">{chat.filter((m) => !l.blocked.includes(m.from)).map((m, i) => <div key={i}><b>{m.from}:</b> {m.text}</div>)}</div>
-        <div className="lp-row">{['👋', '😄', '😮', '🎉', '💖'].map((e) => <button key={e} className="btn small" onClick={() => send(e)}>{e}</button>)}</div>
-        <div className="lp-row"><input className="lb-input" value={text} maxLength={80} onChange={(e) => setText(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && send(text)} placeholder={P('Nhắn tin…', 'Message…')} data-testid="plaza-input" /><button className="btn small primary" onClick={() => send(text)}>{P('Gửi', 'Send')}</button></div>
-        {who && <div className="lp-card"><b>{who.name}</b><small>UID {who.uid}</small>
-          <div className="lp-row">
-            <button className="btn small" onClick={() => { upd((x) => (x.friends.some((f) => f.uid === who.uid) ? x : { ...x, friends: [...x.friends, { name: who.name, uid: who.uid, online: true, trainer: who.trainer, level: 10 }] })); say(P('Đã kết bạn', 'Friend added')); }}>{P('Kết bạn', 'Add friend')}</button>
-            <button className="btn small" onClick={() => startBattle({ mode: 'practice' })}>{P('Mời đấu', 'Invite')}</button>
-            <button className="btn small ghost" onClick={() => { upd((x) => ({ ...x, reported: [...x.reported, who.name] })); say(P('Đã gửi báo cáo tới kiểm duyệt (Preview)', 'Report sent to moderation (Preview)')); }}>{P('Báo cáo', 'Report')}</button>
-            <button className="btn small ghost" onClick={() => { upd((x) => ({ ...x, blocked: [...x.blocked, who.name] })); setWho(null); }}>{P('Chặn', 'Block')}</button>
-          </div></div>}
-        <small>{P('Người chơi khác ở đây là NPC mô phỏng. Plaza online thật (đồng bộ vị trí, chat, kiểm duyệt) cần máy chủ realtime.', 'Other players here are simulated NPCs. The real online Plaza (positions, chat, moderation) needs the realtime server.')}</small>
-      </div>
     </div>
   );
 }

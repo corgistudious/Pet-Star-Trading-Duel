@@ -16,7 +16,9 @@ function shuffle<T>(xs: T[], r: () => number) { const a = [...xs]; for (let i = 
 export const today = () => new Date().toISOString().slice(0, 10);
 const dateSeed = () => Number(today().replace(/-/g, ''));
 
-export function MiniGames({ P, onScore, best, playsLeft }: { P: PFn; onScore: (g: GameId, score: number) => void; best: Record<string, number>; playsLeft: (g: GameId) => number }) {
+export interface MiniPlay { g: GameId; score: number; reward: number; at: number }
+const ICON: Record<GameId, string> = { memory: 'pet_bloomhare', puzzle: 'pet_inklet', sprint: 'pet_boltcub', quiz: 'pet_halowl', daily: 'pet_floatlet' };
+export function MiniGames({ P, onScore, best, playsLeft, history = [] }: { P: PFn; onScore: (g: GameId, score: number) => void; best: Record<string, number>; playsLeft: (g: GameId) => number; history?: MiniPlay[] }) {
   const [game, setGame] = useState<GameId | null>(null);
   const games: [GameId, string, string, string][] = [
     ['memory', P('Pet Memory', 'Pet Memory'), P('Lật thẻ tìm cặp Pet giống nhau', 'Flip cards to find matching Pet pairs'), '🃏'],
@@ -25,12 +27,20 @@ export function MiniGames({ P, onScore, best, playsLeft }: { P: PFn; onScore: (g
     ['quiz', P('Pet Quiz', 'Pet Quiz'), P('5 câu hỏi về hệ và tiến hóa của Pet', '5 questions about Pet elements and evolutions'), '❓'],
     ['daily', P('Thử thách ngày', 'Daily Challenge'), P('Một ván Memory theo đề chung của hôm nay', "Today's shared Memory board"), '📅'],
   ];
+  const rules: Record<GameId, string> = {
+    memory: P('Lật 2 thẻ mỗi lượt; trùng Pet thì giữ lại. Ít lượt và nhanh hơn = nhiều điểm hơn.', 'Flip 2 cards per turn; matching Pets stay open. Fewer turns and less time = more points.'),
+    daily: P('Cùng một bàn Memory cho mọi người trong ngày; chỉ 1 lần có thưởng mỗi ngày.', 'The same Memory board for everyone today; one rewarded play per day.'),
+    puzzle: P('Chạm ô cạnh ô trống để trượt; xếp lại đúng ảnh Pet. Ít bước = nhiều điểm.', 'Tap a tile next to the gap to slide it; rebuild the Pet picture. Fewer moves = more points.'),
+    sprint: P('Chạm liên tục để Pet chạy. Chạm nhanh hơn 55 ms/lần bị loại (chống auto-click).', 'Tap repeatedly to run. Taps faster than 55 ms are ignored (anti auto-click).'),
+    quiz: P('5 câu hỏi về hệ và tiến hóa của Pet. Trả lời đúng và nhanh để có điểm cao.', '5 questions about Pet elements and evolutions. Be right and quick for a high score.'),
+  };
   if (game) {
     const done = (score: number) => { onScore(game, Math.max(0, Math.min(GAME_LIMITS.maxScore[game], Math.round(score)))); };
     return (
       <div className="mg">
         <div className="mg-head"><button className="btn ghost small" onClick={() => setGame(null)}>‹ {P('Danh sách', 'Games')}</button><b>{games.find((g) => g[0] === game)![1]}</b>
-          <small>{P('Lượt có thưởng còn lại hôm nay', 'Rewarded plays left today')}: {playsLeft(game)}</small></div>
+          <small>{P('Lượt có thưởng còn lại hôm nay', 'Rewarded plays left today')}: {playsLeft(game)} · {P('Kỷ lục', 'Best')}: {best[game] ?? 0}</small></div>
+        <div className="mg-rules">📘 {rules[game]}</div>
         {game === 'memory' && <Memory P={P} seed={Date.now()} onDone={done} />}
         {game === 'daily' && <Memory P={P} seed={dateSeed()} onDone={done} />}
         {game === 'puzzle' && <Puzzle P={P} onDone={done} />}
@@ -43,10 +53,13 @@ export function MiniGames({ P, onScore, best, playsLeft }: { P: PFn; onScore: (g
     <div className="mg-list">
       {games.map(([id, name, desc, icon]) => (
         <button key={id} className="mg-card" onClick={() => setGame(id)} data-testid={`game-${id}`}>
-          <span className="mg-icon">{icon}</span><b>{name}</b><small>{desc}</small>
+          <img className="mg-icon" src={petArt(ICON[id], true)} alt="" data-icon={icon} /><b>{name}</b><small>{desc}</small>
           <small className="mg-best">{P('Kỷ lục', 'Best')}: {best[id] ?? 0} · {P('Còn', 'Left')} {playsLeft(id)}/{GAME_LIMITS.rewardedPlaysPerDay}</small>
         </button>
       ))}
+      <div className="mg-history"><b>{P('Lịch sử gần đây', 'Recent plays')}</b>
+        {history.length === 0 ? <small className="muted">{P('Chưa có lượt chơi.', 'No plays yet.')}</small>
+          : history.slice(0, 10).map((h, i) => <small key={i}>{new Date(h.at).toLocaleTimeString()} · {games.find((g) => g[0] === h.g)?.[1]} · {P('Điểm', 'Score')} {h.score}{h.reward ? ` · +${h.reward} 🫘` : ` · ${P('không thưởng', 'no reward')}`}</small>)}</div>
       <small className="mg-note">{P('Điểm bị giới hạn tối đa và mỗi trò chỉ có 3 lượt nhận thưởng mỗi ngày (chống gian lận). Phần thưởng trong Preview là mô phỏng.', 'Scores are capped and each game pays at most 3 times a day (anti-cheat). Preview rewards are simulated.')}</small>
     </div>
   );
