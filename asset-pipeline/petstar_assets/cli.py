@@ -146,7 +146,7 @@ def cmd_gen_ui(args) -> None:
     for a in spec["assets"]:
         if wanted and a["id"] not in wanted:
             continue
-        prompt = spec["style"] + "\n" + a["prompt"]
+        prompt = (spec["styles"][a["style"]] if "style" in a else spec["style"]) + "\n" + a["prompt"]
         run_job(a["id"], "ui", prompt, f"assets-source/generated/ui/{a['id']}_{{v}}.png", None, cfg["model"],
                 a.get("size", "1024x1024"), a["quality"], a.get("background", "transparent"), args.dry_run, args.force_new, a.get("reference"))
     cmd_status(None)

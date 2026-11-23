@@ -180,6 +180,110 @@
       "id": "ui_crest_star",
       "quality": "medium",
       "prompt": "A small crest badge: a radiant star inside a ring of tiny constellations on a deep purple-blue cosmic disc with a silver rim."
+    },
+    {
+      "id": "trainer_boy",
+      "style": "character",
+      "quality": "medium",
+      "size": "1024x1536",
+      "prompt": "A cheerful young boy pet trainer for the game Pet Star. Soft chestnut-brown hair in fluffy spikes with one star-shaped cowlick on top, big bright teal eyes, small smile with rosy cheeks. Outfit: sky-blue short explorer jacket with rolled sleeves and a small gold five-point star badge on the chest, white T-shirt, navy knee-length shorts with a brown belt holding a little card case, orange-and-white sneakers, a teal scarf. Relaxed friendly standing pose, three-quarter view facing slightly to the right, arms relaxed at the sides."
+    },
+    {
+      "id": "trainer_girl",
+      "style": "character",
+      "quality": "medium",
+      "size": "1024x1536",
+      "prompt": "A cheerful young girl pet trainer for the game Pet Star. Long lavender-pink hair in two high twin tails tied with gold star-shaped clips, side bangs, big warm amber eyes, small open smile with rosy cheeks. Outfit: mint-green and white explorer cape-dress with gold trim, a short white capelet, a cream belt with a heart-shaped card pouch, white leggings and light-brown ankle boots, a small star hairpin. Relaxed friendly standing pose, three-quarter view facing slightly to the right, hands loosely together in front."
+    },
+    {
+      "id": "trainer_boy_blink",
+      "style": "character",
+      "quality": "medium",
+      "size": "1024x1536",
+      "reference": "trainer_boy",
+      "prompt": "Exactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: both eyes are gently closed in a blink (curved closed eyelids). Keep everything else pixel-identical."
+    },
+    {
+      "id": "trainer_girl_blink",
+      "style": "character",
+      "quality": "medium",
+      "size": "1024x1536",
+      "reference": "trainer_girl",
+      "prompt": "Exactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: both eyes are gently closed in a blink (curved closed eyelids). Keep everything else pixel-identical."
+    },
+    {
+      "id": "trainer_boy_happy",
+      "style": "character",
+      "quality": "medium",
+      "size": "1024x1536",
+      "reference": "trainer_boy",
+      "prompt": "Exactly the same character, same outfit, same colors, same position, size and framing as the reference image, but now very happy: eyes closed in joyful upside-down U arcs, big open smile, one hand raised waving above the shoulder. Feet stay in the same place."
+    },
+    {
+      "id": "trainer_girl_happy",
+      "style": "character",
+      "quality": "medium",
+      "size": "1024x1536",
+      "reference": "trainer_girl",
+      "prompt": "Exactly the same character, same outfit, same colors, same position, size and framing as the reference image, but now very happy: eyes closed in joyful upside-down U arcs, big open smile, one hand raised waving above the shoulder. Feet stay in the same place."
+    },
+    {
+      "id": "bg_lobby_main",
+      "style": "scene",
+      "quality": "medium",
+      "size": "1536x1024",
+      "background": "opaque",
+      "prompt": "A magical floating-island town square at golden dusk for the game Pet Star. A wide open sunlit plaza of pale stone tiles in the left half and center foreground (empty, for characters to stand), with a glowing five-point-star mosaic on the floor. Behind: whimsical fairy-tale houses with rounded teal and coral roofs, a tall crystal clock tower topped by a golden star, blossoming pink trees, hanging paper-star lanterns glowing warm gold, a waterfall falling off the island edge, small floating islands and soft pink-orange clouds in a twilight sky with a few early stars. The right third of the image is calmer (sky, distant islands) so menu buttons can be placed there. Wide landscape composition, eye-level camera, gentle depth of field on the far background."
+    },
+    {
+      "id": "ui_podium",
+      "quality": "medium",
+      "size": "1536x1024",
+      "prompt": "A round display pedestal seen from slightly above: a wide low cylinder of white marble with a polished gold rim, a softly glowing ring of small star runes around its top edge in cyan light, a faint golden star emblem engraved in the middle of the flat top surface, small floating sparkles. Wide and flat, centered."
+    },
+    {
+      "id": "ui_icon_mail",
+      "quality": "low",
+      "prompt": "A cute plump envelope letter with a pink heart wax seal and a tiny gold star, slightly open with a paper peeking out."
+    },
+    {
+      "id": "ui_icon_friends",
+      "quality": "low",
+      "prompt": "Two cute round chibi creature heads side by side, one cream kitten-like with star cheeks and one mint bunny-like, smiling, a small heart between them."
+    },
+    {
+      "id": "ui_icon_starter_gift",
+      "quality": "low",
+      "prompt": "A sparkling treasure gift box with a big red ribbon bow and a small sprout leaf on top, lid slightly lifting with golden light rays."
+    },
+    {
+      "id": "ui_icon_center",
+      "quality": "low",
+      "prompt": "A floating open magic book with blue cover and a glowing info crystal (light-blue diamond) hovering above its pages."
+    },
+    {
+      "id": "ui_icon_gifts",
+      "quality": "low",
+      "prompt": "A stack of three colorful present boxes (pink, yellow, purple) with ribbons and confetti sparkles."
+    },
+    {
+      "id": "ui_icon_season",
+      "quality": "low",
+      "prompt": "A shiny golden laurel medal with a star in the center hanging on a purple ribbon, like a season pass emblem."
+    },
+    {
+      "id": "ui_icon_events",
+      "quality": "low",
+      "prompt": "A cute calendar page with a big gold star sticker and a small firework burst behind it."
+    },
+    {
+      "id": "ui_icon_shop",
+      "quality": "low",
+      "prompt": "A tiny cute market stall with a red-and-white striped awning, little card packs and potion bottles on the counter."
     }
-  ]
+  ],
+  "styles": {
+    "character": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.",
+    "scene": "Premium HD 2D painted mobile game background, original fantasy setting, bright saturated colors with depth, soft volumetric light, crisp details, no characters, no people, no animals, no text, no letters, no UI, no logo, no watermark, not based on or copied from any existing game."
+  }
 }

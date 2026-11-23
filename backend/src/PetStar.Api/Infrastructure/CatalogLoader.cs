@@ -143,6 +143,10 @@ public static class CatalogLoader
     public static PetStar.Rules.Arena.ArenaRules LoadArena(string dir) =>
         JsonSerializer.Deserialize<PetStar.Rules.Arena.ArenaRules>(File.ReadAllText(Path.Combine(dir, "arena_cards.json")), Json)!;
 
+    /// <summary>Battle 3v3 data (database/seed/team_battle.json, built by tools/build_team_battle.py).</summary>
+    public static PetStar.Rules.Team.TeamRules LoadTeam(string dir) =>
+        JsonSerializer.Deserialize<PetStar.Rules.Team.TeamRules>(File.ReadAllText(Path.Combine(dir, "team_battle.json")), Json)!;
+
     public static PveConfig LoadPve(string dir) =>
         JsonSerializer.Deserialize<PveConfig>(File.ReadAllText(Path.Combine(dir, "pve_stages.json")), Json)!;
 }
