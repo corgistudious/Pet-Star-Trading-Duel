@@ -1,15 +1,17 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { CardBack, CardView } from '../components/CardView';
 import { useI18n } from '../i18n';
 import { RARITY_COLORS, petArt, uiArt, useCatalog } from '../state/catalog';
-import { Arena } from './Arena';
-import { Duel } from './Duel';
+import type { TeamRules, TeamSetupPlayer, TeamSetupUnit, TeamState } from '../team/model';
+import { LobbyView, LoginScreen, Sheet, TrainerSelect, previewStages, type BattleStart, type Legacy } from './Lobby';
+import { EXP_PER_LEVEL, loadLobby, saveLobby, type LobbyState } from './lobbyState';
+import { TeamBattle, type ReplayData } from './TeamBattle';
 import {
-  RARITY_ORDER, VIP_THRESHOLDS, applyUpgrade, blocked, cost, evolution, levelCap, openPack, packBlocked, packOdds, seed, toDto, vipLevel,
+  RARITY_ORDER, applyUpgrade, blocked, cost, evolution, levelCap, openPack, packBlocked, packOdds, seed, stats, toDto, vipLevel,
   type FullCatalog, type PackDef, type SimCard, type SimState,
 } from './sim';
 
-type Screen = { name: 'lobby' | 'shop' | 'collection' | 'divine' | 'market' | 'battle' | 'arena' | 'status' } | { name: 'open'; cards: SimCard[]; pack: PackDef } | { name: 'hub'; id: number };
+type Screen = { name: Legacy } | { name: 'open'; cards: SimCard[]; pack: PackDef } | { name: 'hub'; id: number };
 const KEY = 'petstar.preview.state.v1';
 
 function load(cat: FullCatalog): SimState {
@@ -17,62 +19,151 @@ function load(cat: FullCatalog): SimState {
   return seed(cat);
 }
 
+let teamRulesCache: TeamRules | null = null;
+async function loadTeamRules(): Promise<TeamRules> {
+  if (teamRulesCache) return teamRulesCache;
+  teamRulesCache = await (await fetch(`${import.meta.env.BASE_URL}data/team_battle.json`)).json() as TeamRules;
+  return teamRulesCache;
+}
+
+/** Battle stats for a preview card: the same collection stats the Pet Hub shows; MAG/RES derived by role (team_battle.json). */
+function unitOf(cat: FullCatalog, rules: TeamRules, c: SimCard, hpPct = 100): TeamSetupUnit {
+  const st = stats(cat, c);
+  const role = rules.roles[rules.kits[c.formId]?.role ?? 'striker'] ?? { magPct: 100, resPct: 100, dmg: 'phys' };
+  return { formId: c.formId, cardInstanceId: c.id, hp: Math.round(st.hp * hpPct / 100), atk: st.atk, def: st.def, mag: Math.floor(st.atk * role.magPct / 100), res: Math.floor(st.def * role.resPct / 100), spd: st.spd, critBp: Math.round(st.crit * 10000) };
+}
+const synthetic = (formId: string, level: number, id: number): SimCard => ({ id, serial: 'AI', formId, rarity: 'R', quality: 'B', finish: 'Normal', level, stars: 1, enhance: 0, breakthrough: 0, awakened: false, skillLevel: 1, divineSet: null, origin: 'ai' });
+
+interface Fight { id: number; a: TeamSetupPlayer; b: TeamSetupPlayer; start: BattleStart; stage?: ReturnType<typeof previewStages>[number] }
+let fightSeq = 0;
+
 export default function PreviewApp() {
   const cat = useCatalog() as FullCatalog;
   const { lang, setLang, t } = useI18n();
   const P = (vi: string, en: string) => (lang === 'vi' ? vi : en);
   const [s, setS] = useState<SimState>(() => load(cat));
-  const [screen, setScreen] = useState<Screen>({ name: 'lobby' });
+  const [l, setL] = useState<LobbyState>(() => loadLobby());
+  const [screen, setScreen] = useState<Screen | null>(null);
+  const [fight, setFight] = useState<Fight | null>(null);
+  const [rules, setRules] = useState<TeamRules | null>(teamRulesCache);
   const [toast, setToast] = useState<string | null>(null);
+  const [portrait, setPortrait] = useState(false);
   useEffect(() => { try { sessionStorage.setItem(KEY, JSON.stringify(s)); } catch { /* ignore */ } }, [s]);
+  useEffect(() => { saveLobby(l); }, [l]);
   useEffect(() => { if (!toast) return; const h = setTimeout(() => setToast(null), 2600); return () => clearTimeout(h); }, [toast]);
+  useEffect(() => { loadTeamRules().then(setRules).catch(() => setRules(null)); }, []);
+  useEffect(() => { const f = () => setPortrait(innerHeight > innerWidth); f(); addEventListener('resize', f); return () => removeEventListener('resize', f); }, []);
+  // count evolutions done in the Pet Hub for the "Evolve 1 Pet" mission
+  const forms = useRef(new Map(s.cards.map((c) => [c.id, c.formId])));
+  useEffect(() => {
+    let evolved = 0;
+    for (const c of s.cards) { const before = forms.current.get(c.id); if (before && before !== c.formId) evolved++; }
+    forms.current = new Map(s.cards.map((c) => [c.id, c.formId]));
+    if (evolved > 0) setL((x) => ({ ...x, missions: { ...x.missions, counters: { ...x.missions.counters, evolve: (x.missions.counters.evolve ?? 0) + evolved } } }));
+  }, [s.cards]);
   const say = (m: string) => setToast(m);
   const err = (code: string) => say(t('error.' + code));
   const packs = useMemo(() => [...cat.packs.packTypes].sort((a, b) => a.order - b.order), [cat]);
-  const go = (sc: Screen) => { setScreen(sc); window.scrollTo(0, 0); };
-  const landscape = screen.name === 'battle';
+  const go = (sc: Screen | null) => setScreen(sc);
+  const upd = (f: (x: LobbyState) => LobbyState) => setL(f);
+
+  const startBattle = (b: BattleStart) => {
+    if (!rules) return say(P('Đang tải dữ liệu trận đấu…', 'Loading battle data…'));
+    if (b.replay) { setFight({ id: ++fightSeq, a: b.replay.a, b: b.replay.b, start: b }); return; }
+    const best = [...s.cards].sort((x, y) => stats(cat, y).power - stats(cat, x).power);
+    const teamIds = l.team.length === 3 && l.team.every((id) => s.cards.some((c) => c.id === id)) ? l.team : best.slice(0, 3).map((c) => c.id);
+    const mine = teamIds.map((id) => s.cards.find((c) => c.id === id)!);
+    if (mine.length < 3) return say(P('Cần ít nhất 3 Pet', 'You need at least 3 Pets'));
+    const a: TeamSetupPlayer = { name: l.account?.name ?? 'You', units: mine.map((c) => unitOf(cat, rules, c)) };
+    if (b.mode === 'pve' || b.mode === 'boss') {
+      const stage = previewStages(Object.keys(cat.forms).filter((f) => !f.startsWith('pet_dv_')).sort()).find((x) => x.id === b.stageId)!;
+      const ai = stage.forms.map((f, i) => unitOf(cat, rules, synthetic(f, stage.level, -1 - i), stage.boss && i === 0 ? 250 : 100));
+      if (stage.boss) { ai[0].atk = Math.round(ai[0].atk * 1.37); ai[0].mag = Math.round(ai[0].mag * 1.37); }
+      // preview difficulty follows the player's team: chapter c, stage i → 75% .. 135% of the team's strength
+      const power = (us: TeamSetupUnit[]) => us.reduce((x, u) => x + u.hp * (u.atk + u.mag) / 2, 0);
+      const target = 0.75 + 0.06 * (stage.index - 1) + 0.15 * (stage.chapter - 1);
+      const k = Math.sqrt(power(a.units) * target / Math.max(1, power(ai)));
+      for (const u of ai) { u.hp = Math.max(1, Math.round(u.hp * k)); u.atk = Math.round(u.atk * k); u.mag = Math.round(u.mag * k); u.def = Math.round(u.def * k); u.res = Math.round(u.res * k); }
+      setFight({ id: ++fightSeq, a, b: { name: (stage.boss ? 'Boss ' : 'AI ') + `${stage.chapter}-${stage.index}`, units: ai }, start: b, stage });
+    } else if (b.mode === 'practice') {
+      const lvl = Math.max(1, Math.round(mine.reduce((x, c) => x + c.level, 0) / 3));
+      setFight({ id: ++fightSeq, a, b: { name: P('Luyện tập', 'Practice'), units: mine.map((c, i) => unitOf(cat, rules, synthetic(c.formId, lvl, -10 - i))) }, start: b });
+    } else {
+      const p2 = best.filter((c) => !teamIds.includes(c.id)).slice(0, 3);
+      if (p2.length < 3) return say(P('Đấu 2 người cần ít nhất 6 Pet (mở thêm gói thẻ)', '2-player battles need at least 6 Pets (open more packs)'));
+      setFight({ id: ++fightSeq, a: { ...a, name: P('Người chơi 1', 'Player 1') }, b: { name: P('Người chơi 2', 'Player 2'), units: p2.map((c) => unitOf(cat, rules, c)) }, start: b });
+    }
+  };
+
+  const finishBattle = (st: TeamState, rp: ReplayData) => {
+    if (!fight || fight.start.replay) return;
+    const win = st.winner === 0, mode = fight.start.mode;
+    let reward = { beans: 0, stars: 0 };
+    if ((mode === 'pve' || mode === 'boss') && win && fight.stage) {
+      const first = !l.pveCleared.includes(fight.stage.id);
+      reward = { beans: fight.stage.reward.beans, stars: fight.stage.reward.stars + (first ? 1 : 0) };
+      setS((x) => ({ ...x, beans: x.beans + reward.beans, stars: x.stars + reward.stars }));
+    }
+    setL((x) => {
+      let exp = x.exp + (win ? 40 : 15), level = x.level;
+      while (exp >= EXP_PER_LEVEL(level)) { exp -= EXP_PER_LEVEL(level); level++; }
+      const pvp = mode === 'hotseat';
+      return {
+        ...x, exp, level, battles: [rp, ...x.battles].slice(0, 12),
+        season: { ...x.season, xp: x.season.xp + (win ? 40 : 10) },
+        pveCleared: win && fight.stage && !x.pveCleared.includes(fight.stage.id) ? [...x.pveCleared, fight.stage.id] : x.pveCleared,
+        record: pvp ? x.record : { ...x.record, pveWins: x.record.pveWins + (win && mode !== 'practice' ? 1 : 0), pveLosses: x.record.pveLosses + (!win && st.winner !== null && mode !== 'practice' ? 1 : 0) },
+        missions: { ...x.missions, counters: { ...x.missions.counters, win_battle: (x.missions.counters.win_battle ?? 0) + (win && mode !== 'practice' ? 1 : 0) } },
+      };
+    });
+    if (reward.beans || reward.stars) say(`${P('Phần thưởng (mô phỏng)', 'Rewards (simulated)')}: +${reward.beans} ${P('Đậu Xanh Mini', 'Mini Green Beans')}${reward.stars ? ` · +${reward.stars} ${P('Sao Ngũ Sắc', 'Rainbow Stars')}` : ''}`);
+  };
+
+  const login = (name: string) => setL((x) => ({ ...x, loggedIn: true, account: x.account ?? { name, uid: 100000000 + Math.floor(Math.random() * 899999999), createdAt: new Date().toISOString() } }));
+  const legacyTitle = (sc: Screen) => ({ shop: P('Tiệm', 'Shop'), collection: 'Album Pet', divine: P('15 Thần Pet', '15 Divine Pets'), market: P('Chợ giao dịch', 'Marketplace'), status: P('Trạng thái', 'Status'), open: P('Mở gói', 'Pack opening'), hub: 'Pet Hub' } as Record<string, string>)[sc.name];
 
   return (
-    <div className={'pv-stage ' + (landscape ? 'pv-landscape' : 'pv-portrait')}>
-      <div className="pv-frame">
-        <div className="pv-banner" role="note">
-          {P('BẢN XEM TRƯỚC · dữ liệu mô phỏng trong trình duyệt · không đăng nhập · không kết nối máy chủ · không ghi database', 'PREVIEW · simulated data in this browser · no login · no server · nothing is written to any database')}
-        </div>
-        {screen.name !== 'lobby' && screen.name !== 'battle' && (
-          <div className="pv-top">
-            <button className="btn ghost small" data-testid="back" onClick={() => go({ name: screen.name === 'hub' ? 'collection' : 'lobby' })}>‹ {P('Quay lại', 'Back')}</button>
-            <Wallet s={s} />
-          </div>
+    <div className="pv-stage pv-landscape">
+      <div className={'pv-frame lb-frame' + (portrait ? ' portrait' : '')}>
+        {!l.loggedIn || !l.account ? <LoginScreen P={P} known={l.account?.name ?? null} onLogin={login} />
+          : !l.trainer ? <TrainerSelect P={P} onPick={(id) => setL((x) => ({ ...x, trainer: id, outfit: id === 'trainer_boy' ? 'outfit_boy_default' : 'outfit_girl_default', seen: { ...x.seen } }))} />
+          : fight && rules ? <TeamBattle key={fight.id} rules={rules} a={fight.a} b={fight.b}
+              mode={fight.start.replay ? 'replay' : fight.start.mode} replay={fight.start.replay} P={P} onExit={() => setFight(null)} onFinish={finishBattle} />
+          : <LobbyView s={s} setS={setS} l={l} upd={upd} P={P} lang={lang} setLang={setLang} say={say} openLegacy={(x) => go({ name: x })} startBattle={startBattle}
+              logout={() => setL((x) => ({ ...x, loggedIn: false }))} />}
+        {screen && (
+          <Sheet title={legacyTitle(screen)} wide onClose={() => go(screen.name === 'hub' ? { name: 'collection' } : null)}>
+            <div className="pv-legacy">
+              <div className="pv-top"><Wallet s={s} /></div>
+              {screen.name === 'shop' && <Shop s={s} packs={packs} P={P} lang={lang} t={t}
+                onBuy={(p) => {
+                  const b = packBlocked(p, s); if (b) return err(b);
+                  setS((x) => ({
+                    ...x, [p.price.currency === 'RAINBOW_STAR' ? 'stars' : 'beans']: (p.price.currency === 'RAINBOW_STAR' ? x.stars : x.beans) - p.price.amount,
+                    packs: { ...x.packs, [p.id]: (x.packs[p.id] ?? 0) + 1 },
+                    player: { ...x.player, vipPoints: x.player.vipPoints + (p.price.currency === 'RAINBOW_STAR' ? p.price.amount : 0) },
+                    event: p.requirements.requiresEvent ? { ...x.event, sold: x.event.sold + 1, mine: x.event.mine + 1 } : x.event,
+                    invitation: p.requirements.requiresInvitation && x.invitation ? { ...x.invitation, left: x.invitation.left - 1 } : x.invitation,
+                  }));
+                  say(P('Đã mua 1 gói (mô phỏng)', 'Bought 1 pack (simulated)'));
+                }}
+                onOpen={(p) => {
+                  if ((s.packs[p.id] ?? 0) < 1) return;
+                  const cards = openPack(cat, p, s.nextId);
+                  setS((x) => ({ ...x, packs: { ...x.packs, [p.id]: x.packs[p.id] - 1 }, cards: [...cards, ...x.cards], nextId: x.nextId + 5 }));
+                  setL((x) => ({ ...x, missions: { ...x.missions, counters: { ...x.missions.counters, open_pack: (x.missions.counters.open_pack ?? 0) + 1 } } }));
+                  go({ name: 'open', cards, pack: p });
+                }} />}
+              {screen.name === 'open' && <Opening cards={screen.cards} pack={screen.pack} P={P} t={t} done={() => go({ name: 'collection' })} />}
+              {screen.name === 'collection' && <Collection s={s} P={P} open={(id) => go({ name: 'hub', id })} />}
+              {screen.name === 'hub' && <Hub s={s} id={screen.id} P={P} t={t} setS={setS} say={say} err={err} />}
+              {screen.name === 'divine' && <Divine s={s} P={P} />}
+              {screen.name === 'market' && <Market s={s} setS={setS} P={P} say={say} err={err} />}
+              {screen.name === 'status' && <Status P={P} />}
+            </div>
+          </Sheet>
         )}
-        <div className="pv-body">
-          {screen.name === 'lobby' && <Lobby s={s} go={go} P={P} lang={lang} setLang={setLang} />}
-          {screen.name === 'shop' && <Shop s={s} packs={packs} P={P} lang={lang} t={t}
-            onBuy={(p) => {
-              const b = packBlocked(p, s); if (b) return err(b);
-              setS((x) => ({
-                ...x, [p.price.currency === 'RAINBOW_STAR' ? 'stars' : 'beans']: (p.price.currency === 'RAINBOW_STAR' ? x.stars : x.beans) - p.price.amount,
-                packs: { ...x.packs, [p.id]: (x.packs[p.id] ?? 0) + 1 },
-                player: { ...x.player, vipPoints: x.player.vipPoints + (p.price.currency === 'RAINBOW_STAR' ? p.price.amount : 0) },
-                event: p.requirements.requiresEvent ? { ...x.event, sold: x.event.sold + 1, mine: x.event.mine + 1 } : x.event,
-                invitation: p.requirements.requiresInvitation && x.invitation ? { ...x.invitation, left: x.invitation.left - 1 } : x.invitation,
-              }));
-              say(P('Đã mua 1 gói (mô phỏng)', 'Bought 1 pack (simulated)'));
-            }}
-            onOpen={(p) => {
-              if ((s.packs[p.id] ?? 0) < 1) return;
-              const cards = openPack(cat, p, s.nextId);
-              setS((x) => ({ ...x, packs: { ...x.packs, [p.id]: x.packs[p.id] - 1 }, cards: [...cards, ...x.cards], nextId: x.nextId + 5 }));
-              go({ name: 'open', cards, pack: p });
-            }} />}
-          {screen.name === 'open' && <Opening cards={screen.cards} pack={screen.pack} P={P} t={t} done={() => go({ name: 'collection' })} />}
-          {screen.name === 'collection' && <Collection s={s} P={P} open={(id) => go({ name: 'hub', id })} />}
-          {screen.name === 'hub' && <Hub s={s} id={screen.id} P={P} t={t} setS={setS} say={say} err={err} />}
-          {screen.name === 'divine' && <Divine s={s} P={P} />}
-          {screen.name === 'market' && <Market s={s} setS={setS} P={P} say={say} err={err} />}
-          {screen.name === 'battle' && <Duel s={s} P={P} exit={() => go({ name: 'lobby' })} />}
-          {screen.name === 'arena' && <Arena s={s} P={P} exit={() => go({ name: 'lobby' })} />}
-          {screen.name === 'status' && <Status P={P} />}
-        </div>
+        {portrait && <div className="lb-rotate-hint">↻ {P('Xoay ngang để chơi tốt nhất', 'Rotate to landscape for the best view')}</div>}
         {toast && <div className="pv-toast" role="status">{toast}</div>}
       </div>
     </div>
@@ -86,44 +177,6 @@ function Wallet({ s }: { s: SimState }) {
     <div className="pv-wallet">
       <span><img src={uiArt('ui_currency_mini_green_bean')} alt="" />{s.beans.toLocaleString('vi-VN')}</span>
       <span><img src={uiArt('ui_currency_rainbow_star')} alt="" />{s.stars.toLocaleString('vi-VN')}</span>
-    </div>
-  );
-}
-
-function Lobby({ s, go, P, lang, setLang }: { s: SimState; go: (sc: Screen) => void; P: PFn; lang: string; setLang: (l: 'vi' | 'en') => void }) {
-  const vip = vipLevel(s.player.vipPoints);
-  const items: [Screen['name'], string, string][] = [
-    ['shop', P('Cửa hàng · 9 gói thẻ', 'Shop · 9 packs'), 'ui_pack_divine_premium'],
-    ['collection', P('Bộ sưu tập · Pet Hub', 'Collection · Pet Hub'), 'ui_mat_pet_shard'],
-    ['divine', P('15 Thần Pet Card', '15 Divine Pet Cards'), 'ui_crest_star'],
-    ['market', P('Chợ giao dịch', 'Marketplace'), 'ui_currency_rainbow_star_bag'],
-    ['arena', P('Đấu Pet Arena · 20 lá · PvE', 'Pet Battle Arena · 20 cards · PvE'), 'ui_crest_star'],
-    ['battle', P('Đấu bài chiến thuật (16:9)', 'Tactical Duel (16:9)'), 'ui_mat_breakthrough_core'],
-    ['status', P('Trạng thái bản xem trước', 'Preview status'), 'ui_mat_training_scroll'],
-  ];
-  return (
-    <div className="pv-lobby" style={{ backgroundImage: `url(${uiArt('bg_lobby_portrait')})` }}>
-      <div className="pv-lobby-head">
-        <img className="pv-logo" src={`${import.meta.env.BASE_URL}brand/logo-512.webp`} alt="Pet Star: Trading Duel"
-          onError={(e) => { (e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}icons/icon-512.png`; }} />
-        <div className="pv-player">
-          <b>{s.player.nickname}</b>
-          <span>UID {s.player.uid} · Lv {s.player.level} · VIP {vip}</span>
-          <small>{s.player.vipPoints.toLocaleString()} / {VIP_THRESHOLDS[Math.min(10, vip + 1)].toLocaleString()} {P('điểm VIP', 'VIP pts')}</small>
-        </div>
-        <button className="btn ghost small" onClick={() => setLang(lang === 'vi' ? 'en' : 'vi')}>{lang === 'vi' ? 'EN' : 'VI'}</button>
-      </div>
-      <Wallet s={s} />
-      <div className="pv-menu">
-        {items.map(([k, label, icon]) => (
-          <button key={k} className="pv-tile" onClick={() => go({ name: k } as Screen)} data-testid={'go-' + k}>
-            <img src={uiArt(icon)} alt="" /><span>{label}</span>
-          </button>
-        ))}
-      </div>
-      <button className="btn ghost small pv-reset" onClick={() => { try { sessionStorage.removeItem('petstar.preview.state.v1'); } catch { /* */ } location.reload(); }}>
-        {P('Đặt lại dữ liệu thử nghiệm', 'Reset test data')}
-      </button>
     </div>
   );
 }
