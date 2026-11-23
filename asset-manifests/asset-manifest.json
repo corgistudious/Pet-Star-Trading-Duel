@@ -12490,6 +12490,806 @@
       },
       "reference": null,
       "history": []
+    },
+    "trainer_boy": {
+      "assetId": "trainer_boy",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.\nA cheerful young boy pet trainer for the game Pet Star. Soft chestnut-brown hair in fluffy spikes with one star-shaped cowlick on top, big bright teal eyes, small smile with rosy cheeks. Outfit: sky-blue short explorer jacket with rolled sleeves and a small gold five-point star badge on the chest, white T-shirt, navy knee-length shorts with a brown belt holding a little card case, orange-and-white sneakers, a teal scarf. Relaxed friendly standing pose, three-quarter view facing slightly to the right, arms relaxed at the sides.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "bfa18942ec476f88c66644120b608ee375a51c2cb1682bce0a516cc75dcbaa1c",
+      "bytes": 2444999,
+      "version": 1,
+      "generationCost": 0.06364,
+      "usage": {
+        "input_tokens": 216,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 216
+        },
+        "output_tokens": 1955,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 371
+        },
+        "total_tokens": 2171
+      },
+      "jobKey": "b20f4e7fae30f631",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "bfa18942ec476f88c66644120b608ee375a51c2cb1682bce0a516cc75dcbaa1c",
+        "bytes": 2444999,
+        "alphaCoverage": 0.3016,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/trainer_boy_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:51:58Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "trainer_girl": {
+      "assetId": "trainer_girl",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.\nA cheerful young girl pet trainer for the game Pet Star. Long lavender-pink hair in two high twin tails tied with gold star-shaped clips, side bangs, big warm amber eyes, small open smile with rosy cheeks. Outfit: mint-green and white explorer cape-dress with gold trim, a short white capelet, a cream belt with a heart-shaped card pouch, white leggings and light-brown ankle boots, a small star hairpin. Relaxed friendly standing pose, three-quarter view facing slightly to the right, hands loosely together in front.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "9511f07872160bd8605c08633cb05500419592e210c84d534989d1c7233f3fd4",
+      "bytes": 2477028,
+      "version": 1,
+      "generationCost": 0.063827,
+      "usage": {
+        "input_tokens": 215,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 215
+        },
+        "output_tokens": 1961,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 377
+        },
+        "total_tokens": 2176
+      },
+      "jobKey": "53bb5be85eb3f9cc",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "9511f07872160bd8605c08633cb05500419592e210c84d534989d1c7233f3fd4",
+        "bytes": 2477028,
+        "alphaCoverage": 0.3873,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/trainer_girl_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:52:14Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "bg_lobby_main": {
+      "assetId": "bg_lobby_main",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D painted mobile game background, original fantasy setting, bright saturated colors with depth, soft volumetric light, crisp details, no characters, no people, no animals, no text, no letters, no UI, no logo, no watermark, not based on or copied from any existing game.\nA magical floating-island town square at golden dusk for the game Pet Star. A wide open sunlit plaza of pale stone tiles in the left half and center foreground (empty, for characters to stand), with a glowing five-point-star mosaic on the floor. Behind: whimsical fairy-tale houses with rounded teal and coral roofs, a tall crystal clock tower topped by a golden star, blossoming pink trees, hanging paper-star lanterns glowing warm gold, a waterfall falling off the island edge, small floating islands and soft pink-orange clouds in a twilight sky with a few early stars. The right third of the image is calmer (sky, distant islands) so menu buttons can be placed there. Wide landscape composition, eye-level camera, gentle depth of field on the far background.",
+      "model": "gpt-image-1.5",
+      "size": "1536x1024",
+      "quality": "medium",
+      "background": "opaque",
+      "dimensions": "1536x1024",
+      "sha256": "20320b997c31b37cf0bccf3b199ca1928e65a442768bc80e3b398262c1ed83d3",
+      "bytes": 2634872,
+      "version": 1,
+      "generationCost": 0.065984,
+      "usage": {
+        "input_tokens": 224,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 224
+        },
+        "output_tokens": 2027,
+        "output_tokens_details": {
+          "image_tokens": 1568,
+          "text_tokens": 459
+        },
+        "total_tokens": 2251
+      },
+      "jobKey": "45d4bd1ffbb451c8",
+      "status": "generated",
+      "validation": {
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGB",
+        "sha256": "20320b997c31b37cf0bccf3b199ca1928e65a442768bc80e3b398262c1ed83d3",
+        "bytes": 2634872,
+        "alphaCoverage": null,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/bg_lobby_main_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:52:29Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_podium": {
+      "assetId": "ui_podium",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA round display pedestal seen from slightly above: a wide low cylinder of white marble with a polished gold rim, a softly glowing ring of small star runes around its top edge in cyan light, a faint golden star emblem engraved in the middle of the flat top surface, small floating sparkles. Wide and flat, centered.",
+      "model": "gpt-image-1.5",
+      "size": "1536x1024",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1536x1024",
+      "sha256": "7779034135767b93c44d5aa3b8be4612270792b3da0979b9d405fe3da04a12fc",
+      "bytes": 2345782,
+      "version": 1,
+      "generationCost": 0.061068,
+      "usage": {
+        "input_tokens": 156,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 156
+        },
+        "output_tokens": 1884,
+        "output_tokens_details": {
+          "image_tokens": 1568,
+          "text_tokens": 316
+        },
+        "total_tokens": 2040
+      },
+      "jobKey": "96faff63ed7fee95",
+      "status": "generated",
+      "validation": {
+        "width": 1536,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "7779034135767b93c44d5aa3b8be4612270792b3da0979b9d405fe3da04a12fc",
+        "bytes": 2345782,
+        "alphaCoverage": 0.2546,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_podium_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:52:43Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_icon_mail": {
+      "assetId": "ui_icon_mail",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA cute plump envelope letter with a pink heart wax seal and a tiny gold star, slightly open with a paper peeking out.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "low",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "fbfda774de9430e09b645212f36c08f499e05930113bd52b8d08b57402430486",
+      "bytes": 1534787,
+      "version": 1,
+      "generationCost": 0.01435,
+      "usage": {
+        "input_tokens": 118,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 118
+        },
+        "output_tokens": 430,
+        "output_tokens_details": {
+          "image_tokens": 272,
+          "text_tokens": 158
+        },
+        "total_tokens": 548
+      },
+      "jobKey": "e153c167797935bd",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "fbfda774de9430e09b645212f36c08f499e05930113bd52b8d08b57402430486",
+        "bytes": 1534787,
+        "alphaCoverage": 0.3886,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_icon_mail_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:52:51Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_icon_friends": {
+      "assetId": "ui_icon_friends",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nTwo cute round chibi creature heads side by side, one cream kitten-like with star cheeks and one mint bunny-like, smiling, a small heart between them.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "low",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "44a2b599c54ec2ffaa2ab34a047941c0effb41247c726281d660579c19cf361f",
+      "bytes": 1534097,
+      "version": 1,
+      "generationCost": 0.014599,
+      "usage": {
+        "input_tokens": 123,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 123
+        },
+        "output_tokens": 437,
+        "output_tokens_details": {
+          "image_tokens": 272,
+          "text_tokens": 165
+        },
+        "total_tokens": 560
+      },
+      "jobKey": "c645c3a2e80d61ce",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "44a2b599c54ec2ffaa2ab34a047941c0effb41247c726281d660579c19cf361f",
+        "bytes": 1534097,
+        "alphaCoverage": 0.4115,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_icon_friends_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:53:00Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_icon_starter_gift": {
+      "assetId": "ui_icon_starter_gift",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA sparkling treasure gift box with a big red ribbon bow and a small sprout leaf on top, lid slightly lifting with golden light rays.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "low",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "afc4907c319530717a624893a927303c78fbcb3c73be5c6c3eef034fed42ea3d",
+      "bytes": 1600173,
+      "version": 1,
+      "generationCost": 0.013971,
+      "usage": {
+        "input_tokens": 119,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 119
+        },
+        "output_tokens": 418,
+        "output_tokens_details": {
+          "image_tokens": 272,
+          "text_tokens": 146
+        },
+        "total_tokens": 537
+      },
+      "jobKey": "280f9cd21783685a",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "afc4907c319530717a624893a927303c78fbcb3c73be5c6c3eef034fed42ea3d",
+        "bytes": 1600173,
+        "alphaCoverage": 0.3638,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_icon_starter_gift_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:53:07Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_icon_center": {
+      "assetId": "ui_icon_center",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA floating open magic book with blue cover and a glowing info crystal (light-blue diamond) hovering above its pages.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "low",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "e6dedcb9557d874d647ecb48a3ab6d5b6530c8c7b9954b79c5becc9221b4bb8d",
+      "bytes": 1658305,
+      "version": 1,
+      "generationCost": 0.015674,
+      "usage": {
+        "input_tokens": 114,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 114
+        },
+        "output_tokens": 472,
+        "output_tokens_details": {
+          "image_tokens": 272,
+          "text_tokens": 200
+        },
+        "total_tokens": 586
+      },
+      "jobKey": "040c0da3067e1e43",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "e6dedcb9557d874d647ecb48a3ab6d5b6530c8c7b9954b79c5becc9221b4bb8d",
+        "bytes": 1658305,
+        "alphaCoverage": 0.3866,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_icon_center_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:53:16Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_icon_gifts": {
+      "assetId": "ui_icon_gifts",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA stack of three colorful present boxes (pink, yellow, purple) with ribbons and confetti sparkles.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "low",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "ad267c57b8840e8cbafd2ca354f49e4f3ed440f921efac430e9e5372eeff1288",
+      "bytes": 1532818,
+      "version": 1,
+      "generationCost": 0.015061,
+      "usage": {
+        "input_tokens": 113,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 113
+        },
+        "output_tokens": 453,
+        "output_tokens_details": {
+          "image_tokens": 272,
+          "text_tokens": 181
+        },
+        "total_tokens": 566
+      },
+      "jobKey": "cb2a9c31abdddae1",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "ad267c57b8840e8cbafd2ca354f49e4f3ed440f921efac430e9e5372eeff1288",
+        "bytes": 1532818,
+        "alphaCoverage": 0.3919,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_icon_gifts_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:53:28Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_icon_season": {
+      "assetId": "ui_icon_season",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA shiny golden laurel medal with a star in the center hanging on a purple ribbon, like a season pass emblem.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "low",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "c116f110c144e6091c455d9b3a4964679076f1d0c8d23b5da786dc51264a8a86",
+      "bytes": 1726409,
+      "version": 1,
+      "generationCost": 0.015487,
+      "usage": {
+        "input_tokens": 115,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 115
+        },
+        "output_tokens": 466,
+        "output_tokens_details": {
+          "image_tokens": 272,
+          "text_tokens": 194
+        },
+        "total_tokens": 581
+      },
+      "jobKey": "fa59afc59b496824",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "c116f110c144e6091c455d9b3a4964679076f1d0c8d23b5da786dc51264a8a86",
+        "bytes": 1726409,
+        "alphaCoverage": 0.3034,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_icon_season_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:53:35Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_icon_events": {
+      "assetId": "ui_icon_events",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA cute calendar page with a big gold star sticker and a small firework burst behind it.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "low",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "84309eab3dfc4b1d286a5f4af942e8157354d148ef18454428480809bf513e68",
+      "bytes": 1608550,
+      "version": 1,
+      "generationCost": 0.014534,
+      "usage": {
+        "input_tokens": 110,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 110
+        },
+        "output_tokens": 437,
+        "output_tokens_details": {
+          "image_tokens": 272,
+          "text_tokens": 165
+        },
+        "total_tokens": 547
+      },
+      "jobKey": "9eff59c41f437238",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "84309eab3dfc4b1d286a5f4af942e8157354d148ef18454428480809bf513e68",
+        "bytes": 1608550,
+        "alphaCoverage": 0.4416,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_icon_events_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:53:44Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "ui_icon_shop": {
+      "assetId": "ui_icon_shop",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game item icon, original design, crisp clean outlines, glossy soft cel shading, gentle rim light, polished and sharp, centered with generous empty transparent margin around the object (at least 12% on every side), isolated on a transparent background, no ground, no text, no numbers, no letters, no UI, no frame, no watermark, not copied from any existing game.\nA tiny cute market stall with a red-and-white striped awning, little card packs and potion bottles on the counter.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1024",
+      "quality": "low",
+      "background": "transparent",
+      "dimensions": "1024x1024",
+      "sha256": "a400ad45cbc6580f0b327db83a4e9138aabfb8a3b601845cac3f41b94e1e2d5d",
+      "bytes": 1598112,
+      "version": 1,
+      "generationCost": 0.017439,
+      "usage": {
+        "input_tokens": 115,
+        "input_tokens_details": {
+          "image_tokens": 0,
+          "text_tokens": 115
+        },
+        "output_tokens": 527,
+        "output_tokens_details": {
+          "image_tokens": 272,
+          "text_tokens": 255
+        },
+        "total_tokens": 642
+      },
+      "jobKey": "d7d77af435a116ff",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1024,
+        "mode": "RGBA",
+        "sha256": "a400ad45cbc6580f0b327db83a4e9138aabfb8a3b601845cac3f41b94e1e2d5d",
+        "bytes": 1598112,
+        "alphaCoverage": 0.4037,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/ui_icon_shop_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:53:51Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": null,
+      "history": []
+    },
+    "trainer_boy_blink": {
+      "assetId": "trainer_boy_blink",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.\nExactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: both eyes are gently closed in a blink (curved closed eyelids). Keep everything else pixel-identical.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "6e275d5e386561c53b93e40fa9fd819967e6f7ffa467e9236ccb3212608fbad5",
+      "bytes": 1947313,
+      "version": 1,
+      "generationCost": 0.115088,
+      "usage": {
+        "input_tokens": 6747,
+        "input_tokens_details": {
+          "image_tokens": 6563,
+          "text_tokens": 184
+        },
+        "output_tokens": 1927,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 343
+        },
+        "total_tokens": 8674
+      },
+      "jobKey": "c6e74e3d8576110e",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "6e275d5e386561c53b93e40fa9fd819967e6f7ffa467e9236ccb3212608fbad5",
+        "bytes": 1947313,
+        "alphaCoverage": 0.2959,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/trainer_boy_blink_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:54:57Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "trainer_boy",
+      "history": []
+    },
+    "trainer_girl_blink": {
+      "assetId": "trainer_girl_blink",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.\nExactly the same character, same pose, same position, same size, same framing, same colors and outfit as the reference image. Only change: both eyes are gently closed in a blink (curved closed eyelids). Keep everything else pixel-identical.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "323a9c794958c3afb7e95e660656c4bdef72c74e41de6244a216f9b5c74f6366",
+      "bytes": 2613848,
+      "version": 1,
+      "generationCost": 0.114736,
+      "usage": {
+        "input_tokens": 6747,
+        "input_tokens_details": {
+          "image_tokens": 6563,
+          "text_tokens": 184
+        },
+        "output_tokens": 1916,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 332
+        },
+        "total_tokens": 8663
+      },
+      "jobKey": "2c3b62877dc88ac5",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "323a9c794958c3afb7e95e660656c4bdef72c74e41de6244a216f9b5c74f6366",
+        "bytes": 2613848,
+        "alphaCoverage": 0.3922,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/trainer_girl_blink_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:55:13Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "trainer_girl",
+      "history": []
+    },
+    "trainer_boy_happy": {
+      "assetId": "trainer_boy_happy",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.\nExactly the same character, same outfit, same colors, same position, size and framing as the reference image, but now very happy: eyes closed in joyful upside-down U arcs, big open smile, one hand raised waving above the shoulder. Feet stay in the same place.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "9299e764c10a570b1c4370ddc3447ceb55877399d9a0b3ff2fea5388bb46a080",
+      "bytes": 1937274,
+      "version": 1,
+      "generationCost": 0.114692,
+      "usage": {
+        "input_tokens": 6751,
+        "input_tokens_details": {
+          "image_tokens": 6563,
+          "text_tokens": 188
+        },
+        "output_tokens": 1914,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 330
+        },
+        "total_tokens": 8665
+      },
+      "jobKey": "3fa41777624ccce6",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "9299e764c10a570b1c4370ddc3447ceb55877399d9a0b3ff2fea5388bb46a080",
+        "bytes": 1937274,
+        "alphaCoverage": 0.2744,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/trainer_boy_happy_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:55:29Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "trainer_boy",
+      "history": []
+    },
+    "trainer_girl_happy": {
+      "assetId": "trainer_girl_happy",
+      "petId": null,
+      "category": "ui",
+      "prompt": "Premium HD 2D chibi mobile game character art, original character design, about 2.5 heads tall, big expressive eyes, crisp clean outlines, glossy soft cel shading, gentle rim light, full body standing on nothing, centered with at least 8% empty transparent margin on every side, isolated on a transparent background, no ground, no shadow, no text, no logo, no frame, no watermark, not based on or copied from any existing game, anime or brand.\nExactly the same character, same outfit, same colors, same position, size and framing as the reference image, but now very happy: eyes closed in joyful upside-down U arcs, big open smile, one hand raised waving above the shoulder. Feet stay in the same place.",
+      "model": "gpt-image-1.5",
+      "size": "1024x1536",
+      "quality": "medium",
+      "background": "transparent",
+      "dimensions": "1024x1536",
+      "sha256": "e42382c528294af4efb794d375f13f41ef1d4466f79bed845dd00a731ee70ecd",
+      "bytes": 2611704,
+      "version": 1,
+      "generationCost": 0.113508,
+      "usage": {
+        "input_tokens": 6751,
+        "input_tokens_details": {
+          "image_tokens": 6563,
+          "text_tokens": 188
+        },
+        "output_tokens": 1877,
+        "output_tokens_details": {
+          "image_tokens": 1584,
+          "text_tokens": 293
+        },
+        "total_tokens": 8628
+      },
+      "jobKey": "fc31a3490e7a64e3",
+      "status": "generated",
+      "validation": {
+        "width": 1024,
+        "height": 1536,
+        "mode": "RGBA",
+        "sha256": "e42382c528294af4efb794d375f13f41ef1d4466f79bed845dd00a731ee70ecd",
+        "bytes": 2611704,
+        "alphaCoverage": 0.3759,
+        "issues": [],
+        "passed": true
+      },
+      "filePath": "assets-source/generated/ui/trainer_girl_happy_v1.png",
+      "provenance": {
+        "provider": "OpenAI Images API",
+        "generatedAt": "2026-11-23T02:55:45Z",
+        "revisedPrompt": null,
+        "attempts": 1,
+        "pipeline": "asset-pipeline/petstar_assets"
+      },
+      "reference": "trainer_girl",
+      "history": []
     }
   }
 }
