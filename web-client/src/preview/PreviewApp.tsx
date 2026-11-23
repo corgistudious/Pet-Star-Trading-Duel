@@ -412,21 +412,19 @@ function Market({ s, setS, P, say, err }: { s: SimState; setS: (f: (x: SimState)
 
 function Status({ P }: { P: PFn }) {
   const done = [
-    P('Lobby dọc 9:16, chiến đấu ngang 16:9, iPhone và PC', 'Portrait 9:16 lobby, landscape 16:9 battle, iPhone and PC'),
-    P('Cửa hàng 9 gói với giá, điều kiện Level/VIP/sự kiện/lời mời, bảng tỷ lệ mỗi thẻ và mỗi gói', 'Shop with 9 packs: prices, Level/VIP/event/invitation conditions, odds per card and per pack'),
-    P('Mở gói 5 thẻ dùng đúng bảng tỷ lệ và nhóm Thần Pet thật', 'Opening 5 cards with the real odds tables and divine pools'),
-    P('Bộ sưu tập, Pet Hub: nâng sao, cường hóa, tiến hóa, đột phá, thức tỉnh, kỹ năng (công thức như server)', 'Collection, Pet Hub: stars, enhancement, evolution, breakthrough, awakening, skill (server formulas)'),
-    P('15 Thần Pet Card 10 sao với artwork, khung và huy hiệu thật', '15 Divine Pet Cards at 10 stars with real art, frames and crests'),
-    P('Chợ giao dịch: mua, đăng bán, hủy, khóa thẻ khi đang bán', 'Marketplace: buy, list, cancel, card locked while listed'),
-    P('Đấu bài 40 lá: 5 ô Pet + 3 ô Spell/Trap, 2.500 LP, chuỗi phản ứng, tiến hóa trong trận (engine đối chiếu server)', '40-card duel: 5 Pet + 3 Spell/Trap zones, 2,500 LP, reaction chain, in-duel evolution (server-verified engine)'),
-    P('Asset thật: 215 Pet, 9 gói, nguyên liệu, huy hiệu, nền, logo chính thức', 'Real assets: 215 Pets, 9 packs, materials, crests, backgrounds, official logo'),
+    P('Sảnh chính mới theo bố cục tham khảo: 4 nút lục giác, menu trái, thanh dưới, huy hiệu NEW theo trạng thái thật', 'New main lobby following the reference layout: 4 hex buttons, left menu, bottom bar, NEW badges from real state'),
+    P('2 Huấn Luyện Viên chibi (nam/nữ) với khung chớp mắt, vui vẻ, chạm để phản ứng; Pet đồng hành đổi được', '2 chibi Trainers (boy/girl) with blink and happy frames and tap reactions; changeable companion Pet'),
+    P('Đấu Pet 3v3 theo lượt: ra lệnh đồng thời, ưu tiên rồi SPD, EN, hồi chiêu, 10 trạng thái (engine TS đối chiếu với C# của server)', 'Turn-based 3v3 battle: simultaneous orders, priority then SPD, EN, cooldowns, 10 statuses (TS engine checked against the server C#)'),
+    P('PvE theo chương, Boss, Luyện tập, 2 người cùng máy, xem lại trận (replay)', 'PvE chapters, Boss, Practice, same-device 2 players, match replay'),
+    P('5 trò chơi nhỏ có giới hạn lượt thưởng và chống gian lận phía client', '5 mini games with reward-play limits and client-side anti-cheat'),
+    P('Cửa hàng 9 gói, mở gói 5 thẻ với bảng tỷ lệ thật, bộ sưu tập, tiến hóa, chợ, 15 Thần Pet', 'Shop with 9 packs, 5-card opening with real odds tables, collection, evolution, market, 15 Divine Pets'),
   ];
   const missing = [
-    P('Chiến đấu trong bản xem trước là mô phỏng đơn giản hóa; trận thật do server tính (hiệu ứng trạng thái, khiên, đặc tính chưa hiển thị đầy đủ ở đây)', 'Preview battle is simplified; real battles are server-resolved (statuses, shields, passives not fully shown here)'),
-    P('Khắc ấn và Tái thiết lập: có trong game thật, chưa mô phỏng ở bản xem trước', 'Engravings and Reset: in the real game, not simulated in the preview'),
-    P('Âm thanh riêng từng gói và hiệu ứng mở gói riêng từng gói: chưa có (dùng hiệu ứng chung)', 'Per-pack sounds and per-pack opening animations: not made yet (shared effect)'),
-    P('Đăng nhập, máy chủ, PvP realtime, Ranked, bang hội, chat: chỉ có trong game thật', 'Login, server, realtime PvP, Ranked, guilds, chat: real game only'),
-    P('Bản Unity WebGL chưa được build bằng Unity Editor thật', 'The Unity WebGL build has not been built in a real Unity Editor yet'),
+    P('Mọi số dư, phần thưởng và đối thủ trong bản xem trước là mô phỏng trong trình duyệt (không phải tiền tệ thật của server)', 'All balances, rewards and opponents in the preview are simulated in the browser (not real server currency)'),
+    P('PvP 2 tài khoản qua mạng chỉ có trong game thật (server); đã kiểm thử bằng API tests, chưa có máy chủ Preview công khai', 'Online PvP between 2 accounts exists only in the real game (server); verified by API tests, no hosted Preview server yet'),
+    P('Trò chơi nhỏ, Quảng Trường Pet, Thẻ Mùa: chưa có backend, chỉ mô phỏng ở đây', 'Mini games, Pet Plaza, Season Pass: no backend yet, simulated here only'),
+    P('Âm thanh/nhạc, trang phục thêm, giao dịch trực tiếp giữa người chơi: chưa làm', 'Sound/music, extra outfits, direct player trading: not made yet'),
+    P('Bản Unity chưa được build bằng Unity Editor thật (chỉ qua kiểm tra biên dịch)', 'Unity has not been built in a real Unity Editor yet (compile check only)'),
   ];
   return (
     <div className="pv-status">

@@ -44,7 +44,7 @@ namespace PetStar.Client.Screens
                     {
                         Session.Apply(await Api.Post<AuthResponse>($"/api/servers/{last.Value}/enter", new EnterServerRequest()));
                         Session.SetPlayer(await Api.Get<PlayerDto>("/api/player"));
-                        Nav.Replace(new LobbyScreen());
+                        Nav.Replace(new MainLobbyScreen());
                         return;
                     }
                     catch (ApiError) { }
@@ -225,7 +225,7 @@ namespace PetStar.Client.Screens
             var p = await Call(() => Api.Get<PlayerDto>("/api/player"));
             if (p == null) return;
             Session.SetPlayer(p);
-            Nav.Replace(new LobbyScreen());
+            Nav.Replace(new MainLobbyScreen());
         }
     }
 }

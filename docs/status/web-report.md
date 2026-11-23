@@ -1,8 +1,44 @@
+# Web / game status report
+
+## Update: Main lobby redesign, chibi Trainers, Battle 3v3 (replaces the Arena) (2026-11-23)
+
+Rules, API, database, tests and deployment: [docs/battle-3v3.md](../battle-3v3.md).
+
+- **Removed:** the 20-card Arena. That covers the engine, server endpoints, tests, the TypeScript port, the Preview screen, the Unity screens and the data.
+- **Added: turn-based 3v3**, with simultaneous hidden orders, priority then SPD, EN, cooldowns and 10 statuses.
+  - The C# engine is shared by the server and Unity.
+  - A TypeScript port is verified against fixtures.
+- **Server modes:**
+  - PvE, Boss and Practice;
+  - Casual and Ranked matchmaking with Elo;
+  - friend invites and private rooms;
+  - reconnect (`/api/team/active`), timers, AFK forfeit, surrender, replay, event log, idempotent actions.
+- **Trainers:**
+  - 2 original chibi Trainers (boy/girl), chosen once and stored in `trainer_profiles` (survives re-login);
+  - Character, Appearance and Outfit IDs kept separate; default outfits only, no stats, no gender change;
+  - companion Pet.
+- **Preview:**
+  - the new landscape lobby follows the reference layout: hexes, left menu, bottom bar, NEW badges from state;
+  - Trainer select, PvE/Boss/Practice, same-device 2 players, replay;
+  - 5 mini games, Plaza, Season Pass (free), check-in, giftcode, missions, leaderboard;
+  - all data is simulated in the browser and labelled as such.
+- **Unity:** `MainLobbyScreens.cs` and `TeamScreens.cs`, connected to the real API. Offline compile check OK; not run in the Unity Editor.
+- **Tests:**
+  - Rules 86/86, API 105/105 (incl. 6 Battle 3v3 tests with two accounts), web 73/73, localization OK (1,601 keys);
+  - Playwright Preview flow: 25/25 steps, no page errors.
+- **Not done yet:**
+  - server backends for mini games, Plaza and Season Pass;
+  - a hosted Preview server (needs approval);
+  - Admin screens for the new systems;
+  - direct player trading;
+  - sound and music; extra outfits;
+  - a Unity Editor or device run.
+
 # Web-first report: live features, web client, deployment (2026-11-15)
 
 ## Update: Pet Battle Arena (20-card battle, Active + 3 Bench, Energy Zone, PvP) (2026-11-22)
 
-Rules, architecture, API, database, tests and operations: [docs/arena-rules.md](../arena-rules.md).
+(Historical: the Arena and its doc `arena-rules.md` were removed on 2026-11-23 and replaced by Battle 3v3.)
 Licenses and asset sources: [docs/licenses.md](../licenses.md).
 
 **Done (run and verified here)**

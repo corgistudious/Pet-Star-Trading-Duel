@@ -264,6 +264,9 @@ namespace PetStar.EditorTools
             Mark("Assets/Art/UI/Currency", "ui/");
             Mark("Assets/Art/UI/Packs", "ui/");
             Mark("Assets/Art/UI/Backgrounds", "ui/");
+            Mark("Assets/Art/UI/Trainers", "ui/");   // trainer_boy / trainer_girl (+ _blink, _happy)
+            Mark("Assets/Art/UI/Icons", "ui/");      // lobby icons
+            Mark("Assets/Art/UI/Lobby", "ui/");      // podium
             if (Directory.Exists(BrandFolder)) Mark(BrandFolder, "ui/"); // ui/brand_logo
 
             foreach (var (path, address) in BoardSprites)
